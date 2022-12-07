@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.korisnici/korisnici"
+    xmlns:xs-korisnici="http://www.korisnici/korisnici" xmlns:xs-opste="http://ftn.ac.rs/opste">
+    <xs:import namespace="http://ftn.ac.rs/opste" schemaLocation="Opste.xsd"/>
+    <xs:element name="korisnici" type="xs-korisnici:korisnici"/>
+    <xs:complexType name="korisnici">
+        <xs:sequence maxOccurs="unbounded" minOccurs="0">
+            <xs:element name="korisnik" type="xs-korisnici:korisnik"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="korisnik">
+        <xs:complexContent>
+            <xs:extension base="xs-opste:fizicko_lice">
+                <xs:sequence>
+                    <xs:element name="lozinka">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:pattern value="[A-Za-z0-9!@#?]{5,30}"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="tip_naloga" type="xs-korisnici:tip_naloga"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:simpleType name="tip_naloga">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="gradjanin"/>
+            <xs:enumeration value="sluzbenik"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

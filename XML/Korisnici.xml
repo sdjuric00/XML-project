@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<korisnici xmlns="http://www.korisnici/korisnici"
+    xmlns:opste="http://ftn.ac.rs/opste"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.korisnici/korisnici file:/E:/Faks/cetvrta_godina/XML/Korisnici.xsd">
+
+    <korisnik>
+        <opste:kontakt>
+            <opste:email>pera@gmail.com</opste:email>
+            <opste:telefon>213212123</opste:telefon>
+            <opste:fax>012345678</opste:fax>
+        </opste:kontakt>
+        <opste:adresa>
+            <opste:grad>Novi Sad</opste:grad>
+            <opste:ulica>Lsla Gala</opste:ulica>
+            <opste:broj>21</opste:broj>
+            <opste:postanski_broj>21000</opste:postanski_broj>
+            <opste:drzava>Republika Srbija</opste:drzava>
+        </opste:adresa>
+        <opste:ime>Pera</opste:ime>
+        <opste:prezime>Peric</opste:prezime>
+        <opste:jmbg>1234567891011</opste:jmbg>
+        <lozinka>sifra123@</lozinka>
+        <tip_naloga>gradjanin</tip_naloga>
+    </korisnik>
+    
+    <korisnik>
+        <opste:kontakt>
+            <opste:email>sluzbenik@gmail.com</opste:email>
+            <opste:telefon>213212123</opste:telefon>
+            <opste:fax>012345678</opste:fax>
+        </opste:kontakt>
+        <opste:adresa>
+            <opste:grad>Novi Sad</opste:grad>
+            <opste:ulica>Vasa Pelagic</opste:ulica>
+            <opste:broj>10</opste:broj>
+            <opste:postanski_broj>21000</opste:postanski_broj>
+            <opste:drzava>Republika Srbija</opste:drzava>
+        </opste:adresa>
+        <opste:ime>Sluzbenik</opste:ime>
+        <opste:prezime>Sluzbenik</opste:prezime>
+        <opste:jmbg>1234567891011</opste:jmbg>
+        <lozinka>sifra123@</lozinka>
+        <tip_naloga>sluzbenik</tip_naloga>
+    </korisnik>
+    
+    
+</korisnici>
