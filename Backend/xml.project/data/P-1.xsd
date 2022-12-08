@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.patent/patent" xmlns:xs-opste="http://ftn.ac.rs/opste"
+    xmlns:xs-p="http://www.patent/patent">
+
+    <xs:import namespace="http://ftn.ac.rs/opste" schemaLocation="Opste.xsd"/>
+    <xs:element name="zahtevi_p" type="xs-p:zahtevi_p"/>
+    <xs:complexType name="zahtevi_p">
+        <xs:sequence maxOccurs="1" minOccurs="1">
+            <xs:element name="lista_zahteva_p" type="xs-p:lista_zahteva_p"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="zahtev_za_priznavanje_patenta">
+        <xs:sequence>
+            <xs:element name="institucija" type="xs-opste:institucija"/>
+            <xs:element name="podaci_o_pronalasku" type="xs-p:podaci_o_pronalasku"/>
+            <xs:element name="podnosilac" type="xs-opste:podnosilac"/>
+            <xs:element name="pronalazac" type="xs-p:pronalazac"/>
+            <xs:element name="punomocnik" type="xs-p:punomocnik"/>
+            <xs:element name="dostavljanje" type="xs-p:dostavljanje"/>
+            <xs:element name="zahtev_za_priznanje_prava_iz_ranijih_prijava" type="xs-p:zahtev_za_priznanje_prava_iz_ranijih_prijava"/>
+        </xs:sequence>
+        <xs:attribute name="broj_prijave">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:pattern value="[P][-][0-9]{4}[/][0-9]+"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="datum_prijema" type="xs:date"/>
+        <xs:attribute name="priznati_datum_podnosenja" type="xs:date"/>
+        <xs:attribute name="dopunska_prijava" type="xs:boolean"/>
+    </xs:complexType>
+    <xs:complexType name="podaci_o_pronalasku">
+        <xs:sequence maxOccurs="unbounded">
+            <xs:element name="naziv">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                            <xs:attribute name="jezik" type="xs:string"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="pronalazac">
+        <xs:choice>
+            <xs:element name="imenovani_pronalazac" type="xs-p:imenovani_pronalazac"/>
+            <xs:element name="anonimni_pronalazac" type="xs:string"/>
+        </xs:choice>
+        <xs:attribute name="anonimno" type="xs:boolean"/>
+    </xs:complexType>
+    <xs:complexType name="punomocnik">
+        <xs:choice>
+            <xs:element name="fizicko_lice" type="xs-opste:fizicko_lice"/>
+            <xs:element name="pravno_lice" type="xs-opste:pravno_lice"/>
+        </xs:choice>
+        <xs:attribute name="za_zastupanje" type="xs:boolean"/>
+        <xs:attribute name="za_prijem_pismeno" type="xs:boolean"/>
+    </xs:complexType>
+    <xs:complexType name="dostavljanje">
+        <xs:sequence>
+            <xs:element name="adresa" type="xs-opste:adresa"/>
+        </xs:sequence>
+        <xs:attribute name="elektronski" type="xs:boolean"/>
+        <xs:attribute name="pismeno" type="xs:boolean"/>
+    </xs:complexType>
+    <xs:complexType name="zahtev_za_priznanje_prava_iz_ranijih_prijava">
+        <xs:sequence maxOccurs="unbounded" minOccurs="0">
+            <xs:element name="prijava" type="xs-p:prijava"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="prijava">
+        <xs:sequence>
+            <xs:element name="datum_podnosenja_prijave" type="xs:date"/>
+            <xs:element name="broj_ranije_prijave">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="[P][-][0-9]{4}[/][0-9]+"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dvoslovna_oznaka_drzave">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="[A-Z]{2}"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="imenovani_pronalazac">
+        <xs:choice>
+            <xs:element name="fizicko_lice" type="xs-opste:fizicko_lice"/>
+            <xs:element name="pravno_lice" type="xs-opste:pravno_lice"/>
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="lista_zahteva_p">
+        <xs:sequence maxOccurs="unbounded" minOccurs="0">
+            <xs:element name="zahtev_za_priznavanje_patenta"
+                type="xs-p:zahtev_za_priznavanje_patenta"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
