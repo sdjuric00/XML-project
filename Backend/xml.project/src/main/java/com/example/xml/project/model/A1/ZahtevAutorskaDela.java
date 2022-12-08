@@ -1,13 +1,12 @@
 package com.example.xml.project.model.A1;
 
+import com.example.xml.project.model.*;
 import com.example.xml.project.model.A1.Autor;
 import com.example.xml.project.model.A1.AutorskoDelo;
-import com.example.xml.project.model.Institucija;
-import com.example.xml.project.model.Podnosilac;
-import com.example.xml.project.model.Prilog;
-import com.example.xml.project.model.Punomocnik;
 
 import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +24,8 @@ public class ZahtevAutorskaDela {
     public String broj_prijave;
 
     @XmlAttribute(name="datum_podnosenja", required = true)
-    public String datum_podnosenja;
+    @XmlJavaTypeAdapter(LocalDateAdapter.class)
+    public LocalDate datum_podnosenja;
 
     @XmlAttribute(name="pregledano", required = true)
     public boolean pregledano = false;
@@ -66,11 +66,11 @@ public class ZahtevAutorskaDela {
         this.broj_prijave = broj_prijave;
     }
 
-    public String getDatum_podnosenja() {
+    public LocalDate getDatum_podnosenja() {
         return datum_podnosenja;
     }
 
-    public void setDatum_podnosenja(String datum_podnosenja) {
+    public void setDatum_podnosenja(LocalDate datum_podnosenja) {
         this.datum_podnosenja = datum_podnosenja;
     }
 
