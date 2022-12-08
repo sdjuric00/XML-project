@@ -2,6 +2,7 @@ package com.example.xml.project;
 
 import com.example.xml.project.model.A1.ZahteviAutorskaDela;
 import com.example.xml.project.model.Korisnici.Korisnici;
+import com.example.xml.project.model.P1.ZahteviPatenti;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import javax.xml.bind.JAXBContext;
@@ -16,9 +17,14 @@ public class Application {
 //		SpringApplication.run(Application.class, args);
 		try{
 
-			JAXBContext jc = JAXBContext.newInstance(Korisnici.class);
+			JAXBContext jc = JAXBContext.newInstance(ZahteviPatenti.class);
 			Unmarshaller unmarshaller = jc.createUnmarshaller();
-			File xml = new File("./data/Korisnici.xml");
+			File xml = new File("./data/P-1.xml");
+			ZahteviPatenti zahteviPatenti = (ZahteviPatenti) unmarshaller.unmarshal(xml);
+
+			jc = JAXBContext.newInstance(Korisnici.class);
+			unmarshaller = jc.createUnmarshaller();
+			xml = new File("./data/Korisnici.xml");
 			Korisnici korisnici = (Korisnici) unmarshaller.unmarshal(xml);
 
 
