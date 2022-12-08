@@ -18,37 +18,37 @@ import java.util.List;
 public class ZahtevAutorskaDela {
 
     @XmlAttribute(name="obrazac", required = true)
-    public String obrazac;
+    private String obrazac;
 
     @XmlAttribute(name="broj_prijave", required = true)
-    public String broj_prijave;
+    private String broj_prijave;
 
     @XmlAttribute(name="datum_podnosenja", required = true)
     @XmlJavaTypeAdapter(LocalDateAdapter.class)
-    public LocalDate datum_podnosenja;
+    private LocalDate datum_podnosenja;
 
     @XmlAttribute(name="pregledano", required = true)
-    public boolean pregledano = false;
+    private boolean pregledano = false;
 
     @XmlElement(name="institucija", required = true, namespace = "http://ftn.ac.rs/a")
-    public Institucija institucija;
+    private Institucija institucija;
 
     @XmlElement(name="podnosilac", required = true, namespace = "http://ftn.ac.rs/a")
-    public Podnosilac podnosilac;
+    private Podnosilac podnosilac;
 
     @XmlElement(name="punomocnik", required = true, namespace = "http://ftn.ac.rs/a")
-    public Punomocnik punomocnik;
+    private Punomocnik punomocnik;
 
     @XmlElement(name="autorsko_delo", required = true, namespace = "http://ftn.ac.rs/a")
-    public AutorskoDelo autorsko_delo;
+    private AutorskoDelo autorsko_delo;
 
     @XmlElementWrapper(name="autori", namespace = "http://ftn.ac.rs/a")
     @XmlElement(name="autor", namespace = "http://ftn.ac.rs/a")
-    public List<Autor> autori = new ArrayList<>();
+    private List<Autor> autori = new ArrayList<>();
 
     @XmlElementWrapper(name="prilozi", namespace = "http://ftn.ac.rs/a")
     @XmlElement(name="prilog", namespace = "http://ftn.ac.rs/a")
-    public List<Prilog> prilozi = new ArrayList<>();
+    private List<Prilog> prilozi = new ArrayList<>();
 
     public String getObrazac() {
         return obrazac;

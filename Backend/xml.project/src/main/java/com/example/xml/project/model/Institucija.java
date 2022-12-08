@@ -11,10 +11,10 @@ import javax.xml.bind.annotation.XmlType;
 public class Institucija {
 
     @XmlElement(name="naziv", required = true, namespace = "http://ftn.ac.rs/opste")
-    public String naziv;
+    private String naziv;
 
     @XmlElement(name="adresa", required = true, namespace = "http://ftn.ac.rs/opste")
-    public Adresa adresa;
+    private Adresa adresa;
 
     public String getNaziv() {
         return naziv;

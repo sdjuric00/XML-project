@@ -9,10 +9,10 @@ import javax.xml.bind.annotation.*;
 @XmlType(name="punomocnik", propOrder={"pronalazac_osoba"})
 public class PunomocnikP {
     @XmlAttribute(name="za_zastupanje", required = true)
-    public boolean za_zastupanje;
+    private boolean za_zastupanje;
 
     @XmlAttribute(name="za_prijem_pismeno", required = true)
-    public boolean za_prijem_pismeno;
+    private boolean za_prijem_pismeno;
     @XmlElements(value = {
             @XmlElement(name="fizicko_lice",
                     type= FizickoLice.class, namespace = "http://www.patent/patent"),
@@ -27,5 +27,21 @@ public class PunomocnikP {
 
     public void setPronalazac_osoba(Object pronalazac_osoba) {
         this.pronalazac_osoba = pronalazac_osoba;
+    }
+
+    public boolean isZa_zastupanje() {
+        return za_zastupanje;
+    }
+
+    public void setZa_zastupanje(boolean za_zastupanje) {
+        this.za_zastupanje = za_zastupanje;
+    }
+
+    public boolean isZa_prijem_pismeno() {
+        return za_prijem_pismeno;
+    }
+
+    public void setZa_prijem_pismeno(boolean za_prijem_pismeno) {
+        this.za_prijem_pismeno = za_prijem_pismeno;
     }
 }

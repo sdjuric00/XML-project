@@ -9,7 +9,23 @@ import javax.xml.bind.annotation.*;
 public class Naziv {
 
     @XmlAttribute(name="jezik", required = true)
-    public String jezik;
+    private String jezik;
     @XmlValue
-    public String naziv;
+    private String naziv;
+
+    public String getJezik() {
+        return jezik;
+    }
+
+    public void setJezik(String jezik) {
+        this.jezik = jezik;
+    }
+
+    public String getNaziv() {
+        return naziv;
+    }
+
+    public void setNaziv(String naziv) {
+        this.naziv = naziv;
+    }
 }

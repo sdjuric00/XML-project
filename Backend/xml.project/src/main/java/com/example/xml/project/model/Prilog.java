@@ -7,10 +7,10 @@ import javax.xml.bind.annotation.*;
 public class Prilog {
 
     @XmlAttribute(name="putanja", required = true)
-    public String putanja;
+    private String putanja;
 
     @XmlElement(name="opis", required = true, namespace = "http://ftn.ac.rs/a")
-    public String opis;
+    private String opis;
 
     public String getPutanja() {
         return putanja;
