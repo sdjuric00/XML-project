@@ -12,9 +12,33 @@ import javax.xml.bind.annotation.*;
 public class Dostavljanje {
 
     @XmlAttribute(name="elektronski", required = true)
-    public boolean elektronski;
+    private boolean elektronski;
     @XmlAttribute(name="pismeno", required = true)
-    public boolean pismeno;
+    private boolean pismeno;
     @XmlElement(name="adresa", required = true, namespace = "http://www.patent/patent")
-    public Adresa adresa;
+    private Adresa adresa;
+
+    public boolean isElektronski() {
+        return elektronski;
+    }
+
+    public void setElektronski(boolean elektronski) {
+        this.elektronski = elektronski;
+    }
+
+    public boolean isPismeno() {
+        return pismeno;
+    }
+
+    public void setPismeno(boolean pismeno) {
+        this.pismeno = pismeno;
+    }
+
+    public Adresa getAdresa() {
+        return adresa;
+    }
+
+    public void setAdresa(Adresa adresa) {
+        this.adresa = adresa;
+    }
 }

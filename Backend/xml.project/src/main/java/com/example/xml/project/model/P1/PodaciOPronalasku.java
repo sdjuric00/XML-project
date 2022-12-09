@@ -13,6 +13,13 @@ import java.util.List;
 public class PodaciOPronalasku {
     @XmlElementWrapper(name="nazivi", namespace = "http://ftn.ac.rs/a")
     @XmlElement(name="naziv", namespace = "http://ftn.ac.rs/a")
-    public List<Naziv> nazivi = new ArrayList<>();
+    private List<Naziv> nazivi = new ArrayList<>();
 
+    public List<Naziv> getNazivi() {
+        return nazivi;
+    }
+
+    public void setNazivi(List<Naziv> nazivi) {
+        this.nazivi = nazivi;
+    }
 }

@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.*;
 public class Podnosilac {
 
     @XmlAttribute(name="autor", required = true)
-    public boolean autor;
+    private boolean autor;
 
     @XmlElements(value = {
         @XmlElement(name="fizicko_lice",
