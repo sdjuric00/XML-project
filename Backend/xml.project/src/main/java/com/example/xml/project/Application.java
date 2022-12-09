@@ -2,6 +2,8 @@ package com.example.xml.project;
 
 import com.example.xml.project.model.A1.ZahteviAutorskaDela;
 import com.example.xml.project.model.Korisnici.Korisnici;
+
+import com.example.xml.project.model.Z1.ZahteviZig;
 import com.example.xml.project.model.P1.ZahteviPatenti;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -32,6 +34,12 @@ public class Application {
 			unmarshaller = jc.createUnmarshaller();
 			xml = new File("./data/A-1.xml");
 			ZahteviAutorskaDela zahteviAutoskaDela = (ZahteviAutorskaDela) unmarshaller.unmarshal(xml);
+
+			jc = JAXBContext.newInstance(ZahteviZig.class);
+			unmarshaller = jc.createUnmarshaller();
+			xml = new File("./data/Z-1.xml");
+			ZahteviZig zahteviZig = (ZahteviZig) unmarshaller.unmarshal(xml);
+
 
 			System.out.println("USPESNO");
 		}catch (Exception ex){

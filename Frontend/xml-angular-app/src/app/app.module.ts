@@ -16,6 +16,8 @@ import { FizickoLiceComponent } from './component/fizicko-lice/fizicko-lice.comp
 import { PravnoLiceComponent } from './component/pravno-lice/pravno-lice.component';
 import { PatentApplicationComponent } from './component/patent-application/patent-application.component';
 import { ZaglavljeComponent } from './component/zaglavlje/zaglavlje.component';
+import { PunomocnikComponent } from './component/punomocnik/punomocnik.component';
+import { AutorskoDeloComponent } from './component/autorsko-delo/autorsko-delo.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { ZaglavljeComponent } from './component/zaglavlje/zaglavlje.component';
     FizickoLiceComponent,
     PravnoLiceComponent,
     PatentApplicationComponent,
-    ZaglavljeComponent
+    ZaglavljeComponent,
+    PunomocnikComponent,
+    AutorskoDeloComponent
   ],
   imports: [
     BrowserModule,

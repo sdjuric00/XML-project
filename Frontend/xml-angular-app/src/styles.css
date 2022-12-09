@@ -45,6 +45,16 @@ body {
   color: var(--deep-blue) !important;
 }
 
+.previous-button {
+  background-color: rgba(104, 202, 68, 0.16) !important;
+  color: var(--deep-blue) !important;
+  border: 2px solid var(--deep-blue) !important;
+}
+
+.previous-button:hover{
+  background-color: rgba(104, 202, 68, 0.34) !important;
+}
+
 .next-button:disabled {
   background-color: var(--gray-transparent)!important;
   color: var(--deep-blue)!important;
