@@ -18,6 +18,12 @@ import { PatentApplicationComponent } from './component/patent-application/paten
 import { ZaglavljeComponent } from './component/zaglavlje/zaglavlje.component';
 import { PunomocnikComponent } from './component/punomocnik/punomocnik.component';
 import { AutorskoDeloComponent } from './component/autorsko-delo/autorsko-delo.component';
+import { IzborLiceComponent } from './component/izbor-lice/izbor-lice.component';
+import { PronalazacComponent } from './component/pronalazac/pronalazac.component';
+import { PunomocnikPatentComponent } from './component/punomocnik-patent/punomocnik-patent.component';
+import { DostavljanjeComponent } from './component/dostavljanje/dostavljanje.component';
+import { DopunskaPrijavaComponent } from './component/dopunska-prijava/dopunska-prijava.component';
+import { PrvobitnaPrijavaComponent } from './component/prvobitna-prijava/prvobitna-prijava.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +38,13 @@ import { AutorskoDeloComponent } from './component/autorsko-delo/autorsko-delo.c
     PatentApplicationComponent,
     ZaglavljeComponent,
     PunomocnikComponent,
-    AutorskoDeloComponent
+    AutorskoDeloComponent,
+    IzborLiceComponent,
+    PronalazacComponent,
+    PunomocnikPatentComponent,
+    DostavljanjeComponent,
+    DopunskaPrijavaComponent,
+    PrvobitnaPrijavaComponent
   ],
   imports: [
     BrowserModule,

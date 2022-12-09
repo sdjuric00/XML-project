@@ -1,0 +1,17 @@
+<div style="padding-left:4.5rem; margin: 1rem" [formGroup]="pronalazacFormGroup" *ngIf="pronalazacFormGroup">
+    <h4>Pronalazač je</h4>
+    <mat-radio-group>
+    <mat-radio-button [value]="'Imenovan'" checked=true (change)="changeRadioButton('Imenovan')" style="margin-right: 1rem">
+      Imenovan
+    </mat-radio-button>
+    <mat-radio-button [value]="'Anoniman'" (change)="changeRadioButton('Anoniman')" >
+        Anoniman
+      </mat-radio-button>
+</mat-radio-group>
+  <div *ngIf="pronalazac==='Imenovan'">
+    <app-izbor-lice></app-izbor-lice>
+  </div>
+  <div *ngIf="pronalazac==='Anoniman'">
+    Pronalač želi da bude anoniman!
+  </div>
+</div>
