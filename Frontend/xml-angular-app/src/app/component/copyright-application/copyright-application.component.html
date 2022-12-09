@@ -11,15 +11,26 @@
   <h1 style="text-align: center">Zahtev za unošenje u evidenciju i deponovanje autorskih dela</h1>
   <div style="margin-left: 10rem; margin-right: 10rem">
     <mat-stepper #stepper>
-      <mat-step [stepControl]="firstFormGroup">
-        <form [formGroup]="firstFormGroup">
-          <ng-template matStepLabel>Fill out your name</ng-template>
+      <mat-step [stepControl]="podnosilacFormGroup">
+        <form [formGroup]="podnosilacFormGroup">
+          <ng-template matStepLabel>Podnosilac</ng-template>
+            <app-podnosilac></app-podnosilac>
+
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="thirdFormGroup">
+        <form [formGroup]="thirdFormGroup">
+          <ng-template matStepLabel>Punomocnik</ng-template>
           <mat-form-field appearance="fill">
             <mat-label>Name</mat-label>
-            <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
+            <input matInput placeholder="Last name, First name" required>
           </mat-form-field>
           <div>
-            <button mat-button matStepperNext>Next</button>
+
+            <button mat-raised-button matStepperPrevious style="background-color: var(--deep-blue)">Back</button>
+            <button mat-raised-button matStepperNext>Next</button>
+
           </div>
         </form>
       </mat-step>
@@ -32,8 +43,8 @@
                    required>
           </mat-form-field>
           <div>
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-button matStepperNext>Next</button>
+            <button mat-raised-button matStepperPrevious style="background-color: var(--deep-blue)">Back</button>
+            <button mat-raised-button matStepperNext>Next</button>
           </div>
         </form>
       </mat-step>
@@ -50,29 +61,3 @@
 
 </div>
 
-<!--<mat-stepper>-->
-<!--  <mat-step label="Step 1" state="phone">-->
-<!--    <p>Put down your phones.</p>-->
-<!--    <div>-->
-<!--      <button mat-button matStepperNext>Next</button>-->
-<!--    </div>-->
-<!--  </mat-step>-->
-<!--  <mat-step label="Step 2" state="chat">-->
-<!--    <p>Socialize with each other.</p>-->
-<!--    <div>-->
-<!--      <button mat-button matStepperPrevious>Back</button>-->
-<!--      <button mat-button matStepperNext>Next</button>-->
-<!--    </div>-->
-<!--  </mat-step>-->
-<!--  <mat-step label="Step 3">-->
-<!--    <p>You're welcome.</p>-->
-<!--  </mat-step>-->
-
-<!--  &lt;!&ndash; Icon overrides. &ndash;&gt;-->
-<!--  <ng-template matStepperIcon="phone">-->
-<!--    <mat-icon>call_end</mat-icon>-->
-<!--  </ng-template>-->
-<!--  <ng-template matStepperIcon="chat">-->
-<!--    <mat-icon>forum</mat-icon>-->
-<!--  </ng-template>-->
-<!--</mat-stepper>-->

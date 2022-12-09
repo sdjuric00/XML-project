@@ -25,7 +25,20 @@ body {
   --gray-transparent: rgba(231, 230, 230, 0.47);
   /*ne brisi cream*/
   --cream: rgb(245, 233, 222);
+  --green: #68ca44;
 }
+
+.next-button {
+  background-color: var(--green) !important;
+  color: var(--deep-blue) !important;
+}
+
+.next-button:disabled {
+  background-color: var(--gray-transparent)!important;
+  color: var(--deep-blue)!important;
+  border: 2px solid rgba(205, 209, 211, 0.36)!important;
+}
+
 
 .mat-badge-content {
   font-weight: 600;

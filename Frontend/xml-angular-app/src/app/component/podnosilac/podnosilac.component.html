@@ -1,0 +1,24 @@
+<div *ngIf="podnosilacFormGroup" [formGroup]="podnosilacFormGroup" class="podnosilac-container">
+  <h2 style="padding-left:5.5rem">
+    Podnosilac <mat-checkbox style="float:right; margin-right: 8rem" (click)="changePodnosilacAutor()">Autor</mat-checkbox>
+  </h2>
+  <div style="padding-left:4.5rem; margin: 1rem">
+    <h4>Izaberite vrstu podnosioca</h4>
+    <mat-radio-button [value]="'Fizičko lice'" checked=true (change)="changeRadioButton('Fizičko lice')" style="margin-right: 1rem">
+      Fizičko lice
+    </mat-radio-button>
+    <mat-radio-button [value]="'Pravno lice'" (change)="changeRadioButton('Pravno lice')">
+      Pravno lice
+    </mat-radio-button>
+
+  </div>
+  <div *ngIf="tipPodnosioca==='Fizičko lice'">
+    <app-fizicko-lice [formGroup]="podnosilacFormGroup"></app-fizicko-lice>
+  </div>
+  <div *ngIf="tipPodnosioca!=='Fizičko lice'">
+    <app-pravno-lice [formGroup]="podnosilacFormGroup"></app-pravno-lice>
+  </div>
+  <div>
+    <button style="margin-left:47.5rem" class="next-button" mat-raised-button matStepperNext [disabled]="podnosilacFormGroup.invalid">Dalje</button>
+  </div>
+</div>

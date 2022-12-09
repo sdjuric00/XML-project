@@ -1,0 +1,47 @@
+<div *ngIf="podnosilacFormGroup">
+  <h3 class="input-field-margin-left">Adresa</h3>
+  <div [formGroup]="podnosilacFormGroup">
+    <mat-form-field appearance="fill" style="width: 25.7rem" class="input-field-margin-right input-field-margin-left">
+      <mat-label>Ulica</mat-label>
+      <input matInput placeholder="Ulica i broj" formControlName="ulica">
+      <mat-error *ngIf="podnosilacFormGroup.get('ulica')?.hasError('required')">
+        Ulica je <strong>obavezno</strong> polje
+      </mat-error>
+      <mat-error *ngIf="podnosilacFormGroup.get('ulica')?.hasError('pattern')">
+        Unesite ispravnu ulicu (do 50 karaktera)
+      </mat-error>
+    </mat-form-field>
+    <div style="display: flex">
+      <mat-form-field appearance="fill" style="display: flex;" class="input-field-margin-right input-field-margin-left">
+        <mat-label>Grad</mat-label>
+        <input matInput placeholder="Grad" formControlName="grad">
+        <mat-error *ngIf="podnosilacFormGroup.get('grad')?.hasError('required')">
+          Grad je <strong>obavezno</strong> polje
+        </mat-error>
+        <mat-error *ngIf="podnosilacFormGroup.get('grad')?.hasError('pattern')">
+          Unesite ispravan grad (do 50 karaktera)
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill" style="display: flex;" class="input-field-margin-right">
+        <mat-label>Poštanski broj</mat-label>
+        <input matInput placeholder="Poštanski broj" formControlName="postanskiBroj">
+        <mat-error *ngIf="podnosilacFormGroup.get('postanskiBroj')?.hasError('required')">
+          Poštanski broj je <strong>obavezno</strong> polje
+        </mat-error>
+        <mat-error *ngIf="podnosilacFormGroup.get('postanskiBroj')?.hasError('pattern')">
+          Unesite ispravan poštanski broj (5 cifara)
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <mat-form-field appearance="fill" style="width: 25.7rem" class="input-field-margin-right input-field-margin-left">
+      <mat-label>Država</mat-label>
+      <input matInput placeholder="Država" formControlName="drzava">
+      <mat-error *ngIf="podnosilacFormGroup.get('drzava')?.hasError('required')">
+        Država je <strong>obavezno</strong> polje
+      </mat-error>
+      <mat-error *ngIf="podnosilacFormGroup.get('drzava')?.hasError('pattern')">
+        Unesite ispravnu državu (do 50 karaktera)
+      </mat-error>
+    </mat-form-field>
+  </div>
+</div>
