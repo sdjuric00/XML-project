@@ -23,9 +23,7 @@ export class CopyrightApplicationComponent implements OnInit {
     postanskiBroj: 11000,
     drzava: "Republika Srbija"
   }
-  firstFormGroup = this._formBuilder.group({
-    firstCtrl: ['', Validators.required],
-  });
+
   secondFormGroup = this._formBuilder.group({
     secondCtrl: ['', Validators.required],
   });
@@ -35,31 +33,23 @@ export class CopyrightApplicationComponent implements OnInit {
   });
 
   podnosilacFormGroup = this._formBuilder.group({
-      email: new FormControl('', [Validators.required, Validators.email]),
-      telefon: new FormControl('', [Validators.required, Validators.pattern("[0-9]{8,12}")]),
-      fax: new FormControl('', [Validators.required, Validators.pattern("[0][0-9]{8,9}")]),
-      ime: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-      prezime: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-      jmbg: new FormControl('', [Validators.required, Validators.pattern("[0-9]{13}")]),
-      ulica: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-      grad: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-      postanskiBroj: new FormControl('', [Validators.required, Validators.pattern("[0-9]{5}")]),
-      drzava: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    telefon: new FormControl('', [Validators.required, Validators.pattern("[0-9]{8,12}")]),
+    fax: new FormControl('', [Validators.required, Validators.pattern("[0][0-9]{8,9}")]),
+    ime: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+    prezime: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+    jmbg: new FormControl('', [Validators.required, Validators.pattern("[0-9]{13}")]),
+    ulica: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+    grad: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+    postanskiBroj: new FormControl('', [Validators.required, Validators.pattern("[0-9]{5}")]),
+    drzava: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+    naziv: new FormControl('', [Validators.required]),
+    pib: new FormControl('', [Validators.required, Validators.pattern("[0-9]{9}")]),
+    registarskiBroj: new FormControl('', [Validators.required, Validators.pattern("([0-9]{8}|([A-Za-z]{2}[0-9]{6}))")]),
   })
 
   constructor(private _formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
   }
-
-  setEmail(email: string){
-    this.podnosilacFormGroup.value.email = email;
-    console.log(this.podnosilacFormGroup);
-  }
-
-  podnosilacFormHasError(){
-
-    return this.podnosilacFormGroup.invalid;
-  }
-
 }

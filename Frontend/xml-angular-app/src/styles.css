@@ -27,6 +27,18 @@ body {
   --cream: rgb(245, 233, 222);
   --green: #68ca44;
 }
+.input-field {
+  margin-right:2rem;
+}
+
+.input-field-margin-right{
+  margin-right:0.5rem;
+}
+
+.input-field-margin-left {
+  margin-left:0.5rem;
+}
+
 
 .next-button {
   background-color: var(--green) !important;

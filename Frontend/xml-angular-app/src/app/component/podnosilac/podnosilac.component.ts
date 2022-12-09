@@ -21,6 +21,11 @@ export class PodnosilacComponent implements OnInit {
 
   changeRadioButton(lice: string):void {
     this.tipPodnosioca = lice;
+    // Object.keys(this.podnosilacFormGroup.controls).forEach(key => {
+    //   this.podnosilacFormGroup?.get(key)?.setErrors(null) ;
+    // });
+
+    this.podnosilacFormGroup.reset();
   }
 
 

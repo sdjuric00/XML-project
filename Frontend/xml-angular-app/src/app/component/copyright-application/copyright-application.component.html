@@ -15,13 +15,12 @@
         <form [formGroup]="podnosilacFormGroup">
           <ng-template matStepLabel>Podnosilac</ng-template>
             <app-podnosilac></app-podnosilac>
-
         </form>
       </mat-step>
 
       <mat-step [stepControl]="thirdFormGroup">
         <form [formGroup]="thirdFormGroup">
-          <ng-template matStepLabel>Punomocnik</ng-template>
+          <ng-template matStepLabel>Punomoćnik</ng-template>
           <mat-form-field appearance="fill">
             <mat-label>Name</mat-label>
             <input matInput placeholder="Last name, First name" required>
