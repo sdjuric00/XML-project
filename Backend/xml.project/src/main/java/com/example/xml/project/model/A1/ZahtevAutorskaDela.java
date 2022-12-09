@@ -1,7 +1,5 @@
 package com.example.xml.project.model.A1;
 
-import com.example.xml.project.model.A1.Autor;
-import com.example.xml.project.model.A1.AutorskoDelo;
 import com.example.xml.project.model.Institucija;
 import com.example.xml.project.model.Podnosilac;
 import com.example.xml.project.model.Prilog;
