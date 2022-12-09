@@ -11,10 +11,12 @@ export class PravnoLiceComponent implements OnInit {
 
   constructor(private controlContainer: ControlContainer) {
     this.podnosilacFormGroup = <FormGroup>this.controlContainer.control;
+
   }
 
   ngOnInit(): void {
     this.podnosilacFormGroup = <FormGroup>this.controlContainer.control;
+    console.log(this.podnosilacFormGroup);
   }
 
 }

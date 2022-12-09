@@ -18,33 +18,16 @@
         </form>
       </mat-step>
 
-      <mat-step [stepControl]="thirdFormGroup">
-        <form [formGroup]="thirdFormGroup">
+      <mat-step [stepControl]="punomocnikFormGroup">
+        <form [formGroup]="punomocnikFormGroup">
           <ng-template matStepLabel>Punomoćnik</ng-template>
-          <mat-form-field appearance="fill">
-            <mat-label>Name</mat-label>
-            <input matInput placeholder="Last name, First name" required>
-          </mat-form-field>
-          <div>
-
-            <button mat-raised-button matStepperPrevious style="background-color: var(--deep-blue)">Back</button>
-            <button mat-raised-button matStepperNext>Next</button>
-
-          </div>
+          <app-punomocnik></app-punomocnik>
         </form>
       </mat-step>
-      <mat-step [stepControl]="secondFormGroup">
-        <form [formGroup]="secondFormGroup">
-          <ng-template matStepLabel>Fill out your address</ng-template>
-          <mat-form-field appearance="fill">
-            <mat-label>Address</mat-label>
-            <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
-                   required>
-          </mat-form-field>
-          <div>
-            <button mat-raised-button matStepperPrevious style="background-color: var(--deep-blue)">Back</button>
-            <button mat-raised-button matStepperNext>Next</button>
-          </div>
+      <mat-step [stepControl]="autorskoDeloFormGroup">
+        <form [formGroup]="autorskoDeloFormGroup">
+          <ng-template matStepLabel>Autorsko delo</ng-template>
+          <app-autorsko-delo></app-autorsko-delo>
         </form>
       </mat-step>
       <mat-step>

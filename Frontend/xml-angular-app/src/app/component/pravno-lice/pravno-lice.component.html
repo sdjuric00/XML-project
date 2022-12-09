@@ -2,14 +2,14 @@
   <div [formGroup]="podnosilacFormGroup" style="display: flex; padding-left:8.5rem">
     <mat-form-field appearance="fill" class="input-field">
       <mat-label>Naziv</mat-label>
-      <input matInput placeholder="Naziv" formControlName="ime">
+      <input matInput placeholder="Naziv" formControlName="naziv">
       <mat-error *ngIf="podnosilacFormGroup.get('naziv')?.hasError('required')">
         Naziv je <strong>obavezno</strong> polje
       </mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill" class="input-field">
       <mat-label>PIB</mat-label>
-      <input matInput placeholder="PIB" formControlName="prezime">
+      <input matInput placeholder="PIB" formControlName="pib">
       <mat-error *ngIf="podnosilacFormGroup.get('pib')?.hasError('required')">
         PIB je <strong>obavezno</strong> polje
       </mat-error>
@@ -20,7 +20,7 @@
 
     <mat-form-field appearance="fill" class="input-field">
       <mat-label>Registarski broj</mat-label>
-      <input matInput placeholder="JMBG" formControlName="jmbg">
+      <input matInput placeholder="Registarski broj" formControlName="registarskiBroj">
       <mat-error *ngIf="podnosilacFormGroup.get('registarskiBroj')?.hasError('required')">
         Registarski broj je <strong>obavezno</strong> polje
       </mat-error>

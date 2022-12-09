@@ -14,6 +14,8 @@ import { AdresaComponent } from './component/adresa/adresa.component';
 import {MatRadioModule} from "@angular/material/radio";
 import { FizickoLiceComponent } from './component/fizicko-lice/fizicko-lice.component';
 import { PravnoLiceComponent } from './component/pravno-lice/pravno-lice.component';
+import { PunomocnikComponent } from './component/punomocnik/punomocnik.component';
+import { AutorskoDeloComponent } from './component/autorsko-delo/autorsko-delo.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { PravnoLiceComponent } from './component/pravno-lice/pravno-lice.compone
     KontaktComponent,
     AdresaComponent,
     FizickoLiceComponent,
-    PravnoLiceComponent
+    PravnoLiceComponent,
+    PunomocnikComponent,
+    AutorskoDeloComponent
   ],
   imports: [
     BrowserModule,
