@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zahtevi_p xmlns="http://www.patent/patent"
+    xmlns:opste="http://ftn.ac.rs/opste"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.patent/patent">
+    
+    <lista_zahteva_p>
+        <zahtev_za_priznavanje_patenta broj_prijave="P-2022/2" datum_prijema="2022-11-30" priznati_datum_podnosenja="2022-11-30"
+            dopunska_prijava="true">
+            
+            <institucija>
+                <opste:naziv>Zavod za intelektulanu svojinu</opste:naziv>
+                <opste:adresa>
+                    <opste:grad>Beograd</opste:grad>
+                    <opste:ulica>Kneginje Ljubice</opste:ulica>
+                    <opste:broj>5</opste:broj>
+                    <opste:postanski_broj>11000</opste:postanski_broj>
+                    <opste:drzava>Republika Srbija</opste:drzava>
+                </opste:adresa>
+            </institucija>
+            
+            <podaci_o_pronalasku>
+                <naziv jezik="srpski">Leteci automobil</naziv>
+                <naziv jezik="engleski">Flying car</naziv>
+            </podaci_o_pronalasku>
+            
+            <podnosilac autor="false">
+                
+                <opste:fizicko_lice>
+                    <opste:kontakt>
+                        <opste:email>pera@gmail.com</opste:email>
+                        <opste:telefon>213212123</opste:telefon>
+                        <opste:fax>012345678</opste:fax>
+                    </opste:kontakt>
+                    <opste:adresa>
+                        <opste:grad>Novi Sad</opste:grad>
+                        <opste:ulica>Lsla Gala</opste:ulica>
+                        <opste:broj>21</opste:broj>
+                        <opste:postanski_broj>21000</opste:postanski_broj>
+                        <opste:drzava>Republika Srbija</opste:drzava>
+                    </opste:adresa>
+                    <opste:ime>Pera</opste:ime>
+                    <opste:prezime>Peric</opste:prezime>
+                    <opste:jmbg>1234567891011</opste:jmbg>
+                </opste:fizicko_lice>
+                
+            </podnosilac>
+            
+            <pronalazac anonimno="false">
+                <imenovani_pronalazac>
+                    <fizicko_lice>
+                        <opste:kontakt>
+                            <opste:email>mile@gmail.com</opste:email>
+                            <opste:telefon>213212123</opste:telefon>
+                            <opste:fax>012345678</opste:fax>
+                        </opste:kontakt>
+                        <opste:adresa>
+                            <opste:grad>Novi Sad</opste:grad>
+                            <opste:ulica>Bul Evrope</opste:ulica>
+                            <opste:broj>21</opste:broj>
+                            <opste:postanski_broj>21000</opste:postanski_broj>
+                            <opste:drzava>Republika Srbija</opste:drzava>
+                        </opste:adresa>
+                        <opste:ime>Mile</opste:ime>
+                        <opste:prezime>Milic</opste:prezime>
+                        <opste:jmbg>1234567891011</opste:jmbg>
+                    </fizicko_lice>
+                </imenovani_pronalazac>
+            </pronalazac>
+            
+            
+            <punomocnik za_zastupanje="true" za_prijem_pismeno="false">
+                <pravno_lice>
+                    <opste:kontakt>
+                        <opste:email>aleksic@gmail.com</opste:email>
+                        <opste:telefon>213212123</opste:telefon>
+                        <opste:fax>012345678</opste:fax>
+                    </opste:kontakt>
+                    <opste:adresa>
+                        <opste:grad>Novi Sad</opste:grad>
+                        <opste:ulica>Bul Evrope</opste:ulica>
+                        <opste:broj>21</opste:broj>
+                        <opste:postanski_broj>21000</opste:postanski_broj>
+                        <opste:drzava>Republika Srbija</opste:drzava>
+                    </opste:adresa>
+                    <opste:naziv>Advokatska kancelarija Aleksic</opste:naziv>
+                    <opste:pib>123456789</opste:pib>
+                    <opste:registarski_broj>12345678</opste:registarski_broj>
+                </pravno_lice>
+
+            </punomocnik>
+            
+            <dostavljanje elektronski="true" pismeno="false">
+                
+                <adresa>
+                    <opste:grad>Novi Sad</opste:grad>
+                    <opste:ulica>Bul Oslobodjenja</opste:ulica>
+                    <opste:broj>15</opste:broj>
+                    <opste:postanski_broj>21000</opste:postanski_broj>
+                    <opste:drzava>Republika Srbija</opste:drzava>
+                </adresa>
+            </dostavljanje>
+            <zahtev_za_priznanje_prava_iz_ranijih_prijava>
+                <prijava>
+                    <datum_podnosenja_prijave>2022-11-30</datum_podnosenja_prijave>
+                    <broj_ranije_prijave>P-2022/1</broj_ranije_prijave>
+                    <dvoslovna_oznaka_drzave>RS</dvoslovna_oznaka_drzave>
+                </prijava>
+            </zahtev_za_priznanje_prava_iz_ranijih_prijava>
+        </zahtev_za_priznavanje_patenta>
+    </lista_zahteva_p>
+</zahtevi_p>

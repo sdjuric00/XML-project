@@ -1,0 +1,25 @@
+<div *ngIf="punomocnikFormGroup" [formGroup]="punomocnikFormGroup" class="punomocnik-container">
+  <h2 style="padding-left:5.5rem">Punomoćnik</h2>
+  <div style="padding-left:4.5rem; margin: 1rem">
+    <h4>Izaberite vrstu punomoćnika</h4>
+    <mat-radio-button [value]="'Fizičko lice'" checked=true (change)="changeRadioButton('Fizičko lice')" style="margin-right: 1rem">
+      Fizičko lice
+    </mat-radio-button>
+    <mat-radio-button [value]="'Pravno lice'" (change)="changeRadioButton('Pravno lice')">
+      Pravno lice
+    </mat-radio-button>
+
+  </div>
+  <div *ngIf="tipPunomocnika==='Fizičko lice'">
+    <app-fizicko-lice [formGroup]="punomocnikFormGroup"></app-fizicko-lice>
+  </div>
+  <div *ngIf="tipPunomocnika!=='Fizičko lice'">
+    <app-pravno-lice [formGroup]="punomocnikFormGroup"></app-pravno-lice>
+  </div>
+  <div style="display: flex">
+    <button style="margin-left:40.7rem" class="previous-button" mat-raised-button matStepperPrevious>Nazad</button>
+    <!--    [disabled]="punomocnikFormGroup.invalid"-->
+    <button style="margin-left:1rem" class="next-button" mat-raised-button matStepperNext>Dalje</button>
+  </div>
+</div>
+

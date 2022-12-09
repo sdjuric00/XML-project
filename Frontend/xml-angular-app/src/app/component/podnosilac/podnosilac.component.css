@@ -1,0 +1,17 @@
+.input-field {
+  margin-right:2rem;
+}
+
+.input-field-margin-right{
+  margin-right:0.5rem;
+}
+
+.input-field-margin-left {
+  margin-left:0.5rem;
+}
+
+.podnosilac-container {
+  border: 2px solid var(--gray-transparent);
+  border-radius: 5%;
+  padding-bottom: 1rem;
+}

@@ -1,0 +1,42 @@
+<div *ngIf="podnosilacFormGroup">
+  <div [formGroup]="podnosilacFormGroup" style="display: flex; padding-left:8.5rem">
+    <mat-form-field appearance="fill" class="input-field">
+      <mat-label>Ime</mat-label>
+      <input matInput placeholder="Ime" formControlName="ime">
+      <mat-error *ngIf="podnosilacFormGroup.get('ime')?.hasError('required')">
+        Ime je <strong>obavezno</strong> polje
+      </mat-error>
+      <mat-error *ngIf="podnosilacFormGroup.get('ime')?.hasError('pattern')">
+        Unesite ispravno ime (do 50 karaktera)
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="input-field">
+      <mat-label>Prezime</mat-label>
+      <input matInput placeholder="Prezime" formControlName="prezime">
+      <mat-error *ngIf="podnosilacFormGroup.get('prezime')?.hasError('required')">
+        Prezime je <strong>obavezno</strong> polje
+      </mat-error>
+      <mat-error *ngIf="podnosilacFormGroup.get('prezime')?.hasError('pattern')">
+        Unesite ispravno prezime (do 50 karaktera)
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="input-field">
+      <mat-label>JMBG</mat-label>
+      <input matInput placeholder="JMBG" formControlName="jmbg">
+      <mat-error *ngIf="podnosilacFormGroup.get('jmbg')?.hasError('required')">
+        JMBG je <strong>obavezno</strong> polje
+      </mat-error>
+      <mat-error *ngIf="podnosilacFormGroup.get('jmbg')?.hasError('pattern')">
+        Unesite ispravan JMBG (13 cifara)
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div style="display: flex; padding-left:5.3rem; margin-top: 1.1rem; padding-bottom: 0.5rem">
+    <app-kontakt [formGroup]="podnosilacFormGroup" style="margin-left:2rem; display: inline; border: 2px solid var(--green); background-color: var(--gray-transparent); padding: 0.5rem; border-radius: 5% "></app-kontakt>
+    <app-adresa [formGroup]="podnosilacFormGroup" style="margin-left:2rem; border: 2px solid var(--green); background-color: var(--gray-transparent); padding: 0.5rem; border-radius: 5% "></app-adresa>
+
+  </div>
+</div>
+

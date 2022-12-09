@@ -4,8 +4,13 @@ import com.example.xml.project.model.Institucija;
 import com.example.xml.project.model.Podnosilac;
 import com.example.xml.project.model.Prilog;
 import com.example.xml.project.model.Punomocnik;
+import com.example.xml.project.model.*;
+import com.example.xml.project.model.A1.Autor;
+import com.example.xml.project.model.A1.AutorskoDelo;
 
 import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,36 +22,37 @@ import java.util.List;
 public class ZahtevAutorskaDela {
 
     @XmlAttribute(name="obrazac", required = true)
-    public String obrazac;
+    private String obrazac;
 
     @XmlAttribute(name="broj_prijave", required = true)
-    public String broj_prijave;
+    private String broj_prijave;
 
     @XmlAttribute(name="datum_podnosenja", required = true)
-    public String datum_podnosenja;
+    @XmlJavaTypeAdapter(LocalDateAdapter.class)
+    private LocalDate datum_podnosenja;
 
     @XmlAttribute(name="pregledano", required = true)
-    public boolean pregledano = false;
+    private boolean pregledano = false;
 
     @XmlElement(name="institucija", required = true, namespace = "http://ftn.ac.rs/a")
-    public Institucija institucija;
+    private Institucija institucija;
 
     @XmlElement(name="podnosilac", required = true, namespace = "http://ftn.ac.rs/a")
-    public Podnosilac podnosilac;
+    private Podnosilac podnosilac;
 
     @XmlElement(name="punomocnik", required = true, namespace = "http://ftn.ac.rs/a")
-    public Punomocnik punomocnik;
+    private Punomocnik punomocnik;
 
     @XmlElement(name="autorsko_delo", required = true, namespace = "http://ftn.ac.rs/a")
-    public AutorskoDelo autorsko_delo;
+    private AutorskoDelo autorsko_delo;
 
     @XmlElementWrapper(name="autori", namespace = "http://ftn.ac.rs/a")
     @XmlElement(name="autor", namespace = "http://ftn.ac.rs/a")
-    public List<Autor> autori = new ArrayList<>();
+    private List<Autor> autori = new ArrayList<>();
 
     @XmlElementWrapper(name="prilozi", namespace = "http://ftn.ac.rs/a")
     @XmlElement(name="prilog", namespace = "http://ftn.ac.rs/a")
-    public List<Prilog> prilozi = new ArrayList<>();
+    private List<Prilog> prilozi = new ArrayList<>();
 
     public String getObrazac() {
         return obrazac;
@@ -64,11 +70,11 @@ public class ZahtevAutorskaDela {
         this.broj_prijave = broj_prijave;
     }
 
-    public String getDatum_podnosenja() {
+    public LocalDate getDatum_podnosenja() {
         return datum_podnosenja;
     }
 
-    public void setDatum_podnosenja(String datum_podnosenja) {
+    public void setDatum_podnosenja(LocalDate datum_podnosenja) {
         this.datum_podnosenja = datum_podnosenja;
     }
 

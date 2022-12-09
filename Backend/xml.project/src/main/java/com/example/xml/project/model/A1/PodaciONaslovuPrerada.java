@@ -12,8 +12,24 @@ import javax.xml.bind.annotation.XmlType;
 public class PodaciONaslovuPrerada {
 
     @XmlElement(name="naslov", required = true, namespace = "http://ftn.ac.rs/a")
-    public String naslov;
+    private String naslov;
 
     @XmlElement(name="autor", required = true, namespace = "http://ftn.ac.rs/a")
-    public Autor autor;
+    private Autor autor;
+
+    public String getNaslov() {
+        return naslov;
+    }
+
+    public void setNaslov(String naslov) {
+        this.naslov = naslov;
+    }
+
+    public Autor getAutor() {
+        return autor;
+    }
+
+    public void setAutor(Autor autor) {
+        this.autor = autor;
+    }
 }

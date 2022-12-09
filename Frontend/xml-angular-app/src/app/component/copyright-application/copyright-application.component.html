@@ -1,0 +1,45 @@
+<div style="padding:2rem">
+  <div style="display: flex">
+    <div style="display: inline;">
+      <h2>{{imeInstitucije}}</h2>
+      <h3>{{adresa.grad}}, {{adresa.ulica}} {{adresa.broj}}</h3>
+    </div>
+<!--    <img style="margin-left: 25%; width: 8rem;height: 8rem" src="assets/images/copyright.png"/>-->
+    <h2 style="margin-left: 68%; float:right">Obrazac A-1</h2>
+  </div>
+
+  <h1 style="text-align: center">Zahtev za unošenje u evidenciju i deponovanje autorskih dela</h1>
+  <div style="margin-left: 10rem; margin-right: 10rem">
+    <mat-stepper #stepper>
+      <mat-step [stepControl]="podnosilacFormGroup">
+        <form [formGroup]="podnosilacFormGroup">
+          <ng-template matStepLabel>Podnosilac</ng-template>
+            <app-podnosilac></app-podnosilac>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="punomocnikFormGroup">
+        <form [formGroup]="punomocnikFormGroup">
+          <ng-template matStepLabel>Punomoćnik</ng-template>
+          <app-punomocnik></app-punomocnik>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="autorskoDeloFormGroup">
+        <form [formGroup]="autorskoDeloFormGroup">
+          <ng-template matStepLabel>Autorsko delo</ng-template>
+          <app-autorsko-delo></app-autorsko-delo>
+        </form>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Done</ng-template>
+        <p>You are now done.</p>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button (click)="stepper.reset()">Reset</button>
+        </div>
+      </mat-step>
+    </mat-stepper>
+  </div>
+
+</div>
+

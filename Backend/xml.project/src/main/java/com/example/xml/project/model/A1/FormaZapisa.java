@@ -13,4 +13,12 @@ public class FormaZapisa {
             type=String.class, namespace = "http://ftn.ac.rs/a")
     })
     private Object zapis;
+
+    public Object getZapis() {
+        return zapis;
+    }
+
+    public void setZapis(Object zapis) {
+        this.zapis = zapis;
+    }
 }

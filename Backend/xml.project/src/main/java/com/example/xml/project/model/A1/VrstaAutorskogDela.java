@@ -13,6 +13,14 @@ public class VrstaAutorskogDela {
             type=String.class,  namespace = "http://ftn.ac.rs/a")
     })
     private Object vrsta;
+
+    public Object getVrsta() {
+        return vrsta;
+    }
+
+    public void setVrsta(Object vrsta) {
+        this.vrsta = vrsta;
+    }
 }
 
 

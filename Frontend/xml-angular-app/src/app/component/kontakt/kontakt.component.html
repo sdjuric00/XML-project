@@ -1,0 +1,38 @@
+<div *ngIf="podnosilacFormGroup">
+  <h3 class="input-field-margin-left">Kontakt</h3>
+  <div [formGroup]="podnosilacFormGroup">
+    <mat-form-field appearance="fill" class="input-field-margin-right input-field-margin-left">
+      <mat-label>Email</mat-label>
+      <input matInput placeholder="Email" formControlName="email">
+      <mat-error
+        *ngIf="podnosilacFormGroup.get('email')?.hasError('email') && !podnosilacFormGroup.get('email')?.hasError('required')">
+        Unesite ispravnu email adresu
+      </mat-error>
+      <mat-error *ngIf="podnosilacFormGroup.get('email')?.hasError('required')">
+        Email je <strong>obavezno</strong> polje
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" style="display: flex;" class="input-field-margin-right input-field-margin-left">
+      <mat-label>Telefon</mat-label>
+      <input matInput placeholder="Telefon" formControlName="telefon">
+      <mat-error *ngIf="podnosilacFormGroup.get('telefon')?.hasError('required')">
+        Telefon je <strong>obavezno</strong> polje
+      </mat-error>
+      <mat-error *ngIf="podnosilacFormGroup.get('telefon')?.hasError('pattern')">
+        Unesite ispravan broj telefona (8-12 cifara)
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill" style="display: flex;" class="input-field-margin-right input-field-margin-left">
+      <mat-label>Fax</mat-label>
+      <input matInput placeholder="Fax" formControlName="fax">
+      <mat-error *ngIf="podnosilacFormGroup.get('fax')?.hasError('required')">
+        Fax je <strong>obavezno</strong> polje
+      </mat-error>
+      <mat-error *ngIf="podnosilacFormGroup.get('fax')?.hasError('pattern')">
+        Unesite ispravan broj faxa
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+</div>

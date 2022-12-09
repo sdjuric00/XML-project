@@ -1,0 +1,40 @@
+<div *ngIf="podnosilacFormGroup">
+  <div [formGroup]="podnosilacFormGroup" style="display: flex; padding-left:8.5rem">
+    <mat-form-field appearance="fill" class="input-field">
+      <mat-label>Naziv</mat-label>
+      <input matInput placeholder="Naziv" formControlName="naziv">
+      <mat-error *ngIf="podnosilacFormGroup.get('naziv')?.hasError('required')">
+        Naziv je <strong>obavezno</strong> polje
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="input-field">
+      <mat-label>PIB</mat-label>
+      <input matInput placeholder="PIB" formControlName="pib">
+      <mat-error *ngIf="podnosilacFormGroup.get('pib')?.hasError('required')">
+        PIB je <strong>obavezno</strong> polje
+      </mat-error>
+      <mat-error *ngIf="podnosilacFormGroup.get('pib')?.hasError('pattern')">
+        Unesite ispravan PIB (9 cifara)
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="input-field">
+      <mat-label>Registarski broj</mat-label>
+      <input matInput placeholder="Registarski broj" formControlName="registarskiBroj">
+      <mat-error *ngIf="podnosilacFormGroup.get('registarskiBroj')?.hasError('required')">
+        Registarski broj je <strong>obavezno</strong> polje
+      </mat-error>
+      <mat-error *ngIf="podnosilacFormGroup.get('registarskiBroj')?.hasError('pattern')">
+        Unesite ispravan registarski broj (npr. 123456789 ili bA123456)
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div style="display: flex; padding-left:5.3rem; margin-top: 1.1rem; padding-bottom: 0.5rem">
+    <app-kontakt [formGroup]="podnosilacFormGroup" style="margin-left:2rem; display: inline; border: 2px solid var(--green); background-color: var(--gray-transparent); padding: 0.5rem; border-radius: 5% "></app-kontakt>
+    <app-adresa [formGroup]="podnosilacFormGroup" style="margin-left:2rem; border: 2px solid var(--green); background-color: var(--gray-transparent); padding: 0.5rem; border-radius: 5% "></app-adresa>
+
+  </div>
+</div>
+
+
