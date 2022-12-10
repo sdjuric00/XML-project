@@ -4,38 +4,33 @@
     xmlns:xs-opste="http://ftn.ac.rs/opste">
 
     <xs:import namespace="http://ftn.ac.rs/opste" schemaLocation="Opste.xsd"/>
-    <xs:element name="zahtevi_z" type="xs-z:zahtevi_z"/>
-    <xs:complexType name="zahtevi_z">
-        <xs:sequence maxOccurs="1" minOccurs="1">
-            <xs:element name="lista_zahteva_z" type="xs-z:lista_zahteva_z"/>
-        </xs:sequence>
-    </xs:complexType>
-    <xs:complexType name="zahtev_za_priznanje_ziga">
-        <xs:sequence>
-            <xs:element name="institucija" type="xs-opste:institucija"/>
-            <xs:element name="podnosioci" type="xs-z:podnosioci"/>
-            <xs:element name="punomocnik" type="xs-opste:punomocnik"/>
-            <xs:element name="podaci_o_zajednickom_predstavniku"
-                type="xs-z:podaci_o_zajednickom_predstavniku" minOccurs="0"/>
-            <xs:element name="znak" type="xs-z:znak"/>
-            <xs:element name="nicanska_klasifikacija" type="xs-z:odabrane_kategorije"/>
-            <xs:element name="pravo_prvenstva" type="xs-z:pravo_prvenstva"/>
-            <xs:element name="placene_takse" type="xs-z:placene_takse"/>
-            <xs:element name="prilozi">
-                <xs:complexType>
-                    <xs:complexContent>
-                        <xs:extension base="xs-z:prilozi">
-                            <xs:attribute name="primerak_znaka_putanja" type="xs:string"/>
-                            <xs:attribute name="punomocje_putanja" type="xs:string"/>
-                            <xs:attribute name="opsti_akt_o_kolektivnom_zigu_garancije_putanja"
-                                type="xs:string"/>
-                            <xs:attribute name="dokaz_o_pravu_prvenstva_putanja" type="xs:string"/>
-                            <xs:attribute name="dokaz_o_uplati_takse_putanja" type="xs:string"/>
-                        </xs:extension>
-                    </xs:complexContent>
-                </xs:complexType>
-            </xs:element>
-        </xs:sequence>
+    <xs:element name="zahtev_za_priznanje_ziga">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="institucija" type="xs-opste:institucija"/>
+                <xs:element name="podnosioci" type="xs-z:podnosioci"/>
+                <xs:element name="punomocnik" type="xs-opste:punomocnik"/>
+                <xs:element name="podaci_o_zajednickom_predstavniku"
+                    type="xs-z:podaci_o_zajednickom_predstavniku" minOccurs="0"/>
+                <xs:element name="znak" type="xs-z:znak"/>
+                <xs:element name="nicanska_klasifikacija" type="xs-z:odabrane_kategorije"/>
+                <xs:element name="pravo_prvenstva" type="xs-z:pravo_prvenstva"/>
+                <xs:element name="placene_takse" type="xs-z:placene_takse"/>
+                <xs:element name="prilozi">
+                    <xs:complexType>
+                        <xs:complexContent>
+                            <xs:extension base="xs-z:prilozi">
+                                <xs:attribute name="primerak_znaka_putanja" type="xs:string"/>
+                                <xs:attribute name="punomocje_putanja" type="xs:string"/>
+                                <xs:attribute name="opsti_akt_o_kolektivnom_zigu_garancije_putanja"
+                                    type="xs:string"/>
+                                <xs:attribute name="dokaz_o_pravu_prvenstva_putanja" type="xs:string"/>
+                                <xs:attribute name="dokaz_o_uplati_takse_putanja" type="xs:string"/>
+                            </xs:extension>
+                        </xs:complexContent>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
         <xs:attribute name="broj_prijave">
             <xs:simpleType>
                 <xs:restriction base="xs:string">
@@ -47,6 +42,7 @@
         <xs:attribute name="pregledano" type="xs:boolean"/>
         <xs:attribute name="zig" type="xs-z:zig"/>
     </xs:complexType>
+    </xs:element>
     <xs:simpleType name="zig">
         <xs:restriction base="xs:string">
             <xs:enumeration value="individualni"/>
@@ -136,11 +132,6 @@
     <xs:complexType name="robe">
         <xs:sequence>
             <xs:element name="roba" type="xs:string"/>
-        </xs:sequence>
-    </xs:complexType>
-    <xs:complexType name="lista_zahteva_z">
-        <xs:sequence maxOccurs="unbounded" minOccurs="0">
-            <xs:element name="zahtev_za_priznanje_ziga" type="xs-z:zahtev_za_priznanje_ziga"/>
         </xs:sequence>
     </xs:complexType>
 </xs:schema>

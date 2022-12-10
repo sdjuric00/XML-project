@@ -1,145 +1,137 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<zahtevi_z xmlns="http://www.zig/zig"
-    xmlns:opste="http://ftn.ac.rs/opste"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.zig/zig file:/E:/Faks/cetvrta_godina/XML/Z-1.xsd">
-    <lista_zahteva_z>
         
-        <zahtev_za_priznanje_ziga broj_prijave="Z-2022/1" datum_podnosenja="2022-11-06"
-            zig="individualni" pregledano="true">
-            
-            <institucija>
-                <opste:naziv>Zavod za intelektualnu svojinu</opste:naziv>
+<zahtev_za_priznanje_ziga xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.zig/zig" xmlns:opste="http://ftn.ac.rs/opste"
+                          broj_prijave="Z-2022/1" datum_podnosenja="2022-11-06"
+    zig="individualni" pregledano="true">
+
+    <institucija>
+        <opste:naziv>Zavod za intelektualnu svojinu</opste:naziv>
+        <opste:adresa>
+            <opste:grad>Beograd</opste:grad>
+            <opste:ulica>Kneginje Ljubice</opste:ulica>
+            <opste:broj>5</opste:broj>
+            <opste:postanski_broj>11000</opste:postanski_broj>
+            <opste:drzava>Republika Srbija</opste:drzava>
+        </opste:adresa>
+    </institucija>
+
+    <podnosioci>
+
+        <podnosilac>
+
+            <opste:fizicko_lice>
+                <opste:kontakt>
+                    <opste:email>pera@gmail.com</opste:email>
+                    <opste:telefon>213212123</opste:telefon>
+                    <opste:fax>012345678</opste:fax>
+                </opste:kontakt>
                 <opste:adresa>
-                    <opste:grad>Beograd</opste:grad>
-                    <opste:ulica>Kneginje Ljubice</opste:ulica>
-                    <opste:broj>5</opste:broj>
-                    <opste:postanski_broj>11000</opste:postanski_broj>
-                    <opste:drzava>Republika Srbija</opste:drzava>
+                    <opste:grad>Novi Sad</opste:grad>
+                    <opste:ulica>Lsla Gala</opste:ulica>
+                    <opste:broj>21</opste:broj>
+                    <opste:postanski_broj>21000</opste:postanski_broj>
+                    <opste:drzava>Srbija</opste:drzava>
                 </opste:adresa>
-            </institucija>
-            
-            <podnosioci>
-                
-                <podnosilac>
-                    
-                    <opste:fizicko_lice>
-                        <opste:kontakt>
-                            <opste:email>pera@gmail.com</opste:email>
-                            <opste:telefon>213212123</opste:telefon>
-                            <opste:fax>012345678</opste:fax>
-                        </opste:kontakt>
-                        <opste:adresa>
-                            <opste:grad>Novi Sad</opste:grad>
-                            <opste:ulica>Lsla Gala</opste:ulica>
-                            <opste:broj>21</opste:broj>
-                            <opste:postanski_broj>21000</opste:postanski_broj>
-                            <opste:drzava>Srbija</opste:drzava>
-                        </opste:adresa>
-                        <opste:ime>Pera</opste:ime>
-                        <opste:prezime>Peric</opste:prezime>
-                        <opste:jmbg>1234567891011</opste:jmbg>
-                    </opste:fizicko_lice>
-                    
-                </podnosilac>
-                
-            </podnosioci>
-            
-            
-            <punomocnik>
-                
-                <opste:fizicko_lice>
-                    <opste:kontakt>
-                        <opste:email>pera@gmail.com</opste:email>
-                        <opste:telefon>213212123</opste:telefon>
-                        <opste:fax>012345678</opste:fax>
-                    </opste:kontakt>
-                    <opste:adresa>
-                        <opste:grad>Novi Sad</opste:grad>
-                        <opste:ulica>Lsla Gala</opste:ulica>
-                        <opste:broj>21</opste:broj>
-                        <opste:postanski_broj>21000</opste:postanski_broj>
-                        <opste:drzava>Srbija</opste:drzava>
-                    </opste:adresa>
-                    <opste:ime>Pera</opste:ime>
-                    <opste:prezime>Peric</opste:prezime>
-                    <opste:jmbg>1234567891011</opste:jmbg>
-                </opste:fizicko_lice>
-                
-            </punomocnik>
-            
-            <podaci_o_zajednickom_predstavniku>
-                
-                <fizicko_lice>
-                    <opste:kontakt>
-                        <opste:email>pera@gmail.com</opste:email>
-                        <opste:telefon>213212123</opste:telefon>
-                        <opste:fax>012345678</opste:fax>
-                    </opste:kontakt>
-                    <opste:adresa>
-                        <opste:grad>Novi Sad</opste:grad>
-                        <opste:ulica>Lsla Gala</opste:ulica>
-                        <opste:broj>21</opste:broj>
-                        <opste:postanski_broj>21000</opste:postanski_broj>
-                        <opste:drzava>Srbija</opste:drzava>
-                    </opste:adresa>
-                    <opste:ime>Pera</opste:ime>
-                    <opste:prezime>Peric</opste:prezime>
-                    <opste:jmbg>1234567891011</opste:jmbg>
-                </fizicko_lice>
-                
-            </podaci_o_zajednickom_predstavniku>
-            
-            
-            <znak pismo="latinica" putanja="slika.png">
-                <vrsta_znaka>
-                    <vrsta_enum>verbalni</vrsta_enum>
-                </vrsta_znaka>
-                <boje>
-                    
-                    <boja>zelena</boja>
-                    
-                    <boja>crvena</boja>
-                    
-                </boje>
-                <transliteracija_znaka>sdasdj</transliteracija_znaka>
-                <prevod>asdd</prevod>
-                <opis>Slovo r</opis>
-            </znak>
-            
-            <!-- Pitanje -->
-            <nicanska_klasifikacija>    
-                <broj>1. Hemijski proizvodi</broj>   
-            </nicanska_klasifikacija>
-            
-            
-            <pravo_prvenstva zatrazeno="true">
-                <osnov>Hitno mi treba registracija</osnov>
-            </pravo_prvenstva>
-            
-            <placene_takse>
-                <valuta>RSD</valuta>
-                <osnovna_taksa>100</osnovna_taksa>
-                <taksa_za_klasu>220</taksa_za_klasu>
-                <taksa_za_graficko_resenje>250</taksa_za_graficko_resenje>
-                <ukupno>580</ukupno>
-            </placene_takse>
-            
-            <prilozi primerak_znaka_putanja="slika.png" punomocje_putanja="punomocje.png"
-                opsti_akt_o_kolektivnom_zigu_garancije_putanja = "akt.png"
-                dokaz_o_pravu_prvenstva_putanja = "slika.png"
-                dokaz_o_uplati_takse_putanja = "slika.png"
-                >
-                <spisak_roba_i_usluga>
-                    <roba>Vestacko djubrivo</roba>    
-                </spisak_roba_i_usluga>
-                
-                <generalno_punomocje_ranije_prilozeno>false</generalno_punomocje_ranije_prilozeno>
-                <punomocje_ce_biti_naknadno_dostavljeno>false</punomocje_ce_biti_naknadno_dostavljeno>
-            </prilozi>
-        
-        </zahtev_za_priznanje_ziga>
-        
-    </lista_zahteva_z>        
-        
-</zahtevi_z>
+                <opste:ime>Pera</opste:ime>
+                <opste:prezime>Peric</opste:prezime>
+                <opste:jmbg>1234567891011</opste:jmbg>
+            </opste:fizicko_lice>
+
+        </podnosilac>
+
+    </podnosioci>
+
+
+    <punomocnik>
+
+        <opste:fizicko_lice>
+            <opste:kontakt>
+                <opste:email>pera@gmail.com</opste:email>
+                <opste:telefon>213212123</opste:telefon>
+                <opste:fax>012345678</opste:fax>
+            </opste:kontakt>
+            <opste:adresa>
+                <opste:grad>Novi Sad</opste:grad>
+                <opste:ulica>Lsla Gala</opste:ulica>
+                <opste:broj>21</opste:broj>
+                <opste:postanski_broj>21000</opste:postanski_broj>
+                <opste:drzava>Srbija</opste:drzava>
+            </opste:adresa>
+            <opste:ime>Pera</opste:ime>
+            <opste:prezime>Peric</opste:prezime>
+            <opste:jmbg>1234567891011</opste:jmbg>
+        </opste:fizicko_lice>
+
+    </punomocnik>
+
+    <podaci_o_zajednickom_predstavniku>
+
+        <fizicko_lice>
+            <opste:kontakt>
+                <opste:email>pera@gmail.com</opste:email>
+                <opste:telefon>213212123</opste:telefon>
+                <opste:fax>012345678</opste:fax>
+            </opste:kontakt>
+            <opste:adresa>
+                <opste:grad>Novi Sad</opste:grad>
+                <opste:ulica>Lsla Gala</opste:ulica>
+                <opste:broj>21</opste:broj>
+                <opste:postanski_broj>21000</opste:postanski_broj>
+                <opste:drzava>Srbija</opste:drzava>
+            </opste:adresa>
+            <opste:ime>Pera</opste:ime>
+            <opste:prezime>Peric</opste:prezime>
+            <opste:jmbg>1234567891011</opste:jmbg>
+        </fizicko_lice>
+
+    </podaci_o_zajednickom_predstavniku>
+
+
+    <znak pismo="latinica" putanja="slika.png">
+        <vrsta_znaka>
+            <vrsta_enum>verbalni</vrsta_enum>
+        </vrsta_znaka>
+        <boje>
+
+            <boja>zelena</boja>
+
+            <boja>crvena</boja>
+
+        </boje>
+        <transliteracija_znaka>sdasdj</transliteracija_znaka>
+        <prevod>asdd</prevod>
+        <opis>Slovo r</opis>
+    </znak>
+
+    <!-- Pitanje -->
+    <nicanska_klasifikacija>
+        <broj>1. Hemijski proizvodi</broj>
+    </nicanska_klasifikacija>
+
+
+    <pravo_prvenstva zatrazeno="true">
+        <osnov>Hitno mi treba registracija</osnov>
+    </pravo_prvenstva>
+
+    <placene_takse>
+        <valuta>RSD</valuta>
+        <osnovna_taksa>100</osnovna_taksa>
+        <taksa_za_klasu>220</taksa_za_klasu>
+        <taksa_za_graficko_resenje>250</taksa_za_graficko_resenje>
+        <ukupno>580</ukupno>
+    </placene_takse>
+
+    <prilozi primerak_znaka_putanja="slika.png" punomocje_putanja="punomocje.png"
+        opsti_akt_o_kolektivnom_zigu_garancije_putanja = "akt.png"
+        dokaz_o_pravu_prvenstva_putanja = "slika.png"
+        dokaz_o_uplati_takse_putanja = "slika.png"
+        >
+        <spisak_roba_i_usluga>
+            <roba>Vestacko djubrivo</roba>
+        </spisak_roba_i_usluga>
+
+        <generalno_punomocje_ranije_prilozeno>false</generalno_punomocje_ranije_prilozeno>
+        <punomocje_ce_biti_naknadno_dostavljeno>false</punomocje_ce_biti_naknadno_dostavljeno>
+    </prilozi>
+
+</zahtev_za_priznanje_ziga>
