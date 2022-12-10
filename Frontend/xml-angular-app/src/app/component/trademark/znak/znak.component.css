@@ -9,6 +9,37 @@
     margin-bottom: 1rem;
 }
 
+.vrste-container {
+    margin-left: 4rem;
+    border: 2px solid var(--green);
+    background-color: var(--gray-transparent);
+    padding: 0.5rem;
+    border-radius: 1rem;  
+    min-height: 10rem;
+    margin-bottom: 1.5rem;  
+}
+
+.basic-data-container {
+    margin-left: 4rem;
+    border: 2px solid var(--green);
+    background-color: var(--gray-transparent);
+    padding: 0.5rem;
+    border-radius: 1rem;
+    min-width: 25rem;
+}
+
+mat-form-field, mat-expansion-panel {
+    margin-left: 1rem;
+}
+
+mat-form-field {
+    width: 12rem;
+}
+
+.vrste-container mat-radio-button {
+    display: block;
+}
+
 mat-radio-button {
     margin-left: 1rem;
 }
@@ -26,16 +57,11 @@ h2 {
 }
 
 .boje-ext-panel {
-    max-width: 16rem;
+    max-width: 18rem;
     margin-top: 1rem;
 }
 
 .buttons {
     display: flex;
     margin-top: 1rem;
-}
-
-.load-image {
-    margin-left: 1.5rem;
-    margin-top: 1.3rem;
 }

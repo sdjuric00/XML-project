@@ -11,8 +11,8 @@
 
   </div>
   <div *ngIf="tipPodnosioca==='Fizičko lice'">
-    <app-fizicko-lice [formGroup]="podnosilacFormGroup"></app-fizicko-lice>
+    <app-fizicko-lice  [isTrademark]="isTrademark" (dodatPodnosilac)="dodajPodnosioca($event)" [formGroup]="podnosilacFormGroup"></app-fizicko-lice>
   </div>
   <div *ngIf="tipPodnosioca!=='Fizičko lice'">
-    <app-pravno-lice [formGroup]="podnosilacFormGroup"></app-pravno-lice>
+    <app-pravno-lice [isTrademark]="isTrademark" (dodatPodnosilac)="dodajPodnosioca($event)" [formGroup]="podnosilacFormGroup"></app-pravno-lice>
   </div>

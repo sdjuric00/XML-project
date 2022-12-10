@@ -17,122 +17,150 @@
 
     <div [formGroup]="znakFormGroup" style="padding-left:8.5rem">
 
-        <div *ngIf="ostalo" style="display: flex;">
-            <mat-form-field appearance="fill" class="input-field">
-                <mat-label>Pismo</mat-label>
-                <input matInput placeholder="Pismo" formControlName="pismo">
-                <mat-error *ngIf="znakFormGroup.get('pismo')?.hasError('required')">
-                    Pismo je <strong>obavezno</strong> polje
-                </mat-error>
-                <mat-error *ngIf="znakFormGroup.get('pismo')?.hasError('pattern')">
-                    Pismo je <strong>predugacko</strong>
-                </mat-error>
-            </mat-form-field>
-    
-            <mat-form-field appearance="fill" class="input-field">
-                <mat-label>Transliteracija</mat-label>
-                <input matInput placeholder="Transliteracija" formControlName="transliteracijaZnaka">
-                <mat-error *ngIf="znakFormGroup.get('transliteracijaZnaka')?.hasError('required')">
-                    Transliteracija je <strong>obavezno</strong> polje
-                </mat-error>
-            </mat-form-field>
-    
-            <mat-form-field appearance="fill" class="input-field">
-                <mat-label>Prevod</mat-label>
-                <input matInput placeholder="Prevod" formControlName="prevod">
-                <mat-error *ngIf="znakFormGroup.get('prevod')?.hasError('required')">
-                    Prevod je <strong>obavezno</strong> polje
-                </mat-error>
-            </mat-form-field>
-        </div>
-
-        <div style="display: flex;">
-
-            <mat-form-field class="input-field" appearance="fill">
-                <mat-label>Vrsta znaka</mat-label>
-                <input type="text" placeholder="Vrsta znaka" aria-label="Number" matInput formControlName="vrstaZnaka"
-                    [matAutocomplete]="auto">
-                <mat-autocomplete #auto="matAutocomplete">
-                    <mat-option *ngFor="let znak of vrsteZnaka" [value]="znak">
-                        {{znak}}
-                    </mat-option>
-                </mat-autocomplete>
-                <mat-error *ngIf="znakFormGroup.get('vrstaZnaka')?.hasError('required')">
-                    Vrsta znaka je <strong>obavezna</strong>
-                </mat-error>
-                <mat-error *ngIf="znakFormGroup.get('vrstaZnaka')?.hasError('pattern')">
-                    Vrsta znaka je <strong>predugacka</strong>
-                </mat-error>
-            </mat-form-field>
-
-            <mat-form-field appearance="fill" class="input-field">
-                <mat-label>Opis</mat-label>
-                <input matInput placeholder="Opis" formControlName="opis">
-                <mat-error *ngIf="znakFormGroup.get('opis')?.hasError('required')">
-                    Opis je <strong>obavezno</strong> polje
-                </mat-error>
-                <mat-error *ngIf="znakFormGroup.get('opis')?.hasError('pattern')">
-                    Opis je <strong>predugacak</strong>
-                </mat-error>
-            </mat-form-field>
-
-            <mat-form-field appearance="fill" class="input-field">
-                <mat-label>Ničanska klasifikacija</mat-label>
-                <mat-select formControlName="nicanskaKlasifikacija">
-                    <mat-option *ngFor="let klasifikacija of klasifikacije" [value]="klasifikacija">
-                        {{klasifikacija}}
-                    </mat-option>
-                </mat-select>
-                <mat-error *ngIf="znakFormGroup.get('nicanskaKlasifikacija')?.hasError('required')">
-                    Klasifikacija je <strong>obavezno</strong> polje
-                </mat-error>
-            </mat-form-field>
-
-        </div>
-        
-        <div style="display: flex;">
-            <mat-form-field appearance="fill" class="input-field" style="margin-top: 1rem;">
-                <mat-label>Tip ziga</mat-label>
-                <mat-select formControlName="tipZig">
-                    <mat-option *ngFor="let tip of tipoviZiga" [value]="tip">
-                        {{tip}}
-                    </mat-option>
-                </mat-select>
-                <mat-error *ngIf="znakFormGroup.get('tipZig')?.hasError('required')">
-                    Tip ziga je <strong>obavezno</strong> polje
-                </mat-error>
-            </mat-form-field>
-
-            <div class="load-image">
-                <button type="button" mat-raised-button (click)="fileInput.click()">Dodaj znak<mat-icon>link</mat-icon></button>
-                <input hidden (change)="onFileSelected($event)" #fileInput type="file">
-                <span class="file-name">{{selectedImage?.name}}</span>
+        <div style="display: flex">
+            <div class="vrste-container">
+                <h3>Vrsta znaka</h3>
+                <mat-radio-group>
+                    <mat-radio-button class="example-radio-group" [value]="'verbalni'"
+                        (change)="changeVrstaZnaka('verbalni')" style="margin-right: 1rem" [checked]="vrstaZnaka === 'verbalni'">
+                        Verbalni
+                    </mat-radio-button>
+                    <mat-radio-button class="example-radio-group" [value]="'graficki'" (change)="changeVrstaZnaka('graficki')">
+                        Grafički
+                    </mat-radio-button>
+                    <mat-radio-button class="example-radio-group" [value]="'kombinovani'" (change)="changeVrstaZnaka('kombinovani')">
+                        Kombinovani
+                    </mat-radio-button>
+                    <mat-radio-button class="example-radio-group" [value]="'trodimenzionalni'"
+                        (change)="changeVrstaZnaka('trodimenzionalni')">
+                        Trodimenzionalni
+                    </mat-radio-button>
+                    <mat-radio-button class="example-radio-group" [value]="'Ostalo'" (change)="changeVrstaZnaka('Ostalo')">
+                        <mat-form-field appearance="fill" class="input-field">
+                            <mat-label>Ostale vrste</mat-label>
+                            <input #customVrsta matInput placeholder="Ostale vrste"
+                                (keyup)="changeCustomVrstaZnaka(customVrsta.value)"
+                                [disabled]="vrstaZnaka !== 'Ostalo'">
+                        </mat-form-field>
+                    </mat-radio-button>
+                </mat-radio-group>
             </div>
 
+            <div style="display: flex">
+                <div class="vrste-container" style="margin-right: 8rem;">
+                    <h3>Tip ziga</h3>
+                    <mat-radio-group>
+                        <mat-radio-button class="example-radio-group" [value]="'individualni'" (change)="changeTipZiga('individualni')"
+                            style="margin-right: 1rem">
+                            Individualni
+                        </mat-radio-button>
+                        <mat-radio-button class="example-radio-group" [value]="'kolektivni'" (change)="changeTipZiga('kolektivni')">
+                            Kolektivni
+                        </mat-radio-button>
+                        <mat-radio-button class="example-radio-group" [value]="'garancije'"
+                            (change)="changeTipZiga('garancije')">
+                            Garancije
+                        </mat-radio-button>
+                        <mat-radio-button class="example-radio-group" [value]="'Ostalo'" (change)="changeTipZiga('Ostalo')">
+                            <mat-form-field appearance="fill" class="input-field">
+                                <mat-label>Ostale vrste</mat-label>
+                                <input #customTip matInput placeholder="Ostale vrste"
+                                    (keyup)="changeCustomTipZiga(customTip.value)" [disabled]="tipZiga !== 'Ostalo'">
+                            </mat-form-field>
+                        </mat-radio-button>
+                    </mat-radio-group>
+                </div>
+            </div>
         </div>
 
-        <div style="display:flex;">
-            <mat-expansion-panel class="boje-ext-panel">
-                <mat-expansion-panel-header>
-                    <mat-panel-title> Dodaj boje </mat-panel-title>
-                </mat-expansion-panel-header>
-                <mat-chip-list class="boje-chips">
-                    <mat-chip *ngFor="let boja of boje">
-                        {{ boja }}
-                        <button matChipRemove>
-                            <mat-icon (click)="izbrisiBoju(boja)">cancel</mat-icon>
-                        </button>
-                    </mat-chip>
-                </mat-chip-list>
-                <br />
-                <mat-form-field appearance="fill" class="input-field">
-                    <mat-label>Boja</mat-label>
-                    <input #bojeInput matInput placeholder="Dodaj boju" (keyup.enter)="dodajBoju(bojeInput.value)">
-                    <mat-error *ngIf="znakFormGroup.get('boje')?.hasError('required')">
-                        Boje su <strong>obavezno</strong> polje
-                    </mat-error>
-                </mat-form-field>
-            </mat-expansion-panel>
+        <div style="display: flex;">
+            <div class="basic-data-container">
+
+                <div *ngIf="ostalo">
+                    <h3>Prevod</h3>
+
+                    <div style="display: flex;">
+                        <mat-form-field appearance="fill" class="input-field">
+                            <mat-label>Pismo</mat-label>
+                            <input matInput placeholder="Pismo" formControlName="pismo">
+                            <mat-error *ngIf="znakFormGroup.get('pismo')?.hasError('required')">
+                                Pismo je <strong>obavezno</strong> polje
+                            </mat-error>
+                            <mat-error *ngIf="znakFormGroup.get('pismo')?.hasError('pattern')">
+                                Pismo je <strong>predugacko</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    
+                        <mat-form-field appearance="fill" class="input-field">
+                            <mat-label>Transliteracija</mat-label>
+                            <input matInput placeholder="Transliteracija" formControlName="transliteracijaZnaka">
+                            <mat-error *ngIf="znakFormGroup.get('transliteracijaZnaka')?.hasError('required')">
+                                Transliteracija je <strong>obavezno</strong> polje
+                            </mat-error>
+                        </mat-form-field>
+                    
+                        <mat-form-field appearance="fill" class="input-field">
+                            <mat-label>Prevod</mat-label>
+                            <input matInput placeholder="Prevod" formControlName="prevod">
+                            <mat-error *ngIf="znakFormGroup.get('prevod')?.hasError('required')">
+                                Prevod je <strong>obavezno</strong> polje
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <h3>Osnovni podaci</h3>
+
+                <div style="display: flex;">
+                    <mat-form-field style="display: block;" appearance="fill" class="input-field">
+                        <mat-label>Opis</mat-label>
+                        <input matInput placeholder="Opis" formControlName="opis">
+                        <mat-error *ngIf="znakFormGroup.get('opis')?.hasError('required')">
+                            Opis je <strong>obavezno</strong> polje
+                        </mat-error>
+                        <mat-error *ngIf="znakFormGroup.get('opis')?.hasError('pattern')">
+                            Opis je <strong>predugacak</strong>
+                        </mat-error>
+                    </mat-form-field>
+                    
+                    <mat-form-field style="display: block;" appearance="fill" class="input-field">
+                        <mat-label>Ničanska klasifikacija</mat-label>
+                        <mat-select formControlName="nicanskaKlasifikacija">
+                            <mat-option *ngFor="let klasifikacija of klasifikacije" [value]="klasifikacija">
+                                {{klasifikacija}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="znakFormGroup.get('nicanskaKlasifikacija')?.hasError('required')">
+                            Klasifikacija je <strong>obavezno</strong> polje
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div style="display:flex;">
+                    <mat-expansion-panel class="boje-ext-panel">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title> Dodaj boje </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <mat-chip-list class="boje-chips">
+                            <mat-chip *ngFor="let boja of boje">
+                                {{ boja }}
+                                <button matChipRemove>
+                                    <mat-icon (click)="izbrisiBoju(boja)">cancel</mat-icon>
+                                </button>
+                            </mat-chip>
+                        </mat-chip-list>
+                        <br />
+                        <mat-form-field appearance="fill" class="input-field">
+                            <mat-label>Boja</mat-label>
+                            <input #bojeInput matInput placeholder="Dodaj boju">
+                            <mat-error *ngIf="znakFormGroup.get('boje')?.hasError('required')">
+                                Boje su <strong>obavezno</strong> polje
+                            </mat-error>
+                        </mat-form-field>
+                        <button class="add-button" mat-raised-button (click)="dodajBoju(bojeInput.value)">Dodaj</button>
+                    </mat-expansion-panel>
+                </div>
+            </div>
         </div>
 
     </div>
@@ -140,7 +168,7 @@
     <div class="buttons">
         <button style="margin-left:40.7rem" class="previous-button" mat-raised-button matStepperPrevious>Nazad</button>
         <!--    [disabled]="punomocnikFormGroup.invalid"-->
-        <button style="margin-left:1rem" class="next-button" mat-raised-button matStepperNext [disabled]="checkIfFormNotValid()">Dalje</button>
+        <button style="margin-left:1rem" class="next-button" mat-raised-button matStepperNext [disabled]="znakFormGroup.invalid">Dalje</button>
     </div>
 </div>
 

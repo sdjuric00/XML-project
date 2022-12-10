@@ -25,7 +25,7 @@
     <mat-step [stepControl]="podnosilacFormGroup" >
       <form [formGroup]="podnosilacFormGroup" class="stepper-container">
         <ng-template matStepLabel>Podnosilac</ng-template>
-          <app-podnosilac></app-podnosilac>
+          <app-podnosilac [isTrademark]="false"></app-podnosilac>
       </form>
     </mat-step>
     <mat-step [stepControl]="pronalazacFormGroup" >

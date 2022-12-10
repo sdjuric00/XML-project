@@ -4,8 +4,8 @@
         <mat-stepper #stepper>
             <mat-step [stepControl]="podnosilacFormGroup">
                 <form [formGroup]="podnosilacFormGroup">
-                    <ng-template matStepLabel>Podnosilac</ng-template>
-                    <app-podnosilac></app-podnosilac>
+                    <ng-template matStepLabel>Podnosioci</ng-template>
+                    <app-podnosilac [isTrademark]="true"></app-podnosilac>
                 </form>
             </mat-step>
 

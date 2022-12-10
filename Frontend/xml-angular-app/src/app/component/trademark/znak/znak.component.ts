@@ -15,17 +15,17 @@ export class ZnakComponent implements OnInit {
   ostalo: boolean = false;
   
   boje: string[] = [];
-  klasifikacije: string[] = ['1. Hemijski proizvodi'];
-  tipoviZiga: string[] = ['individualni', 'kolektivni', 'garancije'];
+  klasifikacije: string[] = ['1. Hemijski proizvodi', '2. Boje i lakovi', '3. Nemedicinska kozmetika',
+  '4. Industrija ulja i masti', '5. Farmaceutski proizvodi'];
 
-  selectedImage: any = null;
+  vrstaZnaka: string = '';
+  tipZiga: string = '';
 
   constructor(private controlContainer: ControlContainer) { }
 
-  vrsteZnaka: string[] = ['verbalni', 'graficki', 'kombinovani', 'trodimenzionalni']
-
   ngOnInit(): void {
     this.znakFormGroup = <FormGroup>this.controlContainer.control;
+    this.notOstalo();
   }
 
   changePismoToCirilicno(): void {
@@ -39,9 +39,6 @@ export class ZnakComponent implements OnInit {
   notOstalo(): void {
     this.znakFormGroup.get('transliteracijaZnaka')?.setValidators([]);
     this.znakFormGroup.get('prevod')?.setValidators([]);
-    this.znakFormGroup.reset();
-    this.znakFormGroup.markAsPristine();
-    this.znakFormGroup.markAsUntouched();
   }
 
   changePismoToLatinicno(): void {
@@ -57,15 +54,10 @@ export class ZnakComponent implements OnInit {
     this.latinica = false;
     this.ostalo = true;
     this.znakFormGroup.get('pismo')?.setValue('')
+    this.znakFormGroup.get('transliteracijaZnaka')?.setValue('')
+    this.znakFormGroup.get('prevod')?.setValue('')
     this.znakFormGroup.get('transliteracijaZnaka')?.setValidators([Validators.required]);
     this.znakFormGroup.get('prevod')?.setValidators([Validators.required]);
-    this.znakFormGroup.reset();
-    this.znakFormGroup.markAsPristine();
-    this.znakFormGroup.markAsUntouched();
-  }
-
-  onFileSelected(event: any): void {
-    this.selectedImage = event.target.files[0] ?? null;
   }
 
   izbrisiBoju(boja: string): void {
@@ -84,13 +76,34 @@ export class ZnakComponent implements OnInit {
     this.znakFormGroup.get('boje')?.setValue(this.boje);
   }
 
-  checkIfFormNotValid(): boolean {
-    if (this.boje.length <= 0 || this.selectedImage === null) {
-      
-      return true;
+  changeVrstaZnaka(value: any) {
+    this.vrstaZnaka = value;
+    if (value !== 'Ostalo'){
+      this.znakFormGroup?.controls['vrstaZnaka']?.setValue(value);
     }
+    else {
+      this.znakFormGroup?.controls['vrstaZnaka']?.setValue('');
+    }
+  }
 
-    return true;
+  changeCustomVrstaZnaka(value: string) {
+    this.vrstaZnaka = 'Ostalo';
+    this.znakFormGroup?.controls['vrstaZnaka']?.setValue(value);
+  }
+
+  changeTipZiga(value: any) {
+    this.tipZiga = value;
+    if (value !== 'Ostalo'){
+      this.znakFormGroup?.controls['tipZig']?.setValue(value);
+    }
+    else {
+      this.znakFormGroup?.controls['tipZig']?.setValue('');
+    }
+  }
+
+  changeCustomTipZiga(value: string) {
+    this.tipZiga = 'Ostalo';
+    this.znakFormGroup?.controls['tipZig']?.setValue(value);
   }
 
 }

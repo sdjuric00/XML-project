@@ -25,8 +25,10 @@ export class TrademarkApplicationComponent implements OnInit {
   }
 
   podnosilacFormGroup = this._formBuilder.group({
+    podnosioci: new FormControl([], [Validators.required]),
     tipPodnosioca: new FormControl('Fizičko lice'),
     podnosilacAutor: new FormControl(false),
+    podaciOZajednickomPredstavniku: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
     telefon: new FormControl('', [Validators.required, Validators.pattern("[0-9]{8,12}")]),
     fax: new FormControl('', [Validators.required, Validators.pattern("[0][0-9]{8,9}")]),
@@ -62,7 +64,6 @@ export class TrademarkApplicationComponent implements OnInit {
 
   znakFormGroup = this._formBuilder.group({
     pismo: new FormControl('Cirilica', [Validators.required,Validators.maxLength(50)]),
-    putanja: new FormControl('', [Validators.required]),
     vrstaZnaka: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     boje: new FormControl([], [Validators.required, Validators.maxLength(50)]),
     transliteracijaZnaka: new FormControl(''),
@@ -86,7 +87,7 @@ export class TrademarkApplicationComponent implements OnInit {
     generalnoPunomocjeRanijePrilozeno: new FormControl(false, [Validators.required]),
     punomocjeNaknadnoDostavljeno: new FormControl(false, [Validators.required]),
     primerakZnakaPutanja: new FormControl('', [Validators.required]),
-    punomocjePutanja: new FormControl('', [Validators.required]),
+    punomocjePutanja: new FormControl('', []),
     opstiAktOKolektivnoZiguPutanja: new FormControl('', [Validators.required]),
     dozakOPravuPrvenstvaPutanja: new FormControl('', []),
     dokazOUplatiTaksePutanja: new FormControl('', [Validators.required]),

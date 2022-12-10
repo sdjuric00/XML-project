@@ -24,24 +24,25 @@
                                 <xs:attribute name="punomocje_putanja" type="xs:string"/>
                                 <xs:attribute name="opsti_akt_o_kolektivnom_zigu_garancije_putanja"
                                     type="xs:string"/>
-                                <xs:attribute name="dokaz_o_pravu_prvenstva_putanja" type="xs:string"/>
+                                <xs:attribute name="dokaz_o_pravu_prvenstva_putanja"
+                                    type="xs:string"/>
                                 <xs:attribute name="dokaz_o_uplati_takse_putanja" type="xs:string"/>
                             </xs:extension>
                         </xs:complexContent>
                     </xs:complexType>
                 </xs:element>
             </xs:sequence>
-        <xs:attribute name="broj_prijave">
-            <xs:simpleType>
-                <xs:restriction base="xs:string">
-                    <xs:pattern value="[Z][-][0-9]{4}[/][0-9]+"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute name="datum_podnosenja" type="xs:date"/>
-        <xs:attribute name="pregledano" type="xs:boolean"/>
-        <xs:attribute name="zig" type="xs-z:zig"/>
-    </xs:complexType>
+            <xs:attribute name="broj_prijave">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="[Z][-][0-9]{4}[/][0-9]+"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="datum_podnosenja" type="xs:date"/>
+            <xs:attribute name="pregledano" type="xs:boolean"/>
+            <xs:attribute name="zig" type="xs-z:zig"/>
+        </xs:complexType>
     </xs:element>
     <xs:simpleType name="zig">
         <xs:restriction base="xs:string">
@@ -70,7 +71,6 @@
             <xs:element name="opis" type="xs:string"/>
         </xs:sequence>
         <xs:attribute name="pismo" type="xs:string"/>
-        <xs:attribute name="putanja" type="xs:string"/>
     </xs:complexType>
     <xs:simpleType name="vrsta_znaka_enum">
         <xs:restriction base="xs:string">

@@ -1,7 +1,7 @@
 <div *ngIf="takseIPriloziFormGroup" class="main-container">
     <div [formGroup]="takseIPriloziFormGroup">
         <h2 style="padding-left:5.5rem">
-            Takse & Prilozi <mat-checkbox formControlName="pravoPrvenstvaZatrazeno" style="float:right; margin-right: 8rem"
+            Takse & Prilozi <mat-checkbox (click)="pravoPrvenstvaZatrazeno()" formControlName="pravoPrvenstvaZatrazeno" style="float:right; margin-right: 8rem"
                 >Pravo prvenstva</mat-checkbox>
         </h2>
     </div>
@@ -18,7 +18,7 @@
     <div class="buttons">
         <button style="margin-left:40.7rem" class="previous-button" mat-raised-button matStepperPrevious>Nazad</button>
         <!--    [disabled]="punomocnikFormGroup.invalid"-->
-        <button style="margin-left:1rem" class="next-button" mat-raised-button matStepperNext>Dalje</button>
+        <button style="margin-left:1rem" class="next-button" [disabled]="takseIPriloziFormGroup.invalid" mat-raised-button matStepperNext>Dalje</button>
     </div>
 
 </div>

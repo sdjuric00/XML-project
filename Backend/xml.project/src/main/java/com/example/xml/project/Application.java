@@ -3,6 +3,7 @@ package com.example.xml.project;
 import com.example.xml.project.model.A1.ZahteviAutorskaDela;
 import com.example.xml.project.model.Korisnici.Korisnici;
 
+import com.example.xml.project.model.P1.ZahtevPatent;
 import com.example.xml.project.model.Z1.ZahtevZig;
 import com.example.xml.project.model.Z1.ZahteviZig;
 import com.example.xml.project.model.P1.ZahteviPatenti;
@@ -19,12 +20,12 @@ public class Application {
 	public static void main(String[] args) {
 
 	SpringApplication.run(Application.class, args);
-		try{
+//		try{
 //
-			JAXBContext jc = JAXBContext.newInstance(ZahteviPatenti.class);
-			Unmarshaller unmarshaller = jc.createUnmarshaller();
-			File xml = new File("./data/P-1.xml");
-//			ZahteviPatenti zahteviPatenti = (ZahteviPatenti) unmarshaller.unmarshal(xml);
+//			JAXBContext jc = JAXBContext.newInstance(ZahtevPatent.class);
+//			Unmarshaller unmarshaller = jc.createUnmarshaller();
+//			File xml = new File("./data/P-1.xml");
+//			ZahtevPatent zahteviPatenti = (ZahtevPatent) unmarshaller.unmarshal(xml);
 //
 //			jc = JAXBContext.newInstance(Korisnici.class);
 //			unmarshaller = jc.createUnmarshaller();
@@ -37,16 +38,16 @@ public class Application {
 //			xml = new File("./data/A-1.xml");
 //			ZahteviAutorskaDela zahteviAutoskaDela = (ZahteviAutorskaDela) unmarshaller.unmarshal(xml);
 //
-			jc = JAXBContext.newInstance(ZahtevZig.class);
-			unmarshaller = jc.createUnmarshaller();
-			xml = new File("./data/Z-1.xml");
-			ZahtevZig zahteviZig = (ZahtevZig) unmarshaller.unmarshal(xml);
+//			jc = JAXBContext.newInstance(ZahtevZig.class);
+//			unmarshaller = jc.createUnmarshaller();
+//			xml = new File("./data/Z-1.xml");
+//			ZahtevZig zahteviZig = (ZahtevZig) unmarshaller.unmarshal(xml);
 //
 //
-			System.out.println("USPESNO");
-		}catch (Exception ex){
-			System.out.println(ex.getMessage());
-		}
+//			System.out.println("USPESNO");
+//		}catch (Exception ex){
+//			System.out.println(ex.getMessage());
+//		}
 	}
 
 }
