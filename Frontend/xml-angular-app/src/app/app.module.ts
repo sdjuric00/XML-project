@@ -19,6 +19,9 @@ import { PatentApplicationComponent } from './component/patent-application/paten
 import { ZaglavljeComponent } from './component/zaglavlje/zaglavlje.component';
 import { PunomocnikComponent } from './component/punomocnik/punomocnik.component';
 import { AutorskoDeloComponent } from './component/autorsko-delo/autorsko-delo.component';
+import { ImenovaniAutorComponent } from './component/imenovani-autor/imenovani-autor.component';
+import { AutoriComponent } from './component/autori/autori.component';
+import { PriloziComponent } from './component/prilozi/prilozi.component';
 import { TrademarkApplicationComponent } from './component/trademark/trademark-application/trademark-application.component';
 import { ZnakComponent } from './component/trademark/znak/znak.component';
 import { TaksePriloziComponent } from './component/trademark/takse-prilozi/takse-prilozi.component';
@@ -45,6 +48,9 @@ import { PrvobitnaPrijavaComponent } from './component/prvobitna-prijava/prvobit
     ZaglavljeComponent,
     PunomocnikComponent,
     AutorskoDeloComponent,
+    ImenovaniAutorComponent,
+    AutoriComponent,
+    PriloziComponent,
     TrademarkApplicationComponent,
     ZnakComponent,
     TaksePriloziComponent,
@@ -65,6 +71,7 @@ import { PrvobitnaPrijavaComponent } from './component/prvobitna-prijava/prvobit
     MaterialModule,
     BrowserAnimationsModule,
     MatRadioModule,
+    FormsModule,
     MatChipsModule,
     FormsModule
   ],

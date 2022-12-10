@@ -1,0 +1,18 @@
+.example-radio-group {
+  display: inline;
+  flex-direction: column;
+  align-items: start;
+  margin: 15px 0.5rem;
+}
+
+.error-font {
+  font-size: 0.8rem !important;
+}
+
+.mat-radio-label {
+  margin-bottom: 0.5rem !important;
+}
+
+.mat-radio-label-content {
+  margin-left: 0.3rem !important;
+}

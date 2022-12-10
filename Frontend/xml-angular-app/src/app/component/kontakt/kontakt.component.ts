@@ -15,6 +15,7 @@ export class KontaktComponent implements OnInit {
 
   ngOnInit(): void {
     this.podnosilacFormGroup = <FormGroup>this.controlContainer.control;
+    console.log(this.podnosilacFormGroup);
   }
 
 }

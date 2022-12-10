@@ -7,14 +7,14 @@ import {ControlContainer, FormGroup} from "@angular/forms";
   styleUrls: ['./fizicko-lice.component.css']
 })
 export class FizickoLiceComponent implements OnInit {
-  public podnosilacFormGroup: FormGroup;
+  public formGroup: FormGroup;
 
   constructor(private controlContainer: ControlContainer) {
-    this.podnosilacFormGroup = <FormGroup>this.controlContainer.control;
+    this.formGroup = <FormGroup>this.controlContainer.control;
   }
 
   ngOnInit(): void {
-    this.podnosilacFormGroup = <FormGroup>this.controlContainer.control;
+    this.formGroup = <FormGroup>this.controlContainer.control;
+    console.log(this.formGroup);
   }
-
 }

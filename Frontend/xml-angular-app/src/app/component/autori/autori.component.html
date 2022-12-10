@@ -1,0 +1,45 @@
+<div *ngIf="autoriFormGroup" [formGroup]="autoriFormGroup" class="autori-container">
+  <h2 style="padding-left:2rem">Autori</h2>
+
+  <div style="padding-left:2rem; margin-bottom: 1rem">
+    <h3>Dodati autori</h3>
+    <mat-chip-list style="margin-top: 1rem" #chipList>
+      <mat-chip
+        *ngFor="let autor of autori"
+        (removed)="izbrisiAutora(autor)">
+        <div *ngIf="autor.ime === ''">
+          anonimni autor
+        </div>
+        <div *ngIf="autor.ime !== ''">
+          {{autor.ime}} {{autor.prezime}}
+        </div>
+        <button matChipRemove>
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </mat-chip>
+    </mat-chip-list>
+  </div>
+  <div style="padding-left: 2rem">
+
+    <div style="margin-left:0.5rem; margin-right:0.5rem;background-color: var(--gray-transparent); padding: 0.5rem;">
+        <h3>Podaci o autoru
+          <mat-checkbox style="float:right; margin-right: 0.35rem" (change)="changeAnonimniAutor()" formControlName="anonimniAutor">
+            Anonimni autor
+          </mat-checkbox>
+        </h3>
+        <div *ngIf="anonimniAutor">
+          <button class="add-button" mat-raised-button (click)="dodajAnonimnogAutora()">Dodaj</button>
+        </div>
+        <app-imenovani-autor (dodatAutor)="addAutor($event)" *ngIf="!anonimniAutor" [formGroup]="autoriFormGroup" [tipForme]="tipForme"></app-imenovani-autor>
+      </div>
+
+
+  </div>
+
+  <div style="display: flex">
+    <button style="margin-left:40.7rem" class="previous-button" mat-raised-button matStepperPrevious>Nazad</button>
+    <!--    [disabled]="punomocnikFormGroup.invalid"-->
+    <button style="margin-left:1rem" class="next-button" mat-raised-button matStepperNext [disabled]="">Dalje</button>
+  </div>
+</div>
+

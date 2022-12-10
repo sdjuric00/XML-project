@@ -57,6 +57,19 @@ body {
   border: 2px solid var(--deep-blue) !important;
 }
 
+.add-button {
+  background-color: rgba(104, 202, 68, 0.16) !important;
+  color: var(--deep-blue) !important;
+  border: 2px solid var(--deep-blue) !important;
+  margin-top: 0.5rem !important;
+  margin-left: 0.5rem !important;
+
+}
+
+.previous-button:hover{
+  background-color: rgba(104, 202, 68, 0.34) !important;
+}
+
 .previous-button:hover{
   background-color: rgba(104, 202, 68, 0.34) !important;
 }
@@ -2297,6 +2310,13 @@ td.mat-footer-cell {
 }
 .mat-select-disabled .mat-select-value {
   color: rgba(0, 0, 0, 0.38);
+}
+.mat-radio-label-content{
+  margin-left: 0.5rem !important;
+}
+
+.mat-radio-label {
+  margin-bottom: 0.5rem !important;
 }
 .mat-select-arrow {
   color: rgba(0, 0, 0, 0.54);

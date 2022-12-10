@@ -1,0 +1,59 @@
+<div *ngIf="formGroup">
+  <div [formGroup]="formGroup" >
+    <div style="display: flex">
+      <mat-form-field appearance="fill" class="input-field">
+        <mat-label>Ime</mat-label>
+        <input matInput placeholder="Ime" formControlName="ime">
+        <mat-error *ngIf="formGroup.get('ime')?.hasError('required')">
+          Ime je <strong>obavezno</strong> polje
+        </mat-error>
+        <mat-error *ngIf="formGroup.get('ime')?.hasError('pattern')">
+          Unesite ispravno ime (do 50 karaktera)
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="input-field">
+        <mat-label>Prezime</mat-label>
+        <input matInput placeholder="Prezime" formControlName="prezime">
+        <mat-error *ngIf="formGroup.get('prezime')?.hasError('required')">
+          Prezime je <strong>obavezno</strong> polje
+        </mat-error>
+        <mat-error *ngIf="formGroup.get('prezime')?.hasError('pattern')">
+          Unesite ispravno prezime (do 50 karaktera)
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="input-field">
+        <mat-label>Državljanstvo</mat-label>
+        <input matInput placeholder="Državljanstvo" formControlName="drzavljanstvo">
+        <mat-error *ngIf="formGroup.get('drzavljanstvo')?.hasError('required')">
+          Državljanstvo je <strong>obavezno</strong> polje
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div style="display: flex">
+      <mat-form-field appearance="fill" class="input-field">
+        <mat-label>Godina smrti</mat-label>
+        <input matInput placeholder="Godina smrti" formControlName="godinaSmrti">
+
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="input-field">
+        <mat-label>Pseudonim</mat-label>
+        <input matInput placeholder="Pseudonim" formControlName="pseudonim">
+      </mat-form-field>
+
+    </div>
+
+  </div>
+
+  <div style="display: flex; margin-top: 1.1rem; padding-bottom: 0.5rem">
+    <app-kontakt [formGroup]="formGroup" style="display: inline; border: 2px solid var(--green); background-color: var(--gray-transparent); padding: 0.5rem; border-radius: 5% "></app-kontakt>
+    <app-adresa [formGroup]="formGroup" style="margin-left:2rem; border: 2px solid var(--green); background-color: var(--gray-transparent); padding: 0.5rem; border-radius: 5% "></app-adresa>
+  </div>
+
+  <div *ngIf="tipForme === 'AUTORI'">
+    <button class="add-button" mat-raised-button [disabled]="formGroup.invalid" (click)="dodajAutora()">Dodaj</button>
+  </div>
+</div>
+
+
