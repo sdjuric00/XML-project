@@ -1,13 +1,20 @@
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Adresa } from 'src/app/model/opste/adresa';
 import { FizickoLice } from 'src/app/model/opste/fizicko-lice';
 import { Institucija } from 'src/app/model/opste/institucija';
+import { Kontakt } from 'src/app/model/opste/kontakt';
 import { PravnoLice } from 'src/app/model/opste/pravno-lice';
+import { Dostavljanje } from 'src/app/model/patent/dostavljanje';
+import { ImenovaniPronalazac } from 'src/app/model/patent/imenovani-pronalazac';
 import { Naziv } from 'src/app/model/patent/naziv';
 import { Patent } from 'src/app/model/patent/patent';
+import { PodaciOPronalasku } from 'src/app/model/patent/podaci_o_pronalasku';
 import { Podnosilac } from 'src/app/model/patent/podnosilac';
+import { Prijava } from 'src/app/model/patent/prijava';
 import { PronalazacP } from 'src/app/model/patent/pronalazac-p';
+import { PunomocnikP } from 'src/app/model/patent/punomocnik-p';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -16,9 +23,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./patent-application.component.css']
 })
 export class PatentApplicationComponent {
-  constructor(private formBuilder: FormBuilder) {
-    console.log(formBuilder);
-  }
+  constructor(private formBuilder: FormBuilder, private http: HttpClient) {}
 
   nazivFormGroup = this.formBuilder.group({
     nazivSrpskiCtrl: new FormControl(''),
@@ -94,8 +99,30 @@ export class PatentApplicationComponent {
     elektronski: new FormControl(false),
     pismeno: new FormControl(false)
   });
+  getPodaciOPronalasku(): PodaciOPronalasku{
 
-  /*getNewConsent(): Patent {
+    let podaci: Naziv[] = [];
+    let nazivSrpski:Naziv = {
+    naziv:{
+        "@": {jezik: "srpski"},
+        "#": this.nazivFormGroup.get('nazivSrpskiCtrl').value
+      
+    }};
+
+    let nazivEngleski:Naziv = {
+      naziv:{
+        "@": {jezik: "engleski"},
+        "#": this.nazivFormGroup.get('nazivEngleskiCtrl').value
+      }
+    };
+    podaci.push(nazivSrpski);
+    podaci.push(nazivEngleski);
+
+  
+    return {"#": podaci};
+      
+  }
+  getPatent(): Patent {
 
     let institucija: Institucija = {
       "opste:naziv": "Zavod za intelektualnu svojinu",
@@ -108,93 +135,54 @@ export class PatentApplicationComponent {
       }
     }
 
-    let podaci_o_pronalasku: Naziv[] = [
-      {
-        "@":{jezik: "srpski"},
-        "naziv": this.nazivFormGroup.get('nazivSrpskiCtrl').value
-      },
-      {
-        "@":{jezik: "engleski"},
-        "naziv": this.nazivFormGroup.get('nazivEngleskiCtrl').value
-      }
-    ]*/
 
-    /*let podnosilac = this.getPodnosilac();
     let patent: Patent = {
-      Patent: {
+      zahtev_za_priznavanje_patenta: {
         "@": {
-          "xmlns": "http://www.vakc-sistem.rs/saglasnost-za-imunizaciju",
+          "xmlns": "http://www.patent/patent",
           "xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
-          "xmlns:util": "http://www.vakc-sistem.rs/util",
-          "xsi:schemaLocation": "http://www.vakc-sistem.rs/saglasnost-za-imunizaciju saglasnost_za_imunizaciju.xsd",
+          "xmlns:opste": "http://ftn.ac.rs/opste",
           broj_prijave:"",
           datum_prijema:"",
           priznati_datum_podnosenja:"",
           dopunska_prijava:false
         },
         institucija: institucija,
-        podaci_o_pronalasku: podaci_o_pronalasku,
-        podnosilac: podnosilac,
-        pronalazac: this.Kontakt,
-        punomocnik:,
-        dostavljanje:,
-        zahtev_za_priznanje_prava_iz_ranijih_prijava:
+        podaci_o_pronalasku: this.getPodaciOPronalasku(),
+        podnosilac: this.getPodnosilac(),
+        pronalazac: this.getPronalazac(),
+        punomocnik: this.getPunomocnik(),
+        dostavljanje: this.getDostavljanje(),
+        zahtev_za_priznanje_prava_iz_ranijih_prijava: this.getPrijave(),
       }
     }
     return patent;
+
   }
 
   getPodnosilac(): Podnosilac{
     if(this.podnosilacFormGroup.get('ime')?.value !== ""){
-      let fizicko_lice: FizickoLice = {
-      
-        "opste:kontakt":{
-          "opste:email": 
-          "opste:telefon": this.podnosilacFormGroup.get('telefon')?.value,
-          "opste:fax": this.podnosilacFormGroup.get('fax')?.value
-        },
-        "opste:adresa":this.getAdresa(this.podnosilacFormGroup),
-        "opste:ime": this.podnosilacFormGroup.get('ime')?.value,
-        "opste:prezime": this.podnosilacFormGroup.get('prezime')?.value,
-        "opste:jmbg": this.podnosilacFormGroup.get('jmbg')?.value
-      }
+     
       return {
         "@": {
           autor: this.podnosilacFormGroup.get('podnosilacAutor')?.value,
         },
-        "opste:fizicko-lice": fizicko_lice,
+        "opste:fizicko-lice": this.getFizickoLice(this.podnosilacFormGroup),
       }
     }
     else{
-      let pravno_lice: PravnoLice = {
-      
-        "opste:kontakt":{
-          "opste:email": this.podnosilacFormGroup.get('email')?.value,
-          "opste:telefon": this.podnosilacFormGroup.get('telefon')?.value,
-          "opste:fax": this.podnosilacFormGroup.get('fax')?.value
-        },
-        "opste:adresa": {
-          "opste:ulica": this.podnosilacFormGroup.get('ulica')?.value,
-          "opste:broj": this.podnosilacFormGroup.get('broj')?.value,
-          "opste:grad": this.podnosilacFormGroup.get('grad')?.value,
-          "opste:postanski_broj": this.podnosilacFormGroup.get('postanski_broj')?.value,
-          "opste:drzava": this.podnosilacFormGroup.get('drzava')?.value
-        },
-        "opste:naziv": this.podnosilacFormGroup.get('naziv')?.value,
-        "opste:pib": this.podnosilacFormGroup.get('pib')?.value,
-        "opste:registarski_broj": this.podnosilacFormGroup.get('registarski_broj')?.value
-      }
+
       return {
         "@": {
           "autor": this.podnosilacFormGroup.get('podnosilacAutor')?.value,
         },
-        "opste:pravno-lice": pravno_lice,
+        "opste:pravno-lice": this.getPravnoLice(this.podnosilacFormGroup),
       }
     }
   }
 
   getPronalazac() : PronalazacP{
-    if(this.pronalazacFormGroup.get('ime')?.value !== "" && this.pronalazacFormGroup.get('naziv')?.value !== ""){
+    if(this.pronalazacFormGroup.get('ime')?.value === "" && this.pronalazacFormGroup.get('naziv')?.value === ""){
       return{
         "@":{
           anoniman: true
@@ -204,180 +192,139 @@ export class PatentApplicationComponent {
     }
     else{
       if(this.pronalazacFormGroup.get('ime')?.value !== ""){
-        let fizicko_lice: FizickoLice = {
-        
-          "opste:kontakt":{
-            "opste:email": this.pronalazacFormGroup.get('email')?.value,
-            "opste:telefon": this.pronalazacFormGroup.get('telefon')?.value,
-            "opste:fax": this.pronalazacFormGroup.get('fax')?.value
-          },
-          "opste:adresa": {
-            "opste:ulica": this.pronalazacFormGroup.get('ulica')?.value,
-            "opste:broj": this.pronalazacFormGroup.get('broj')?.value,
-            "opste:grad": this.pronalazacFormGroup.get('grad')?.value,
-            "opste:postanski_broj": this.pronalazacFormGroup.get('postanski_broj')?.value,
-            "opste:drzava": this.podnosilacFormGroup.get('drzava')?.value
-          },
-          "opste:ime": this.pronalazacFormGroup.get('ime')?.value,
-          "opste:prezime": this.pronalazacFormGroup.get('prezime')?.value,
-          "opste:jmbg": this.pronalazacFormGroup.get('jmbg')?.value
+
+        let imenovani_pronalazac: ImenovaniPronalazac = {
+          "fizicko_lice" : this.getFizickoLice(this.pronalazacFormGroup)
         }
         return {
           "@": {
             anoniman: false
           },
-          "imenovani_pronalazac": fizicko_lice
+          "imenovani_pronalazac": imenovani_pronalazac
         }
       }
       else{
-        let pravno_lice: PravnoLice = {
-        
-          "opste:kontakt":{
-            "opste:email": this.pronalazacFormGroup.get('email')?.value,
-            "opste:telefon": this.pronalazacFormGroup.get('telefon')?.value,
-            "opste:fax": this.pronalazacFormGroup.get('fax')?.value
-          },
-          "opste:adresa": this.getAdresa(this.pronalazacFormGroup),
-          "opste:naziv": this.pronalazacFormGroup.get('naziv')?.value,
-          "opste:pib": this.pronalazacFormGroup.get('pib')?.value,
-          "opste:registarski_broj": this.pronalazacFormGroup.get('registarski_broj')?.value
+       
+
+        let imenovani_pronalazac: ImenovaniPronalazac = {
+          "pravno_lice": this.getPravnoLice(this.pronalazacFormGroup)
         }
         return {
           "@": {
             anoniman: false
           },
-          "imenovani_pronalazac": pravno_lice,
+          "imenovani_pronalazac": imenovani_pronalazac,
         }
+      }
+    }
+  }
+
+  getPunomocnik(): PunomocnikP {
+    if(this.podnosilacFormGroup.get('ime')?.value !== ""){
+     
+      return {
+        "@":{
+          za_zastupanje: this.punomocnikFormGroup.get('zaZastupanje').value,
+          za_prijem_pismeno: this.punomocnikFormGroup.get('zaPismeno').value
+      },
+      fizicko_lice: this.getFizickoLice(this.punomocnikFormGroup)
+      }
+    }
+    else{
+
+      return {
+        "@":{
+          za_zastupanje: this.punomocnikFormGroup.get('zaZastupanje').value,
+          za_prijem_pismeno: this.punomocnikFormGroup.get('zaPismeno').value
+      },
+      pravno_lice: this.getPravnoLice(this.punomocnikFormGroup)
       }
     }
   }
 
   getAdresa(formGroup: FormGroup): Adresa{
-
+    /*let ulica = formGroup.get('ulica')?.value;
+    console.log(ulica);
+    let imeUlice = "";
+    let broj = "";
+    if(ulica != ""){
+      let imeUlice = ulica.split(" ")[0];
+      let broj = ulica.split(" ")[1];
+    }*/
     let adresa = {
       "opste:ulica": formGroup.get('ulica')?.value,
       "opste:broj": formGroup.get('broj')?.value,
       "opste:grad": formGroup.get('grad')?.value,
-      "opste:postanski_broj": formGroup.get('postanski_broj')?.value,
+      "opste:postanski_broj": formGroup.get('postanskiBroj')?.value,
       "opste:drzava": formGroup.get('drzava')?.value
     }
     return adresa;
   }
 
+  getKontakt(formGroup: FormGroup): Kontakt{
+    let kontakt = {
+      "opste:email": formGroup.get('email')?.value,
+      "opste:telefon": formGroup.get('telefon')?.value,
+      "opste:fax": formGroup.get('fax')?.value
+    }
+    return kontakt;
+  }
+
+ getPravnoLice(formGroup: FormGroup): PravnoLice{
+    let pravno_lice = {
+      "opste:kontakt":this.getKontakt(formGroup),
+      "opste:adresa": this.getAdresa(formGroup),
+      "opste:naziv": formGroup.get('naziv')?.value,
+      "opste:pib": formGroup.get('pib')?.value,
+      "opste:registarski_broj": formGroup.get('registarski_broj')?.value
+    }
+    return pravno_lice;
+  }
+
+  getDostavljanje(): Dostavljanje{
+    return {
+      "@":{
+        elektronski: this.dostavljanjeFormGroup.get('elektronski').value,
+        pismeno:this.dostavljanjeFormGroup.get('pismeno').value
+    },
+    "adresa": this.getAdresa(this.dostavljanjeFormGroup)
+    }
+  }
+
+  getFizickoLice(formGroup: FormGroup): FizickoLice{
+    let fizicko_lice = {
+      "opste:kontakt":this.getKontakt(formGroup),
+      "opste:adresa": this.getAdresa(formGroup),
+      "opste:ime": formGroup.get('ime')?.value,
+      "opste:prezime": formGroup.get('prezime')?.value,
+      "opste:jmbg": formGroup.get('jmbg')?.value
+    }
+
+    return fizicko_lice;
+  }
+
+  getPrijave(): Prijava[]{
+    let prijave: Prijava[] = [
+    ]
+    return prijave;
+  }
+
   sendPatentDoc(){
+    console.log("fafsfaf");
+    let headers = new HttpHeaders({ "Content-Type": "application/xml"});
+    let patent = this.getPatent();
+    console.log(patent);
+    var o2x = require('object-to-xml');
+    console.log(o2x(patent));
+    let queryParams = {};
+    queryParams = {
+      headers: headers, 
+      observe: "response",
+      responseType: "text"
+    };
     const api_url = environment.apiUrl;
-    var xmlHttp:XMLHttpRequest = new XMLHttpRequest();
-    xmlHttp.open("POST",`${api_url}/patent`);
-    var xmlDoc;
-    
-    xmlHttp.setRequestHeader('Content-Type', 'text/xml');
-    var xml = `<?xml version="1.0" encoding="UTF-8"?>
-            <zahtev_za_priznavanje_patenta xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.patent/patent" xmlns:opste="http://ftn.ac.rs/opste" broj_prijave="P-2022/2" datum_prijema="2022-11-30" priznati_datum_podnosenja="2022-11-30"
-                dopunska_prijava="true">
-                
-                <institucija>
-                    <opste:naziv>Zavod za intelektulanu svojinu</opste:naziv>
-                    <opste:adresa>
-                        <opste:grad>Beograd</opste:grad>
-                        <opste:ulica>Kneginje Ljubice</opste:ulica>
-                        <opste:broj>5</opste:broj>
-                        <opste:postanski_broj>11000</opste:postanski_broj>
-                        <opste:drzava>Republika Srbija</opste:drzava>
-                    </opste:adresa>
-                </institucija>
-                
-                <podaci_o_pronalasku>
-                    <naziv jezik="srpski">Leteci automobil</naziv>
-                    <naziv jezik="engleski">Flying car</naziv>
-                </podaci_o_pronalasku>
-                
-                <podnosilac autor="false">
-                    
-                    <opste:fizicko_lice>
-                        <opste:kontakt>
-                            <opste:email>pera@gmail.com</opste:email>
-                            <opste:telefon>213212123</opste:telefon>
-                            <opste:fax>012345678</opste:fax>
-                        </opste:kontakt>
-                        <opste:adresa>
-                            <opste:grad>Novi Sad</opste:grad>
-                            <opste:ulica>Lsla Gala</opste:ulica>
-                            <opste:broj>21</opste:broj>
-                            <opste:postanski_broj>21000</opste:postanski_broj>
-                            <opste:drzava>Republika Srbija</opste:drzava>
-                        </opste:adresa>
-                        <opste:ime>Pera</opste:ime>
-                        <opste:prezime>Peric</opste:prezime>
-                        <opste:jmbg>1234567891011</opste:jmbg>
-                    </opste:fizicko_lice>
-                    
-                </podnosilac>
-                
-                <pronalazac anonimno="false">
-                    <imenovani_pronalazac>
-                        <fizicko_lice>
-                            <opste:kontakt>
-                                <opste:email>mile@gmail.com</opste:email>
-                                <opste:telefon>213212123</opste:telefon>
-                                <opste:fax>012345678</opste:fax>
-                            </opste:kontakt>
-                            <opste:adresa>
-                                <opste:grad>Novi Sad</opste:grad>
-                                <opste:ulica>Bul Evrope</opste:ulica>
-                                <opste:broj>21</opste:broj>
-                                <opste:postanski_broj>21000</opste:postanski_broj>
-                                <opste:drzava>Republika Srbija</opste:drzava>
-                            </opste:adresa>
-                            <opste:ime>Mile</opste:ime>
-                            <opste:prezime>Milic</opste:prezime>
-                            <opste:jmbg>1234567891011</opste:jmbg>
-                        </fizicko_lice>
-                    </imenovani_pronalazac>
-                </pronalazac>
-                
-                
-                <punomocnik za_zastupanje="true" za_prijem_pismeno="false">
-                    <pravno_lice>
-                        <opste:kontakt>
-                            <opste:email>aleksic@gmail.com</opste:email>
-                            <opste:telefon>213212123</opste:telefon>
-                            <opste:fax>012345678</opste:fax>
-                        </opste:kontakt>
-                        <opste:adresa>
-                            <opste:grad>Novi Sad</opste:grad>
-                            <opste:ulica>Bul Evrope</opste:ulica>
-                            <opste:broj>21</opste:broj>
-                            <opste:postanski_broj>21000</opste:postanski_broj>
-                            <opste:drzava>Republika Srbija</opste:drzava>
-                        </opste:adresa>
-                        <opste:naziv>Advokatska kancelarija Aleksic</opste:naziv>
-                        <opste:pib>123456789</opste:pib>
-                        <opste:registarski_broj>12345678</opste:registarski_broj>
-                    </pravno_lice>
-    
-                </punomocnik>
-                
-                <dostavljanje elektronski="true" pismeno="false">
-                    
-                    <adresa>
-                        <opste:grad>Novi Sad</opste:grad>
-                        <opste:ulica>Bul Oslobodjenja</opste:ulica>
-                        <opste:broj>15</opste:broj>
-                        <opste:postanski_broj>21000</opste:postanski_broj>
-                        <opste:drzava>Republika Srbija</opste:drzava>
-                    </adresa>
-                </dostavljanje>
-                <zahtev_za_priznanje_prava_iz_ranijih_prijava>
-                    <prijava>
-                        <datum_podnosenja_prijave>2022-11-30</datum_podnosenja_prijave>
-                        <broj_ranije_prijave>P-2022/1</broj_ranije_prijave>
-                        <dvoslovna_oznaka_drzave>RS</dvoslovna_oznaka_drzave>
-                    </prijava>
-                </zahtev_za_priznanje_prava_iz_ranijih_prijava>
-            </zahtev_za_priznavanje_patenta>`;
-    console.log(xml);
-
-    xmlHttp.send(xml);
-  }*/
-
+    this.http.post(`${api_url}/patent`, o2x(patent), queryParams).subscribe(response => {
+      console.log(response);
+    })
+  }
 }
