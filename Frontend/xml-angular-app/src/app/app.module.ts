@@ -16,6 +16,10 @@ import { FizickoLiceComponent } from './component/fizicko-lice/fizicko-lice.comp
 import { PravnoLiceComponent } from './component/pravno-lice/pravno-lice.component';
 import { PunomocnikComponent } from './component/punomocnik/punomocnik.component';
 import { AutorskoDeloComponent } from './component/autorsko-delo/autorsko-delo.component';
+import { ImenovaniAutorComponent } from './component/imenovani-autor/imenovani-autor.component';
+import { AutoriComponent } from './component/autori/autori.component';
+import {MatChipsModule} from "@angular/material/chips";
+import { PriloziComponent } from './component/prilozi/prilozi.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +32,10 @@ import { AutorskoDeloComponent } from './component/autorsko-delo/autorsko-delo.c
     FizickoLiceComponent,
     PravnoLiceComponent,
     PunomocnikComponent,
-    AutorskoDeloComponent
+    AutorskoDeloComponent,
+    ImenovaniAutorComponent,
+    AutoriComponent,
+    PriloziComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +44,8 @@ import { AutorskoDeloComponent } from './component/autorsko-delo/autorsko-delo.c
     MaterialModule,
     BrowserAnimationsModule,
     MatRadioModule,
-    FormsModule
+    FormsModule,
+    MatChipsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

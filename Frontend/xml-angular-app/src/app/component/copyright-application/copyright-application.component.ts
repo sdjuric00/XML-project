@@ -24,12 +24,25 @@ export class CopyrightApplicationComponent implements OnInit {
     drzava: "Republika Srbija"
   }
 
-  secondFormGroup = this._formBuilder.group({
-    secondCtrl: ['', Validators.required],
-  });
+  priloziFromGroup = this._formBuilder.group({
+    prilozi: new FormControl([])
+  })
 
-  thirdFormGroup = this._formBuilder.group({
-    secondCtrl: ['', Validators.required],
+  autoriFromGroup = this._formBuilder.group({
+    autori: new FormControl([]),
+    anonimniAutor: new FormControl(false),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    telefon: new FormControl('', [Validators.required, Validators.pattern("[0-9]{8,12}")]),
+    fax: new FormControl('', [Validators.required, Validators.pattern("[0][0-9]{8,9}")]),
+    ime: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+    prezime: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+    drzavljanstvo: new FormControl('',[Validators.required]),
+    godinaSmrti: new FormControl(''),
+    pseudonim: new FormControl(''),
+    ulica: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+    grad: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+    postanskiBroj: new FormControl('', [Validators.required, Validators.pattern("[0-9]{5}")]),
+    drzava: new FormControl('', [Validators.required, Validators.maxLength(50)])
   });
 
   podnosilacFormGroup = this._formBuilder.group({
@@ -68,24 +81,41 @@ export class CopyrightApplicationComponent implements OnInit {
   });
 
   autorskoDeloFormGroup = this._formBuilder.group({
-    tipPunomocnika: new FormControl('Fizičko lice'),
+    stvorenoURadnomOdnosu: new FormControl(false),
+    deloJePrerada: new FormControl(false),
+    vrsta: new FormControl(''),
+    formaZapisa: new FormControl(''),
+    naslov: new FormControl('', [Validators.required]),
+    alternativniNaslov: new FormControl(''),
+    nacinKoriscenja: new FormControl([Validators.required]),
+    naslovPrerade: new FormControl(''),
+    anonimniAutor: new FormControl(false),
     email: new FormControl('', [Validators.required, Validators.email]),
     telefon: new FormControl('', [Validators.required, Validators.pattern("[0-9]{8,12}")]),
     fax: new FormControl('', [Validators.required, Validators.pattern("[0][0-9]{8,9}")]),
     ime: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     prezime: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-    jmbg: new FormControl('', [Validators.required, Validators.pattern("[0-9]{13}")]),
+    drzavljanstvo: new FormControl('',[Validators.required]),
+    godinaSmrti: new FormControl(''),
+    pseudonim: new FormControl(''),
     ulica: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     grad: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     postanskiBroj: new FormControl('', [Validators.required, Validators.pattern("[0-9]{5}")]),
     drzava: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-    naziv: new FormControl('', [Validators.required]),
-    pib: new FormControl('', [Validators.required, Validators.pattern("[0-9]{9}")]),
-    registarskiBroj: new FormControl('', [Validators.required, Validators.pattern("([0-9]{8}|([A-Za-z]{2}[0-9]{6}))")])
+
   });
 
   constructor(private _formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
+  }
+
+  prikaz() {
+    console.log("kraj");
+    console.log(this.podnosilacFormGroup);
+    console.log(this.punomocnikFormGroup);
+    console.log(this.autorskoDeloFormGroup);
+    console.log(this.autoriFromGroup);
+    console.log(this.priloziFromGroup);
   }
 }

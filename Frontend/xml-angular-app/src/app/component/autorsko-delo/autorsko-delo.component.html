@@ -1,1 +1,115 @@
-<p>autorsko-delo works!</p>
+<div *ngIf="autorskoDeloFormGroup" [formGroup]="autorskoDeloFormGroup" class="punomocnik-container">
+  <h2 style="padding-left:2rem">Autorsko delo
+    <mat-checkbox style="float:right; margin-right: 0.35rem" (click)="changeStvorenoURadnomOdnosu()">
+      Stvoreno u radnom odnosu
+    </mat-checkbox>
+  </h2>
+
+  <div style="display: flex">
+    <div style="margin-left:2rem; border: 2px solid var(--green); background-color: var(--gray-transparent); padding: 0.5rem; border-radius: 5%;">
+      <h3>Vrsta autorskog dela</h3>
+      <mat-radio-button class="example-radio-group" [value]="'Književno'" (change)="changeRadioButtonVrsta('Književno')" style="margin-right: 1rem">
+        Književno
+      </mat-radio-button>
+      <mat-radio-button class="example-radio-group" [value]="'Muzičko'" (change)="changeRadioButtonVrsta('Muzičko')">
+        Muzičko
+      </mat-radio-button>
+      <mat-radio-button class="example-radio-group" [value]="'Likovno'" (change)="changeRadioButtonVrsta('Likovno')">
+        Likovno
+      </mat-radio-button>
+      <mat-radio-button class="example-radio-group" [value]="'Računarski program'" (change)="changeRadioButtonVrsta('Računarski program')">
+        Računarski program
+      </mat-radio-button>
+      <mat-radio-button class="example-radio-group" [value]="'Ostalo'" (change)="changeRadioButtonVrsta('Ostalo')">
+        <mat-form-field appearance="fill" class="input-field">
+          <mat-label>Ostale vrste</mat-label>
+          <input #customVrsta matInput placeholder="Ostale vrste" (keyup)="changeCustomVrstaAutorkogDela(customVrsta.value)" [disabled]="vrstaAutorskogDela!=='Ostalo'">
+        </mat-form-field>
+      </mat-radio-button>
+    </div>
+
+    <div style="margin-left:2rem; border: 2px solid var(--green); background-color: var(--gray-transparent); padding: 0.5rem; border-radius: 5%;">
+      <h3>Forma zapisa autorskog dela</h3>
+      <mat-radio-group>
+        <mat-radio-button class="example-radio-group" [value]="'Oslikano'" (change)="changeRadioButtonForma('Oslikano')" style="margin-right: 1rem">
+          Oslikano
+        </mat-radio-button>
+        <mat-radio-button class="example-radio-group" [value]="'Pisano'" (change)="changeRadioButtonForma('Pisano')">
+          Pisano
+        </mat-radio-button>
+        <mat-radio-button class="example-radio-group" [value]="'Štampano'" (change)="changeRadioButtonForma('Štampano')">
+          Štampano
+        </mat-radio-button>
+        <mat-radio-button class="example-radio-group" [value]="'Optički disk'" (change)="changeRadioButtonForma('Optički disk')">
+          Optički disk
+        </mat-radio-button>
+        <mat-radio-button class="example-radio-group" [value]="'Ostalo'" (change)="changeRadioButtonForma('Ostalo')">
+          <mat-form-field appearance="fill" class="input-field">
+            <mat-label>Ostale forme</mat-label>
+            <input #customForma matInput placeholder="Ostale forme" (keyup)="changeCustomFormaAutorkogDela(customForma.value)" [disabled]="formaAutorskogDela!=='Ostalo'">
+          </mat-form-field>
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <div style="margin-left:2rem; border: 2px solid var(--green); background-color: var(--gray-transparent); padding: 0.5rem; border-radius: 5%;">
+      <h3>Osnovni podaci</h3>
+      <mat-form-field appearance="fill" class="input-field-margin-right input-field-margin-left">
+        <mat-label>Naslov</mat-label>
+        <input matInput placeholder="Naslov" formControlName="naslov">
+        <mat-error
+          *ngIf="autorskoDeloFormGroup.get('naslov')?.hasError('required')">
+          Naslov je <strong>obavezno</strong> polje
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="input-field-margin-right input-field-margin-left">
+        <mat-label>Alternativni naslov</mat-label>
+        <input matInput placeholder="Alternativni naslov" formControlName="alternativniNaslov">
+      </mat-form-field>
+      <mat-form-field class="input-field-margin-right input-field-margin-left">
+        <mat-label>Način korišćenja</mat-label>
+        <textarea #customNacinKoriscenjaArea matInput required (focusout)="checkNacinKoriscenja(customNacinKoriscenjaArea.value)" (keyup)="changeNacinKoriscenja(customNacinKoriscenjaArea.value)" placeholder="Unesite način korišćenja"></textarea>
+      </mat-form-field>
+      <mat-error *ngIf="errorNacinKoriscenja" class="input-field-margin-right input-field-margin-left error-font">
+        Način korišćenja je <strong>obavezno</strong> polje
+      </mat-error>
+    </div>
+
+  </div>
+
+  <div style="padding-left: 2.5rem">
+    <h2>
+      <mat-checkbox style="" (click)="changeDeloPrerada()">Autorsko delo je prerada</mat-checkbox>
+    </h2>
+  </div>
+
+  <div style="padding-left: 2rem" *ngIf="deloPrerada">
+
+    <div style="margin-left:2rem; border: 2px solid var(--green); background-color: rgba(104,202,68,0.14); padding: 0.5rem;">
+      <h3>Prerada</h3>
+      <mat-form-field appearance="fill" class="input-field-margin-right input-field-margin-left">
+        <mat-label>Naslov</mat-label>
+        <input matInput placeholder="Naslov" formControlName="naslovPrerade">
+        <mat-error
+          *ngIf="autorskoDeloFormGroup.get('naslovPrerade')?.hasError('required')">
+          Naslov je <strong>obavezno</strong> polje
+        </mat-error>
+      </mat-form-field>
+      <div style="margin-left:0.5rem; background-color: var(--gray-transparent); padding: 0.5rem;">
+        <h3>Podaci o autoru
+          <mat-checkbox style="float:right; margin-right: 0.35rem" (change)="changeAnonimniAutor()" formControlName="anonimniAutor">
+            Anonimni autor
+          </mat-checkbox>
+        </h3>
+        <app-imenovani-autor *ngIf="!anonimniAutor" [formGroup]="autorskoDeloFormGroup" [tipForme]="tipForme"></app-imenovani-autor>
+      </div>
+    </div>
+
+
+  </div>
+
+  <div style="display: flex">
+    <button style="margin-left:40.7rem" class="previous-button" mat-raised-button matStepperPrevious>Nazad</button>
+    <!--    [disabled]="punomocnikFormGroup.invalid"-->
+    <button style="margin-left:1rem" class="next-button" mat-raised-button matStepperNext [disabled]="(vrstaAutorskogDela==='' && customVrstaAutorskogDela==='') || (vrstaAutorskogDela==='Ostalo' && customVrstaAutorskogDela==='')">Dalje</button>
+  </div>
+</div>

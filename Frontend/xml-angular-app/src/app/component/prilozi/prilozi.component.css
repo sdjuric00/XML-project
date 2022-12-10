@@ -1,0 +1,6 @@
+.prilozi-container {
+  border: 2px solid var(--gray-transparent);
+  border-radius: 5%;
+  padding-bottom: 1rem;
+}
+
