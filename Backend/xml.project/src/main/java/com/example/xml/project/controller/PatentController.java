@@ -19,6 +19,7 @@ public class PatentController {
     private PatentService patentService;
     @PostMapping
     public void createPatentDoc(@RequestBody String zahtev) throws JAXBException, FileNotFoundException {
+        System.out.println(zahtev);
         patentService.savePatentDoc(zahtev);
     }
 
