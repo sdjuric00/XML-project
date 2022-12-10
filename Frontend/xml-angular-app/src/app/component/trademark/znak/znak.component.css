@@ -1,0 +1,41 @@
+.znak-container {
+    border: 2px solid var(--gray-transparent);
+    border-radius: 1rem;
+    padding-bottom: 1rem;
+}
+
+.pismo-container {
+    margin-left: 5.5rem;
+    margin-bottom: 1rem;
+}
+
+mat-radio-button {
+    margin-left: 1rem;
+}
+
+h2 {
+    margin-left: 5.5rem;
+}
+
+.new-block {
+    display: block;
+}
+
+.boje-chips {
+    margin: 0.4rem;
+}
+
+.boje-ext-panel {
+    max-width: 16rem;
+    margin-top: 1rem;
+}
+
+.buttons {
+    display: flex;
+    margin-top: 1rem;
+}
+
+.load-image {
+    margin-left: 1.5rem;
+    margin-top: 1.3rem;
+}

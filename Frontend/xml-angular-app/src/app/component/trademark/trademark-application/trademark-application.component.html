@@ -1,0 +1,45 @@
+<div style="padding:2rem">
+    <app-zaglavlje obrazac="Z-1"></app-zaglavlje>
+    <div style="margin-left: 10rem; margin-right: 10rem">
+        <mat-stepper #stepper>
+            <mat-step [stepControl]="podnosilacFormGroup">
+                <form [formGroup]="podnosilacFormGroup">
+                    <ng-template matStepLabel>Podnosilac</ng-template>
+                    <app-podnosilac></app-podnosilac>
+                </form>
+            </mat-step>
+
+            <mat-step [stepControl]="punomocnikFormGroup">
+                <form [formGroup]="punomocnikFormGroup">
+                    <ng-template matStepLabel>Punomoćnik</ng-template>
+                    <app-punomocnik></app-punomocnik>
+                </form>
+            </mat-step>
+
+            <mat-step [stepControl]="znakFormGroup">
+                <form [formGroup]="znakFormGroup">
+                    <ng-template matStepLabel>Znak</ng-template>
+                    <app-znak></app-znak>
+                </form>
+            </mat-step>
+
+            <mat-step [stepControl]="takseIPriloziFormGroup">
+                <form [formGroup]="takseIPriloziFormGroup">
+                    <ng-template matStepLabel>Takse & Prilozi</ng-template>
+                    <app-takse-prilozi></app-takse-prilozi>
+                </form>
+            </mat-step>
+
+            <mat-step>
+                <ng-template matStepLabel>Done</ng-template>
+                <p>You are now done.</p>
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button (click)="stepper.reset()">Reset</button>
+                </div>
+            </mat-step>
+        </mat-stepper>
+    </div>
+
+</div>
+

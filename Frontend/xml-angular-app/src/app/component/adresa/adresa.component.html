@@ -33,9 +33,16 @@
         </mat-error>
       </mat-form-field>
     </div>
+
     <mat-form-field appearance="fill" style="width: 25.7rem" class="input-field-margin-right input-field-margin-left">
-      <mat-label>Država</mat-label>
-      <input matInput placeholder="Država" formControlName="drzava">
+      <mat-label>Drzava</mat-label>
+      <input type="text" placeholder="Drzava" aria-label="Number" matInput formControlName="drzava"
+        [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let country of filteredCountries | async" [value]="country.name">
+          {{country.name}}
+        </mat-option>
+      </mat-autocomplete>
       <mat-error *ngIf="podnosilacFormGroup.get('drzava')?.hasError('required')">
         Država je <strong>obavezno</strong> polje
       </mat-error>
@@ -43,5 +50,6 @@
         Unesite ispravnu državu (do 50 karaktera)
       </mat-error>
     </mat-form-field>
+
   </div>
 </div>
