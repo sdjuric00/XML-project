@@ -1,8 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ControlContainer, FormGroup} from "@angular/forms";
-import {Autor} from "../../model/autor";
-import {Adresa} from "../../model/adresa";
-import {Kontakt} from "../../model/kontakt";
+import {Autor} from "../../../model/autor";
+import {Adresa} from "../../../model/adresa";
+import {Kontakt} from "../../../model/kontakt";
 
 @Component({
   selector: 'app-imenovani-autor',

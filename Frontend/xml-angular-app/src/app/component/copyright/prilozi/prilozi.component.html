@@ -12,7 +12,11 @@
       </mat-chip>
     </mat-chip-list>
 
-    <input clas="fajl" style="padding-left:0.3rem; margin-top: 1rem" type="file" name="upload" id="prilogId" (change)="dodajPrilog($event)">
+    <div style="padding-left:0.3rem; margin-top: 1rem;" class="load-image">
+      <button type="button" mat-raised-button (click)="fileInput.click()">Dodaj znak<mat-icon>link</mat-icon></button>
+      <input hidden (change)="onFileSelected($event)" #fileInput type="file">
+      <span class="file-name">{{selectedImage?.name}}</span>
+    </div>
 
   </div>
   <div style="display: flex">

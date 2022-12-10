@@ -36,12 +36,15 @@ export class AutorskoDeloComponent implements OnInit {
   changeDeloPrerada(): void {
     this.deloPrerada = !this.deloPrerada;
     this.autorskoDeloFormGroup?.controls['deloJePrerada']?.setValue(this.deloPrerada);
+
     if (!this.deloPrerada){
       this.autorskoDeloFormGroup.get('naslovPrerade')?.setErrors(null);
+      this.setAllFieldsToNullErrors();
       this.autorskoDeloFormGroup.updateValueAndValidity();
     }
     else {
       this.autorskoDeloFormGroup.get('naslovPrerade')?.setValidators([Validators.required]);
+      this.setAllFieldsValidators();
       this.autorskoDeloFormGroup.updateValueAndValidity();
     }
   }
@@ -90,26 +93,41 @@ export class AutorskoDeloComponent implements OnInit {
 
   changeAnonimniAutor() {
     this.anonimniAutor = !this.anonimniAutor;
-    if (this.anonimniAutor){
-      this.autorskoDeloFormGroup.get('ime')?.setErrors(null);
-      this.autorskoDeloFormGroup.get('prezime')?.setErrors(null);
-      this.autorskoDeloFormGroup.get('drzavljanstvo')?.setErrors(null);
-      this.autorskoDeloFormGroup.get('ulica')?.setErrors(null);
-      this.autorskoDeloFormGroup.get('grad')?.setErrors(null);
-      this.autorskoDeloFormGroup.get('postanskiBroj')?.setErrors(null);
-      this.autorskoDeloFormGroup.get('drzava')?.setErrors(null);
-      this.autorskoDeloFormGroup.get('godinaSmrti')?.setValue('');
-      this.autorskoDeloFormGroup.get('pseudonim')?.setValue('');
+    if (this.anonimniAutor || !this.deloPrerada){
+     this.setAllFieldsToNullErrors();
     }
     else {
-      this.autorskoDeloFormGroup.get('ime')?.setValidators([Validators.required, Validators.maxLength(50)]);
-      this.autorskoDeloFormGroup.get('prezime')?.setValidators([Validators.required, Validators.maxLength(50)]);
-      this.autorskoDeloFormGroup.get('drzavljanstvo')?.setValidators([Validators.required]);
-      this.autorskoDeloFormGroup.get('ulica')?.setValidators([Validators.required, Validators.maxLength(50)]);
-      this.autorskoDeloFormGroup.get('grad')?.setValidators([Validators.required, Validators.maxLength(50)]);
-      this.autorskoDeloFormGroup.get('postanskiBroj')?.setValidators([Validators.required, Validators.pattern("[0-9]{5}")]);
-      this.autorskoDeloFormGroup.get('drzava')?.setValidators([Validators.required, Validators.maxLength(50)]);
+      this.setAllFieldsValidators();
     }
     this.autorskoDeloFormGroup.updateValueAndValidity();
+  }
+
+  private setAllFieldsToNullErrors() {
+    this.autorskoDeloFormGroup.get('ime')?.setErrors(null);
+    this.autorskoDeloFormGroup.get('prezime')?.setErrors(null);
+    this.autorskoDeloFormGroup.get('drzavljanstvo')?.setErrors(null);
+    this.autorskoDeloFormGroup.get('ulica')?.setErrors(null);
+    this.autorskoDeloFormGroup.get('grad')?.setErrors(null);
+    this.autorskoDeloFormGroup.get('postanskiBroj')?.setErrors(null);
+    this.autorskoDeloFormGroup.get('drzava')?.setErrors(null);
+    this.autorskoDeloFormGroup.get('email')?.setErrors(null);
+    this.autorskoDeloFormGroup.get('telefon')?.setErrors(null);
+    this.autorskoDeloFormGroup.get('fax')?.setErrors(null);
+    this.autorskoDeloFormGroup.get('godinaSmrti')?.setValue('');
+    this.autorskoDeloFormGroup.get('pseudonim')?.setValue('');
+  }
+
+  private setAllFieldsValidators() {
+    this.autorskoDeloFormGroup.get('ime')?.setValidators([Validators.required, Validators.maxLength(50)]);
+    this.autorskoDeloFormGroup.get('prezime')?.setValidators([Validators.required, Validators.maxLength(50)]);
+    this.autorskoDeloFormGroup.get('drzavljanstvo')?.setValidators([Validators.required]);
+    this.autorskoDeloFormGroup.get('ulica')?.setValidators([Validators.required, Validators.maxLength(50)]);
+    this.autorskoDeloFormGroup.get('grad')?.setValidators([Validators.required, Validators.maxLength(50)]);
+    this.autorskoDeloFormGroup.get('postanskiBroj')?.setValidators([Validators.required, Validators.pattern("[0-9]{5}")]);
+    this.autorskoDeloFormGroup.get('drzava')?.setValidators([Validators.required, Validators.maxLength(50)]);
+    this.autorskoDeloFormGroup.get('email')?.setValidators([Validators.required, Validators.email]);
+    this.autorskoDeloFormGroup.get('telefon')?.setValidators([Validators.required, Validators.pattern("[0-9]{8,12}")]);
+    this.autorskoDeloFormGroup.get('fax')?.setValidators([Validators.required, Validators.pattern("[0][0-9]{8,9}")]);
+
   }
 }

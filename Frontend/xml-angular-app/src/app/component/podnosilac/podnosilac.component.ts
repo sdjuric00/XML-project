@@ -18,7 +18,7 @@ export class PodnosilacComponent implements OnInit {
   ngOnInit(): void {
     this.podnosilacFormGroup = <FormGroup>this.controlContainer.control;
     this.podnosilacFormGroup.clearValidators();
-   
+
     this.podnosilacFormGroup.updateValueAndValidity();
     this.podnosilacFormGroup.reset();
   }
@@ -26,6 +26,7 @@ export class PodnosilacComponent implements OnInit {
 
   changePodnosilacAutor():void {
     this.podnosilacAutor = !this.podnosilacAutor;
+    this.podnosilacFormGroup.get('podnosilacAutor').setValue(this.podnosilacAutor);
   }
 
 }

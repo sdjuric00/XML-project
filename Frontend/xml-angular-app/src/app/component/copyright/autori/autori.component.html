@@ -3,7 +3,10 @@
 
   <div style="padding-left:2rem; margin-bottom: 1rem">
     <h3>Dodati autori</h3>
-    <mat-chip-list style="margin-top: 1rem" #chipList>
+    <div *ngIf="autori.length ===0" style="margin-left: 1rem">
+      <h5>Nema dodatih autora.</h5>
+    </div>
+    <mat-chip-list style="margin-top: 1rem">
       <mat-chip
         *ngFor="let autor of autori"
         (removed)="izbrisiAutora(autor)">
@@ -21,7 +24,7 @@
   </div>
   <div style="padding-left: 2rem">
 
-    <div style="margin-left:0.5rem; margin-right:0.5rem;background-color: var(--gray-transparent); padding: 0.5rem;">
+    <div style="margin-left:0.5rem; margin-right:0.5rem;background-color: var(--gray-transparent); padding: 0.5rem; border-radius: 1rem">
         <h3>Podaci o autoru
           <mat-checkbox style="float:right; margin-right: 0.35rem" (change)="changeAnonimniAutor()" formControlName="anonimniAutor">
             Anonimni autor
@@ -36,10 +39,9 @@
 
   </div>
 
-  <div style="display: flex">
-    <button style="margin-left:40.7rem" class="previous-button" mat-raised-button matStepperPrevious>Nazad</button>
-    <!--    [disabled]="punomocnikFormGroup.invalid"-->
-    <button style="margin-left:1rem" class="next-button" mat-raised-button matStepperNext [disabled]="">Dalje</button>
+  <div style="display: flex; margin-right:0.2rem; margin-top:0.5rem; margin-bottom: 0.5rem">
+    <button style="margin-left:84%" class="previous-button" mat-raised-button matStepperPrevious>Nazad</button>
+    <button style="margin-left:1rem" class="next-button" mat-raised-button matStepperNext [disabled]="autori.length === 0">Dalje</button>
   </div>
 </div>
 

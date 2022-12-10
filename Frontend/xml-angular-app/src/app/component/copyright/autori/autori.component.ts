@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ControlContainer, FormGroup, Validators} from "@angular/forms";
-import {Autor} from "../../model/autor";
-import {Adresa} from "../../model/adresa";
-import {Kontakt} from "../../model/kontakt";
+import {Autor} from "../../../model/autor";
+import {Adresa} from "../../../model/adresa";
+import {Kontakt} from "../../../model/kontakt";
 
 @Component({
   selector: 'app-autori',

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {LoginComponent} from "./component/login/login.component";
-import {CopyrightApplicationComponent} from "./component/copyright-application/copyright-application.component";
+import {CopyrightApplicationComponent} from "./component/copyright/copyright-application/copyright-application.component";
 import { PatentApplicationComponent } from './component/patent-application/patent-application.component';
 import { TrademarkApplicationComponent } from './component/trademark/trademark-application/trademark-application.component';
 

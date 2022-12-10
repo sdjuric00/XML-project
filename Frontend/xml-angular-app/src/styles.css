@@ -57,6 +57,16 @@ body {
   border: 2px solid var(--deep-blue) !important;
 }
 
+.load-image {
+  margin-left: 1.5rem;
+  margin-right: 3rem;
+  margin-left: auto;
+}
+
+.load-image button {
+  font-size: 1rem;
+}
+
 .add-button {
   background-color: rgba(104, 202, 68, 0.16) !important;
   color: var(--deep-blue) !important;

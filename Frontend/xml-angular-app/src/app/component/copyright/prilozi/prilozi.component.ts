@@ -9,6 +9,7 @@ import {ControlContainer, FormGroup} from "@angular/forms";
 export class PriloziComponent implements OnInit {
   prilozi: any[] = [];
   public priloziFormGroup: FormGroup;
+  selectedImage: any = null;
 
   constructor(private controlContainer: ControlContainer) {
     this.priloziFormGroup = <FormGroup>this.controlContainer.control;
@@ -37,4 +38,12 @@ export class PriloziComponent implements OnInit {
     }
   }
 
+  onFileSelected(event: any): void {
+    if(event?.target?.files?.length > 0)
+    {
+      this.prilozi.push(event?.target?.files[0]?.name);
+      this.priloziFormGroup.get('prilozi')?.setValue(this.prilozi);
+    }
+    this.selectedImage = event.target.files[0] ?? null;
+  }
 }

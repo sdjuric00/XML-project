@@ -87,22 +87,21 @@ export class CopyrightApplicationComponent implements OnInit {
     formaZapisa: new FormControl(''),
     naslov: new FormControl('', [Validators.required]),
     alternativniNaslov: new FormControl(''),
-    nacinKoriscenja: new FormControl([Validators.required]),
+    nacinKoriscenja: new FormControl(''),
     naslovPrerade: new FormControl(''),
     anonimniAutor: new FormControl(false),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    telefon: new FormControl('', [Validators.required, Validators.pattern("[0-9]{8,12}")]),
-    fax: new FormControl('', [Validators.required, Validators.pattern("[0][0-9]{8,9}")]),
-    ime: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-    prezime: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-    drzavljanstvo: new FormControl('',[Validators.required]),
+    email: new FormControl('' ),
+    telefon: new FormControl(''),
+    fax: new FormControl(''),
+    ime: new FormControl(''),
+    prezime: new FormControl(''),
+    drzavljanstvo: new FormControl(''),
     godinaSmrti: new FormControl(''),
     pseudonim: new FormControl(''),
-    ulica: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-    grad: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-    postanskiBroj: new FormControl('', [Validators.required, Validators.pattern("[0-9]{5}")]),
-    drzava: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-
+    ulica: new FormControl(''),
+    grad: new FormControl('', ),
+    postanskiBroj: new FormControl(''),
+    drzava: new FormControl('')
   });
 
   constructor(private _formBuilder: FormBuilder) {}
