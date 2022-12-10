@@ -1,0 +1,18 @@
+
+.main-content {
+    display: block;
+    border: 2px solid green;
+    border-radius: 1rem;
+    margin-top: 1.5rem;
+    margin-left: 7rem;
+    max-width: 17rem;
+}
+
+.input-row {
+    margin-top: 0.6rem;
+    display: flex;
+}
+
+.input-field, h3 {
+    margin-left: 2rem;
+}

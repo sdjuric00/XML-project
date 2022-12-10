@@ -12,12 +12,18 @@ import { PodnosilacComponent } from './component/podnosilac/podnosilac.component
 import { KontaktComponent } from './component/kontakt/kontakt.component';
 import { AdresaComponent } from './component/adresa/adresa.component';
 import {MatRadioModule} from "@angular/material/radio";
+import {MatChipsModule} from '@angular/material/chips';
 import { FizickoLiceComponent } from './component/fizicko-lice/fizicko-lice.component';
 import { PravnoLiceComponent } from './component/pravno-lice/pravno-lice.component';
 import { PatentApplicationComponent } from './component/patent-application/patent-application.component';
 import { ZaglavljeComponent } from './component/zaglavlje/zaglavlje.component';
 import { PunomocnikComponent } from './component/punomocnik/punomocnik.component';
 import { AutorskoDeloComponent } from './component/autorsko-delo/autorsko-delo.component';
+import { TrademarkApplicationComponent } from './component/trademark/trademark-application/trademark-application.component';
+import { ZnakComponent } from './component/trademark/znak/znak.component';
+import { TaksePriloziComponent } from './component/trademark/takse-prilozi/takse-prilozi.component';
+import { ZigTakseComponent } from './component/trademark/zig-takse/zig-takse.component';
+import { ZigPriloziComponent } from './component/trademark/zig-prilozi/zig-prilozi.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +38,12 @@ import { AutorskoDeloComponent } from './component/autorsko-delo/autorsko-delo.c
     PatentApplicationComponent,
     ZaglavljeComponent,
     PunomocnikComponent,
-    AutorskoDeloComponent
+    AutorskoDeloComponent,
+    TrademarkApplicationComponent,
+    ZnakComponent,
+    TaksePriloziComponent,
+    ZigTakseComponent,
+    ZigPriloziComponent
   ],
   imports: [
     BrowserModule,
@@ -41,6 +52,7 @@ import { AutorskoDeloComponent } from './component/autorsko-delo/autorsko-delo.c
     MaterialModule,
     BrowserAnimationsModule,
     MatRadioModule,
+    MatChipsModule,
     FormsModule
   ],
   providers: [],
