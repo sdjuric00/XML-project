@@ -1,6 +1,8 @@
 export interface Naziv{
-    naziv: string,
+    naziv: {
+    "#": string,
     "@":{
         jezik: string
     }
+}
 }
