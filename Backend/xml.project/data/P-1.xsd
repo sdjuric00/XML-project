@@ -2,15 +2,9 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
     targetNamespace="http://www.patent/patent" xmlns:xs-opste="http://ftn.ac.rs/opste"
     xmlns:xs-p="http://www.patent/patent">
-
     <xs:import namespace="http://ftn.ac.rs/opste" schemaLocation="Opste.xsd"/>
-    <xs:element name="zahtevi_p" type="xs-p:zahtevi_p"/>
-    <xs:complexType name="zahtevi_p">
-        <xs:sequence maxOccurs="1" minOccurs="1">
-            <xs:element name="lista_zahteva_p" type="xs-p:lista_zahteva_p"/>
-        </xs:sequence>
-    </xs:complexType>
-    <xs:complexType name="zahtev_za_priznavanje_patenta">
+    <xs:element name="zahtev_za_priznavanje_patenta">
+    <xs:complexType>
         <xs:sequence>
             <xs:element name="institucija" type="xs-opste:institucija"/>
             <xs:element name="podaci_o_pronalasku" type="xs-p:podaci_o_pronalasku"/>
@@ -31,6 +25,7 @@
         <xs:attribute name="priznati_datum_podnosenja" type="xs:date"/>
         <xs:attribute name="dopunska_prijava" type="xs:boolean"/>
     </xs:complexType>
+    </xs:element>
     <xs:complexType name="podaci_o_pronalasku">
         <xs:sequence maxOccurs="unbounded">
             <xs:element name="naziv">
@@ -95,11 +90,5 @@
             <xs:element name="fizicko_lice" type="xs-opste:fizicko_lice"/>
             <xs:element name="pravno_lice" type="xs-opste:pravno_lice"/>
         </xs:choice>
-    </xs:complexType>
-    <xs:complexType name="lista_zahteva_p">
-        <xs:sequence maxOccurs="unbounded" minOccurs="0">
-            <xs:element name="zahtev_za_priznavanje_patenta"
-                type="xs-p:zahtev_za_priznavanje_patenta"/>
-        </xs:sequence>
     </xs:complexType>
 </xs:schema>

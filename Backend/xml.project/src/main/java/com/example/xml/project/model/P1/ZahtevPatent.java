@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@XmlRootElement(name="zahtev_za_priznavanje_patenta", namespace = "http://www.patent/patent")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name="zahtev_za_priznavanje_patenta",
         propOrder={"institucija", "podaci_o_pronalasku", "podnosilac", "pronalazac", "punomocnik", "dostavljanje", "zahtev_za_priznanje_prava_iz_ranijih_prijava"},

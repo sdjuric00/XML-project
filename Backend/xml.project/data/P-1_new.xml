@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-
-<zahtev_za_priznavanje_patenta xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.patent/patent" xmlns:opste="http://ftn.ac.rs/opste" broj_prijave="P-2022/2" datum_prijema="2022-11-30" priznati_datum_podnosenja="2022-11-30" dopunska_prijava="false">
+<zahtev_za_priznavanje_patenta xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.patent/patent" xmlns:opste="http://ftn.ac.rs/opste" broj_prijave="P-2022/2" datum_prijema="2022-11-30" priznati_datum_podnosenja="2022-11-30" pregledano="false">
     <institucija>
         <opste:naziv>Zavod za intelektulanu svojinu</opste:naziv>
         <opste:adresa>
