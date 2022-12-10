@@ -1,0 +1,13 @@
+.main-container {
+    border: 2px solid var(--gray-transparent);
+    border-radius: 1rem;
+    padding-bottom: 1rem;
+}
+
+.buttons {
+    margin-top: 1rem;
+}
+
+.prilozi-column {
+    flex-basis: 60%;
+}

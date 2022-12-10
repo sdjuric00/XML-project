@@ -1,0 +1,16 @@
+<div style="padding-left:4.5rem; margin: 1rem">
+    <h3>Da li je ova prijava dopunska za neku prethodnu prijavu?</h3>
+    <mat-radio-group>
+        <mat-radio-button [value]="'Da'" (change)="changeRadioButton('Da')" style="margin-bottom: 1rem">
+          Da
+        </mat-radio-button><br>
+        <mat-radio-button [value]="'Ne'" (change)="changeRadioButton('Ne')" checked=true>
+          Ne
+        </mat-radio-button>
+        </mat-radio-group>
+    
+    <br>
+    <div *ngIf="!dopunska">
+        <app-prvobitna-prijava></app-prvobitna-prijava>
+    </div>
+</div>

@@ -17,6 +17,12 @@ body {
   background-attachment: fixed;
 }
 
+.stepper-container {
+  border: 2px solid var(--gray-transparent);
+  border-radius: 2rem;
+  padding-bottom: 1rem;
+}
+
 :root {
   --gray: rgba(205, 209, 211, 0.31);
   --deep-blue: #283b50;

@@ -1,0 +1,54 @@
+.main-content {
+    display: block;
+    border: 2px solid green;
+    border-radius: 1rem;
+    margin-top: 1.5rem;
+    max-width: 36rem;
+    margin-left: 2rem;
+}
+
+h3 {
+    margin-left: 2rem;
+}
+
+.input-row {
+    display: flex;
+    margin-left: 2rem;
+    margin-top: 1rem;
+}
+
+label {
+    margin-top: 0.4rem;
+    font-size: 1.2rem;
+}
+
+.load-image {
+    margin-left: 1.5rem;
+    margin-right: 3rem;
+    margin-left: auto;
+}
+
+.load-image button {
+    font-size: 1rem;
+}
+
+.punomocja-checkboxes {
+    margin-left: 2rem;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+
+.input-field-osnov {
+    margin-left: 1rem;
+}
+
+.last-input-row {
+    display: flex;
+    margin-left: 2rem;
+    margin-top: 1rem;
+    margin-bottom: 1.3rem;
+}
+
+.last-input-row ::ng-deep .mat-form-field-wrapper {
+    margin-bottom: -1.25em;
+}

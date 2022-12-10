@@ -1,0 +1,108 @@
+<div *ngIf="takseIPriloziFormGroup" [formGroup]="takseIPriloziFormGroup" class="main-content">
+    <h3>Prilozi</h3>
+
+    <div class="punomocja-checkboxes">
+        <mat-checkbox formControlName="generalnoPunomocjeRanijePrilozeno" (click)="changeToRanijePrilozeno()">Punomocje ranije prilozeno</mat-checkbox>
+        <mat-checkbox formControlName="punomocjeNaknadnoDostavljeno" (click)="changeToNaknadnoDostavljeno()">Punomocje ce biti naknadno dostavljeno</mat-checkbox>
+    </div>
+
+    <div class="input-row">
+
+        <label>Primerak znaka</label>
+
+        <div class="load-image">
+            <button type="button" mat-raised-button (click)="fileInput.click()">Dodaj<mat-icon>link</mat-icon></button>
+            <input hidden #fileInput type="file">
+            <span class="file-name"></span>
+        </div>
+
+    </div>
+
+    <div class="input-row" *ngIf="!(punomocjeRanijePrilozeno || punomocjeNaknadnoDostavljeno)">
+    
+        <label>Primerak punomocja</label>
+    
+        <div class="load-image">
+            <button type="button" mat-raised-button (click)="fileInput.click()">Dodaj<mat-icon>link</mat-icon></button>
+            <input hidden #fileInput type="file">
+            <span class="file-name"></span>
+        </div>
+    
+    </div>
+
+    <div class="input-row">
+    
+        <label>Akt o kolektivnom zigu</label>
+    
+        <div class="load-image">
+            <button type="button" mat-raised-button (click)="fileInput.click()">Dodaj<mat-icon>link</mat-icon></button>
+            <input hidden #fileInput type="file">
+            <span class="file-name"></span>
+        </div>
+    
+    </div>
+
+    <div class="input-row" *ngIf="getPravoPrvenstva()">
+    
+        <label>Dokaz o pravu prvenstva</label>
+    
+        <div class="load-image">
+            <button type="button" mat-raised-button (click)="fileInput.click()">Dodaj<mat-icon>link</mat-icon></button>
+            <input hidden #fileInput type="file">
+            <span class="file-name"></span>
+        </div>
+    
+    </div>
+
+    <div class="input-row">
+    
+        <label>Dokaz o uplati takse</label>
+    
+        <div class="load-image">
+            <button type="button" mat-raised-button (click)="fileInput.click()">Dodaj<mat-icon>link</mat-icon></button>
+            <input hidden #fileInput type="file">
+            <span class="file-name"></span>
+        </div>
+    
+    </div>
+
+    <div class="last-input-row">
+        <mat-expansion-panel class="boje-ext-panel">
+                <mat-expansion-panel-header [collapsedHeight]="'3rem'">
+                    <mat-panel-title> Dodaj robu </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-chip-list aria-label="Passenger selection" class="roba-chips">
+                    <mat-chip *ngFor="let roba of robe">
+                        {{ roba }}
+                        <button matChipRemove>
+                            <mat-icon (click)="izbrisiRobu(roba)">cancel</mat-icon>
+                        </button>
+                    </mat-chip>
+                </mat-chip-list>
+                <br />
+                <mat-form-field appearance="fill" class="input-field">
+                    <mat-label>Roba</mat-label>
+                    <input #robaInput matInput placeholder="Dodaj robu" formControlName="spisakRoba" (keyup.enter)="dodajRobu(robaInput.value)">
+                    <mat-error *ngIf="takseIPriloziFormGroup.get('spisakRoba')?.hasError('required')">
+                        Robe su <strong>obavezno</strong> polje
+                    </mat-error>
+                </mat-form-field>
+            </mat-expansion-panel>
+
+            <mat-form-field appearance="fill" class="input-field-osnov" *ngIf="getPravoPrvenstva()">
+                <mat-label>Osnov za prvenstvo</mat-label>
+                <input matInput placeholder="Osnov" formControlName="osnov">
+                <mat-error *ngIf="takseIPriloziFormGroup.get('pravoPrvenstvaOsnov')?.hasError('required')">
+                    Osnov je <strong>obavezno</strong> polje
+                </mat-error>
+                <mat-error *ngIf="takseIPriloziFormGroup.get('pravoPrvenstvaOsnov')?.hasError('pattern')">
+                    Osnov je <strong>predugacko</strong>
+                </mat-error>
+            </mat-form-field>
+    
+    </div>
+
+    
+</div>
+
+

@@ -1,0 +1,8 @@
+<div style="padding-left:4.5rem; margin: 1rem" [formGroup]="punomocnikPatentFormGroup" *ngIf="punomocnikPatentFormGroup">
+    <h3>Punomoćnik</h3>
+    <mat-checkbox formControlName="zaZastupanje">za zastupanje</mat-checkbox><br>
+    <mat-checkbox formControlName="zaPismeno">za prijem pismeno</mat-checkbox>
+    <br>
+    <mat-divider style="margin-top:1rem;"></mat-divider>
+    <app-izbor-lice></app-izbor-lice>
+</div>

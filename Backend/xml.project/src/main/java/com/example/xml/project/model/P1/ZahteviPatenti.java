@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@XmlRootElement(name="zahtevi_p", namespace = "http://www.patent/patent")
+
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name="", propOrder={"lista_zahteva_p"})
 public class ZahteviPatenti {

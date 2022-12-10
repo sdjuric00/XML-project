@@ -1,6 +1,5 @@
 package com.example.xml.project.model;
 
-
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 import java.time.LocalDate;
 

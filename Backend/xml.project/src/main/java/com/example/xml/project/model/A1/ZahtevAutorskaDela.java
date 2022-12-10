@@ -1,5 +1,9 @@
 package com.example.xml.project.model.A1;
 
+import com.example.xml.project.model.Institucija;
+import com.example.xml.project.model.Podnosilac;
+import com.example.xml.project.model.Prilog;
+import com.example.xml.project.model.Punomocnik;
 import com.example.xml.project.model.*;
 import com.example.xml.project.model.A1.Autor;
 import com.example.xml.project.model.A1.AutorskoDelo;

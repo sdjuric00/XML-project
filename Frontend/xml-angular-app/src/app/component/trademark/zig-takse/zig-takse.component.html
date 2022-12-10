@@ -1,0 +1,72 @@
+<div *ngIf="takseIPriloziFormGroup" [formGroup]="takseIPriloziFormGroup" class="main-content">
+    <h3>Takse</h3>
+    <div class="input-row">
+        <mat-form-field appearance="fill" class="input-field">
+            <mat-label>Valuta</mat-label>
+            <mat-select formControlName="valuta">
+                <mat-option *ngFor="let valuta of valute" [value]="valuta">
+                    {{valuta}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="takseIPriloziFormGroup.get('valuta')?.hasError('required')">
+                Valuta je <strong>obavezno</strong> polje
+            </mat-error>
+            <mat-error *ngIf="takseIPriloziFormGroup.get('valuta')?.hasError('pattern')">
+                Valuta mora biti oblika XXX
+            </mat-error>
+        </mat-form-field>
+    </div>
+
+    <div class="input-row">
+        <mat-form-field appearance="fill" class="input-field">
+            <mat-label>Osnovna taksa</mat-label>
+            <input type="number" matInput placeholder="Osnovna taksa" formControlName="osnovnaTaksa">
+            <mat-error *ngIf="takseIPriloziFormGroup.get('osnovnaTaksa')?.hasError('required')">
+                Osnovna taksa je <strong>obavezno</strong> polje
+            </mat-error>
+            <mat-error *ngIf="takseIPriloziFormGroup.get('osnovnaTaksa')?.hasError('pattern')">
+                Osnovna taksa mora biti pozitivan broj
+            </mat-error>
+        </mat-form-field>
+    </div>
+
+    <div class="input-row">
+        <mat-form-field appearance="fill" class="input-field">
+            <mat-label>Taksa za klasu</mat-label>
+            <input type="number" matInput placeholder="Taksa za klasu" formControlName="taksaZaKlasu">
+            <mat-error *ngIf="takseIPriloziFormGroup.get('taksaZaKlasu')?.hasError('required')">
+                Taksa za klasu je <strong>obavezno</strong> polje
+            </mat-error>
+            <mat-error *ngIf="takseIPriloziFormGroup.get('taksaZaKlasu')?.hasError('pattern')">
+                Taksa za klasu mora biti pozitivan broj
+            </mat-error>
+        </mat-form-field>
+    </div>
+
+    <div class="input-row">
+        <mat-form-field appearance="fill" class="input-field">
+            <mat-label>Taksa za graf. resenje</mat-label>
+            <input type="number" matInput placeholder="Graficko resenje" formControlName="taksaZaGrafickoResenje">
+            <mat-error *ngIf="takseIPriloziFormGroup.get('taksaZaGrafickoResenje')?.hasError('required')">
+                Taksa za graficko resenje je <strong>obavezno</strong> polje
+            </mat-error>
+            <mat-error *ngIf="takseIPriloziFormGroup.get('taksaZaGrafickoResenje')?.hasError('pattern')">
+                Taksa za graficko resenje mora biti pozitivan broj
+            </mat-error>
+        </mat-form-field>
+    </div>
+
+    <div class="input-row">
+        <mat-form-field appearance="fill" class="input-field">
+            <mat-label>Ukupno</mat-label>
+            <input type="number" matInput placeholder="Ukupno" formControlName="ukupno">
+            <mat-error *ngIf="takseIPriloziFormGroup.get('ukupno')?.hasError('required')">
+                Ukupno je <strong>obavezno</strong> polje
+            </mat-error>
+            <mat-error *ngIf="takseIPriloziFormGroup.get('ukupno')?.hasError('pattern')">
+                Suma mora biti pozitivan broj
+            </mat-error>
+        </mat-form-field>
+    </div>
+
+</div>
