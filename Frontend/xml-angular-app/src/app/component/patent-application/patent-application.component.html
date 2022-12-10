@@ -1,3 +1,68 @@
 <div style="padding:2rem">
   <app-zaglavlje obrazac="P-1"></app-zaglavlje>
+
+  <mat-stepper labelPosition="bottom" >
+    <mat-step [stepControl]="nazivFormGroup">
+      <form [formGroup]="nazivFormGroup" class="stepper-container">
+        <ng-template matStepLabel>Podaci o pronalasku</ng-template>
+        <div style="text-align:center;margin-top:5rem;">
+        <mat-form-field appearance="fill" style="min-width:25rem;">
+          <mat-label>Naziv pronalaska na srpskom jeziku</mat-label>
+          <input matInput placeholder="Naziv pronalaska na srpskom jeziku" formControlName="nazivSrpskiCtrl">
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill" style="min-width:25rem;">
+          <mat-label>Naziv pronalaska na engleskom jeziku</mat-label>
+          <input matInput placeholder="Naziv pronalaska na engleskom jeziku" formControlName="nazivEngleskiCtrl">
+        </mat-form-field>
+        <div>
+          <!--    [disabled]="podnosilacFormGroup.invalid"-->
+              <button style="margin-left:40rem" class="next-button" mat-raised-button matStepperNext>Dalje</button>
+            </div>
+      </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="podnosilacFormGroup" >
+      <form [formGroup]="podnosilacFormGroup" class="stepper-container">
+        <ng-template matStepLabel>Podnosilac</ng-template>
+          <app-podnosilac></app-podnosilac>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="pronalazacFormGroup" >
+      <form [formGroup]="pronalazacFormGroup" class="stepper-container">
+        <ng-template matStepLabel>Pronalazač</ng-template>
+        <app-pronalazac></app-pronalazac>
+      </form>
+      <div>
+        <!--    [disabled]="podnosilacFormGroup.invalid"-->
+            <button style="margin-left:40rem" class="next-button" mat-raised-button matStepperNext (click)="continueBtn()">Dalje</button>
+          </div>
+    </mat-step>
+    <mat-step [stepControl]="punomocnikFormGroup" >
+      <form [formGroup]="punomocnikFormGroup" class="stepper-container">
+        <ng-template matStepLabel>Punomoćnik</ng-template>
+          <app-punomocnik-patent></app-punomocnik-patent>
+      </form>
+      <div>
+        <!--    [disabled]="podnosilacFormGroup.invalid"-->
+            <button style="margin-left:40rem" class="next-button" mat-raised-button matStepperNext (click)="continueBtn()">Dalje</button>
+          </div>
+    </mat-step>
+    <mat-step [stepControl]="dostavljanjeFormGroup" >
+      <form [formGroup]="dostavljanjeFormGroup" class="stepper-container">
+        <ng-template matStepLabel>Dostavljanje</ng-template>
+          <app-dostavljanje></app-dostavljanje>
+      </form>
+      <div>
+        <!--    [disabled]="podnosilacFormGroup.invalid"-->
+            <button style="margin-left:40rem" class="next-button" mat-raised-button matStepperNext (click)="continueBtn()">Dalje</button>
+          </div>
+    </mat-step>
+    <mat-step>
+      <form>
+        <ng-template matStepLabel>Dopunska prijava</ng-template>
+        <app-dopunska-prijava></app-dopunska-prijava>
+      </form>
+    </mat-step>
+  </mat-stepper>
 </div>
