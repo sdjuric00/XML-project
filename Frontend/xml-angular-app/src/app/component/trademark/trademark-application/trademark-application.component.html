@@ -32,10 +32,11 @@
 
             <mat-step>
                 <ng-template matStepLabel>Done</ng-template>
-                <p>You are now done.</p>
-                <div>
-                    <button mat-button matStepperPrevious>Back</button>
-                    <button mat-button (click)="stepper.reset()">Reset</button>
+                <p>Uspešno ste kreirali zahtev za unošenje u evidenciju i deponovanje autorskih dela.</p>
+                <div style="display: flex">
+                    <!-- <button style="margin-left:40.7rem" class="previous-button" mat-raised-button
+                        matStepperPrevious>Nazad</button> -->
+                    <button style="margin-left:1rem" class="next-button" mat-raised-button (click)="sendTrademark()">Kreiraj</button>
                 </div>
             </mat-step>
         </mat-stepper>

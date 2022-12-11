@@ -10,3 +10,10 @@ export interface PunomocnikP{
     "pravno_lice"?: PravnoLice,
     "fizicko_lice"?: FizickoLice
 }
+
+export interface PunomocnikIPredstavnikZ {
+    "opste:pravno_lice"?: PravnoLice;
+    "opste:fizicko_lice"?: FizickoLice;
+    "pravno_lice"?: PravnoLice;
+    "fizicko_lice"?: FizickoLice;
+}

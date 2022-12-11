@@ -3,17 +3,17 @@ package com.example.xml.project.model.Z1;
 import javax.xml.bind.annotation.*;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name="boja", propOrder={"boja"}, namespace = "http://www.zig/zig")
+@XmlType(name="boja", propOrder={"naziv"}, namespace = "http://www.zig/zig")
 public class Boja {
 
-    @XmlValue
-    private String boja;
+    @XmlElement(name = "naziv", required = true, namespace = "http://www.zig/zig")
+    private String naziv;
 
-    public String getBoja() {
-        return boja;
+    public String getNaziv() {
+        return naziv;
     }
 
-    public void setBoja(String boja) {
-        this.boja = boja;
+    public void setNaziv(String naziv) {
+        this.naziv = naziv;
     }
 }
