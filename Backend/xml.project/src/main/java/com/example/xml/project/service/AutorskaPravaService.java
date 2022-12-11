@@ -29,7 +29,7 @@ public class AutorskaPravaService {
 
 //      Konfiguracija marshaller-a custom prefiks maperom
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-        OutputStream os = new FileOutputStream( "./data/A-1_new.xml" );
+        OutputStream os = new FileOutputStream( "./data/A-1_new2.xml" );
         marshaller.marshal(zahtevAutorskaDela, os);
     }
 

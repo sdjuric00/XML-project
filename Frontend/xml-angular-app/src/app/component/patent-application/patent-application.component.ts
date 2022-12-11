@@ -188,7 +188,7 @@ export class PatentApplicationComponent {
         "@": {
           "autor": this.podnosilacFormGroup.get('podnosilacAutor')?.value,
         },
-        "opste:pravno-lice": this.getPravnoLice(this.podnosilacFormGroup),
+        "opste:pravno_lice": this.getPravnoLice(this.podnosilacFormGroup),
       }
     }
   }

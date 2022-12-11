@@ -7,7 +7,7 @@
     <mat-chip-list style="margin-top: 1rem" #chipList>
       <mat-chip *ngFor="let podnosilac of podnosioci">
         <div *ngIf="!podnosilac.isPravnoLice">
-          {{podnosilac.ime + ' ' + podnosilac.prezime}} 
+          {{podnosilac.ime + ' ' + podnosilac.prezime}}
         </div>
         <div *ngIf="podnosilac.isPravnoLice">
           {{podnosilac.naziv}}

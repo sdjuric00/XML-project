@@ -94,9 +94,11 @@
             </xs:extension>
         </xs:complexContent>
     </xs:complexType>
+    <xs:complexType name="anonimni_autor">
+    </xs:complexType>
     <xs:complexType name="autor">
         <xs:choice>
-            <xs:element name="anonimni_autor" type="xs:string"/>
+            <xs:element name="anonimni_autor" type="xs-a:anonimni_autor"/>
             <xs:element name="imenovani_autor" type="xs-a:imenovani_autor"/>
         </xs:choice>
     </xs:complexType>
