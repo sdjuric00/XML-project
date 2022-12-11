@@ -1,15 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import {ControlContainer, FormGroup} from "@angular/forms";
 
+export interface PrilogForm {
+  putanja:any;
+  opis: string;
+}
+
+
 @Component({
   selector: 'app-prilozi',
   templateUrl: './prilozi.component.html',
   styleUrls: ['./prilozi.component.css']
 })
 export class PriloziComponent implements OnInit {
-  prilozi: any[] = [];
+  prilozi: PrilogForm[] = [];
   public priloziFormGroup: FormGroup;
   selectedImage: any = null;
+  opis: string = '';
+  greska: boolean = false;
 
   constructor(private controlContainer: ControlContainer) {
     this.priloziFormGroup = <FormGroup>this.controlContainer.control;
@@ -20,7 +28,7 @@ export class PriloziComponent implements OnInit {
   }
 
   izbrisiPrilog(prilog: any) {
-    const prilozi:string[] = this.priloziFormGroup.get('prilozi')?.value as string[];
+    const prilozi:PrilogForm[] = this.priloziFormGroup.get('prilozi')?.value as PrilogForm[];
     const index = prilozi?.indexOf(prilog);
 
     if (index >= 0) {
@@ -30,20 +38,25 @@ export class PriloziComponent implements OnInit {
     }
   }
 
-  dodajPrilog(event: any) {
-    if(event?.target?.files?.length > 0)
-    {
-      this.prilozi.push(event?.target?.files[0]?.name);
-      this.priloziFormGroup.get('prilozi')?.setValue(this.prilozi);
-    }
+  onFileSelected(event: any): void {
+    this.selectedImage = event.target.files[0] ?? null;
+    this.greska = false;
   }
 
-  onFileSelected(event: any): void {
-    if(event?.target?.files?.length > 0)
-    {
-      this.prilozi.push(event?.target?.files[0]?.name);
+
+  updateOpis(value: string) {
+    this.opis = value;
+  }
+
+  addPrilog() {
+    if (this.selectedImage !== null && this.selectedImage !== undefined && this.selectedImage !== ''){
+      this.prilozi.push({putanja:this.selectedImage, opis: this.opis});
       this.priloziFormGroup.get('prilozi')?.setValue(this.prilozi);
+      this.selectedImage = '';
+      this.opis = '';
     }
-    this.selectedImage = event.target.files[0] ?? null;
+    else {
+      this.greska = true;
+    }
   }
 }

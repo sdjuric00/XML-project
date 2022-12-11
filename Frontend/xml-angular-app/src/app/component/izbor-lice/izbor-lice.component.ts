@@ -34,7 +34,6 @@ export class IzborLiceComponent implements OnInit{
 
   changeRadioButton(lice: string):void {
     this.tipPodnosioca = lice;
-    this.podnosilacFormGroup.get('tipPodnosioca').setValue(this.tipPodnosioca);
     this.podnosilacFormGroup.clearValidators();
     if (this.tipPodnosioca === 'Fizičko lice'){
 
@@ -78,5 +77,6 @@ export class IzborLiceComponent implements OnInit{
     this.podnosilacFormGroup.reset();
     this.podnosilacFormGroup.markAsPristine();
     this.podnosilacFormGroup.markAsUntouched();
+    this.podnosilacFormGroup.get('tipPodnosioca').setValue(this.tipPodnosioca);
   }
 }

@@ -51,6 +51,11 @@ body {
   color: var(--deep-blue) !important;
 }
 
+.dodaj-prilog-button {
+  background-color: var(--deep-blue) !important;
+  color: white !important;
+}
+
 .previous-button {
   background-color: rgba(104, 202, 68, 0.16) !important;
   color: var(--deep-blue) !important;

@@ -8,16 +8,16 @@
   <div style="display: flex">
     <div style="margin-left:2rem; border: 2px solid var(--green); background-color: var(--gray-transparent); padding: 0.5rem; border-radius: 5%;">
       <h3>Vrsta autorskog dela</h3>
-      <mat-radio-button class="example-radio-group" [value]="'Književno'" (change)="changeRadioButtonVrsta('Književno')" style="margin-right: 1rem">
+      <mat-radio-button class="example-radio-group" [value]="'Književno'" (change)="changeRadioButtonVrsta('knjizevno')" style="margin-right: 1rem">
         Književno
       </mat-radio-button>
-      <mat-radio-button class="example-radio-group" [value]="'Muzičko'" (change)="changeRadioButtonVrsta('Muzičko')">
+      <mat-radio-button class="example-radio-group" [value]="'Muzičko'" (change)="changeRadioButtonVrsta('muzicko')">
         Muzičko
       </mat-radio-button>
-      <mat-radio-button class="example-radio-group" [value]="'Likovno'" (change)="changeRadioButtonVrsta('Likovno')">
+      <mat-radio-button class="example-radio-group" [value]="'Likovno'" (change)="changeRadioButtonVrsta('likovno')">
         Likovno
       </mat-radio-button>
-      <mat-radio-button class="example-radio-group" [value]="'Računarski program'" (change)="changeRadioButtonVrsta('Računarski program')">
+      <mat-radio-button class="example-radio-group" [value]="'Računarski program'" (change)="changeRadioButtonVrsta('racunarski_program')">
         Računarski program
       </mat-radio-button>
       <mat-radio-button class="example-radio-group" [value]="'Ostalo'" (change)="changeRadioButtonVrsta('Ostalo')">
@@ -35,16 +35,16 @@
     <div style="margin-left:2rem; border: 2px solid var(--green); background-color: var(--gray-transparent); padding: 0.5rem; border-radius: 5%;">
       <h3>Forma zapisa autorskog dela</h3>
       <mat-radio-group>
-        <mat-radio-button class="example-radio-group" [value]="'Oslikano'" (change)="changeRadioButtonForma('Oslikano')" style="margin-right: 1rem">
+        <mat-radio-button class="example-radio-group" [value]="'Oslikano'" (change)="changeRadioButtonForma('oslikano')" style="margin-right: 1rem">
           Oslikano
         </mat-radio-button>
-        <mat-radio-button class="example-radio-group" [value]="'Pisano'" (change)="changeRadioButtonForma('Pisano')">
+        <mat-radio-button class="example-radio-group" [value]="'Pisano'" (change)="changeRadioButtonForma('pisano')">
           Pisano
         </mat-radio-button>
-        <mat-radio-button class="example-radio-group" [value]="'Štampano'" (change)="changeRadioButtonForma('Štampano')">
+        <mat-radio-button class="example-radio-group" [value]="'Štampano'" (change)="changeRadioButtonForma('stampano')">
           Štampano
         </mat-radio-button>
-        <mat-radio-button class="example-radio-group" [value]="'Optički disk'" (change)="changeRadioButtonForma('Optički disk')">
+        <mat-radio-button class="example-radio-group" [value]="'Optički disk'" (change)="changeRadioButtonForma('opticki_disk')">
           Optički disk
         </mat-radio-button>
         <mat-radio-button class="example-radio-group" [value]="'Ostalo'" (change)="changeRadioButtonForma('Ostalo')">
@@ -114,11 +114,11 @@
   <div style="display: flex">
     <button style="margin-left:84%" class="previous-button" mat-raised-button matStepperPrevious>Nazad</button>
     <!--    [disabled]="punomocnikFormGroup.invalid"-->
-    <button style="margin-left:1rem" class="next-button" mat-raised-button matStepperNext
-            [disabled]="
+    <button style="margin-left:1rem" class="next-button" mat-raised-button matStepperNext [disabled]="
             ((vrstaAutorskogDela==='' && customVrstaAutorskogDela==='') || (vrstaAutorskogDela==='Ostalo' && customVrstaAutorskogDela==='')) ||
             ((formaAutorskogDela==='' && customFormaAutorskogDela==='') || (formaAutorskogDela==='Ostalo' && customFormaAutorskogDela==='')) ||
             (customNacinKoriscenja==='') || (autorskoDeloFormGroup.invalid)"
     >Dalje</button>
+
   </div>
 </div>

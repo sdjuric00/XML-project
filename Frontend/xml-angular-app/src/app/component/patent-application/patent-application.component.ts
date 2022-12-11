@@ -106,7 +106,7 @@ export class PatentApplicationComponent {
     naziv:{
         "@": {jezik: "srpski"},
         "#": this.nazivFormGroup.get('nazivSrpskiCtrl').value
-      
+
     }};
 
     let nazivEngleski:Naziv = {
@@ -118,9 +118,9 @@ export class PatentApplicationComponent {
     podaci.push(nazivSrpski);
     podaci.push(nazivEngleski);
 
-  
+
     return {"#": podaci};
-      
+
   }
   getPatent(): Patent {
 
@@ -162,7 +162,7 @@ export class PatentApplicationComponent {
 
   getPodnosilac(): Podnosilac{
     if(this.podnosilacFormGroup.get('ime')?.value !== ""){
-     
+
       return {
         "@": {
           autor: this.podnosilacFormGroup.get('podnosilacAutor')?.value,
@@ -204,7 +204,7 @@ export class PatentApplicationComponent {
         }
       }
       else{
-       
+
 
         let imenovani_pronalazac: ImenovaniPronalazac = {
           "pravno_lice": this.getPravnoLice(this.pronalazacFormGroup)
@@ -221,7 +221,7 @@ export class PatentApplicationComponent {
 
   getPunomocnik(): PunomocnikP {
     if(this.podnosilacFormGroup.get('ime')?.value !== ""){
-     
+
       return {
         "@":{
           za_zastupanje: this.punomocnikFormGroup.get('zaZastupanje').value,
@@ -276,7 +276,7 @@ export class PatentApplicationComponent {
       "opste:adresa": this.getAdresa(formGroup),
       "opste:naziv": formGroup.get('naziv')?.value,
       "opste:pib": formGroup.get('pib')?.value,
-      "opste:registarski_broj": formGroup.get('registarski_broj')?.value
+      "opste:registarski_broj": formGroup.get('registarskiBroj')?.value
     }
     return pravno_lice;
   }
@@ -318,7 +318,7 @@ export class PatentApplicationComponent {
     console.log(o2x(patent));
     let queryParams = {};
     queryParams = {
-      headers: headers, 
+      headers: headers,
       observe: "response",
       responseType: "text"
     };

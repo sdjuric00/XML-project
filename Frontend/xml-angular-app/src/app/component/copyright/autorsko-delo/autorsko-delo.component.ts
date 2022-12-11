@@ -53,9 +53,11 @@ export class AutorskoDeloComponent implements OnInit {
     this.customVrstaAutorskogDela = '';
     this.vrstaAutorskogDela = value;
     if (this.vrstaAutorskogDela !== 'Ostalo'){
+      this.autorskoDeloFormGroup?.controls['vrstaJeCustom']?.setValue(false);
       this.autorskoDeloFormGroup?.controls['vrsta']?.setValue(value);
     }
     else {
+      this.autorskoDeloFormGroup?.controls['vrstaJeCustom']?.setValue(true);
       this.autorskoDeloFormGroup?.controls['vrsta']?.setValue('');
     }
   }
@@ -69,9 +71,11 @@ export class AutorskoDeloComponent implements OnInit {
     this.customFormaAutorskogDela = '';
     this.formaAutorskogDela = value;
     if (this.vrstaAutorskogDela !== 'Ostalo'){
+      this.autorskoDeloFormGroup?.controls['formaZapisaJeCustom']?.setValue(false);
       this.autorskoDeloFormGroup?.controls['formaZapisa']?.setValue(value);
     }
     else {
+      this.autorskoDeloFormGroup?.controls['formaZapisaJeCustom']?.setValue(true);
       this.autorskoDeloFormGroup?.controls['formaZapisa']?.setValue('');
     }
   }

@@ -15,6 +15,5 @@ export class FizickoLiceComponent implements OnInit {
 
   ngOnInit(): void {
     this.formGroup = <FormGroup>this.controlContainer.control;
-    console.log(this.formGroup);
   }
 }

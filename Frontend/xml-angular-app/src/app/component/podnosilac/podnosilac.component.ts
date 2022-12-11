@@ -21,6 +21,7 @@ export class PodnosilacComponent implements OnInit {
 
     this.podnosilacFormGroup.updateValueAndValidity();
     this.podnosilacFormGroup.reset();
+    this.podnosilacFormGroup.get('podnosilacAutor').setValue(false);
   }
 
 

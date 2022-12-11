@@ -4,31 +4,29 @@
     xmlns:xs-opste="http://ftn.ac.rs/opste">
 
     <xs:import namespace="http://ftn.ac.rs/opste" schemaLocation="Opste.xsd"/>
-    <xs:complexType name="zahtevi_a">
-        <xs:sequence maxOccurs="1" minOccurs="1">
-            <xs:element name="lista_zahteva_a" type="xs-a:lista_zahteva_a"/>
-        </xs:sequence>
-    </xs:complexType>
-    <xs:complexType name="zahtev_za_unosenje_u_evidenciju_i_deponovanje_autorskih_dela">
-        <xs:sequence>
-            <xs:element name="institucija" type="xs-opste:institucija"/>
-            <xs:element maxOccurs="unbounded" name="podnosilac" type="xs-opste:podnosilac"/>
-            <xs:element name="punomocnik" type="xs-opste:punomocnik" minOccurs="0"/>
-            <xs:element name="autorsko_delo" type="xs-a:autorsko_delo"/>
-            <xs:element name="autori" type="xs-a:autori"/>
-            <xs:element name="prilozi" type="xs-a:prilozi"/>
-        </xs:sequence>
-        <xs:attribute default="A-1" name="obrazac" type="xs:string"/>
-        <xs:attribute name="broj_prijave">
-            <xs:simpleType>
-                <xs:restriction base="xs:string">
-                    <xs:pattern value="[A][-][0-9]{4}[/][0-9]+"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute name="datum_podnosenja" type="xs:date"/>
-        <xs:attribute name="pregledano" type="xs:boolean"/>
-    </xs:complexType>
+
+    <xs:element name="zahtev_za_unosenje_u_evidenciju_i_deponovanje_autorskih_dela">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="institucija" type="xs-opste:institucija"/>
+                <xs:element maxOccurs="unbounded" name="podnosilac" type="xs-opste:podnosilac"/>
+                <xs:element name="punomocnik" type="xs-opste:punomocnik" minOccurs="0"/>
+                <xs:element name="autorsko_delo" type="xs-a:autorsko_delo"/>
+                <xs:element name="autori" type="xs-a:autori"/>
+                <xs:element name="prilozi" type="xs-a:prilozi"/>
+            </xs:sequence>
+            <xs:attribute default="A-1" name="obrazac" type="xs:string"/>
+            <xs:attribute name="broj_prijave">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="[A][-][0-9]{4}[/][0-9]+"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="datum_podnosenja" type="xs:date"/>
+            <xs:attribute name="pregledano" type="xs:boolean"/>
+        </xs:complexType>
+    </xs:element>
     <xs:simpleType name="vrsta_autorskog_dela_enum">
         <xs:restriction>
             <xs:simpleType>
@@ -90,8 +88,8 @@
                     <xs:element name="ime" type="xs:string"/>
                     <xs:element name="prezime" type="xs:string"/>
                     <xs:element name="drzavljanstvo" type="xs:string"/>
-                    <xs:element name="godina_smrti" type="xs:string"/>
-                    <xs:element name="pseudonim" type="xs:string"/>
+                    <xs:element name="godina_smrti" type="xs:string" minOccurs="0"/>
+                    <xs:element name="pseudonim" type="xs:string" minOccurs="0"/>
                 </xs:sequence>
             </xs:extension>
         </xs:complexContent>
@@ -117,12 +115,5 @@
             <xs:element name="opis" type="xs:string"/>
         </xs:sequence>
         <xs:attribute name="putanja" type="xs:string"/>
-    </xs:complexType>
-    <xs:element name="zahtevi_a" type="xs-a:zahtevi_a"/>
-    <xs:complexType name="lista_zahteva_a">
-        <xs:sequence maxOccurs="unbounded" minOccurs="0">
-            <xs:element name="zahtev_za_unosenje_u_evidenciju_i_deponovanje_autorskih_dela"
-                type="xs-a:zahtev_za_unosenje_u_evidenciju_i_deponovanje_autorskih_dela"/>
-        </xs:sequence>
     </xs:complexType>
 </xs:schema>

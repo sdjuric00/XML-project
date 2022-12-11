@@ -33,7 +33,6 @@ export class PunomocnikComponent implements OnInit {
 
   changeRadioButton(lice: string):void {
     this.tipPunomocnika = lice;
-    this.punomocnikFormGroup.get('tipPunomocnika').setValue(this.tipPunomocnika);
     this.punomocnikFormGroup.clearValidators();
     if (this.tipPunomocnika === 'Fizičko lice'){
 
@@ -77,5 +76,6 @@ export class PunomocnikComponent implements OnInit {
     this.punomocnikFormGroup.reset();
     this.punomocnikFormGroup.markAsPristine();
     this.punomocnikFormGroup.markAsUntouched();
+    this.punomocnikFormGroup.get('tipPunomocnika').setValue(this.tipPunomocnika);
   }
 }

@@ -14,6 +14,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@XmlRootElement(name="zahtev_za_unosenje_u_evidenciju_i_deponovanje_autorskih_dela", namespace = "http://ftn.ac.rs/a")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name="zahtev_za_unosenje_u_evidenciju_i_deponovanje_autorskih_dela",
     propOrder={"institucija", "podnosilac", "punomocnik", "autorsko_delo", "autori", "prilozi"},
