@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ControlContainer, FormGroup, Validators } from '@angular/forms';
+import { PodnosilacUniversal } from 'src/app/model/podnosilac-universal';
 
 @Component({
   selector: 'app-izbor-lice',
@@ -7,6 +8,11 @@ import { ControlContainer, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./izbor-lice.component.css']
 })
 export class IzborLiceComponent implements OnInit{
+
+  @Input() isTrademark = false;
+
+  @Output() dodatPodnosilac = new EventEmitter<PodnosilacUniversal>();
+
   tipPodnosioca: string='Fizičko lice';
   podnosilacAutor: boolean = false;
   public podnosilacFormGroup: FormGroup;
@@ -78,5 +84,9 @@ export class IzborLiceComponent implements OnInit{
     this.podnosilacFormGroup.markAsPristine();
     this.podnosilacFormGroup.markAsUntouched();
     this.podnosilacFormGroup.get('tipPodnosioca').setValue(this.tipPodnosioca);
+  }
+
+  dodajPodnosioca(podnosilac: PodnosilacUniversal): void {
+    this.dodatPodnosilac.emit(podnosilac);
   }
 }

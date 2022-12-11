@@ -38,5 +38,9 @@
     <app-adresa [formGroup]="formGroup" style="margin-left:2rem; border: 2px solid var(--green); background-color: var(--gray-transparent); padding: 0.5rem; border-radius: 5% "></app-adresa>
 
   </div>
+
+  <div *ngIf="isTrademark" style="margin-left: 8rem;">
+    <button class="add-button" mat-raised-button [disabled]="isFormValid()" (click)="dodajPodnosioca()">Dodaj</button>
+  </div>
 </div>
 

@@ -11,9 +11,9 @@
         <label>Primerak znaka</label>
 
         <div class="load-image">
-            <button type="button" mat-raised-button (click)="fileInput.click()">Dodaj<mat-icon>link</mat-icon></button>
-            <input hidden #fileInput type="file">
-            <span class="file-name"></span>
+            <input hidden #fileInput1 type="file" (change)="primerakZnakaChanged($event)">
+            <span class="file-name">{{primerakZnakaPutanja}}</span>
+            <button type="button" mat-raised-button (click)="fileInput1.click()">Dodaj<mat-icon>link</mat-icon></button>
         </div>
 
     </div>
@@ -23,9 +23,9 @@
         <label>Primerak punomocja</label>
     
         <div class="load-image">
-            <button type="button" mat-raised-button (click)="fileInput.click()">Dodaj<mat-icon>link</mat-icon></button>
-            <input hidden #fileInput type="file">
-            <span class="file-name"></span>
+            <input hidden #fileInput2 type="file" (change)="punomocjeChanged($event)">
+            <span class="file-name">{{punomocjePutanja}}</span>
+            <button type="button" mat-raised-button (click)="fileInput2.click()">Dodaj<mat-icon>link</mat-icon></button>
         </div>
     
     </div>
@@ -35,9 +35,9 @@
         <label>Akt o kolektivnom zigu</label>
     
         <div class="load-image">
-            <button type="button" mat-raised-button (click)="fileInput.click()">Dodaj<mat-icon>link</mat-icon></button>
-            <input hidden #fileInput type="file">
-            <span class="file-name"></span>
+            <input hidden #fileInput3 type="file" (change)="opstiAktOKolektivnoZiguChanged($event)">
+            <span class="file-name">{{opstiAktOKolektivnoZiguPutanja}}</span>
+            <button type="button" mat-raised-button (click)="fileInput3.click()">Dodaj<mat-icon>link</mat-icon></button>
         </div>
     
     </div>
@@ -47,9 +47,9 @@
         <label>Dokaz o pravu prvenstva</label>
     
         <div class="load-image">
-            <button type="button" mat-raised-button (click)="fileInput.click()">Dodaj<mat-icon>link</mat-icon></button>
-            <input hidden #fileInput type="file">
-            <span class="file-name"></span>
+            <input hidden #fileInput4 type="file" (change)="dozakOPravuPrvenstvaChanged($event)">
+            <span class="file-name">{{dozakOPravuPrvenstvaPutanja}}</span>
+            <button type="button" mat-raised-button (click)="fileInput4.click()">Dodaj<mat-icon>link</mat-icon></button>
         </div>
     
     </div>
@@ -59,9 +59,9 @@
         <label>Dokaz o uplati takse</label>
     
         <div class="load-image">
-            <button type="button" mat-raised-button (click)="fileInput.click()">Dodaj<mat-icon>link</mat-icon></button>
-            <input hidden #fileInput type="file">
-            <span class="file-name"></span>
+            <input hidden #fileInput5 type="file" (change)="dokazOUplatiTakseChanged($event)">
+            <span class="file-name">{{dokazOUplatiTaksePutanja}}</span>
+            <button type="button" mat-raised-button (click)="fileInput5.click()">Dodaj<mat-icon>link</mat-icon></button>
         </div>
     
     </div>
@@ -82,16 +82,19 @@
                 <br />
                 <mat-form-field appearance="fill" class="input-field">
                     <mat-label>Roba</mat-label>
-                    <input #robaInput matInput placeholder="Dodaj robu" formControlName="spisakRoba" (keyup.enter)="dodajRobu(robaInput.value)">
+                    <input #robaInput matInput placeholder="Dodaj robu">
                     <mat-error *ngIf="takseIPriloziFormGroup.get('spisakRoba')?.hasError('required')">
                         Robe su <strong>obavezno</strong> polje
                     </mat-error>
                 </mat-form-field>
+                <div style="margin-top: 0.7rem;">
+                    <button class="add-button" mat-raised-button (click)="dodajRobu(robaInput.value)">Dodaj</button>
+                </div>
             </mat-expansion-panel>
 
             <mat-form-field appearance="fill" class="input-field-osnov" *ngIf="getPravoPrvenstva()">
                 <mat-label>Osnov za prvenstvo</mat-label>
-                <input matInput placeholder="Osnov" formControlName="osnov">
+                <input matInput placeholder="Osnov" formControlName="pravoPrvenstvaOsnov">
                 <mat-error *ngIf="takseIPriloziFormGroup.get('pravoPrvenstvaOsnov')?.hasError('required')">
                     Osnov je <strong>obavezno</strong> polje
                 </mat-error>

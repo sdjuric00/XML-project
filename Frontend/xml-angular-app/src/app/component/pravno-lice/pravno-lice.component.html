@@ -33,7 +33,10 @@
   <div style="display: flex; padding-left:5.3rem; margin-top: 1.1rem; padding-bottom: 0.5rem">
     <app-kontakt [formGroup]="podnosilacFormGroup" style="margin-left:2rem; display: inline; border: 2px solid var(--green); background-color: var(--gray-transparent); padding: 0.5rem; border-radius: 5% "></app-kontakt>
     <app-adresa [formGroup]="podnosilacFormGroup" style="margin-left:2rem; border: 2px solid var(--green); background-color: var(--gray-transparent); padding: 0.5rem; border-radius: 5% "></app-adresa>
+  </div>
 
+  <div *ngIf="isTrademark" style="margin-left: 8rem;">
+    <button class="add-button" mat-raised-button [disabled]="podnosilacFormGroup.invalid" (click)="dodajPodnosioca()">Dodaj</button>
   </div>
 </div>
 
