@@ -1,7 +1,7 @@
 <div style="padding:2rem">
   <app-zaglavlje obrazac="P-1"></app-zaglavlje>
 
-  <mat-stepper labelPosition="bottom" >
+  <mat-stepper labelPosition="bottom" #stepper>
     <mat-step [stepControl]="nazivFormGroup">
       <form [formGroup]="nazivFormGroup" class="stepper-container">
         <ng-template matStepLabel>Podaci o pronalasku</ng-template>
@@ -15,10 +15,9 @@
           <mat-label>Naziv pronalaska na engleskom jeziku</mat-label>
           <input matInput placeholder="Naziv pronalaska na engleskom jeziku" formControlName="nazivEngleskiCtrl">
         </mat-form-field>
-        <div>
-          <!--    [disabled]="podnosilacFormGroup.invalid"-->
-              <button style="margin-left:40rem" class="next-button" mat-raised-button matStepperNext>Dalje</button>
-            </div>
+        <div >
+          <button  style="float: center; margin-left: 72rem;" class="next-button" mat-raised-button matStepperNext >Dalje</button>
+        </div>
       </div>
       </form>
     </mat-step>
@@ -33,36 +32,33 @@
         <ng-template matStepLabel>Pronalazač</ng-template>
         <app-pronalazac></app-pronalazac>
       </form>
-      <div>
-        <!--    [disabled]="podnosilacFormGroup.invalid"-->
-            <button style="margin-left:40rem" class="next-button" mat-raised-button matStepperNext (click)="continueBtn()">Dalje</button>
-          </div>
     </mat-step>
     <mat-step [stepControl]="punomocnikFormGroup" >
       <form [formGroup]="punomocnikFormGroup" class="stepper-container">
         <ng-template matStepLabel>Punomoćnik</ng-template>
           <app-punomocnik-patent></app-punomocnik-patent>
       </form>
-      <div>
-        <!--    [disabled]="podnosilacFormGroup.invalid"-->
-            <button style="margin-left:40rem" class="next-button" mat-raised-button matStepperNext (click)="continueBtn()">Dalje</button>
-          </div>
     </mat-step>
     <mat-step [stepControl]="dostavljanjeFormGroup" >
       <form [formGroup]="dostavljanjeFormGroup" class="stepper-container">
         <ng-template matStepLabel>Dostavljanje</ng-template>
           <app-dostavljanje></app-dostavljanje>
       </form>
-      <div>
-        <!--    [disabled]="podnosilacFormGroup.invalid"-->
-            <button style="margin-left:40rem" class="next-button" mat-raised-button matStepperNext (click)="sendPatentDoc()">Dalje</button>
-          </div>
     </mat-step>
     <mat-step>
-      <form>
+      <form [formGroup]="prijaveFormGroup">
         <ng-template matStepLabel>Dopunska prijava</ng-template>
-        <app-dopunska-prijava></app-dopunska-prijava>
+        <app-dopunska-prijava (createdRequest)="kreirajZahtevPatent()"></app-dopunska-prijava>
       </form>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Kraj</ng-template>
+        <p>Uspešno ste kreirali zahtev za priznavanje patenta!</p>
+        <div style="display: flex">
+          <button style="margin-left:40.7rem" class="previous-button" mat-raised-button matStepperPrevious>Nazad</button>
+          <button style="margin-left:1rem" class="next-button" mat-raised-button (click)="stepper.reset()">Kreiranje novog zahteva</button>
+        </div>
+      
     </mat-step>
   </mat-stepper>
 </div>

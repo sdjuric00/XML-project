@@ -83,7 +83,7 @@ export class IzborLiceComponent implements OnInit{
     this.podnosilacFormGroup.reset();
     this.podnosilacFormGroup.markAsPristine();
     this.podnosilacFormGroup.markAsUntouched();
-    this.podnosilacFormGroup.get('tipPodnosioca').setValue(this.tipPodnosioca);
+    //this.podnosilacFormGroup.get('tipPodnosioca').setValue(this.tipPodnosioca);
   }
 
   dodajPodnosioca(podnosilac: PodnosilacUniversal): void {

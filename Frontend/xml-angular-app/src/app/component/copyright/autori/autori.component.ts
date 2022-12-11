@@ -33,6 +33,9 @@ export class AutoriComponent implements OnInit {
       this.autoriFormGroup.get('grad')?.setErrors(null);
       this.autoriFormGroup.get('postanskiBroj')?.setErrors(null);
       this.autoriFormGroup.get('drzava')?.setErrors(null);
+      this.autoriFormGroup.get('email')?.setErrors(null);
+      this.autoriFormGroup.get('telefon')?.setErrors(null);
+      this.autoriFormGroup.get('fax')?.setErrors(null);
       this.autoriFormGroup.get('godinaSmrti')?.setValue('');
       this.autoriFormGroup.get('pseudonim')?.setValue('');
     }
@@ -45,6 +48,10 @@ export class AutoriComponent implements OnInit {
       this.autoriFormGroup.get('grad')?.setValidators([Validators.required, Validators.maxLength(50)]);
       this.autoriFormGroup.get('postanskiBroj')?.setValidators([Validators.required, Validators.pattern("[0-9]{5}")]);
       this.autoriFormGroup.get('drzava')?.setValidators([Validators.required, Validators.maxLength(50)]);
+      this.autoriFormGroup.get('email')?.setValidators([Validators.required, Validators.email]);
+      this.autoriFormGroup.get('telefon')?.setValidators([Validators.required, Validators.pattern("[0-9]{8,12}")]);
+      this.autoriFormGroup.get('fax')?.setValidators([Validators.required, Validators.pattern("[0][0-9]{8,9}")]);
+
     }
     this.autoriFormGroup.updateValueAndValidity();
   }

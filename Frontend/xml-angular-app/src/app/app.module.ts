@@ -33,6 +33,7 @@ import { PunomocnikPatentComponent } from './component/punomocnik-patent/punomoc
 import { DostavljanjeComponent } from './component/dostavljanje/dostavljanje.component';
 import { DopunskaPrijavaComponent } from './component/dopunska-prijava/dopunska-prijava.component';
 import { PrvobitnaPrijavaComponent } from './component/prvobitna-prijava/prvobitna-prijava.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,13 @@ import { PrvobitnaPrijavaComponent } from './component/prvobitna-prijava/prvobit
     MatRadioModule,
     FormsModule,
     MatChipsModule,
-    FormsModule
+    FormsModule,
+    ToastrModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-bottom-left',
+      preventDuplicates: true,
+      closeButton: true,
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

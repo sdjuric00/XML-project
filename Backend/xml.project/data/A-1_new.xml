@@ -10,7 +10,7 @@
             <opste:drzava>Republika Srbija</opste:drzava>
         </opste:adresa>
     </institucija>
-    <podnosilac autor="false">
+    <podnosilac autor="true">
         <opste:fizicko_lice>
             <opste:kontakt>
                 <opste:email>zoka@gmail.com</opste:email>
@@ -18,80 +18,86 @@
                 <opste:fax>0111111111</opste:fax>
             </opste:kontakt>
             <opste:adresa>
-                <opste:grad>Novi Sad</opste:grad>
+                <opste:grad>Naovs</opste:grad>
                 <opste:ulica>Lasla Gala</opste:ulica>
                 <opste:broj>21</opste:broj>
-                <opste:postanski_broj>21000</opste:postanski_broj>
+                <opste:postanski_broj>12222</opste:postanski_broj>
                 <opste:drzava>Serbia</opste:drzava>
             </opste:adresa>
-            <opste:ime>Zorica</opste:ime>
-            <opste:prezime>Vukovic</opste:prezime>
-            <opste:jmbg>1503000895011</opste:jmbg>
+            <opste:ime>sda</opste:ime>
+            <opste:prezime>dasad</opste:prezime>
+            <opste:jmbg>3232323232323</opste:jmbg>
         </opste:fizicko_lice>
     </podnosilac>
     <punomocnik>
         <opste:pravno_lice>
             <opste:kontakt>
-                <opste:email>srki@gmail.com</opste:email>
-                <opste:telefon>666666666</opste:telefon>
-                <opste:fax>0666666666</opste:fax>
+                <opste:email>zoka@gmail.com</opste:email>
+                <opste:telefon>43434343434</opste:telefon>
+                <opste:fax>0434343434</opste:fax>
             </opste:kontakt>
             <opste:adresa>
-                <opste:grad>Sabac</opste:grad>
-                <opste:ulica>Sabacka</opste:ulica>
-                <opste:broj>21</opste:broj>
-                <opste:postanski_broj>12000</opste:postanski_broj>
+                <opste:grad>sdsd</opste:grad>
+                <opste:ulica>sdsd</opste:ulica>
+                <opste:broj>1</opste:broj>
+                <opste:postanski_broj>21000</opste:postanski_broj>
                 <opste:drzava>Serbia</opste:drzava>
             </opste:adresa>
-            <opste:naziv>Srki komerc</opste:naziv>
-            <opste:pib>231312223</opste:pib>
-            <opste:registarski_broj>44444444</opste:registarski_broj>
+            <opste:naziv>asdas</opste:naziv>
+            <opste:pib>666666666</opste:pib>
+            <opste:registarski_broj>06666666</opste:registarski_broj>
         </opste:pravno_lice>
     </punomocnik>
-    <autorsko_delo stvoreno_u_radnom_odnosu="false" nacin_koriscenja="ne znam tacno">
+    <autorsko_delo stvoreno_u_radnom_odnosu="false" nacin_koriscenja="asasas">
         <vrsta_autorskog_dela>
             <vrsta_enum>knjizevno</vrsta_enum>
         </vrsta_autorskog_dela>
         <forma_zapisa>
-            <vrsta_enum>stampano</vrsta_enum>
+            <vrsta_custom>moj zapis</vrsta_custom>
         </forma_zapisa>
-        <naslov>moj naslov</naslov>
+        <naslov>mojNaslov</naslov>
+        <alternativni_naslov>alternativaJedna</alternativni_naslov>
+        <podaci_o_naslovu_prerada>
+            <naslov>asasa</naslov>
+            <autor>
+                <anonimni_autor/>
+            </autor>
+        </podaci_o_naslovu_prerada>
     </autorsko_delo>
     <autori>
         <autor>
-            <imenovani_autor>
-                <opste:kontakt>
-                    <opste:email>ana@gmail.com</opste:email>
-                    <opste:telefon>054543443</opste:telefon>
-                    <opste:fax>055555555</opste:fax>
-                </opste:kontakt>
-                <opste:adresa>
-                    <opste:grad>Milanovac</opste:grad>
-                    <opste:ulica>Milina</opste:ulica>
-                    <opste:broj>21</opste:broj>
-                    <opste:postanski_broj>20000</opste:postanski_broj>
-                    <opste:drzava>Serbia</opste:drzava>
-                </opste:adresa>
-                <ime>Mila</ime>
-                <prezime>Milic</prezime>
-                <drzavljanstvo></drzavljanstvo>
-                <godina_smrti>-1</godina_smrti>
-                <pseudonim>milicija</pseudonim>
-            </imenovani_autor>
+            <anonimni_autor/>
         </autor>
         <autor>
-            <anonimni_autor/>
+            <imenovani_autor>
+                <opste:kontakt>
+                    <opste:email>pera@gmail.com</opste:email>
+                    <opste:telefon>999999999</opste:telefon>
+                    <opste:fax>043343433</opste:fax>
+                </opste:kontakt>
+                <opste:adresa>
+                    <opste:grad>Sabac</opste:grad>
+                    <opste:ulica>Perinau</opste:ulica>
+                    <opste:broj>1</opste:broj>
+                    <opste:postanski_broj>13000</opste:postanski_broj>
+                    <opste:drzava>Serbia</opste:drzava>
+                </opste:adresa>
+                <ime>Pera</ime>
+                <prezime>Peric</prezime>
+                <drzavljanstvo></drzavljanstvo>
+                <godina_smrti>-1</godina_smrti>
+            </imenovani_autor>
         </autor>
         <autor>
             <anonimni_autor/>
         </autor>
     </autori>
     <prilozi>
-        <prilog putanja="K1.pdf">
-            <opis>neki opis 1</opis>
+        <prilog putanja="blackCar.jpeg">
+            <opis>slika dela</opis>
         </prilog>
-        <prilog putanja="Zorica_Vuković_CV.pdf">
-            <opis>cv</opis>
+        <prilog putanja="car.png">
+            <opis>druga slika dela</opis>
         </prilog>
     </prilozi>
 </zahtev_za_unosenje_u_evidenciju_i_deponovanje_autorskih_dela>

@@ -1,4 +1,4 @@
-<div *ngIf="podnosilacFormGroup">
+<div *ngIf="podnosilacFormGroup" style = "margin-left:2rem; border: 2px solid var(--green); background-color: var(--gray-transparent); padding: 0.5rem; border-radius: 1rem">
   <h3 class="input-field-margin-left">Adresa</h3>
   <div [formGroup]="podnosilacFormGroup">
     <mat-form-field appearance="fill" style="width: 15.7rem" class="input-field-margin-right input-field-margin-left">
@@ -48,8 +48,8 @@
       <mat-label>Drzava</mat-label>
       <input type="text" placeholder="Drzava" aria-label="Number" matInput formControlName="drzava"
         [matAutocomplete]="auto">
-      <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let country of filteredCountries | async" [value]="country.name">
+      <mat-autocomplete #auto="matAutocomplete" style="background-color: var(--gray)!important;">
+        <mat-option *ngFor="let country of filteredCountries | async" [value]="country.name" style="background-color: rgb(205,209,211) !important; color:var(--deep-blue)!important;">
           {{country.name}}
         </mat-option>
       </mat-autocomplete>

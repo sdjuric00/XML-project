@@ -21,15 +21,10 @@ public class AutorskaPravaService {
     public void save(String doc) throws JAXBException, FileNotFoundException {
         ZahtevAutorskaDela zahtevAutorskaDela = checkSchema(doc);
         JAXBContext jc = JAXBContext.newInstance(ZahtevAutorskaDela.class);
-        Unmarshaller unmarshaller = jc.createUnmarshaller();
-        File xml = new File("./data/A-1.xml");
-        ZahtevAutorskaDela zahteviAutoskaDela = (ZahtevAutorskaDela) unmarshaller.unmarshal(xml);
 
         Marshaller marshaller = jc.createMarshaller();
-
-//      Konfiguracija marshaller-a custom prefiks maperom
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-        OutputStream os = new FileOutputStream( "./data/A-1_new2.xml" );
+        OutputStream os = new FileOutputStream( "./data/A-1_new.xml" );
         marshaller.marshal(zahtevAutorskaDela, os);
     }
 
@@ -40,14 +35,11 @@ public class AutorskaPravaService {
 
             SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
             Schema schema = schemaFactory.newSchema(new File("./data/A-1.xsd"));
-
-            // Podešavanje unmarshaller-a za XML schema validaciju
             unmarshaller.setSchema(schema);
             document.replace("\n","");
             ZahtevAutorskaDela zahtevAutorskaDela = (ZahtevAutorskaDela) unmarshaller.unmarshal
                 (new StreamSource( new StringReader(document)));
 
-            //noinspection unchecked
             return zahtevAutorskaDela;
         } catch (JAXBException | SAXException e) {
             e.printStackTrace();
