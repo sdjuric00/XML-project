@@ -9,10 +9,17 @@ import com.example.xml.project.model.Z1.ZahteviZig;
 import com.example.xml.project.model.P1.ZahteviPatenti;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.xml.sax.SAXException;
 
+import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-import java.io.File;
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
+import java.io.*;
 
 @SpringBootApplication
 public class Application {
@@ -51,5 +58,4 @@ public class Application {
 			System.out.println(ex.getMessage());
 		}
 	}
-
 }

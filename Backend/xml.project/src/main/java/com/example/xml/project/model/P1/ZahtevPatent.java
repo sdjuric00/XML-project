@@ -3,7 +3,6 @@ package com.example.xml.project.model.P1;
 import com.example.xml.project.model.Institucija;
 import com.example.xml.project.model.LocalDateAdapter;
 import com.example.xml.project.model.Podnosilac;
-import com.example.xml.project.model.Punomocnik;
 
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -19,19 +18,22 @@ import java.util.List;
 )
 public class ZahtevPatent {
 
-    @XmlAttribute(name="broj_prijave", required = true)
+    @XmlAttribute(name="broj_prijave")
     private String broj_prijave;
 
     @XmlAttribute(name="datum_prijema", required = true)
     @XmlJavaTypeAdapter(LocalDateAdapter.class)
     private LocalDate datum_prijema;
 
-    @XmlAttribute(name="priznati_datum_podnosenja", required = true)
+    @XmlAttribute(name="priznati_datum_podnosenja")
     @XmlJavaTypeAdapter(LocalDateAdapter.class)
     private LocalDate priznati_datum_podnosenja;
 
-    @XmlAttribute(name="pregledano", required = true)
+    @XmlAttribute(name="dopunska_prijava", required = true)
     private boolean dopunska_prijava;
+
+    @XmlAttribute(name="pregledano", required = true)
+    private boolean pregledano;
 
     @XmlElement(name="institucija", required = true, namespace = "http://www.patent/patent")
     private Institucija institucija;
@@ -142,5 +144,13 @@ public class ZahtevPatent {
 
     public void setZahtev_za_priznanje_prava_iz_ranijih_prijava(List<Prijava> zahtev_za_priznanje_prava_iz_ranijih_prijava) {
         this.zahtev_za_priznanje_prava_iz_ranijih_prijava = zahtev_za_priznanje_prava_iz_ranijih_prijava;
+    }
+
+    public boolean isPregledano() {
+        return pregledano;
+    }
+
+    public void setPregledano(boolean pregledano) {
+        this.pregledano = pregledano;
     }
 }

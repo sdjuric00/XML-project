@@ -19,6 +19,7 @@ import java.io.*;
 public class PatentService {
 
     public void savePatentDoc(String zahtevPatent) throws JAXBException, FileNotFoundException {
+
         ZahtevPatent zahtevPatent1 = checkSchema(zahtevPatent);
         JAXBContext jc = JAXBContext.newInstance(ZahtevPatent.class);
         Unmarshaller unmarshaller = jc.createUnmarshaller();

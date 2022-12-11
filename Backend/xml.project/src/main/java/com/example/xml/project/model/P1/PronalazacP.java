@@ -10,7 +10,7 @@ public class PronalazacP {
     @XmlAttribute(name="anonimno", required = true)
     private boolean anonimno;
     @XmlElements(value = {
-            @XmlElement(name="anonomni_pronalazac", type=String.class, namespace = "http://www.patent/patent"),
+            @XmlElement(name="anonimni_pronalazac", type=String.class, namespace = "http://www.patent/patent"),
             @XmlElement(name="imenovani_pronalazac", type=ImenovaniPronalazac.class, namespace = "http://www.patent/patent")
     })
     private Object pronalazac_osoba;

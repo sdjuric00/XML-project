@@ -25,4 +25,16 @@ export class PronalazacComponent implements OnInit{
     console.log(this.pronalazac);
     
   }
-}
+
+  isDisabled(){
+    if(this.pronalazac === 'Anoniman'){
+      return false;
+    }
+    else if(this.pronalazacFormGroup.invalid){
+      return true;
+    }
+    else{
+      return false;
+    }
+
+  }}

@@ -49,6 +49,7 @@ body {
 .next-button {
   background-color: var(--green) !important;
   color: var(--deep-blue) !important;
+  max-width: 25rem;
 }
 
 .dodaj-prilog-button {

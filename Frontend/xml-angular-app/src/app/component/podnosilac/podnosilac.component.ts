@@ -10,6 +10,7 @@ import { PodnosilacUniversal } from 'src/app/model/podnosilac-universal';
 export class PodnosilacComponent implements OnInit {
 
   @Input() isTrademark: boolean = false;
+  @Input() btnNazad: boolean = false;
  
   tipPodnosioca: string='Fizičko lice';
   podnosilacAutor: boolean = false;

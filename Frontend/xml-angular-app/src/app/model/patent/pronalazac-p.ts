@@ -1,7 +1,7 @@
 import { ImenovaniPronalazac } from "./imenovani-pronalazac"
 
 export interface PronalazacP{
-    "@": {anoniman: boolean}
+    "@": {anonimno: boolean}
     "imenovani_pronalazac"?: ImenovaniPronalazac,
     "anonimni_pronalazac"?: string
 }

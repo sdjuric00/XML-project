@@ -24,6 +24,7 @@
         <xs:attribute name="datum_prijema" type="xs:date"/>
         <xs:attribute name="priznati_datum_podnosenja" type="xs:date"/>
         <xs:attribute name="dopunska_prijava" type="xs:boolean"/>
+        <xs:attribute name="pregledano" type="xs:boolean"/>
     </xs:complexType>
     </xs:element>
     <xs:complexType name="podaci_o_pronalasku">

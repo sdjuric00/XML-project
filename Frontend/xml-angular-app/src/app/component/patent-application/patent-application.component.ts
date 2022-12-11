@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -24,11 +25,11 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./patent-application.component.css']
 })
 export class PatentApplicationComponent {
-  constructor(private formBuilder: FormBuilder, private http: HttpClient) {}
+  constructor(private formBuilder: FormBuilder, private http: HttpClient,  private datePipe: DatePipe) {}
 
   nazivFormGroup = this.formBuilder.group({
-    nazivSrpskiCtrl: new FormControl(''),
-    nazivEngleskiCtrl: new FormControl('')
+    nazivSrpskiCtrl: new FormControl('', [Validators.required]),
+    nazivEngleskiCtrl: new FormControl('', [Validators.required])
   })
 
   continueBtn(){
@@ -57,7 +58,7 @@ export class PatentApplicationComponent {
   });
 
   pronalazacFormGroup = this.formBuilder.group({
-    tipPronalazaca: new FormControl('Fizičko lice'),
+    tipPodnosioca: new FormControl('Fizičko lice'),
     email: new FormControl('', [Validators.required, Validators.email]),
     telefon: new FormControl('', [Validators.required, Validators.pattern("[0-9]{8,12}")]),
     fax: new FormControl('', [Validators.required, Validators.pattern("[0][0-9]{8,9}")]),
@@ -76,7 +77,7 @@ export class PatentApplicationComponent {
   punomocnikFormGroup = this.formBuilder.group({
     zaPismeno: new FormControl(true),
     zaZastupanje: new FormControl(true),
-    tipPunomocnika: new FormControl('Fizičko lice'),
+    tipPodnosioca: new FormControl('Fizičko lice'),
     email: new FormControl('', [Validators.required, Validators.email]),
     telefon: new FormControl('', [Validators.required, Validators.pattern("[0-9]{8,12}")]),
     fax: new FormControl('', [Validators.required, Validators.pattern("[0][0-9]{8,9}")]),
@@ -154,10 +155,11 @@ export class PatentApplicationComponent {
           "xmlns": "http://www.patent/patent",
           "xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
           "xmlns:opste": "http://ftn.ac.rs/opste",
-          broj_prijave:"",
-          datum_prijema:"",
-          priznati_datum_podnosenja:"",
-          dopunska_prijava:false
+          broj_prijave: "",
+          datum_prijema: this.datePipe.transform(new Date(), 'yyyy-MM-dd'),
+          priznati_datum_podnosenja: this.datePipe.transform(new Date(), 'yyyy-MM-dd'),
+          dopunska_prijava:false,
+          pregledano: false
         },
         institucija: institucija,
         podaci_o_pronalasku: this.getPodaciOPronalasku(),
@@ -173,7 +175,7 @@ export class PatentApplicationComponent {
   }
 
   getPodnosilac(): Podnosilac{
-    if(this.podnosilacFormGroup.get('ime')?.value !== ""){
+    if(this.podnosilacFormGroup.get('ime')?.value !== null){
 
       return {
         "@": {
@@ -194,23 +196,24 @@ export class PatentApplicationComponent {
   }
 
   getPronalazac() : PronalazacP{
-    if(this.pronalazacFormGroup.get('ime')?.value === "" && this.pronalazacFormGroup.get('naziv')?.value === ""){
+    console.log(this.pronalazacFormGroup);
+    if(this.pronalazacFormGroup.get('ime')?.value === null && this.pronalazacFormGroup.get('naziv')?.value === null){
       return{
         "@":{
-          anoniman: true
+          anonimno: true
         },
         "anonimni_pronalazac":""
       }
     }
     else{
-      if(this.pronalazacFormGroup.get('ime')?.value !== ""){
+      if(this.pronalazacFormGroup.get('ime')?.value !== null){
 
         let imenovani_pronalazac: ImenovaniPronalazac = {
           "fizicko_lice" : this.getFizickoLice(this.pronalazacFormGroup)
         }
         return {
           "@": {
-            anoniman: false
+            anonimno: false
           },
           "imenovani_pronalazac": imenovani_pronalazac
         }
@@ -223,7 +226,7 @@ export class PatentApplicationComponent {
         }
         return {
           "@": {
-            anoniman: false
+            anonimno: false
           },
           "imenovani_pronalazac": imenovani_pronalazac,
         }
@@ -232,7 +235,8 @@ export class PatentApplicationComponent {
   }
 
   getPunomocnik(): PunomocnikP {
-    if(this.podnosilacFormGroup.get('ime')?.value !== ""){
+    console.log(this.podnosilacFormGroup.get('ime')?.value );
+    if(this.punomocnikFormGroup.get('ime')?.value !== null){
 
       return {
         "@":{
@@ -319,18 +323,20 @@ export class PatentApplicationComponent {
     let prijave: Prijave = {prijava: []};
     this.prijaveFormGroup.get('prijave').value.forEach(prijava =>
     {
+      console.log(prijava)
       prijave.prijava.push(prijava)
     })
     return prijave;
   }
 
   kreirajZahtevPatent(){
-    console.log("fafsfaf");
     let headers = new HttpHeaders({ "Content-Type": "application/xml"});
+  
     let patent = this.getPatent();
-    console.log(patent);
     var o2x = require('object-to-xml');
     console.log(o2x(patent));
+
+   
     let queryParams = {};
     queryParams = {
       headers: headers,

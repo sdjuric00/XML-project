@@ -10,10 +10,12 @@ import { PodnosilacUniversal } from 'src/app/model/podnosilac-universal';
 export class IzborLiceComponent implements OnInit{
 
   @Input() isTrademark = false;
+  @Input() tipLica:string;
 
   @Output() dodatPodnosilac = new EventEmitter<PodnosilacUniversal>();
 
   tipPodnosioca: string='Fizičko lice';
+  tipLicaIspis: string;
   podnosilacAutor: boolean = false;
   public podnosilacFormGroup: FormGroup;
 
@@ -22,6 +24,7 @@ export class IzborLiceComponent implements OnInit{
   }
 
   ngOnInit():void{
+    this.tipLicaIspis = this.getTipLicaZaIspis(this.tipLica);
     this.podnosilacFormGroup = <FormGroup>this.controlContainer.control;
     this.podnosilacFormGroup.clearValidators();
     if (this.tipPodnosioca === 'Fizičko lice'){
@@ -38,7 +41,12 @@ export class IzborLiceComponent implements OnInit{
     this.podnosilacFormGroup.reset();
   }
 
+  getTipLicaZaIspis(tipLica: string){
+    return tipLica === "podnosilac" ? "podnosioca" : tipLica === "punomocnik" ? "punomoćnika" : "pronalazača";
+  }
+
   changeRadioButton(lice: string):void {
+    console.log(this.podnosilacFormGroup);
     this.tipPodnosioca = lice;
     this.podnosilacFormGroup.clearValidators();
     if (this.tipPodnosioca === 'Fizičko lice'){
@@ -83,7 +91,7 @@ export class IzborLiceComponent implements OnInit{
     this.podnosilacFormGroup.reset();
     this.podnosilacFormGroup.markAsPristine();
     this.podnosilacFormGroup.markAsUntouched();
-    //this.podnosilacFormGroup.get('tipPodnosioca').setValue(this.tipPodnosioca);
+    this.podnosilacFormGroup.get('tipPodnosioca').setValue(this.tipPodnosioca);
   }
 
   dodajPodnosioca(podnosilac: PodnosilacUniversal): void {

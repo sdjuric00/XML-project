@@ -16,7 +16,7 @@
           <input matInput placeholder="Naziv pronalaska na engleskom jeziku" formControlName="nazivEngleskiCtrl">
         </mat-form-field>
         <div >
-          <button  style="float: center; margin-left: 72rem;" class="next-button" mat-raised-button matStepperNext >Dalje</button>
+          <button  style="float: center; margin-left: 72rem;" class="next-button" mat-raised-button matStepperNext [disabled]="nazivFormGroup.invalid">Dalje</button>
         </div>
       </div>
       </form>
@@ -24,7 +24,7 @@
     <mat-step [stepControl]="podnosilacFormGroup" >
       <form [formGroup]="podnosilacFormGroup" class="stepper-container">
         <ng-template matStepLabel>Podnosilac</ng-template>
-          <app-podnosilac [isTrademark]="false"></app-podnosilac>
+          <app-podnosilac [isTrademark]="false" [btnNazad]=true></app-podnosilac>
       </form>
     </mat-step>
     <mat-step [stepControl]="pronalazacFormGroup" >

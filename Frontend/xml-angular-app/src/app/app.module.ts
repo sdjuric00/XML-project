@@ -33,6 +33,7 @@ import { PunomocnikPatentComponent } from './component/punomocnik-patent/punomoc
 import { DostavljanjeComponent } from './component/dostavljanje/dostavljanje.component';
 import { DopunskaPrijavaComponent } from './component/dopunska-prijava/dopunska-prijava.component';
 import { PrvobitnaPrijavaComponent } from './component/prvobitna-prijava/prvobitna-prijava.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -75,7 +76,7 @@ import { PrvobitnaPrijavaComponent } from './component/prvobitna-prijava/prvobit
     MatChipsModule,
     FormsModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
