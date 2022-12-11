@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './component/login/login.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { MaterialModule } from '../material/material.module';
-import { CopyrightApplicationComponent } from './component/copyright-application/copyright-application.component';
+import { CopyrightApplicationComponent } from './component/copyright/copyright-application/copyright-application.component';
 import { PodnosilacComponent } from './component/podnosilac/podnosilac.component';
 import { KontaktComponent } from './component/kontakt/kontakt.component';
 import { AdresaComponent } from './component/adresa/adresa.component';
@@ -18,10 +18,10 @@ import { PravnoLiceComponent } from './component/pravno-lice/pravno-lice.compone
 import { PatentApplicationComponent } from './component/patent-application/patent-application.component';
 import { ZaglavljeComponent } from './component/zaglavlje/zaglavlje.component';
 import { PunomocnikComponent } from './component/punomocnik/punomocnik.component';
-import { AutorskoDeloComponent } from './component/autorsko-delo/autorsko-delo.component';
-import { ImenovaniAutorComponent } from './component/imenovani-autor/imenovani-autor.component';
-import { AutoriComponent } from './component/autori/autori.component';
-import { PriloziComponent } from './component/prilozi/prilozi.component';
+import { AutorskoDeloComponent } from './component/copyright/autorsko-delo/autorsko-delo.component';
+import { ImenovaniAutorComponent } from './component/copyright/imenovani-autor/imenovani-autor.component';
+import { AutoriComponent } from './component/copyright/autori/autori.component';
+import { PriloziComponent } from './component/copyright/prilozi/prilozi.component';
 import { TrademarkApplicationComponent } from './component/trademark/trademark-application/trademark-application.component';
 import { ZnakComponent } from './component/trademark/znak/znak.component';
 import { TaksePriloziComponent } from './component/trademark/takse-prilozi/takse-prilozi.component';
@@ -33,6 +33,7 @@ import { PunomocnikPatentComponent } from './component/punomocnik-patent/punomoc
 import { DostavljanjeComponent } from './component/dostavljanje/dostavljanje.component';
 import { DopunskaPrijavaComponent } from './component/dopunska-prijava/dopunska-prijava.component';
 import { PrvobitnaPrijavaComponent } from './component/prvobitna-prijava/prvobitna-prijava.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,13 @@ import { PrvobitnaPrijavaComponent } from './component/prvobitna-prijava/prvobit
     MatRadioModule,
     FormsModule,
     MatChipsModule,
-    FormsModule
+    FormsModule,
+    ToastrModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-bottom-left',
+      preventDuplicates: true,
+      closeButton: true,
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

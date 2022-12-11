@@ -33,6 +33,7 @@ export class PravnoLiceComponent implements OnInit {
   dodajPodnosioca(): void {
     const adresa: Adresa = {
       ulica: this.podnosilacFormGroup.get('ulica')?.value,
+      broj: this.podnosilacFormGroup.get('broj')?.value,
       grad: this.podnosilacFormGroup.get('grad')?.value,
       drzava: this.podnosilacFormGroup.get('drzava')?.value,
       postanskiBroj: this.podnosilacFormGroup.get('postanskiBroj')?.value
@@ -63,6 +64,7 @@ export class PravnoLiceComponent implements OnInit {
     this.podnosilacFormGroup.get('pib')?.setValue('');
     this.podnosilacFormGroup.get('registarskiBroj')?.setValue('');
     this.podnosilacFormGroup.get('ulica')?.setValue('');
+    this.podnosilacFormGroup.get('broj')?.setValue('');
     this.podnosilacFormGroup.get('grad')?.setValue('');
     this.podnosilacFormGroup.get('drzava')?.setValue('');
     this.podnosilacFormGroup.get('postanskiBroj')?.setValue('');
@@ -70,6 +72,4 @@ export class PravnoLiceComponent implements OnInit {
     this.podnosilacFormGroup.get('telefon')?.setValue('');
     this.podnosilacFormGroup.get('fax')?.setValue('');
   }
-
-
 }

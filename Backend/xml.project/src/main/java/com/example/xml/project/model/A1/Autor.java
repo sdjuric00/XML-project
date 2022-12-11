@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.*;
 public class Autor {
 
     @XmlElements(value = {
-        @XmlElement(name="anonomni_autor", type=String.class, namespace = "http://ftn.ac.rs/a"),
+        @XmlElement(name="anonimni_autor", type=AnonimniAutor.class, namespace = "http://ftn.ac.rs/a"),
         @XmlElement(name="imenovani_autor", type= ImenovaniAutor.class, namespace = "http://ftn.ac.rs/a")
     })
     private Object vrsta_autora;

@@ -23,6 +23,7 @@ export class FizickoLiceComponent implements OnInit {
 
   ngOnInit(): void {
     this.formGroup = <FormGroup>this.controlContainer.control;
+
     if (this.isTrademark) {
       this.formGroup.get('podnosioci').setValidators([]);
       this.formGroup.get('podaciOZajednickomPredstavniku').setValidators([]);
@@ -33,6 +34,7 @@ export class FizickoLiceComponent implements OnInit {
     const adresa: Adresa = {
       grad: this.formGroup.get('grad')?.value,
       ulica: this.formGroup.get('ulica')?.value,
+      broj: this.formGroup.get('broj')?.value,
       postanskiBroj: this.formGroup.get('postanskiBroj')?.value,
       drzava: this.formGroup.get('drzava')?.value,
     }
@@ -63,6 +65,7 @@ export class FizickoLiceComponent implements OnInit {
     this.formGroup.get('prezime')?.setValue('');
     this.formGroup.get('jmbg')?.setValue('');
     this.formGroup.get('ulica')?.setValue('');
+    this.formGroup.get('broj')?.setValue('');
     this.formGroup.get('grad')?.setValue('');
     this.formGroup.get('drzava')?.setValue('');
     this.formGroup.get('postanskiBroj')?.setValue('');

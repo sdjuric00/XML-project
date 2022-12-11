@@ -1,8 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ControlContainer, FormGroup, Validators} from "@angular/forms";
-import {Autor} from "../../model/autor";
-import {Adresa} from "../../model/adresa";
-import {Kontakt} from "../../model/kontakt";
+import {Autor} from "../../../model/autor";
 
 @Component({
   selector: 'app-autori',
@@ -25,14 +23,19 @@ export class AutoriComponent implements OnInit {
 
   changeAnonimniAutor() {
     this.anonimniAutor = !this.anonimniAutor;
+    this.autoriFormGroup.clearValidators();
     if (this.anonimniAutor){
       this.autoriFormGroup.get('ime')?.setErrors(null);
       this.autoriFormGroup.get('prezime')?.setErrors(null);
       this.autoriFormGroup.get('drzavljanstvo')?.setErrors(null);
       this.autoriFormGroup.get('ulica')?.setErrors(null);
+      this.autoriFormGroup.get('broj')?.setErrors(null);
       this.autoriFormGroup.get('grad')?.setErrors(null);
       this.autoriFormGroup.get('postanskiBroj')?.setErrors(null);
       this.autoriFormGroup.get('drzava')?.setErrors(null);
+      this.autoriFormGroup.get('email')?.setErrors(null);
+      this.autoriFormGroup.get('telefon')?.setErrors(null);
+      this.autoriFormGroup.get('fax')?.setErrors(null);
       this.autoriFormGroup.get('godinaSmrti')?.setValue('');
       this.autoriFormGroup.get('pseudonim')?.setValue('');
     }
@@ -41,9 +44,14 @@ export class AutoriComponent implements OnInit {
       this.autoriFormGroup.get('prezime')?.setValidators([Validators.required, Validators.maxLength(50)]);
       this.autoriFormGroup.get('drzavljanstvo')?.setValidators([Validators.required]);
       this.autoriFormGroup.get('ulica')?.setValidators([Validators.required, Validators.maxLength(50)]);
+      this.autoriFormGroup.get('broj')?.setValidators([Validators.required, Validators.pattern("[0-9A-Za-z ]{1,5}")]);
       this.autoriFormGroup.get('grad')?.setValidators([Validators.required, Validators.maxLength(50)]);
       this.autoriFormGroup.get('postanskiBroj')?.setValidators([Validators.required, Validators.pattern("[0-9]{5}")]);
       this.autoriFormGroup.get('drzava')?.setValidators([Validators.required, Validators.maxLength(50)]);
+      this.autoriFormGroup.get('email')?.setValidators([Validators.required, Validators.email]);
+      this.autoriFormGroup.get('telefon')?.setValidators([Validators.required, Validators.pattern("[0-9]{8,12}")]);
+      this.autoriFormGroup.get('fax')?.setValidators([Validators.required, Validators.pattern("[0][0-9]{8,9}")]);
+
     }
     this.autoriFormGroup.updateValueAndValidity();
   }

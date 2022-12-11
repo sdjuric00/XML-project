@@ -13,6 +13,7 @@ import { Patent } from 'src/app/model/patent/patent';
 import { PodaciOPronalasku } from 'src/app/model/patent/podaci_o_pronalasku';
 import { Podnosilac } from 'src/app/model/patent/podnosilac';
 import { Prijava } from 'src/app/model/patent/prijava';
+import { Prijave } from 'src/app/model/patent/prijave';
 import { PronalazacP } from 'src/app/model/patent/pronalazac-p';
 import { PunomocnikP } from 'src/app/model/patent/punomocnik-p';
 import { environment } from 'src/environments/environment';
@@ -47,6 +48,7 @@ export class PatentApplicationComponent {
     prezime: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     jmbg: new FormControl('', [Validators.required, Validators.pattern("[0-9]{13}")]),
     ulica: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+    broj: new FormControl('', [Validators.required, Validators.pattern("[0-9A-Za-z ]{1,5}")]),
     grad: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     postanskiBroj: new FormControl('', [Validators.required, Validators.pattern("[0-9]{5}")]),
     drzava: new FormControl('', [Validators.required, Validators.maxLength(50)]),
@@ -64,6 +66,7 @@ export class PatentApplicationComponent {
     prezime: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     jmbg: new FormControl('', [Validators.required, Validators.pattern("[0-9]{13}")]),
     ulica: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+    broj: new FormControl('', [Validators.required, Validators.pattern("[0-9A-Za-z ]{1,5}")]),
     grad: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     postanskiBroj: new FormControl('', [Validators.required, Validators.pattern("[0-9]{5}")]),
     drzava: new FormControl('', [Validators.required, Validators.maxLength(50)]),
@@ -83,6 +86,7 @@ export class PatentApplicationComponent {
     prezime: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     jmbg: new FormControl('', [Validators.required, Validators.pattern("[0-9]{13}")]),
     ulica: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+    broj: new FormControl('', [Validators.required, Validators.pattern("[0-9A-Za-z ]{1,5}")]),
     grad: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     postanskiBroj: new FormControl('', [Validators.required, Validators.pattern("[0-9]{5}")]),
     drzava: new FormControl('', [Validators.required, Validators.maxLength(50)]),
@@ -93,34 +97,46 @@ export class PatentApplicationComponent {
 
   dostavljanjeFormGroup = this.formBuilder.group({
     ulica: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+    broj: new FormControl('', [Validators.required, Validators.pattern("[0-9A-Za-z ]{1,5}")]),
     grad: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     postanskiBroj: new FormControl('', [Validators.required, Validators.pattern("[0-9]{5}")]),
     drzava: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     elektronski: new FormControl(false),
     pismeno: new FormControl(false)
   });
+
+  prijaveFormGroup = this.formBuilder.group({
+    prijave: new FormControl([]),
+    datumPrijave: new FormControl('',[Validators.required]),
+    brojPrijave: new FormControl('',[Validators.required]),
+    oznakaDrzave: new FormControl('',[Validators.required])
+  });
+
   getPodaciOPronalasku(): PodaciOPronalasku{
 
-    let podaci: Naziv[] = [];
+    let podaci: PodaciOPronalasku = {naziv: []};
+    let nazivi: Naziv[] = [];
+
     let nazivSrpski:Naziv = {
-    naziv:{
         "@": {jezik: "srpski"},
         "#": this.nazivFormGroup.get('nazivSrpskiCtrl').value
-      
-    }};
+    };
+
+    nazivi.push(nazivSrpski);
 
     let nazivEngleski:Naziv = {
-      naziv:{
+    
         "@": {jezik: "engleski"},
         "#": this.nazivFormGroup.get('nazivEngleskiCtrl').value
-      }
+    
     };
-    podaci.push(nazivSrpski);
-    podaci.push(nazivEngleski);
 
-  
-    return {"#": podaci};
-      
+    nazivi.push(nazivEngleski);
+    podaci.naziv = nazivi;
+
+
+    return podaci;
+
   }
   getPatent(): Patent {
 
@@ -162,7 +178,7 @@ export class PatentApplicationComponent {
 
   getPodnosilac(): Podnosilac{
     if(this.podnosilacFormGroup.get('ime')?.value !== ""){
-     
+
       return {
         "@": {
           autor: this.podnosilacFormGroup.get('podnosilacAutor')?.value,
@@ -204,7 +220,7 @@ export class PatentApplicationComponent {
         }
       }
       else{
-       
+
 
         let imenovani_pronalazac: ImenovaniPronalazac = {
           "pravno_lice": this.getPravnoLice(this.pronalazacFormGroup)
@@ -221,7 +237,7 @@ export class PatentApplicationComponent {
 
   getPunomocnik(): PunomocnikP {
     if(this.podnosilacFormGroup.get('ime')?.value !== ""){
-     
+
       return {
         "@":{
           za_zastupanje: this.punomocnikFormGroup.get('zaZastupanje').value,
@@ -243,18 +259,10 @@ export class PatentApplicationComponent {
   }
 
   getAdresa(formGroup: FormGroup): Adresa{
-    /*let ulica = formGroup.get('ulica')?.value;
-    console.log(ulica);
-    let imeUlice = "";
-    let broj = "";
-    if(ulica != ""){
-      let imeUlice = ulica.split(" ")[0];
-      let broj = ulica.split(" ")[1];
-    }*/
     let adresa = {
-      "opste:ulica": formGroup.get('ulica')?.value,
-      "opste:broj": formGroup.get('broj')?.value,
       "opste:grad": formGroup.get('grad')?.value,
+      "opste:ulica": formGroup.get('ulica')?.value,
+      "opste:broj": '5',
       "opste:postanski_broj": formGroup.get('postanskiBroj')?.value,
       "opste:drzava": formGroup.get('drzava')?.value
     }
@@ -276,7 +284,7 @@ export class PatentApplicationComponent {
       "opste:adresa": this.getAdresa(formGroup),
       "opste:naziv": formGroup.get('naziv')?.value,
       "opste:pib": formGroup.get('pib')?.value,
-      "opste:registarski_broj": formGroup.get('registarski_broj')?.value
+      "opste:registarski_broj": formGroup.get('registarskiBroj')?.value
     }
     return pravno_lice;
   }
@@ -303,13 +311,16 @@ export class PatentApplicationComponent {
     return fizicko_lice;
   }
 
-  getPrijave(): Prijava[]{
-    let prijave: Prijava[] = [
-    ]
+  getPrijave(): Prijave{
+    let prijave: Prijave = {prijava: []};
+    this.prijaveFormGroup.get('prijave').value.forEach(prijava =>
+    {
+      prijave.prijava.push(prijava)
+    })
     return prijave;
   }
 
-  sendPatentDoc(){
+  kreirajZahtevPatent(){
     console.log("fafsfaf");
     let headers = new HttpHeaders({ "Content-Type": "application/xml"});
     let patent = this.getPatent();
@@ -318,7 +329,7 @@ export class PatentApplicationComponent {
     console.log(o2x(patent));
     let queryParams = {};
     queryParams = {
-      headers: headers, 
+      headers: headers,
       observe: "response",
       responseType: "text"
     };

@@ -51,10 +51,25 @@ body {
   color: var(--deep-blue) !important;
 }
 
+.dodaj-prilog-button {
+  background-color: var(--deep-blue) !important;
+  color: white !important;
+}
+
 .previous-button {
   background-color: rgba(104, 202, 68, 0.16) !important;
   color: var(--deep-blue) !important;
   border: 2px solid var(--deep-blue) !important;
+}
+
+.load-image {
+  margin-left: 1.5rem;
+  margin-right: 3rem;
+  margin-left: auto;
+}
+
+.load-image button {
+  font-size: 1rem;
 }
 
 .add-button {
@@ -2543,12 +2558,12 @@ td.mat-footer-cell {
 
 .mat-step-header.mat-accent .mat-step-icon {
   color: var(--deep-blue);
-  background-color: var(--white);
+  background-color: var(--green);
 }
 
 .mat-step-header .mat-step-icon {
   color: var(--deep-blue);
-  background-color: var(--white);
+  background-color: var(--green);
 }
 .mat-step-header.mat-accent .mat-step-icon-selected,
 .mat-step-header.mat-accent .mat-step-icon-state-done,

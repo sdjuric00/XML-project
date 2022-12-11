@@ -24,19 +24,19 @@ export class IzborLiceComponent implements OnInit{
   ngOnInit():void{
     this.podnosilacFormGroup = <FormGroup>this.controlContainer.control;
     this.podnosilacFormGroup.clearValidators();
-  if (this.tipPodnosioca === 'Fizičko lice'){
-    this.podnosilacFormGroup.get('naziv')?.setValidators(null);
-    this.podnosilacFormGroup.get('pib')?.setValidators(null);
-    this.podnosilacFormGroup.get('registarskiBroj')?.setValidators(null);
+    if (this.tipPodnosioca === 'Fizičko lice'){
+      this.podnosilacFormGroup.get('naziv')?.setValidators(null);
+      this.podnosilacFormGroup.get('pib')?.setValidators(null);
+      this.podnosilacFormGroup.get('registarskiBroj')?.setValidators(null);
+    }
+    else {
+      this.podnosilacFormGroup.get('ime')?.setValidators(null);
+      this.podnosilacFormGroup.get('prezime')?.setValidators(null);
+      this.podnosilacFormGroup.get('jmbg')?.setValidators(null);
+    }
+    this.podnosilacFormGroup.updateValueAndValidity();
+    this.podnosilacFormGroup.reset();
   }
-  else {
-    this.podnosilacFormGroup.get('ime')?.setValidators(null);
-    this.podnosilacFormGroup.get('prezime')?.setValidators(null);
-    this.podnosilacFormGroup.get('jmbg')?.setValidators(null);
-  }
-  this.podnosilacFormGroup.updateValueAndValidity();
-  this.podnosilacFormGroup.reset();
-}
 
   changeRadioButton(lice: string):void {
     this.tipPodnosioca = lice;
@@ -83,10 +83,10 @@ export class IzborLiceComponent implements OnInit{
     this.podnosilacFormGroup.reset();
     this.podnosilacFormGroup.markAsPristine();
     this.podnosilacFormGroup.markAsUntouched();
+    //this.podnosilacFormGroup.get('tipPodnosioca').setValue(this.tipPodnosioca);
   }
 
   dodajPodnosioca(podnosilac: PodnosilacUniversal): void {
     this.dodatPodnosilac.emit(podnosilac);
   }
-
 }

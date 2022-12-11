@@ -76,5 +76,6 @@ export class PunomocnikComponent implements OnInit {
     this.punomocnikFormGroup.reset();
     this.punomocnikFormGroup.markAsPristine();
     this.punomocnikFormGroup.markAsUntouched();
+    this.punomocnikFormGroup.get('tipPunomocnika').setValue(this.tipPunomocnika);
   }
 }

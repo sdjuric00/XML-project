@@ -1,14 +1,18 @@
-<div style="text-align:center;">
+<div style="text-align:center; border: 2px solid var(--green); background-color: var(--gray-transparent); padding: 1rem; border-radius: 1rem; width: 16rem;" [formGroup]="prijaveFormGroup">
     <mat-form-field appearance="fill" >
         <mat-label>Datum podnošenja prijave</mat-label>
-        <input matInput type="date">
+        <input matInput type="date" formControlName="datumPrijave">
     </mat-form-field><br>
     <mat-form-field appearance="fill" >
         <mat-label>Broj ranije prijave</mat-label>
-        <input matInput >
+        <input matInput formControlName="brojPrijave">
     </mat-form-field><br>
     <mat-form-field appearance="fill" >
         <mat-label>Dvoslovna oznaka države</mat-label>
-        <input matInput >
+        <input matInput formControlName="oznakaDrzave">
     </mat-form-field><br>
+
+    <div>
+        <button (click)="dodajPrijavu()" class="dodajPrijavuBtn" mat-raised-button>Dodaj prijavu</button>
+    </div>
 </div>

@@ -1,0 +1,5 @@
+.dodajPrijavuBtn{
+    border: 2px solid var(--green);
+    background-color: rgba(104, 202, 68, 0.16) !important;
+    color: var(--deep-blue);
+}

@@ -10,7 +10,7 @@ import { PodnosilacUniversal } from 'src/app/model/podnosilac-universal';
 export class PodnosilacComponent implements OnInit {
 
   @Input() isTrademark: boolean = false;
- 
+
   tipPodnosioca: string='Fizičko lice';
   podnosilacAutor: boolean = false;
   public podnosilacFormGroup: FormGroup;
@@ -24,14 +24,16 @@ export class PodnosilacComponent implements OnInit {
   ngOnInit(): void {
     this.podnosilacFormGroup = <FormGroup>this.controlContainer.control;
     this.podnosilacFormGroup.clearValidators();
-   
+
     this.podnosilacFormGroup.updateValueAndValidity();
     this.podnosilacFormGroup.reset();
+    this.podnosilacFormGroup.get('podnosilacAutor').setValue(false);
   }
 
 
   changePodnosilacAutor():void {
     this.podnosilacAutor = !this.podnosilacAutor;
+    this.podnosilacFormGroup.get('podnosilacAutor').setValue(this.podnosilacAutor);
   }
 
   izbrisiPodnosioca(podnosilac: PodnosilacUniversal): void {
@@ -46,16 +48,6 @@ export class PodnosilacComponent implements OnInit {
     this.podnosioci.push(podnosilac);
     this.podnosilacFormGroup.get('podnosioci').setValidators([Validators.required]);
     this.podnosilacFormGroup.get('podaciOZajednickomPredstavniku').setValidators([Validators.required]);
-  }
-
-  checkValidityDisabled(): boolean {
-    if (this.isTrademark) {
-      let podnosiociList: PodnosilacUniversal[] = this.podnosilacFormGroup.get('podnosioci').value;
-      
-      return podnosiociList.length <= 0;
-    }
-
-    return this.podnosilacFormGroup.invalid;
   }
 
 }

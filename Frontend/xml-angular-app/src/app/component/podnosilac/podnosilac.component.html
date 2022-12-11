@@ -7,7 +7,7 @@
     <mat-chip-list style="margin-top: 1rem" #chipList>
       <mat-chip *ngFor="let podnosilac of podnosioci">
         <div *ngIf="!podnosilac.isPravnoLice">
-          {{podnosilac.ime + ' ' + podnosilac.prezime}} 
+          {{podnosilac.ime + ' ' + podnosilac.prezime}}
         </div>
         <div *ngIf="podnosilac.isPravnoLice">
           {{podnosilac.naziv}}
@@ -33,8 +33,15 @@
     </mat-form-field>
   </div>
 <app-izbor-lice [isTrademark]="isTrademark" (dodatPodnosilac)="dodajPodnosioca($event)"></app-izbor-lice>
+
 <div>
 <!--    [disabled]="podnosilacFormGroup.invalid"-->
-    <button style="margin-left:47.5rem" class="next-button" mat-raised-button matStepperNext>Dalje</button>
+    <button style="margin-left:84%" class="next-button" [disabled]="podnosilacFormGroup.invalid" mat-raised-button matStepperNext>Dalje</button>
   </div>
+
+<!--<div style="display: flex; margin-right:0.2rem; margin-top:0.5rem; margin-bottom: 0.5rem">-->
+<!--  <button style="margin-left:84%" class="previous-button" mat-raised-button matStepperPrevious>Nazad</button>-->
+<!--&lt;!&ndash;    [disabled]="autori.length === 0"&ndash;&gt;-->
+<!--  <button style="margin-left:1rem" class="next-button" mat-raised-button matStepperNext >Dalje</button>-->
+<!--</div>-->
 </div>

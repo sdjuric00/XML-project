@@ -1,6 +1,5 @@
 package com.example.xml.project.controller;
 
-import com.example.xml.project.model.P1.ZahtevPatent;
 import com.example.xml.project.service.PatentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,10 +14,14 @@ import java.io.FileNotFoundException;
 @RequestMapping("/patent")
 public class PatentController {
 
-    @Autowired
-    private PatentService patentService;
+    private final PatentService patentService;
+
+    public PatentController(@Autowired final PatentService patentService) {
+        this.patentService = patentService;
+    }
+
     @PostMapping
-    public void createPatentDoc(@RequestBody String zahtev) throws JAXBException, FileNotFoundException {
+    public void createPatentDoc(@RequestBody final String zahtev) throws JAXBException, FileNotFoundException {
         System.out.println(zahtev);
         patentService.savePatentDoc(zahtev);
     }
