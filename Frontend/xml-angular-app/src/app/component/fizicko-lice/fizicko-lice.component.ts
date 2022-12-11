@@ -33,6 +33,7 @@ export class FizickoLiceComponent implements OnInit {
   dodajPodnosioca(): void {
     const adresa: Adresa = {
       ulica: this.formGroup.get('ulica')?.value,
+      broj: this.formGroup.get('broj')?.value,
       grad: this.formGroup.get('grad')?.value,
       drzava: this.formGroup.get('drzava')?.value,
       postanskiBroj: this.formGroup.get('postanskiBroj')?.value
@@ -60,6 +61,7 @@ export class FizickoLiceComponent implements OnInit {
     this.formGroup.get('prezime')?.setValue('');
     this.formGroup.get('jmbg')?.setValue('');
     this.formGroup.get('ulica')?.setValue('');
+    this.formGroup.get('broj')?.setValue('');
     this.formGroup.get('grad')?.setValue('');
     this.formGroup.get('drzava')?.setValue('');
     this.formGroup.get('postanskiBroj')?.setValue('');

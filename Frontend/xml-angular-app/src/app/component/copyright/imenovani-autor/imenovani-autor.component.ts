@@ -26,6 +26,7 @@ export class ImenovaniAutorComponent implements OnInit {
   dodajAutora() {
     const adresa: Adresa = {
       ulica: this.formGroup.get('ulica')?.value,
+      broj: this.formGroup.get('broj')?.value,
       grad: this.formGroup.get('grad')?.value,
       drzava: this.formGroup.get('drzava')?.value,
       postanskiBroj: this.formGroup.get('postanskiBroj')?.value
@@ -49,13 +50,14 @@ export class ImenovaniAutorComponent implements OnInit {
     autori.push(autor);
     this.formGroup.get('autori')?.setValue(autori);
 
-
+    this.formGroup.reset();
     this.formGroup.get('ime')?.setValue('');
     this.formGroup.get('prezime')?.setValue('');
-    this.formGroup.get('drzavljanstvno')?.setValue('');
+    this.formGroup.get('drzavljanstvo')?.setValue('');
     this.formGroup.get('godinaSmrti')?.setValue('');
     this.formGroup.get('pseudonim')?.setValue('');
     this.formGroup.get('ulica')?.setValue('');
+    this.formGroup.get('broj')?.setValue('');
     this.formGroup.get('grad')?.setValue('');
     this.formGroup.get('drzava')?.setValue('');
     this.formGroup.get('postanskiBroj')?.setValue('');

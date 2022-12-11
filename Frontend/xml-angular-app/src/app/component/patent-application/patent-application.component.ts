@@ -47,6 +47,7 @@ export class PatentApplicationComponent {
     prezime: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     jmbg: new FormControl('', [Validators.required, Validators.pattern("[0-9]{13}")]),
     ulica: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+    broj: new FormControl('', [Validators.required, Validators.pattern("[0-9A-Za-z ]{1,5}")]),
     grad: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     postanskiBroj: new FormControl('', [Validators.required, Validators.pattern("[0-9]{5}")]),
     drzava: new FormControl('', [Validators.required, Validators.maxLength(50)]),
@@ -64,6 +65,7 @@ export class PatentApplicationComponent {
     prezime: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     jmbg: new FormControl('', [Validators.required, Validators.pattern("[0-9]{13}")]),
     ulica: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+    broj: new FormControl('', [Validators.required, Validators.pattern("[0-9A-Za-z ]{1,5}")]),
     grad: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     postanskiBroj: new FormControl('', [Validators.required, Validators.pattern("[0-9]{5}")]),
     drzava: new FormControl('', [Validators.required, Validators.maxLength(50)]),
@@ -83,6 +85,7 @@ export class PatentApplicationComponent {
     prezime: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     jmbg: new FormControl('', [Validators.required, Validators.pattern("[0-9]{13}")]),
     ulica: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+    broj: new FormControl('', [Validators.required, Validators.pattern("[0-9A-Za-z ]{1,5}")]),
     grad: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     postanskiBroj: new FormControl('', [Validators.required, Validators.pattern("[0-9]{5}")]),
     drzava: new FormControl('', [Validators.required, Validators.maxLength(50)]),
@@ -93,6 +96,7 @@ export class PatentApplicationComponent {
 
   dostavljanjeFormGroup = this.formBuilder.group({
     ulica: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+    broj: new FormControl('', [Validators.required, Validators.pattern("[0-9A-Za-z ]{1,5}")]),
     grad: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     postanskiBroj: new FormControl('', [Validators.required, Validators.pattern("[0-9]{5}")]),
     drzava: new FormControl('', [Validators.required, Validators.maxLength(50)]),
@@ -243,14 +247,6 @@ export class PatentApplicationComponent {
   }
 
   getAdresa(formGroup: FormGroup): Adresa{
-    /*let ulica = formGroup.get('ulica')?.value;
-    console.log(ulica);
-    let imeUlice = "";
-    let broj = "";
-    if(ulica != ""){
-      let imeUlice = ulica.split(" ")[0];
-      let broj = ulica.split(" ")[1];
-    }*/
     let adresa = {
       "opste:ulica": formGroup.get('ulica')?.value,
       "opste:broj": formGroup.get('broj')?.value,

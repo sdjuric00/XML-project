@@ -26,10 +26,6 @@
           <input #customVrsta matInput placeholder="Ostale vrste" (keyup)="changeCustomVrstaAutorskogDela(customVrsta.value)" [disabled]="vrstaAutorskogDela!=='Ostalo'">
         </mat-form-field>
       </mat-radio-button>
-<!--      <mat-error-->
-<!--        *ngIf="autorskoDeloFormGroup.get('vrsta')?.hasError('required') && ">-->
-<!--        Vrsta autorkog dela se <strong>mora</strong> označiti-->
-<!--      </mat-error>-->
     </div>
 
     <div style="margin-left:2rem; border: 2px solid var(--green); background-color: var(--gray-transparent); padding: 0.5rem; border-radius: 5%;">
@@ -113,8 +109,6 @@
 
   <div style="display: flex">
     <button style="margin-left:84%" class="previous-button" mat-raised-button matStepperPrevious>Nazad</button>
-    <!--    [disabled]="punomocnikFormGroup.invalid"-->
-    {{vrstaAutorskogDela}} {{customVrstaAutorskogDela}}
     <button style="margin-left:1rem" class="next-button" mat-raised-button matStepperNext [disabled]="
             ((vrstaAutorskogDela==='' && customVrstaAutorskogDela==='') || (vrstaAutorskogDela==='Ostalo' && customVrstaAutorskogDela==='')) ||
             ((formaAutorskogDela==='' && customFormaAutorskogDela ==='') || (formaAutorskogDela==='Ostalo' && customFormaAutorskogDela ==='')) ||

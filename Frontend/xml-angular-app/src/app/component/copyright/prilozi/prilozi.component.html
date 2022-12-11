@@ -1,6 +1,7 @@
 <div *ngIf="priloziFormGroup" [formGroup]="priloziFormGroup" class="prilozi-container">
   <div style="padding-left:2rem">
     <h2>Prilozi</h2>
+    <h6>Potrebno je minimalno <strong>jedan</strong> prilog dostaviti.</h6>
     <mat-chip-list style="margin-top: 1rem; display: inline;" #chipList>
       <mat-chip
         *ngFor="let prilog of prilozi"
@@ -34,6 +35,6 @@
   </div>
   <div style="display: flex">
     <button style="margin-left:84%" class="previous-button" mat-raised-button matStepperPrevious>Nazad</button>
-    <button style="margin-left:1rem" class="next-button" mat-raised-button matStepperNext>Dalje</button>
+    <button style="margin-left:1rem" class="next-button" mat-raised-button matStepperNext [disabled]="prilozi.length === 0">Dalje</button>
   </div>
 </div>

@@ -1,14 +1,24 @@
 <div *ngIf="podnosilacFormGroup">
   <h3 class="input-field-margin-left">Adresa</h3>
   <div [formGroup]="podnosilacFormGroup">
-    <mat-form-field appearance="fill" style="width: 25.7rem" class="input-field-margin-right input-field-margin-left">
+    <mat-form-field appearance="fill" style="width: 15.7rem" class="input-field-margin-right input-field-margin-left">
       <mat-label>Ulica</mat-label>
-      <input matInput placeholder="Ulica i broj" formControlName="ulica">
+      <input matInput placeholder="Ulica" formControlName="ulica">
       <mat-error *ngIf="podnosilacFormGroup.get('ulica')?.hasError('required')">
         Ulica je <strong>obavezno</strong> polje
       </mat-error>
       <mat-error *ngIf="podnosilacFormGroup.get('ulica')?.hasError('pattern')">
         Unesite ispravnu ulicu (do 50 karaktera)
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill" style="width: 9.45rem" class="input-field-margin-right">
+      <mat-label>Broj</mat-label>
+      <input matInput placeholder="Broj" formControlName="broj">
+      <mat-error *ngIf="podnosilacFormGroup.get('broj')?.hasError('required')">
+        Broj je <strong>obavezno</strong> polje
+      </mat-error>
+      <mat-error *ngIf="podnosilacFormGroup.get('broj')?.hasError('pattern')">
+        Unesite ispravan broj (do 5 karaktera)
       </mat-error>
     </mat-form-field>
     <div style="display: flex">

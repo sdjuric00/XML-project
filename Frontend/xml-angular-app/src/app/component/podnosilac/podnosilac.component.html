@@ -35,6 +35,6 @@
 <app-izbor-lice [isTrademark]="isTrademark" (dodatPodnosilac)="dodajPodnosioca($event)"></app-izbor-lice>
 <div>
 <!--    [disabled]="podnosilacFormGroup.invalid"-->
-    <button style="margin-left:84%" class="next-button" mat-raised-button matStepperNext>Dalje</button>
+    <button style="margin-left:84%" class="next-button" [disabled]="podnosilacFormGroup.invalid" mat-raised-button matStepperNext>Dalje</button>
   </div>
 </div>

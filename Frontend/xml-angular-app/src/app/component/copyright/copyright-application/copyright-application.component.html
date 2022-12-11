@@ -1,7 +1,7 @@
 <div style="padding:2rem">
    <app-zaglavlje obrazac="A-1"></app-zaglavlje>
   <div style="margin-left: 10rem; margin-right: 10rem">
-    <mat-stepper #stepper >
+    <mat-stepper #stepper>
       <ng-template matStepperIcon="edit">
         <mat-icon style="background-color: white !important; border-radius: 1rem; padding: 0.1rem">edit</mat-icon>
       </ng-template>
@@ -54,7 +54,7 @@
         <p style="margin-left: 2rem">Uspešno ste kreirali zahtev za unošenje u evidenciju i deponovanje autorskih dela.</p>
         <div style="display: flex">
           <button style="margin-left:40.7rem" class="previous-button" (click)="prikaz()" mat-raised-button matStepperPrevious>Nazad</button>
-          <button style="margin-left:1rem" class="next-button" mat-raised-button (click)="stepper.reset()">Kreiranje novog zahteva</button>
+          <button style="margin-left:1rem" class="next-button" mat-raised-button (click)="save()">Pošalji zahtev</button>
         </div>
       </mat-step>
     </mat-stepper>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ControlContainer, FormGroup, Validators} from "@angular/forms";
+import {ControlContainer, FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-autorsko-delo',
@@ -50,39 +50,37 @@ export class AutorskoDeloComponent implements OnInit {
   }
 
   changeRadioButtonVrsta(value: any) {
-    this.customVrstaAutorskogDela = '';
     this.vrstaAutorskogDela = value;
     if (this.vrstaAutorskogDela !== 'Ostalo'){
+      this.customVrstaAutorskogDela = '';
       this.autorskoDeloFormGroup?.controls['vrstaJeCustom']?.setValue(false);
       this.autorskoDeloFormGroup?.controls['vrsta']?.setValue(value);
     }
     else {
       this.autorskoDeloFormGroup?.controls['vrstaJeCustom']?.setValue(true);
-      this.autorskoDeloFormGroup?.controls['vrsta']?.setValue('');
     }
   }
 
   changeCustomVrstaAutorskogDela(value: string) {
     this.customVrstaAutorskogDela = value;
-    this.autorskoDeloFormGroup?.controls['vrsta']?.setValue('');
+    this.autorskoDeloFormGroup?.controls['vrsta']?.setValue(this.customVrstaAutorskogDela);
   }
 
   changeRadioButtonForma(value: string) {
-    this.customFormaAutorskogDela = '';
     this.formaAutorskogDela = value;
     if (this.formaAutorskogDela !== 'Ostalo'){
+      this.customFormaAutorskogDela = '';
       this.autorskoDeloFormGroup?.controls['formaZapisaJeCustom']?.setValue(false);
       this.autorskoDeloFormGroup?.controls['formaZapisa']?.setValue(value);
     }
     else {
       this.autorskoDeloFormGroup?.controls['formaZapisaJeCustom']?.setValue(true);
-      this.autorskoDeloFormGroup?.controls['formaZapisa']?.setValue('');
     }
   }
 
   changeCustomFormaAutorkogDela(value: string) {
     this.customFormaAutorskogDela = value;
-    this.autorskoDeloFormGroup?.controls['formaZapisa']?.setValue('');
+    this.autorskoDeloFormGroup?.controls['formaZapisa']?.setValue(this.customFormaAutorskogDela);
   }
 
   changeNacinKoriscenja(value: string) {
@@ -111,6 +109,7 @@ export class AutorskoDeloComponent implements OnInit {
     this.autorskoDeloFormGroup.get('prezime')?.setErrors(null);
     this.autorskoDeloFormGroup.get('drzavljanstvo')?.setErrors(null);
     this.autorskoDeloFormGroup.get('ulica')?.setErrors(null);
+    this.autorskoDeloFormGroup.get('broj')?.setErrors(null);
     this.autorskoDeloFormGroup.get('grad')?.setErrors(null);
     this.autorskoDeloFormGroup.get('postanskiBroj')?.setErrors(null);
     this.autorskoDeloFormGroup.get('drzava')?.setErrors(null);
@@ -126,6 +125,7 @@ export class AutorskoDeloComponent implements OnInit {
     this.autorskoDeloFormGroup.get('prezime')?.setValidators([Validators.required, Validators.maxLength(50)]);
     this.autorskoDeloFormGroup.get('drzavljanstvo')?.setValidators([Validators.required]);
     this.autorskoDeloFormGroup.get('ulica')?.setValidators([Validators.required, Validators.maxLength(50)]);
+    this.autorskoDeloFormGroup.get('broj')?.setValidators([Validators.required, Validators.pattern("[0-9A-Za-z ]{1,5}")]);
     this.autorskoDeloFormGroup.get('grad')?.setValidators([Validators.required, Validators.maxLength(50)]);
     this.autorskoDeloFormGroup.get('postanskiBroj')?.setValidators([Validators.required, Validators.pattern("[0-9]{5}")]);
     this.autorskoDeloFormGroup.get('drzava')?.setValidators([Validators.required, Validators.maxLength(50)]);
