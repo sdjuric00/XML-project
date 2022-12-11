@@ -18,7 +18,7 @@ export interface Roba {
 
 export interface PravoPrvenstva {
     "@": {
-        "zatrazeno": boolean;
+        "zatrazeno": string;
     }
     "osnov"?: string;
 }

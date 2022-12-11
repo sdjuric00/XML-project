@@ -1,12 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<zahtev_za_priznanje_ziga xmlns="http://www.zig/zig"
-    xmlns:opste="http://ftn.ac.rs/opste"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.zig/zig file:/E:/Faks/cetvrta_godina/XML/Z-1.xsd"
-    broj_prijave="Z-2022/1" datum_podnosenja="2022-11-06"
-    zig="individualni" pregledano="true">
-    
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<zahtev_za_priznanje_ziga xmlns="http://www.zig/zig" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:opste="http://ftn.ac.rs/opste" broj_prijave="Z-2022/1" datum_podnosenja="2022-12-11" pregledano="false" zig="individualni">
     <institucija>
         <opste:naziv>Zavod za intelektualnu svojinu</opste:naziv>
         <opste:adresa>
@@ -22,58 +15,58 @@
             <opste:fizicko_lice>
                 <opste:kontakt>
                     <opste:email>ana@gmail.com</opste:email>
-                    <opste:telefon>123123312123</opste:telefon>
-                    <opste:fax>0123123111</opste:fax>
+                    <opste:telefon>3213212123</opste:telefon>
+                    <opste:fax>0312312123</opste:fax>
                 </opste:kontakt>
                 <opste:adresa>
-                    <opste:grad>asdasd</opste:grad>
-                    <opste:ulica>assdasad</opste:ulica>
+                    <opste:grad>asddas</opste:grad>
+                    <opste:ulica>dassad</opste:ulica>
                     <opste:broj>2</opste:broj>
                     <opste:postanski_broj>21000</opste:postanski_broj>
-                    <opste:drzava>American Samoa</opste:drzava>
+                    <opste:drzava>Algeria</opste:drzava>
                 </opste:adresa>
-                <opste:ime>sadsda</opste:ime>
-                <opste:prezime>sdasda</opste:prezime>
-                <opste:jmbg>1234545545445</opste:jmbg>
+                <opste:ime>asddas</opste:ime>
+                <opste:prezime>adsdas</opste:prezime>
+                <opste:jmbg>1231331312222</opste:jmbg>
             </opste:fizicko_lice>
         </podnosilac>
     </podnosioci>
     <punomocnik>
         <opste:fizicko_lice>
             <opste:kontakt>
-                <opste:email>neko@gmail.com</opste:email>
-                <opste:telefon>21313223</opste:telefon>
-                <opste:fax>031223324</opste:fax>
+                <opste:email>mile@gmail.com</opste:email>
+                <opste:telefon>1232313213</opste:telefon>
+                <opste:fax>012331231</opste:fax>
             </opste:kontakt>
             <opste:adresa>
-                <opste:grad>asdad</opste:grad>
-                <opste:ulica>asdsdad</opste:ulica>
+                <opste:grad>asddas</opste:grad>
+                <opste:ulica>dasasdasd</opste:ulica>
                 <opste:broj>2</opste:broj>
                 <opste:postanski_broj>21000</opste:postanski_broj>
-                <opste:drzava>Afghanistan</opste:drzava>
+                <opste:drzava>Albania</opste:drzava>
             </opste:adresa>
-            <opste:ime>sadsad</opste:ime>
-            <opste:prezime>asdasd</opste:prezime>
-            <opste:jmbg>1231231213333</opste:jmbg>
+            <opste:ime>sdasdd</opste:ime>
+            <opste:prezime>asdasds</opste:prezime>
+            <opste:jmbg>1223312313233</opste:jmbg>
         </opste:fizicko_lice>
     </punomocnik>
     <podaci_o_zajednickom_predstavniku>
         <fizicko_lice>
             <opste:kontakt>
                 <opste:email>ana@gmail.com</opste:email>
-                <opste:telefon>123123312123</opste:telefon>
-                <opste:fax>0123123111</opste:fax>
+                <opste:telefon>3213212123</opste:telefon>
+                <opste:fax>0312312123</opste:fax>
             </opste:kontakt>
             <opste:adresa>
-                <opste:grad>asdasd</opste:grad>
-                <opste:ulica>assdasad</opste:ulica>
+                <opste:grad>asddas</opste:grad>
+                <opste:ulica>dassad</opste:ulica>
                 <opste:broj>2</opste:broj>
                 <opste:postanski_broj>21000</opste:postanski_broj>
-                <opste:drzava>American Samoa</opste:drzava>
+                <opste:drzava>Algeria</opste:drzava>
             </opste:adresa>
-            <opste:ime>sadsda</opste:ime>
-            <opste:prezime>sdasda</opste:prezime>
-            <opste:jmbg>1234545545445</opste:jmbg>
+            <opste:ime>asddas</opste:ime>
+            <opste:prezime>adsdas</opste:prezime>
+            <opste:jmbg>1231331312222</opste:jmbg>
         </fizicko_lice>
     </podaci_o_zajednickom_predstavniku>
     <znak pismo="Cirilica">
@@ -82,36 +75,34 @@
         </vrsta_znaka>
         <boje>
             <boja>
-                <naziv>crvena</naziv>
-             </boja>
+                <naziv>asdasd</naziv>
+            </boja>
             <boja>
-                <naziv>plava</naziv>
+                <naziv>rrweer</naziv>
             </boja>
         </boje>
         <transliteracija_znaka></transliteracija_znaka>
         <prevod></prevod>
-        <opis>asdasd</opis>
+        <opis>sadasasd</opis>
     </znak>
     <nicanska_klasifikacija>
         <broj>1. Hemijski proizvodi</broj>
     </nicanska_klasifikacija>
     <pravo_prvenstva zatrazeno="true">
-        <osnov>asdas</osnov>
+        <osnov>adsdas</osnov>
     </pravo_prvenstva>
     <placene_takse>
-        <valuta>EUR</valuta>
-        <osnovna_taksa>12123.0</osnovna_taksa>
-        <taksa_za_klasu>132321.0</taksa_za_klasu>
-        <taksa_za_graficko_resenje>123312.0</taksa_za_graficko_resenje>
-        <ukupno>123123.0</ukupno>
+        <valuta>RSD</valuta>
+        <osnovna_taksa>21322.0</osnovna_taksa>
+        <taksa_za_klasu>123123.0</taksa_za_klasu>
+        <taksa_za_graficko_resenje>123123.0</taksa_za_graficko_resenje>
+        <ukupno>12132.0</ukupno>
     </placene_takse>
     <prilozi primerak_znaka_putanja="slika_indeks.jpeg" punomocje_putanja="slika_indeks.jpeg" opsti_akt_o_kolektivnom_zigu_garancije_putanja="slika_indeks.jpeg" dokaz_o_pravu_prvenstva_putanja="slika_indeks.jpeg" dokaz_o_uplati_takse_putanja="slika_indeks.jpeg">
         <spisak_roba_i_usluga>
-            <roba>asdasd</roba>
+            <roba>dasd</roba>
         </spisak_roba_i_usluga>
         <generalno_punomocje_ranije_prilozeno>false</generalno_punomocje_ranije_prilozeno>
         <punomocje_ce_biti_naknadno_dostavljeno>false</punomocje_ce_biti_naknadno_dostavljeno>
     </prilozi>
-    
 </zahtev_za_priznanje_ziga>
-

@@ -50,7 +50,10 @@ export class PravnoLiceComponent implements OnInit {
       kontakt: kontakt,
       isPravnoLice: true
     }
-    const podnosioci:PodnosilacUniversal[] = this.podnosilacFormGroup.get('podnosioci')?.value as PodnosilacUniversal[];
+    let podnosioci:PodnosilacUniversal[] = this.podnosilacFormGroup.get('podnosioci')?.value as PodnosilacUniversal[];
+    if (podnosioci === null) {
+      podnosioci = [];
+    }
     this.dodatPodnosilac.emit(podnosilac);
     podnosioci.push(podnosilac);
     this.podnosilacFormGroup.get('podnosioci')?.setValue(podnosioci);
@@ -66,7 +69,6 @@ export class PravnoLiceComponent implements OnInit {
     this.podnosilacFormGroup.get('email')?.setValue('');
     this.podnosilacFormGroup.get('telefon')?.setValue('');
     this.podnosilacFormGroup.get('fax')?.setValue('');
-    this.podnosilacFormGroup.updateValueAndValidity();
   }
 
 

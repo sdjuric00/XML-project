@@ -10,11 +10,12 @@ import { Adresa } from 'src/app/model/opste/adresa';
 import { Kontakt } from 'src/app/model/opste/kontakt';
 import { FizickoLice } from 'src/app/model/opste/fizicko-lice';
 import { PunomocnikIPredstavnikZ } from 'src/app/model/patent/punomocnik-p';
-import { Boja, NicanskaKlasifikacija, VrstaZnaka, Znak } from 'src/app/model/trademark/znak';
+import { Boja, Boje, NicanskaKlasifikacija, VrstaZnaka, Znak } from 'src/app/model/trademark/znak';
 import { PravoPrvenstva, PriloziZ, Roba } from 'src/app/model/trademark/prilozi-z';
 import { PlaceneTakse } from 'src/app/model/trademark/placene-takse';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-trademark-application',
@@ -25,6 +26,7 @@ import { environment } from 'src/environments/environment';
       provide: STEPPER_GLOBAL_OPTIONS,
       useValue: {displayDefaultIndicatorType: false},
     },
+    DatePipe
   ],
 })
 export class TrademarkApplicationComponent implements OnInit {
@@ -107,12 +109,13 @@ export class TrademarkApplicationComponent implements OnInit {
     dokazOUplatiTaksePutanja: new FormControl('', [Validators.required]),
   });
 
-  constructor(private _formBuilder: FormBuilder,  private http: HttpClient) { }
+  constructor(private _formBuilder: FormBuilder,  private http: HttpClient, private _datePipe: DatePipe) { }
 
   ngOnInit(): void {
   }
 
   getTrademark(): Trademark {
+    this._datePipe.transform(new Date(), 'yyyy-MM-dd')
 
     let institucija: Institucija = {
       "opste:naziv": "Zavod za intelektualnu svojinu",
@@ -128,13 +131,14 @@ export class TrademarkApplicationComponent implements OnInit {
     let zig: Trademark = {
       zahtev_za_priznanje_ziga: {
         "@": {
-          "xmlns": "xmlns=http://www.zig/zig",
-          "xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
+          "xmlns": "http://www.zig/zig",
           "xmlns:opste": "http://ftn.ac.rs/opste",
+          "xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
+          "xsi:schemaLocation": "http://www.zig/zig",
           broj_prijave:"Z-2022/1",
-          datum_podnosenja:"11.12.2022.",
+          datum_podnosenja: this._datePipe.transform(new Date(), 'yyyy-MM-dd'),
           zig: this.znakFormGroup.get("tipZig").value,
-          pregledano:false
+          pregledano:'false'
         },
         institucija: institucija,
         podnosioci: this.getPodaciOPodnosiocima(),
@@ -164,7 +168,7 @@ export class TrademarkApplicationComponent implements OnInit {
             "@": {
               "autor": this.podnosilacFormGroup.get('podnosilacAutor')?.value,
             },
-            "opste:pravno-lice": this.getPravnoLice(podnosilac),
+            "opste:pravno_lice": this.getPravnoLice(podnosilac),
           }
         });
       } else  {
@@ -173,7 +177,7 @@ export class TrademarkApplicationComponent implements OnInit {
             "@": {
               autor: this.podnosilacFormGroup.get('podnosilacAutor')?.value,
             },
-          "opste:fizicko-lice": this.getFizickoLice(podnosilac),
+          "opste:fizicko_lice": this.getFizickoLice(podnosilac),
           }
         });
       }
@@ -209,9 +213,9 @@ export class TrademarkApplicationComponent implements OnInit {
 
   getAdresa(ulica: string, broj: string, grad: string, postanskiBroj: string, drzava: string): Adresa {
     let adresa = {
+      "opste:grad": grad,
       "opste:ulica": ulica,
       "opste:broj": broj,
-      "opste:grad": grad,
       "opste:postanski_broj": postanskiBroj,
       "opste:drzava": drzava
     }
@@ -280,7 +284,7 @@ export class TrademarkApplicationComponent implements OnInit {
     if(!zajednickiPredstvnik.isPravnoLice){
     
       return {
-        "opste:fizicko_lice": {
+        "fizicko_lice": {
           "opste:kontakt": {
             "opste:email": zajednickiPredstvnik.kontakt.email,
             "opste:telefon": zajednickiPredstvnik.kontakt.telefon,
@@ -301,7 +305,7 @@ export class TrademarkApplicationComponent implements OnInit {
     }
     else{
       return {
-        "opste:pravno_lice": {
+        "pravno_lice": {
           "opste:kontakt": {
             "opste:email": zajednickiPredstvnik.kontakt.email,
             "opste:telefon": zajednickiPredstvnik.kontakt.telefon,
@@ -325,7 +329,9 @@ export class TrademarkApplicationComponent implements OnInit {
   getZnak(): Znak {
     let pismo: string = this.znakFormGroup.get('pismo').value;
     let vrstaZnaka: VrstaZnaka;
-    let boje: Boja[] = [];
+    let boje: Boje = {
+      boja: []
+    };
 
     if (['verbalni', 'graficki', 'kombinovani', 'trodimenzionalni'].includes(this.znakFormGroup.get('vrstaZnaka').value)) {
       vrstaZnaka = {
@@ -338,8 +344,8 @@ export class TrademarkApplicationComponent implements OnInit {
     }
 
     for (let i = 0; i < this.znakFormGroup.get("boje").value.length; i++) {
-      boje.push({
-        boja: this.znakFormGroup.get("boje").value.at(i)
+      boje.boja.push({
+        "naziv": this.znakFormGroup.get("boje").value.at(i),
       })
     }
 
@@ -360,8 +366,8 @@ export class TrademarkApplicationComponent implements OnInit {
         },
         "vrsta_znaka": vrstaZnaka,
         "boje": boje,
-        "prevod": this.znakFormGroup.get("prevod").value,
         "transliteracija_znaka": this.znakFormGroup.get("transliteracijaZnaka").value,
+        "prevod": this.znakFormGroup.get("prevod").value,
         "opis": this.znakFormGroup.get("opis").value
       }
     }
@@ -373,7 +379,7 @@ export class TrademarkApplicationComponent implements OnInit {
       
       return {
         "@": {
-          zatrazeno: true,
+          zatrazeno: 'true',
         },
         osnov: this.takseIPriloziFormGroup.get("pravoPrvenstvaOsnov").value
       }
@@ -381,7 +387,7 @@ export class TrademarkApplicationComponent implements OnInit {
 
       return {
         "@": {
-          zatrazeno: false,
+          zatrazeno: 'false',
         }
       }
     }
@@ -434,6 +440,7 @@ export class TrademarkApplicationComponent implements OnInit {
         return {
           "@": {
             primerak_znaka_putanja: this.takseIPriloziFormGroup.get("primerakZnakaPutanja").value,
+            punomocje_putanja: '',
             opsti_akt_o_kolektivnom_zigu_garancije_putanja: this.takseIPriloziFormGroup.get("opstiAktOKolektivnoZiguPutanja").value,
             dokaz_o_pravu_prvenstva_putanja: this.takseIPriloziFormGroup.get("dozakOPravuPrvenstvaPutanja").value,
             dokaz_o_uplati_takse_putanja: this.takseIPriloziFormGroup.get("dokazOUplatiTaksePutanja").value,
@@ -451,6 +458,7 @@ export class TrademarkApplicationComponent implements OnInit {
             primerak_znaka_putanja: this.takseIPriloziFormGroup.get("primerakZnakaPutanja").value,
             punomocje_putanja: this.takseIPriloziFormGroup.get("punomocjePutanja").value,
             opsti_akt_o_kolektivnom_zigu_garancije_putanja: this.takseIPriloziFormGroup.get("opstiAktOKolektivnoZiguPutanja").value,
+            dokaz_o_pravu_prvenstva_putanja: '',
             dokaz_o_uplati_takse_putanja: this.takseIPriloziFormGroup.get("dokazOUplatiTaksePutanja").value,
           },
           spisak_roba_i_usluga: robe,
@@ -462,7 +470,9 @@ export class TrademarkApplicationComponent implements OnInit {
         return {
           "@": {
             primerak_znaka_putanja: this.takseIPriloziFormGroup.get("primerakZnakaPutanja").value,
+            punomocje_putanja: '',
             opsti_akt_o_kolektivnom_zigu_garancije_putanja: this.takseIPriloziFormGroup.get("opstiAktOKolektivnoZiguPutanja").value,
+            dokaz_o_pravu_prvenstva_putanja: '',
             dokaz_o_uplati_takse_putanja: this.takseIPriloziFormGroup.get("dokazOUplatiTaksePutanja").value,
           },
           spisak_roba_i_usluga: robe,
@@ -488,9 +498,9 @@ export class TrademarkApplicationComponent implements OnInit {
       responseType: "text"
     };
     const api_url = environment.apiUrl;
-    // this.http.post(`${api_url}/trademark`, o2x(trademark), queryParams).subscribe(response => {
-    //   console.log(response);
-    // })
+    this.http.post(`${api_url}/trademark`, o2x(trademark), queryParams).subscribe(response => {
+      console.log(response);
+    })
   }
 
 }

@@ -31,10 +31,10 @@ export class FizickoLiceComponent implements OnInit {
 
   dodajPodnosioca(): void {
     const adresa: Adresa = {
-      ulica: this.formGroup.get('ulica')?.value,
       grad: this.formGroup.get('grad')?.value,
+      ulica: this.formGroup.get('ulica')?.value,
+      postanskiBroj: this.formGroup.get('postanskiBroj')?.value,
       drzava: this.formGroup.get('drzava')?.value,
-      postanskiBroj: this.formGroup.get('postanskiBroj')?.value
     }
     const kontakt: Kontakt = {
       email: this.formGroup.get('email')?.value,
@@ -44,7 +44,7 @@ export class FizickoLiceComponent implements OnInit {
     const podnosilac: PodnosilacUniversal = {
       ime: this.formGroup.get('ime')?.value,
       prezime: this.formGroup.get('prezime')?.value,
-      jmbg: this.formGroup.get('prezime')?.value,
+      jmbg: this.formGroup.get('jmbg')?.value,
       adresa: adresa,
       kontakt: kontakt,
       isPravnoLice: false
@@ -69,6 +69,7 @@ export class FizickoLiceComponent implements OnInit {
     this.formGroup.get('email')?.setValue('');
     this.formGroup.get('telefon')?.setValue('');
     this.formGroup.get('fax')?.setValue('');
+  
   }
 
   isFormValid(): boolean {

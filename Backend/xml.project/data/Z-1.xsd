@@ -88,7 +88,7 @@
     </xs:complexType>
     <xs:complexType name="boje">
         <xs:sequence maxOccurs="unbounded">
-            <xs:element name="boja" type="xs:string"/>
+            <xs:element name="boja" type="xs-z:boja"/>
         </xs:sequence>
     </xs:complexType>
     <xs:simpleType name="broj_klase_enum">
@@ -132,6 +132,11 @@
     <xs:complexType name="robe">
         <xs:sequence>
             <xs:element name="roba" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="boja">
+        <xs:sequence>
+            <xs:element name="naziv" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
 </xs:schema>

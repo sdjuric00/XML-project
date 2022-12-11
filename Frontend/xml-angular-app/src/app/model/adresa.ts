@@ -1,6 +1,6 @@
 export interface Adresa {
-  ulica: string;
   grad: string;
-  drzava: string;
+  ulica: string;
   postanskiBroj: string;
+  drzava: string;
 }
