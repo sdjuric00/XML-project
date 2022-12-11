@@ -11,7 +11,6 @@ export class PodnosilacComponent implements OnInit {
 
   @Input() isTrademark: boolean = false;
   @Input() btnNazad: boolean = false;
- 
   tipPodnosioca: string='Fizičko lice';
   podnosilacAutor: boolean = false;
   public podnosilacFormGroup: FormGroup;
@@ -49,16 +48,6 @@ export class PodnosilacComponent implements OnInit {
     this.podnosioci.push(podnosilac);
     this.podnosilacFormGroup.get('podnosioci').setValidators([Validators.required]);
     this.podnosilacFormGroup.get('podaciOZajednickomPredstavniku').setValidators([Validators.required]);
-  }
-
-  checkValidityDisabled(): boolean {
-    if (this.isTrademark) {
-      let podnosiociList: PodnosilacUniversal[] = this.podnosilacFormGroup.get('podnosioci').value;
-      
-      return podnosiociList.length <= 0;
-    }
-
-    return this.podnosilacFormGroup.invalid;
   }
 
 }

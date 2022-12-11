@@ -15,9 +15,9 @@ import {AutorskoDelo} from "../../../model/copyright/autorsko-delo";
 import {VrstaAutorskogDela} from "../../../model/copyright/vrsta-autorskog-dela";
 import {FormaZapisa} from "../../../model/copyright/forma-zapisa";
 import {PodaciONaslovuPrerada} from "../../../model/copyright/podaci-o-naslovu-prerada";
-import {AutorInList, AutorXml} from "../../../model/copyright/autor-xml";
+import {AutorXml} from "../../../model/copyright/autor-xml";
 import {ImenovanAutor} from "../../../model/copyright/imenovan-autor";
-import {Prilog, PrilogInList} from "../../../model/copyright/prilog";
+import {Prilog} from "../../../model/copyright/prilog";
 import {Autor} from "../../../model/autor";
 import {PrilogForm} from "../prilozi/prilozi.component";
 
@@ -59,6 +59,7 @@ export class CopyrightApplicationComponent implements OnInit {
     godinaSmrti: new FormControl(''),
     pseudonim: new FormControl(''),
     ulica: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+    broj: new FormControl('', [Validators.required, Validators.pattern("[0-9A-Za-z ]{1,5}")]),
     grad: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     postanskiBroj: new FormControl('', [Validators.required, Validators.pattern("[0-9]{5}")]),
     drzava: new FormControl('', [Validators.required, Validators.maxLength(50)])
@@ -74,6 +75,7 @@ export class CopyrightApplicationComponent implements OnInit {
     prezime: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     jmbg: new FormControl('', [Validators.required, Validators.pattern("[0-9]{13}")]),
     ulica: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+    broj: new FormControl('', [Validators.required, Validators.pattern("[0-9A-Za-z ]{1,5}")]),
     grad: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     postanskiBroj: new FormControl('', [Validators.required, Validators.pattern("[0-9]{5}")]),
     drzava: new FormControl('', [Validators.required, Validators.maxLength(50)]),
@@ -91,6 +93,7 @@ export class CopyrightApplicationComponent implements OnInit {
     prezime: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     jmbg: new FormControl('', [Validators.required, Validators.pattern("[0-9]{13}")]),
     ulica: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+    broj: new FormControl('', [Validators.required, Validators.pattern("[0-9A-Za-z ]{1,5}")]),
     grad: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     postanskiBroj: new FormControl('', [Validators.required, Validators.pattern("[0-9]{5}")]),
     drzava: new FormControl('', [Validators.required, Validators.maxLength(50)]),
@@ -120,6 +123,7 @@ export class CopyrightApplicationComponent implements OnInit {
     godinaSmrti: new FormControl(''),
     pseudonim: new FormControl(''),
     ulica: new FormControl(''),
+    broj: new FormControl(''),
     grad: new FormControl('', ),
     postanskiBroj: new FormControl(''),
     drzava: new FormControl('')
@@ -134,8 +138,11 @@ export class CopyrightApplicationComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  prikaz() {
+  save() {
     this._copyrightService.create(this.getZahtevZaAutorskoPravo());
+  }
+
+  prikaz() {
     console.log("kraj");
     console.log(this.podnosilacFormGroup);
     console.log(this.punomocnikFormGroup);
@@ -298,18 +305,10 @@ export class CopyrightApplicationComponent implements OnInit {
   }
 
   getAdresa(formGroup: FormGroup): Adresa{
-    /*let ulica = formGroup.get('ulica')?.value;
-    console.log(ulica);
-    let imeUlice = "";
-    let broj = "";
-    if(ulica != ""){
-      let imeUlice = ulica.split(" ")[0];
-      let broj = ulica.split(" ")[1];
-    }*/
     let adresa = {
       "opste:grad": formGroup.get('grad')?.value,
       "opste:ulica": formGroup.get('ulica')?.value,
-      "opste:broj": "21",
+      "opste:broj": formGroup.get('broj').value,
       "opste:postanski_broj": formGroup.get('postanskiBroj')?.value,
       "opste:drzava": formGroup.get('drzava')?.value
     }
@@ -513,7 +512,7 @@ export class CopyrightApplicationComponent implements OnInit {
     return {
       "opste:grad": autor.adresa.grad,
       "opste:ulica": autor.adresa.ulica,
-      "opste:broj": "21",
+      "opste:broj": autor.adresa.broj,
       "opste:postanski_broj": autor.adresa.postanskiBroj,
       "opste:drzava": autor.adresa.drzava
     };
@@ -528,4 +527,5 @@ export class CopyrightApplicationComponent implements OnInit {
       opis: prilog.opis
     };
   }
+
 }

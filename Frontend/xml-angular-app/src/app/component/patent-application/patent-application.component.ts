@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { Adresa } from 'src/app/model/opste/adresa';
 import { FizickoLice } from 'src/app/model/opste/fizicko-lice';
 import { Institucija } from 'src/app/model/opste/institucija';
@@ -17,6 +18,7 @@ import { Prijava } from 'src/app/model/patent/prijava';
 import { Prijave } from 'src/app/model/patent/prijave';
 import { PronalazacP } from 'src/app/model/patent/pronalazac-p';
 import { PunomocnikP } from 'src/app/model/patent/punomocnik-p';
+import { PatentApplicationService } from 'src/app/service/patent-application.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -25,7 +27,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./patent-application.component.css']
 })
 export class PatentApplicationComponent {
-  constructor(private formBuilder: FormBuilder, private http: HttpClient,  private datePipe: DatePipe) {}
+  constructor(private formBuilder: FormBuilder, private patentService: PatentApplicationService, private datePipe: DatePipe, private toast: ToastrService) {}
 
   nazivFormGroup = this.formBuilder.group({
     nazivSrpskiCtrl: new FormControl('', [Validators.required]),
@@ -49,6 +51,7 @@ export class PatentApplicationComponent {
     prezime: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     jmbg: new FormControl('', [Validators.required, Validators.pattern("[0-9]{13}")]),
     ulica: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+    broj: new FormControl('', [Validators.required, Validators.pattern("[0-9A-Za-z ]{1,5}")]),
     grad: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     postanskiBroj: new FormControl('', [Validators.required, Validators.pattern("[0-9]{5}")]),
     drzava: new FormControl('', [Validators.required, Validators.maxLength(50)]),
@@ -66,6 +69,7 @@ export class PatentApplicationComponent {
     prezime: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     jmbg: new FormControl('', [Validators.required, Validators.pattern("[0-9]{13}")]),
     ulica: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+    broj: new FormControl('', [Validators.required, Validators.pattern("[0-9A-Za-z ]{1,5}")]),
     grad: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     postanskiBroj: new FormControl('', [Validators.required, Validators.pattern("[0-9]{5}")]),
     drzava: new FormControl('', [Validators.required, Validators.maxLength(50)]),
@@ -85,6 +89,7 @@ export class PatentApplicationComponent {
     prezime: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     jmbg: new FormControl('', [Validators.required, Validators.pattern("[0-9]{13}")]),
     ulica: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+    broj: new FormControl('', [Validators.required, Validators.pattern("[0-9A-Za-z ]{1,5}")]),
     grad: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     postanskiBroj: new FormControl('', [Validators.required, Validators.pattern("[0-9]{5}")]),
     drzava: new FormControl('', [Validators.required, Validators.maxLength(50)]),
@@ -95,6 +100,7 @@ export class PatentApplicationComponent {
 
   dostavljanjeFormGroup = this.formBuilder.group({
     ulica: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+    broj: new FormControl('', [Validators.required, Validators.pattern("[0-9A-Za-z ]{1,5}")]),
     grad: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     postanskiBroj: new FormControl('', [Validators.required, Validators.pattern("[0-9]{5}")]),
     drzava: new FormControl('', [Validators.required, Validators.maxLength(50)]),
@@ -259,18 +265,10 @@ export class PatentApplicationComponent {
   }
 
   getAdresa(formGroup: FormGroup): Adresa{
-    /*let ulica = formGroup.get('ulica')?.value;
-    console.log(ulica);
-    let imeUlice = "";
-    let broj = "";
-    if(ulica != ""){
-      let imeUlice = ulica.split(" ")[0];
-      let broj = ulica.split(" ")[1];
-    }*/
     let adresa = {
       "opste:grad": formGroup.get('grad')?.value,
       "opste:ulica": formGroup.get('ulica')?.value,
-      "opste:broj": '5',
+      "opste:broj": formGroup.get('broj').value,
       "opste:postanski_broj": formGroup.get('postanskiBroj')?.value,
       "opste:drzava": formGroup.get('drzava')?.value
     }
@@ -330,22 +328,17 @@ export class PatentApplicationComponent {
   }
 
   kreirajZahtevPatent(){
-    let headers = new HttpHeaders({ "Content-Type": "application/xml"});
-  
-    let patent = this.getPatent();
-    var o2x = require('object-to-xml');
-    console.log(o2x(patent));
-
    
-    let queryParams = {};
-    queryParams = {
-      headers: headers,
-      observe: "response",
-      responseType: "text"
-    };
-    const api_url = environment.apiUrl;
-    this.http.post(`${api_url}/patent`, o2x(patent), queryParams).subscribe(response => {
-      console.log(response);
-    })
+    let patent = this.getPatent();
+    const _toast: ToastrService = this.toast;
+    this.patentService.create(patent).subscribe({
+      next(response) {
+        _toast.success('Uspešno ste poslali zahtev za priznavanje patenta.', 'Uspešno slanje');
+      },
+      error(): void {
+        _toast.error('Desila se greška prilikom slanja zahteva!', 'Greška');
+      },
+    });
+
   }
 }

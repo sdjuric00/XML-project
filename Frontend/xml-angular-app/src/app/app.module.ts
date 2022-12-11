@@ -34,6 +34,7 @@ import { DostavljanjeComponent } from './component/dostavljanje/dostavljanje.com
 import { DopunskaPrijavaComponent } from './component/dopunska-prijava/dopunska-prijava.component';
 import { PrvobitnaPrijavaComponent } from './component/prvobitna-prijava/prvobitna-prijava.component';
 import { DatePipe } from '@angular/common';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,13 @@ import { DatePipe } from '@angular/common';
     MatRadioModule,
     FormsModule,
     MatChipsModule,
-    FormsModule
+    FormsModule,
+    ToastrModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-bottom-left',
+      preventDuplicates: true,
+      closeButton: true,
+    }),
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]
