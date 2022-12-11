@@ -11,7 +11,7 @@ import { Kontakt } from 'src/app/model/opste/kontakt';
 import { FizickoLice } from 'src/app/model/opste/fizicko-lice';
 import { PunomocnikIPredstavnikZ } from 'src/app/model/patent/punomocnik-p';
 import { Boja, Boje, NicanskaKlasifikacija, VrstaZnaka, Znak } from 'src/app/model/trademark/znak';
-import { PravoPrvenstva, PriloziZ, Roba } from 'src/app/model/trademark/prilozi-z';
+import { PravoPrvenstva, PriloziZ, Roba, Robe } from 'src/app/model/trademark/prilozi-z';
 import { PlaceneTakse } from 'src/app/model/trademark/placene-takse';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
@@ -192,7 +192,7 @@ export class TrademarkApplicationComponent implements OnInit {
   getPravnoLice(podnosilac: PodnosilacUniversal): PravnoLice{
     let pravno_lice: PravnoLice = {
       "opste:kontakt": this.getKontakt(podnosilac.kontakt.email, podnosilac.kontakt.telefon, podnosilac.kontakt.fax),
-      "opste:adresa": this.getAdresa(podnosilac.adresa.ulica, "2", podnosilac.adresa.grad, podnosilac.adresa.postanskiBroj, podnosilac.adresa.drzava),
+      "opste:adresa": this.getAdresa(podnosilac.adresa.ulica, podnosilac.adresa.broj, podnosilac.adresa.grad, podnosilac.adresa.postanskiBroj, podnosilac.adresa.drzava),
       "opste:naziv": podnosilac.naziv,
       "opste:pib": podnosilac.pib,
       "opste:registarski_broj": podnosilac.registarskiBroj
@@ -204,7 +204,7 @@ export class TrademarkApplicationComponent implements OnInit {
   getFizickoLice(podnosilac: PodnosilacUniversal): FizickoLice {
     let fizicko_lice = {
       "opste:kontakt": this.getKontakt(podnosilac.kontakt.email, podnosilac.kontakt.telefon, podnosilac.kontakt.fax),
-      "opste:adresa": this.getAdresa(podnosilac.adresa.ulica, "2", podnosilac.adresa.grad, podnosilac.adresa.postanskiBroj, podnosilac.adresa.drzava),
+      "opste:adresa": this.getAdresa(podnosilac.adresa.ulica, podnosilac.adresa.broj, podnosilac.adresa.grad, podnosilac.adresa.postanskiBroj, podnosilac.adresa.drzava),
       "opste:ime": podnosilac.ime,
       "opste:prezime": podnosilac.prezime,
       "opste:jmbg": podnosilac.jmbg
@@ -247,7 +247,7 @@ export class TrademarkApplicationComponent implements OnInit {
           "opste:adresa": {
             "opste:grad": this.punomocnikFormGroup.get('grad').value,
             "opste:ulica": this.punomocnikFormGroup.get('ulica').value,
-            "opste:broj": '2',
+            "opste:broj": this.punomocnikFormGroup.get('broj').value,
             "opste:postanski_broj": this.punomocnikFormGroup.get('postanskiBroj').value,
             "opste:drzava": this.punomocnikFormGroup.get('drzava').value
           },
@@ -268,7 +268,7 @@ export class TrademarkApplicationComponent implements OnInit {
           "opste:adresa": {
             "opste:grad": this.punomocnikFormGroup.get('grad').value,
             "opste:ulica": this.punomocnikFormGroup.get('ulica').value,
-            "opste:broj": '2',
+            "opste:broj": this.punomocnikFormGroup.get('broj').value,
             "opste:postanski_broj": this.punomocnikFormGroup.get('postanskiBroj').value,
             "opste:drzava": this.punomocnikFormGroup.get('drzava').value
           },
@@ -295,7 +295,7 @@ export class TrademarkApplicationComponent implements OnInit {
           "opste:adresa": {
             "opste:grad": zajednickiPredstvnik.adresa.grad,
             "opste:ulica": zajednickiPredstvnik.adresa.ulica,
-            "opste:broj": '2',
+            "opste:broj": zajednickiPredstvnik.adresa.broj,
             "opste:postanski_broj": zajednickiPredstvnik.adresa.postanskiBroj,
             "opste:drzava": zajednickiPredstvnik.adresa.drzava
           },
@@ -316,7 +316,7 @@ export class TrademarkApplicationComponent implements OnInit {
           "opste:adresa": {
             "opste:grad": zajednickiPredstvnik.adresa.grad,
             "opste:ulica": zajednickiPredstvnik.adresa.ulica,
-            "opste:broj": '2',
+            "opste:broj": zajednickiPredstvnik.adresa.broj,
             "opste:postanski_broj": zajednickiPredstvnik.adresa.postanskiBroj,
             "opste:drzava": zajednickiPredstvnik.adresa.drzava
           },
@@ -414,11 +414,13 @@ export class TrademarkApplicationComponent implements OnInit {
   }
 
   getPrilozi(): PriloziZ {
-    let robe: Roba[] = [];
+    let robe: Robe = {
+      roba: []
+    };
     
     for (let i = 0; i < this.takseIPriloziFormGroup.get("spisakRoba").value.length; i++) {
-      robe.push({
-        roba: this.takseIPriloziFormGroup.get("spisakRoba").value.at(i),
+      robe.roba.push({
+        naziv: this.takseIPriloziFormGroup.get("spisakRoba").value.at(i),
       });
     }
 

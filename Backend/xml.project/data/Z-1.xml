@@ -107,7 +107,9 @@
     </placene_takse>
     <prilozi primerak_znaka_putanja="slika_indeks.jpeg" punomocje_putanja="slika_indeks.jpeg" opsti_akt_o_kolektivnom_zigu_garancije_putanja="slika_indeks.jpeg" dokaz_o_pravu_prvenstva_putanja="slika_indeks.jpeg" dokaz_o_uplati_takse_putanja="slika_indeks.jpeg">
         <spisak_roba_i_usluga>
-            <roba>asdasd</roba>
+            <roba>
+                <naziv>Djubrivo</naziv>
+            </roba>
         </spisak_roba_i_usluga>
         <generalno_punomocje_ranije_prilozeno>false</generalno_punomocje_ranije_prilozeno>
         <punomocje_ce_biti_naknadno_dostavljeno>false</punomocje_ce_biti_naknadno_dostavljeno>

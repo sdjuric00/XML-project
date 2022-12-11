@@ -32,9 +32,9 @@ export class PravnoLiceComponent implements OnInit {
 
   dodajPodnosioca(): void {
     const adresa: Adresa = {
+      grad: this.podnosilacFormGroup.get('grad')?.value,
       ulica: this.podnosilacFormGroup.get('ulica')?.value,
       broj: this.podnosilacFormGroup.get('broj')?.value,
-      grad: this.podnosilacFormGroup.get('grad')?.value,
       drzava: this.podnosilacFormGroup.get('drzava')?.value,
       postanskiBroj: this.podnosilacFormGroup.get('postanskiBroj')?.value
     }

@@ -94,6 +94,10 @@
     <xs:simpleType name="broj_klase_enum">
         <xs:restriction base="xs:string">
             <xs:enumeration value="1. Hemijski proizvodi"/>
+            <xs:enumeration value="2. Boje i lakovi"/>
+            <xs:enumeration value="3. Nemedicinska kozmetika"/>
+            <xs:enumeration value="4. Industrija ulja i masti"/>
+            <xs:enumeration value="5. Farmaceutski proizvodi"/>
         </xs:restriction>
     </xs:simpleType>
     <xs:complexType name="pravo_prvenstva">
@@ -126,15 +130,24 @@
     </xs:complexType>
     <xs:complexType name="odabrane_kategorije">
         <xs:sequence>
-            <xs:element name="broj" type="xs-z:broj_klase_enum"/>
+            <xs:element name="broj">
+                <xs:simpleType>
+                    <xs:restriction base="xs-z:broj_klase_enum"/>
+                </xs:simpleType>
+            </xs:element>
         </xs:sequence>
     </xs:complexType>
     <xs:complexType name="robe">
-        <xs:sequence>
-            <xs:element name="roba" type="xs:string"/>
+        <xs:sequence maxOccurs="unbounded">
+            <xs:element name="roba" type="xs-z:roba"/>
         </xs:sequence>
     </xs:complexType>
     <xs:complexType name="boja">
+        <xs:sequence>
+            <xs:element name="naziv" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="roba">
         <xs:sequence>
             <xs:element name="naziv" type="xs:string"/>
         </xs:sequence>

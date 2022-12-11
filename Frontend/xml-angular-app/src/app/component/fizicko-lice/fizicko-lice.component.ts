@@ -76,7 +76,7 @@ export class FizickoLiceComponent implements OnInit {
   }
 
   isFormValid(): boolean {
-
+    
     return this.formGroup.invalid;
   }
 
