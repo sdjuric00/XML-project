@@ -62,7 +62,7 @@ export class AutorskoDeloComponent implements OnInit {
     }
   }
 
-  changeCustomVrstaAutorkogDela(value: string) {
+  changeCustomVrstaAutorskogDela(value: string) {
     this.customVrstaAutorskogDela = value;
     this.autorskoDeloFormGroup?.controls['vrsta']?.setValue('');
   }
@@ -70,7 +70,7 @@ export class AutorskoDeloComponent implements OnInit {
   changeRadioButtonForma(value: string) {
     this.customFormaAutorskogDela = '';
     this.formaAutorskogDela = value;
-    if (this.vrstaAutorskogDela !== 'Ostalo'){
+    if (this.formaAutorskogDela !== 'Ostalo'){
       this.autorskoDeloFormGroup?.controls['formaZapisaJeCustom']?.setValue(false);
       this.autorskoDeloFormGroup?.controls['formaZapisa']?.setValue(value);
     }

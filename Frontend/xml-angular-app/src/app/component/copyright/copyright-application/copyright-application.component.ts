@@ -179,7 +179,6 @@ export class CopyrightApplicationComponent implements OnInit {
   }
 
   getPodnosilac(): Podnosilac {
-    console.log(this.podnosilacFormGroup);
     let podnosilacAutor=this.podnosilacFormGroup.get('podnosilacAutor')?.value;
     if (this.podnosilacFormGroup.get('podnosilacAutor')?.value === null || this.podnosilacFormGroup.get('podnosilacAutor')?.value === undefined){
       podnosilacAutor = false;
@@ -191,17 +190,17 @@ export class CopyrightApplicationComponent implements OnInit {
 
       return {
         "@": {
-          autor: podnosilacAutor,
+          autor: podnosilacAutor + "",
         },
-        "opste:fizicko-lice": this.getFizickoLice(this.podnosilacFormGroup),
+        "opste:fizicko_lice": this.getFizickoLice(this.podnosilacFormGroup),
       }
     } else{
 
       return {
         "@": {
-          "autor": podnosilacAutor,
+          "autor": podnosilacAutor + "",
         },
-        "opste:pravno-lice": this.getPravnoLice(this.podnosilacFormGroup),
+        "opste:pravno_lice": this.getPravnoLice(this.podnosilacFormGroup),
       }
     }
   }

@@ -48,12 +48,13 @@ export class PriloziComponent implements OnInit {
     this.opis = value;
   }
 
-  addPrilog() {
+  addPrilog(input: HTMLInputElement) {
     if (this.selectedImage !== null && this.selectedImage !== undefined && this.selectedImage !== ''){
       this.prilozi.push({putanja:this.selectedImage, opis: this.opis});
       this.priloziFormGroup.get('prilozi')?.setValue(this.prilozi);
       this.selectedImage = '';
       this.opis = '';
+      input.value = '';
     }
     else {
       this.greska = true;

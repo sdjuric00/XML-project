@@ -23,7 +23,7 @@
       <mat-radio-button class="example-radio-group" [value]="'Ostalo'" (change)="changeRadioButtonVrsta('Ostalo')">
         <mat-form-field appearance="fill" class="input-field">
           <mat-label>Ostale vrste</mat-label>
-          <input #customVrsta matInput placeholder="Ostale vrste" (keyup)="changeCustomVrstaAutorkogDela(customVrsta.value)" [disabled]="vrstaAutorskogDela!=='Ostalo'">
+          <input #customVrsta matInput placeholder="Ostale vrste" (keyup)="changeCustomVrstaAutorskogDela(customVrsta.value)" [disabled]="vrstaAutorskogDela!=='Ostalo'">
         </mat-form-field>
       </mat-radio-button>
 <!--      <mat-error-->
@@ -114,9 +114,10 @@
   <div style="display: flex">
     <button style="margin-left:84%" class="previous-button" mat-raised-button matStepperPrevious>Nazad</button>
     <!--    [disabled]="punomocnikFormGroup.invalid"-->
+    {{vrstaAutorskogDela}} {{customVrstaAutorskogDela}}
     <button style="margin-left:1rem" class="next-button" mat-raised-button matStepperNext [disabled]="
             ((vrstaAutorskogDela==='' && customVrstaAutorskogDela==='') || (vrstaAutorskogDela==='Ostalo' && customVrstaAutorskogDela==='')) ||
-            ((formaAutorskogDela==='' && customFormaAutorskogDela==='') || (formaAutorskogDela==='Ostalo' && customFormaAutorskogDela==='')) ||
+            ((formaAutorskogDela==='' && customFormaAutorskogDela ==='') || (formaAutorskogDela==='Ostalo' && customFormaAutorskogDela ==='')) ||
             (customNacinKoriscenja==='') || (autorskoDeloFormGroup.invalid)"
     >Dalje</button>
 
