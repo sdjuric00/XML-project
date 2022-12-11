@@ -8,3 +8,7 @@ export interface Podnosilac{
     "opste:pravno-lice"?: PravnoLice | null;
     "@":{autor: boolean | null | undefined}
 }
+
+export interface Podnosioci {
+    "podnosilac": Podnosilac
+}

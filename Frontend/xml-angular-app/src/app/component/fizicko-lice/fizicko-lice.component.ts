@@ -49,7 +49,11 @@ export class FizickoLiceComponent implements OnInit {
       kontakt: kontakt,
       isPravnoLice: false
     }
-    const podnosioci:PodnosilacUniversal[] = this.formGroup.get('podnosioci')?.value as PodnosilacUniversal[];
+    console.log(podnosilac)
+    let podnosioci:PodnosilacUniversal[] = this.formGroup.get('podnosioci')?.value as PodnosilacUniversal[];
+    if (podnosioci === null) {
+      podnosioci = [];
+    }
     this.dodatPodnosilac.emit(podnosilac);
     podnosioci.push(podnosilac);
     this.formGroup.get('podnosioci')?.setValue(podnosioci);
