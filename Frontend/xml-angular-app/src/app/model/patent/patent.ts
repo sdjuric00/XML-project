@@ -5,6 +5,7 @@ import { Naziv } from "./naziv"
 import { PodaciOPronalasku } from "./podaci_o_pronalasku"
 import { Podnosilac } from "./podnosilac"
 import { Prijava } from "./prijava"
+import { Prijave } from "./prijave"
 import { PronalazacP } from "./pronalazac-p"
 import { PunomocnikP } from "./punomocnik-p"
 
@@ -17,6 +18,6 @@ export interface Patent{
         "pronalazac": PronalazacP,
         "punomocnik": PunomocnikP,
         "dostavljanje": Dostavljanje,
-        "zahtev_za_priznanje_prava_iz_ranijih_prijava": Prijava[]
+        "zahtev_za_priznanje_prava_iz_ranijih_prijava": Prijave
     }
 }

@@ -193,7 +193,7 @@ export class CopyrightApplicationComponent implements OnInit {
         "@": {
           autor: podnosilacAutor,
         },
-        "opste:fizicko-lice": this.getFizickoLice(this.podnosilacFormGroup),
+        "opste:fizicko_lice": this.getFizickoLice(this.podnosilacFormGroup),
       }
     } else{
 
