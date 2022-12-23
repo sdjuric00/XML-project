@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://ftn.ac.rs/opste" xmlns:xs-opste="http://ftn.ac.rs/opste">
+    <xs:complexType abstract="false" name="osoba">
+        <xs:sequence>
+            <xs:element name="kontakt" type="xs-opste:kontakt"/>
+            <xs:element name="adresa" type="xs-opste:adresa"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="adresa">
+        <xs:sequence>
+            <xs:element name="grad">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="[A-Za-z ]{2,50}"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ulica">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="[A-Za-z ]{2,50}"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="broj">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="5"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="postanski_broj">
+                <xs:simpleType>
+                    <xs:restriction base="xs:int">
+                        <xs:pattern value="[0-9]{5}"/>
+                        <xs:minInclusive value="11000"/>
+                        <xs:maxInclusive value="40000"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="drzava">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="[A-za-z ]{2,50}"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="fizicko_lice">
+        <xs:complexContent>
+            <xs:extension base="xs-opste:osoba">
+                <xs:sequence>
+                    <xs:element name="ime" type="xs:string"/>
+                    <xs:element name="prezime" type="xs:string"/>
+                    <xs:element name="jmbg">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:pattern value="[0-9]{13}"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="pravno_lice">
+        <xs:complexContent>
+            <xs:extension base="xs-opste:osoba">
+                <xs:sequence>
+                    <xs:element name="naziv" type="xs:string"/>
+                    <xs:element name="pib">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:pattern value="[0-9]{9}"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="registarski_broj">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:pattern value="([0-9]{8}|([A-Za-z]{2}[0-9]{6}))"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="kontakt">
+        <xs:sequence>
+            <xs:element name="email">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string"> </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="telefon">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="[0-9]{8,12}"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="fax">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="[0][0-9]{8,9}"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="institucija">
+        <xs:sequence>
+            <xs:element name="naziv" type="xs:string"/>
+            <xs:element name="adresa" type="xs-opste:adresa"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="podnosilac">
+        <xs:choice>
+            <xs:element name="fizicko_lice" type="xs-opste:fizicko_lice"/>
+            <xs:element name="pravno_lice" type="xs-opste:pravno_lice"/>
+        </xs:choice>
+        <xs:attribute name="autor" type="xs:boolean"/>
+    </xs:complexType>
+    <xs:complexType name="punomocnik">
+        <xs:choice>
+            <xs:element name="fizicko_lice" type="xs-opste:fizicko_lice"/>
+            <xs:element name="pravno_lice" type="xs-opste:pravno_lice"/>
+        </xs:choice>
+    </xs:complexType>
+</xs:schema>
