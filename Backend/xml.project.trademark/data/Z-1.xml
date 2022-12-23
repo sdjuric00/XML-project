@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zahtev_za_priznanje_ziga xmlns="http://www.zig/zig"
+    xmlns:opste="http://ftn.ac.rs/opste"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zig/zig file:/E:/Faks/cetvrta_godina/XML/Z-1.xsd"
+    broj_prijave="Z-2022/1" datum_podnosenja="2022-11-06"
+    zig="individualni" pregledano="true">
+    
+    <institucija>
+        <opste:naziv>Zavod za intelektualnu svojinu</opste:naziv>
+        <opste:adresa>
+            <opste:grad>Beograd</opste:grad>
+            <opste:ulica>Kneginje Ljubice</opste:ulica>
+            <opste:broj>5</opste:broj>
+            <opste:postanski_broj>11000</opste:postanski_broj>
+            <opste:drzava>Republika Srbija</opste:drzava>
+        </opste:adresa>
+    </institucija>
+    <podnosioci>
+        <podnosilac autor="false">
+            <opste:fizicko_lice>
+                <opste:kontakt>
+                    <opste:email>ana@gmail.com</opste:email>
+                    <opste:telefon>123123312123</opste:telefon>
+                    <opste:fax>0123123111</opste:fax>
+                </opste:kontakt>
+                <opste:adresa>
+                    <opste:grad>asdasd</opste:grad>
+                    <opste:ulica>assdasad</opste:ulica>
+                    <opste:broj>2</opste:broj>
+                    <opste:postanski_broj>21000</opste:postanski_broj>
+                    <opste:drzava>American Samoa</opste:drzava>
+                </opste:adresa>
+                <opste:ime>sadsda</opste:ime>
+                <opste:prezime>sdasda</opste:prezime>
+                <opste:jmbg>1234545545445</opste:jmbg>
+            </opste:fizicko_lice>
+        </podnosilac>
+    </podnosioci>
+    <punomocnik>
+        <opste:fizicko_lice>
+            <opste:kontakt>
+                <opste:email>neko@gmail.com</opste:email>
+                <opste:telefon>21313223</opste:telefon>
+                <opste:fax>031223324</opste:fax>
+            </opste:kontakt>
+            <opste:adresa>
+                <opste:grad>asdad</opste:grad>
+                <opste:ulica>asdsdad</opste:ulica>
+                <opste:broj>2</opste:broj>
+                <opste:postanski_broj>21000</opste:postanski_broj>
+                <opste:drzava>Afghanistan</opste:drzava>
+            </opste:adresa>
+            <opste:ime>sadsad</opste:ime>
+            <opste:prezime>asdasd</opste:prezime>
+            <opste:jmbg>1231231213333</opste:jmbg>
+        </opste:fizicko_lice>
+    </punomocnik>
+    <podaci_o_zajednickom_predstavniku>
+        <fizicko_lice>
+            <opste:kontakt>
+                <opste:email>ana@gmail.com</opste:email>
+                <opste:telefon>123123312123</opste:telefon>
+                <opste:fax>0123123111</opste:fax>
+            </opste:kontakt>
+            <opste:adresa>
+                <opste:grad>asdasd</opste:grad>
+                <opste:ulica>assdasad</opste:ulica>
+                <opste:broj>2</opste:broj>
+                <opste:postanski_broj>21000</opste:postanski_broj>
+                <opste:drzava>American Samoa</opste:drzava>
+            </opste:adresa>
+            <opste:ime>sadsda</opste:ime>
+            <opste:prezime>sdasda</opste:prezime>
+            <opste:jmbg>1234545545445</opste:jmbg>
+        </fizicko_lice>
+    </podaci_o_zajednickom_predstavniku>
+    <znak pismo="Cirilica">
+        <vrsta_znaka>
+            <vrsta_enum>verbalni</vrsta_enum>
+        </vrsta_znaka>
+        <boje>
+            <boja>
+                <naziv>crvena</naziv>
+             </boja>
+            <boja>
+                <naziv>plava</naziv>
+            </boja>
+        </boje>
+        <transliteracija_znaka></transliteracija_znaka>
+        <prevod></prevod>
+        <opis>asdasd</opis>
+    </znak>
+    <nicanska_klasifikacija>
+        <broj>1. Hemijski proizvodi</broj>
+    </nicanska_klasifikacija>
+    <pravo_prvenstva zatrazeno="true">
+        <osnov>asdas</osnov>
+    </pravo_prvenstva>
+    <placene_takse>
+        <valuta>EUR</valuta>
+        <osnovna_taksa>12123.0</osnovna_taksa>
+        <taksa_za_klasu>132321.0</taksa_za_klasu>
+        <taksa_za_graficko_resenje>123312.0</taksa_za_graficko_resenje>
+        <ukupno>123123.0</ukupno>
+    </placene_takse>
+    <prilozi primerak_znaka_putanja="slika_indeks.jpeg" punomocje_putanja="slika_indeks.jpeg" opsti_akt_o_kolektivnom_zigu_garancije_putanja="slika_indeks.jpeg" dokaz_o_pravu_prvenstva_putanja="slika_indeks.jpeg" dokaz_o_uplati_takse_putanja="slika_indeks.jpeg">
+        <spisak_roba_i_usluga>
+            <roba>
+                <naziv>Djubrivo</naziv>
+            </roba>
+        </spisak_roba_i_usluga>
+        <generalno_punomocje_ranije_prilozeno>false</generalno_punomocje_ranije_prilozeno>
+        <punomocje_ce_biti_naknadno_dostavljeno>false</punomocje_ce_biti_naknadno_dostavljeno>
+    </prilozi>
+    
+</zahtev_za_priznanje_ziga>
+

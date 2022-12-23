@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<zahtev_za_priznavanje_patenta xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.patent/patent" xmlns:opste="http://ftn.ac.rs/opste" datum_prijema="2022-12-11" priznati_datum_podnosenja="2022-12-11" dopunska_prijava="false" pregledano="false">
+    <institucija>
+        <opste:naziv>Zavod za intelektualnu svojinu</opste:naziv>
+        <opste:adresa>
+            <opste:grad>Beograd</opste:grad>
+            <opste:ulica>Kneginje Ljubice</opste:ulica>
+            <opste:broj>5</opste:broj>
+            <opste:postanski_broj>11000</opste:postanski_broj>
+            <opste:drzava>Republika Srbija</opste:drzava>
+        </opste:adresa>
+    </institucija>
+    <podaci_o_pronalasku>
+        <naziv jezik="srpski">dfhshfh</naziv>
+        <naziv jezik="engleski">fjdsfjdsj</naziv>
+    </podaci_o_pronalasku>
+    <podnosilac autor="false">
+        <opste:fizicko_lice>
+            <opste:kontakt>
+                <opste:email>ana@gmail.com</opste:email>
+                <opste:telefon>0644655897</opste:telefon>
+                <opste:fax>036376448</opste:fax>
+            </opste:kontakt>
+            <opste:adresa>
+                <opste:grad>kraljevo</opste:grad>
+                <opste:ulica>bozidara milunovica </opste:ulica>
+                <opste:broj>5</opste:broj>
+                <opste:postanski_broj>36000</opste:postanski_broj>
+                <opste:drzava>Serbia</opste:drzava>
+            </opste:adresa>
+            <opste:ime>ana</opste:ime>
+            <opste:prezime>anic</opste:prezime>
+            <opste:jmbg>1202001785023</opste:jmbg>
+        </opste:fizicko_lice>
+    </podnosilac>
+    <pronalazac anonimno="true">
+        <anonimni_pronalazac></anonimni_pronalazac>
+    </pronalazac>
+    <punomocnik za_zastupanje="false" za_prijem_pismeno="true">
+        <pravno_lice>
+            <opste:kontakt>
+                <opste:email>ana@gmail.com</opste:email>
+                <opste:telefon>0644655897</opste:telefon>
+                <opste:fax>036376448</opste:fax>
+            </opste:kontakt>
+            <opste:adresa>
+                <opste:grad>kraljevo</opste:grad>
+                <opste:ulica>bozidara milunovica</opste:ulica>
+                <opste:broj>5</opste:broj>
+                <opste:postanski_broj>36000</opste:postanski_broj>
+                <opste:drzava>Serbia</opste:drzava>
+            </opste:adresa>
+            <opste:naziv>dfsdfsd</opste:naziv>
+            <opste:pib>123456789</opste:pib>
+            <opste:registarski_broj>12345678</opste:registarski_broj>
+        </pravno_lice>
+    </punomocnik>
+    <dostavljanje elektronski="false" pismeno="true">
+        <adresa>
+            <opste:grad>kraljevo</opste:grad>
+            <opste:ulica>bozidara milunovica </opste:ulica>
+            <opste:broj>5</opste:broj>
+            <opste:postanski_broj>36000</opste:postanski_broj>
+            <opste:drzava>serbia</opste:drzava>
+        </adresa>
+    </dostavljanje>
+    <zahtev_za_priznanje_prava_iz_ranijih_prijava>
+        <prijava>
+            <datum_podnosenja_prijave>2022-12-01</datum_podnosenja_prijave>
+            <broj_ranije_prijave>P-2022/1</broj_ranije_prijave>
+            <dvoslovna_oznaka_drzave>RS</dvoslovna_oznaka_drzave>
+        </prijava>
+    </zahtev_za_priznanje_prava_iz_ranijih_prijava>
+</zahtev_za_priznavanje_patenta>
