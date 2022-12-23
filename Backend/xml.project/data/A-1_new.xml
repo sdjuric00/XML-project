@@ -10,94 +10,61 @@
             <opste:drzava>Republika Srbija</opste:drzava>
         </opste:adresa>
     </institucija>
-    <podnosilac autor="true">
+    <podnosilac autor="false">
         <opste:fizicko_lice>
             <opste:kontakt>
                 <opste:email>zoka@gmail.com</opste:email>
-                <opste:telefon>0636755454</opste:telefon>
+                <opste:telefon>1234211232</opste:telefon>
                 <opste:fax>0111111111</opste:fax>
             </opste:kontakt>
             <opste:adresa>
-                <opste:grad>Naovs</opste:grad>
+                <opste:grad>Novi Sad</opste:grad>
                 <opste:ulica>Lasla Gala</opste:ulica>
                 <opste:broj>21</opste:broj>
-                <opste:postanski_broj>12222</opste:postanski_broj>
+                <opste:postanski_broj>21000</opste:postanski_broj>
                 <opste:drzava>Serbia</opste:drzava>
-            </opste:adresa>
-            <opste:ime>sda</opste:ime>
-            <opste:prezime>dasad</opste:prezime>
-            <opste:jmbg>3232323232323</opste:jmbg>
+        </opste:adresa>
+            <opste:ime>Zorica</opste:ime>
+            <opste:prezime>Vukovic</opste:prezime>
+            <opste:jmbg>1503000895011</opste:jmbg>
         </opste:fizicko_lice>
     </podnosilac>
     <punomocnik>
         <opste:pravno_lice>
             <opste:kontakt>
                 <opste:email>zoka@gmail.com</opste:email>
-                <opste:telefon>43434343434</opste:telefon>
-                <opste:fax>0434343434</opste:fax>
+                <opste:telefon>23232323232</opste:telefon>
+                <opste:fax>0323232323</opste:fax>
             </opste:kontakt>
             <opste:adresa>
-                <opste:grad>sdsd</opste:grad>
-                <opste:ulica>sdsd</opste:ulica>
+                <opste:grad>Novi Sad</opste:grad>
+                <opste:ulica>neka</opste:ulica>
                 <opste:broj>1</opste:broj>
-                <opste:postanski_broj>21000</opste:postanski_broj>
+                <opste:postanski_broj>21233</opste:postanski_broj>
                 <opste:drzava>Serbia</opste:drzava>
             </opste:adresa>
-            <opste:naziv>asdas</opste:naziv>
-            <opste:pib>666666666</opste:pib>
-            <opste:registarski_broj>06666666</opste:registarski_broj>
+            <opste:naziv>aaa</opste:naziv>
+            <opste:pib>121212122</opste:pib>
+            <opste:registarski_broj>04343434</opste:registarski_broj>
         </opste:pravno_lice>
     </punomocnik>
-    <autorsko_delo stvoreno_u_radnom_odnosu="false" nacin_koriscenja="asasas">
+    <autorsko_delo stvoreno_u_radnom_odnosu="false" nacin_koriscenja="adsada">
         <vrsta_autorskog_dela>
             <vrsta_enum>knjizevno</vrsta_enum>
         </vrsta_autorskog_dela>
         <forma_zapisa>
-            <vrsta_custom>moj zapis</vrsta_custom>
+            <vrsta_custom>ASDSA</vrsta_custom>
         </forma_zapisa>
         <naslov>mojNaslov</naslov>
-        <alternativni_naslov>alternativaJedna</alternativni_naslov>
-        <podaci_o_naslovu_prerada>
-            <naslov>asasa</naslov>
-            <autor>
-                <anonimni_autor/>
-            </autor>
-        </podaci_o_naslovu_prerada>
     </autorsko_delo>
     <autori>
         <autor>
             <anonimni_autor/>
         </autor>
-        <autor>
-            <imenovani_autor>
-                <opste:kontakt>
-                    <opste:email>pera@gmail.com</opste:email>
-                    <opste:telefon>999999999</opste:telefon>
-                    <opste:fax>043343433</opste:fax>
-                </opste:kontakt>
-                <opste:adresa>
-                    <opste:grad>Sabac</opste:grad>
-                    <opste:ulica>Perinau</opste:ulica>
-                    <opste:broj>1</opste:broj>
-                    <opste:postanski_broj>13000</opste:postanski_broj>
-                    <opste:drzava>Serbia</opste:drzava>
-                </opste:adresa>
-                <ime>Pera</ime>
-                <prezime>Peric</prezime>
-                <drzavljanstvo></drzavljanstvo>
-                <godina_smrti>-1</godina_smrti>
-            </imenovani_autor>
-        </autor>
-        <autor>
-            <anonimni_autor/>
-        </autor>
     </autori>
     <prilozi>
-        <prilog putanja="blackCar.jpeg">
-            <opis>slika dela</opis>
-        </prilog>
-        <prilog putanja="car.png">
-            <opis>druga slika dela</opis>
+        <prilog putanja="K1.pdf">
+            <opis>neki </opis>
         </prilog>
     </prilozi>
 </zahtev_za_unosenje_u_evidenciju_i_deponovanje_autorskih_dela>
