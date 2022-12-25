@@ -1,7 +1,12 @@
 package com.example.xml.project.service;
 
+import com.example.xml.project.exception.CannotUnmarshalException;
+import com.example.xml.project.exception.EntityNotFoundException;
+import com.example.xml.project.exception.InvalidDocumentException;
 import com.example.xml.project.model.P1.ZahtevPatent;
-import com.example.xml.project.model.P1.ZahteviPatenti;
+import com.example.xml.project.repository.GenericRepository;
+import com.example.xml.project.repository.PatentRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
 
@@ -15,43 +20,65 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import java.io.*;
 
+import static com.example.xml.project.util.Constants.*;
+
 @Service
 public class PatentService {
 
-    public void savePatentDoc(String zahtevPatent) throws JAXBException, FileNotFoundException {
+    private final GenericRepository<ZahtevPatent> repository;
+    private final PatentRepository patentRepository;
+    private final JAXBContext jaxbContext;
+    private final Marshaller marshaller;
 
-        ZahtevPatent zahtevPatent1 = checkSchema(zahtevPatent);
-        JAXBContext jc = JAXBContext.newInstance(ZahtevPatent.class);
-        Unmarshaller unmarshaller = jc.createUnmarshaller();
-        File xml = new File("./data/P-1.xml");
-        ZahtevPatent zahtevPatentObj = (ZahtevPatent) unmarshaller.unmarshal(xml);
-        Marshaller marshaller = jc.createMarshaller();
+    public PatentService(
+        @Autowired final GenericRepository<ZahtevPatent> repository,
+        @Autowired final PatentRepository patentRepository
+    ) throws JAXBException
+    {
+        this.jaxbContext = JAXBContext.newInstance(ZahtevPatent.class);
+        this.repository = repository;
+        this.repository.setGenericRepositoryProperties(
+            JAXBContext.newInstance(ZahtevPatent.class),
+            COLLECTION_ID_PATENTI_ZAHTEV_DB
+        );
+        this.patentRepository = patentRepository;
 
-//        // Konfiguracija marshaller-a custom prefiks maperom
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-        OutputStream os = new FileOutputStream( "./data/P-1_new.xml" );
-        marshaller.marshal(zahtevPatent1, os);
+        this.marshaller = jaxbContext.createMarshaller();
+        this.marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
     }
 
-    public ZahtevPatent checkSchema(String document) {
+
+    public void saveToXmlFile(final String zahtev) throws JAXBException, FileNotFoundException, InvalidDocumentException {
+        ZahtevPatent zahtevPatent = checkSchema(zahtev);
+
+        OutputStream os = new FileOutputStream(PATENTI_NEW_XML);
+        marshaller.marshal(zahtevPatent, os);
+    }
+
+    public void saveToDB(String zahtev) throws InvalidDocumentException {
+        ZahtevPatent zahtevPatent = checkSchema(zahtev);
+        repository.save(zahtevPatent, true);
+    }
+
+    public ZahtevPatent get(String documentId) throws EntityNotFoundException, CannotUnmarshalException, JAXBException {
+
+        return repository.get(documentId);
+    }
+
+    private ZahtevPatent checkSchema(String document) throws InvalidDocumentException {
         try {
-            JAXBContext context = JAXBContext.newInstance(ZahtevPatent.class);
-            Unmarshaller unmarshaller = context.createUnmarshaller();
+            Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 
             SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-            Schema schema = schemaFactory.newSchema(new File("./data/P-1.xsd"));
-
-            // Podešavanje unmarshaller-a za XML schema validaciju
+            Schema schema = schemaFactory.newSchema(new File(PATENTI_SCHEMA));
             unmarshaller.setSchema(schema);
             document.replace("\n","");
             ZahtevPatent zahtevPatent = (ZahtevPatent) unmarshaller.unmarshal
-                    (new StreamSource( new StringReader(document)));
+                (new StreamSource( new StringReader(document)));
 
-            //noinspection unchecked
             return zahtevPatent;
         } catch (JAXBException | SAXException e) {
-            e.printStackTrace();
-            return null;
+            throw new InvalidDocumentException();
         }
     }
 }

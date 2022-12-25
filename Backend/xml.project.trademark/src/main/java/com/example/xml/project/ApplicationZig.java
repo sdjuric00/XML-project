@@ -1,6 +1,7 @@
 package com.example.xml.project;
 
 import com.example.xml.project.model.Z1.ZahtevZig;
+import com.example.xml.project.repository.BasicXMLRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -14,6 +15,7 @@ public class ApplicationZig {
 
 	public static void main(String[] args) {
 		try{
+			BasicXMLRepository.registerDatabase();
 			SpringApplication.run(ApplicationZig.class, args);
 
 //			Z-1 Unmarsaller and marshaller

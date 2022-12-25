@@ -3,17 +3,31 @@ package com.example.xml.project.model.Korisnici;
 import com.example.xml.project.model.Adresa;
 import com.example.xml.project.model.Kontakt;
 import com.example.xml.project.model.Osoba;
+import com.example.xml.project.util.IdentifiableEntity;
 
 import javax.xml.bind.annotation.*;
 
+@XmlRootElement(name="korisnik", namespace = "http://www.korisnici/korisnici")
 @XmlAccessorType(XmlAccessType.PROPERTY)
 @XmlType(name="korisnik", propOrder={"kontakt", "adresa", "ime", "prezime", "lozinka", "tip_naloga"}, namespace = "http://www.korisnici/korisnici")
-public class Korisnik extends Osoba {
+public class Korisnik extends Osoba implements IdentifiableEntity {
 
     private String ime;
     private String prezime;
     private String lozinka;
     private TipNaloga tip_naloga;
+    private String id;
+
+    @Override
+    @XmlAttribute(name="id", required = true)
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(String id) {
+        this.id = id;
+    }
 
     @Override
     @XmlElement(name="adresa", required = true, namespace = "http://ftn.ac.rs/opste")

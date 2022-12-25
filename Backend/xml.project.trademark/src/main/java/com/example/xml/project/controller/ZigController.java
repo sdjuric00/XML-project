@@ -1,26 +1,49 @@
 package com.example.xml.project.controller;
 
+import com.example.xml.project.exception.EntityNotFoundException;
+import com.example.xml.project.exception.InvalidDocumentException;
+import com.example.xml.project.model.Z1.ZahtevZig;
 import com.example.xml.project.service.ZigService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
 
 @RestController
-@RequestMapping("/trademark")
+@RequestMapping("/zig")
 public class ZigController {
 
-    @Autowired
-    private ZigService trademarkServiceService;
+    private final ZigService zigService;
 
-    @PostMapping
-    public void createTrademarkDoc(@RequestBody String zahtev) throws JAXBException, FileNotFoundException {
+    public ZigController(@Autowired final ZigService zigService) {
+        this.zigService = zigService;
+    }
+
+    @PostMapping(path="/file")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void saveToXmlFile(@RequestBody final String zahtev) throws JAXBException, FileNotFoundException, InvalidDocumentException {
         System.out.println(zahtev);
-        trademarkServiceService.saveTrademarkDoc(zahtev);
+        zigService.saveToXmlFile(zahtev);
+    }
+
+    @PostMapping(path = "/db")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void saveToDb(@RequestBody final String zahtev) throws InvalidDocumentException {
+        System.out.println(zahtev);
+        zigService.saveToDB(zahtev);
+    }
+
+    @GetMapping(path="{documentId}", produces = "application/xml")
+    @ResponseStatus(HttpStatus.OK)
+    public ZahtevZig get(@PathVariable @Valid @NotBlank(message = "Document id is required")
+                                  final String documentId
+    ) throws EntityNotFoundException, JAXBException {
+
+        return zigService.get(documentId);
     }
 
 }

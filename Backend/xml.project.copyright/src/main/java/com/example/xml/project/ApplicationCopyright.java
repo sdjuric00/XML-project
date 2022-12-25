@@ -1,6 +1,8 @@
 package com.example.xml.project;
 
+
 import com.example.xml.project.model.A1.ZahtevAutorskaDela;
+import com.example.xml.project.repository.BasicXMLRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -14,6 +16,7 @@ public class ApplicationCopyright {
 
 	public static void main(String[] args) {
 		try{
+			BasicXMLRepository.registerDatabase();
 			SpringApplication.run(ApplicationCopyright.class, args);
 
 //			A-1 Unmarsaller and marshaller

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<zahtev_za_unosenje_u_evidenciju_i_deponovanje_autorskih_dela xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://ftn.ac.rs/a" xmlns:opste="http://ftn.ac.rs/opste" obrazac="A-1" broj_prijave="A-2022/1" datum_podnosenja="2022-12-11" pregledano="false">
+<zahtev_za_unosenje_u_evidenciju_i_deponovanje_autorskih_dela xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://ftn.ac.rs/a" xmlns:opste="http://ftn.ac.rs/opste" id="1" broj_prijave="A-2022/1" datum_podnosenja="2022-12-11" pregledano="false">
     <institucija>
         <opste:naziv>Zavod za intelektualnu svojinu</opste:naziv>
         <opste:adresa>

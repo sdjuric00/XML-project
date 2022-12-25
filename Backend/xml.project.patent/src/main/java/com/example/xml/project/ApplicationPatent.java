@@ -2,6 +2,7 @@ package com.example.xml.project;
 
 
 import com.example.xml.project.model.P1.ZahtevPatent;
+import com.example.xml.project.repository.BasicXMLRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -15,6 +16,7 @@ public class ApplicationPatent {
 
 	public static void main(String[] args) {
 		try{
+			BasicXMLRepository.registerDatabase();
 			SpringApplication.run(ApplicationPatent.class, args);
 
 //			P-1 Unmarsaller and marshaller

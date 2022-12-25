@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<korisnik xmlns="http://www.korisnici/korisnici"
+           xmlns:opste="http://ftn.ac.rs/opste"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.korisnici/korisnici" id="1">
+    <opste:kontakt>
+        <opste:email>pera@gmail.com</opste:email>
+        <opste:telefon>213212123</opste:telefon>
+        <opste:fax>012345678</opste:fax>
+    </opste:kontakt>
+    <opste:adresa>
+        <opste:grad>Novi Sad</opste:grad>
+        <opste:ulica>Lsla Gala</opste:ulica>
+        <opste:broj>21</opste:broj>
+        <opste:postanski_broj>21000</opste:postanski_broj>
+        <opste:drzava>Republika Srbija</opste:drzava>
+    </opste:adresa>
+    <ime>Pera</ime>
+    <prezime>Peric</prezime>
+    <lozinka>sifra123@</lozinka>
+    <tip_naloga>gradjanin</tip_naloga>
+</korisnik>
