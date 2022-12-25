@@ -3,6 +3,7 @@ package com.example.xml.project.model.P1;
 import com.example.xml.project.model.Institucija;
 import com.example.xml.project.model.LocalDateAdapter;
 import com.example.xml.project.model.Podnosilac;
+import com.example.xml.project.util.IdentifiableEntity;
 
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -16,7 +17,10 @@ import java.util.List;
         propOrder={"institucija", "podaci_o_pronalasku", "podnosilac", "pronalazac", "punomocnik", "dostavljanje", "zahtev_za_priznanje_prava_iz_ranijih_prijava"},
         namespace = "http://www.patent/patent"
 )
-public class ZahtevPatent {
+public class ZahtevPatent implements IdentifiableEntity {
+
+    @XmlAttribute(name="id", required = true)
+    private String id;
 
     @XmlAttribute(name="broj_prijave")
     private String broj_prijave;
@@ -57,6 +61,16 @@ public class ZahtevPatent {
     @XmlElementWrapper(name="zahtev_za_priznanje_prava_iz_ranijih_prijava", namespace = "http://www.patent/patent")
     @XmlElement(name="prijava", required = true, namespace = "http://www.patent/patent")
     private List<Prijava> zahtev_za_priznanje_prava_iz_ranijih_prijava = new ArrayList<>();
+
+    @Override
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getBroj_prijave() {
         return broj_prijave;

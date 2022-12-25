@@ -6,6 +6,7 @@ import com.example.xml.project.model.Podnosilac;
 import com.example.xml.project.model.Punomocnik;
 import com.example.xml.project.model.Z1.enums.VrstaZnakaEnum;
 import com.example.xml.project.model.Z1.enums.ZigEnum;
+import com.example.xml.project.util.IdentifiableEntity;
 
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -19,7 +20,10 @@ import java.util.List;
         propOrder={"institucija", "podnosioci", "punomocnik", "podaci_o_zajednickom_predstavniku", "znak", "nicanska_klasifikacija", "pravo_prvenstva", "placene_takse", "prilozi"},
         namespace = "http://www.zig/zig"
 )
-public class ZahtevZig {
+public class ZahtevZig implements IdentifiableEntity {
+
+    @XmlAttribute(name = "id", required = true)
+    private String id;
 
     @XmlAttribute(name = "broj_prijave", required = true)
     private String broj_prijave;
@@ -62,6 +66,16 @@ public class ZahtevZig {
 
     @XmlElement(name = "prilozi", required = true, namespace = "http://www.zig/zig")
     private Prilozi prilozi;
+
+    @Override
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getBroj_prijave() {
         return broj_prijave;

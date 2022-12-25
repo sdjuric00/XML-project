@@ -3,33 +3,27 @@
     targetNamespace="http://www.korisnici/korisnici"
     xmlns:xs-korisnici="http://www.korisnici/korisnici" xmlns:xs-opste="http://ftn.ac.rs/opste">
     <xs:import namespace="http://ftn.ac.rs/opste" schemaLocation="Opste.xsd"/>
-    <xs:element name="korisnici" type="xs-korisnici:korisnici"/>
-    <xs:complexType name="korisnici">
-        <xs:sequence maxOccurs="1" minOccurs="1">
-            <xs:element name="lista_korisnika" type="xs-korisnici:lista_korisnika"/>
-        </xs:sequence>
-    </xs:complexType>
-    <xs:complexType name="korisnik">
-        <xs:complexContent>
-            <xs:extension base="xs-opste:osoba">
-                <xs:sequence>
-                    <xs:element name="ime" type="xs:string"/>
-                    <xs:element name="prezime" type="xs:string"/>
-                    <xs:element name="lozinka" type="xs:string"/>
-                    <xs:element name="tip_naloga" type="xs-korisnici:tip_naloga"/>
-                </xs:sequence>
-            </xs:extension>
-        </xs:complexContent>
-    </xs:complexType>
+    <xs:element name="korisnik">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="xs-opste:osoba">
+                    <xs:sequence>
+                        <xs:element name="ime" type="xs:string"/>
+                        <xs:element name="prezime" type="xs:string"/>
+                        <xs:element name="lozinka" type="xs:string"/>
+                        <xs:element name="tip_naloga" type="xs-korisnici:tip_naloga"/>
+                    </xs:sequence>
+                    <xs:attribute name="id" type="xs:positiveInteger" use="required"/>
+                </xs:extension>
+
+            </xs:complexContent>
+        </xs:complexType>
+
+    </xs:element>
     <xs:simpleType name="tip_naloga">
         <xs:restriction base="xs:string">
             <xs:enumeration value="gradjanin"/>
             <xs:enumeration value="sluzbenik"/>
         </xs:restriction>
     </xs:simpleType>
-    <xs:complexType name="lista_korisnika">
-        <xs:sequence maxOccurs="unbounded" minOccurs="0">
-            <xs:element name="korisnik" type="xs-korisnici:korisnik"/>
-        </xs:sequence>
-    </xs:complexType>
 </xs:schema>

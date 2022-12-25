@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<zahtev_za_priznanje_ziga xmlns="http://www.zig/zig" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:opste="http://ftn.ac.rs/opste" broj_prijave="Z-2022/1" datum_podnosenja="2022-12-11" pregledano="false" zig="individualni">
+<zahtev_za_priznanje_ziga xmlns="http://www.zig/zig" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:opste="http://ftn.ac.rs/opste" id="2" broj_prijave="Z-2022/1" datum_podnosenja="2022-12-11" pregledano="false" zig="individualni">
     <institucija>
         <opste:naziv>Zavod za intelektualnu svojinu</opste:naziv>
         <opste:adresa>

@@ -5,7 +5,7 @@
     xsi:schemaLocation="http://ftn.ac.rs/a"
     broj_prijave="A-2022/1"
     datum_podnosenja="2022-11-30"
-    pregledano="true"
+    pregledano="true" id="1"
 >
 
     <institucija>

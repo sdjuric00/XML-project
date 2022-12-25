@@ -7,6 +7,7 @@ import com.example.xml.project.model.Punomocnik;
 import com.example.xml.project.model.*;
 import com.example.xml.project.model.A1.Autor;
 import com.example.xml.project.model.A1.AutorskoDelo;
+import com.example.xml.project.util.IdentifiableEntity;
 
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -20,10 +21,10 @@ import java.util.List;
     propOrder={"institucija", "podnosilac", "punomocnik", "autorsko_delo", "autori", "prilozi"},
     namespace = "http://ftn.ac.rs/a"
 )
-public class ZahtevAutorskaDela {
+public class ZahtevAutorskaDela implements IdentifiableEntity {
 
-    @XmlAttribute(name="obrazac", required = true)
-    private String obrazac;
+    @XmlAttribute(name="id", required = true)
+    private String id;
 
     @XmlAttribute(name="broj_prijave", required = true)
     private String broj_prijave;
@@ -55,20 +56,22 @@ public class ZahtevAutorskaDela {
     @XmlElement(name="prilog", namespace = "http://ftn.ac.rs/a")
     private List<Prilog> prilozi = new ArrayList<>();
 
-    public String getObrazac() {
-        return obrazac;
-    }
-
-    public void setObrazac(String obrazac) {
-        this.obrazac = obrazac;
-    }
-
     public String getBroj_prijave() {
         return broj_prijave;
     }
 
     public void setBroj_prijave(String broj_prijave) {
         this.broj_prijave = broj_prijave;
+    }
+
+    @Override
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(String id) {
+        this.id = id;
     }
 
     public LocalDate getDatum_podnosenja() {
@@ -134,4 +137,6 @@ public class ZahtevAutorskaDela {
     public void setPrilozi(List<Prilog> prilozi) {
         this.prilozi = prilozi;
     }
+
+
 }

@@ -3,10 +3,6 @@ package com.example.xml.project.model;
 import javax.xml.bind.annotation.*;
 
 @XmlTransient
-@XmlSeeAlso({
-    FizickoLice.class,
-    PravnoLice.class
-})
 public abstract class Osoba {
 
     protected Adresa adresa;
