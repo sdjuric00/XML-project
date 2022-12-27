@@ -46,4 +46,17 @@ public class ZigController {
         return zigService.get(documentId);
     }
 
+    @PostMapping(path = "/create-trademark-html")
+    @ResponseStatus(HttpStatus.CREATED)
+    public boolean createHTML(@RequestBody final String zahtev) throws InvalidDocumentException {
+
+        return zigService.dodajZigHtml(zahtev);
+    }
+
+    @PostMapping(path = "/create-trademark-pdf")
+    @ResponseStatus(HttpStatus.CREATED)
+    public boolean createPDF(@RequestBody final String zahtev) throws InvalidDocumentException {
+        return false;
+    }
+
 }

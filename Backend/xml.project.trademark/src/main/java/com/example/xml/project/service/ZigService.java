@@ -5,6 +5,7 @@ import com.example.xml.project.exception.InvalidDocumentException;
 import com.example.xml.project.model.Z1.ZahtevZig;
 import com.example.xml.project.repository.GenericRepository;
 import com.example.xml.project.repository.ZigRepository;
+import com.example.xml.project.transformator.Transformator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
@@ -14,6 +15,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.transform.Transformer;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
@@ -28,12 +30,15 @@ public class ZigService {
     private final ZigRepository zigRepository;
     private final JAXBContext jaxbContext;
     private final Marshaller marshaller;
+    private final Transformator transformator;
 
     public ZigService (
         @Autowired final GenericRepository<ZahtevZig> repository,
-        @Autowired final ZigRepository zigRepository
+        @Autowired final ZigRepository zigRepository,
+        @Autowired final Transformator transformator
     ) throws JAXBException
     {
+        this.transformator = transformator;
         this.jaxbContext = JAXBContext.newInstance(ZahtevZig.class);
         this.repository = repository;
         this.repository.setGenericRepositoryProperties(
@@ -62,6 +67,11 @@ public class ZigService {
     public ZahtevZig get(String documentId) throws EntityNotFoundException, JAXBException {
 
         return repository.get(documentId);
+    }
+
+    public boolean dodajZigHtml(String zahtev) {
+        String htmlPutanja = HTML_PUTANJA + "1.html";
+        return this.transformator.generateHTML(htmlPutanja, zahtev);
     }
 
     private ZahtevZig checkSchema(String document) throws InvalidDocumentException {
