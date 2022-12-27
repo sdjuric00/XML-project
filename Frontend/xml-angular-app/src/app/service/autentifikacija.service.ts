@@ -1,6 +1,6 @@
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable, map} from 'rxjs';
+import {BehaviorSubject, Observable } from 'rxjs';
 import {Router} from '@angular/router';
 import {Korisnik} from "../model/korisnik/korisnik";
 import {environment} from "../../environments/environment";
@@ -41,7 +41,7 @@ export class AutentifikacijaService {
   }
 
   setLocalStorage(prijavaOdgovor: PrijavaOdgovor): void {
-    localStorage.setItem('token', 'Bearer ' + prijavaOdgovor.token);
+    localStorage.setItem('token', prijavaOdgovor.token);
     localStorage.setItem('korisnik', JSON.stringify(prijavaOdgovor.korisnik));
     this.prijavljenKorisnik$.next(prijavaOdgovor.korisnik);
   }

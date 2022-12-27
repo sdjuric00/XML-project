@@ -89,7 +89,7 @@ public class KorisnikService {
         }
     }
 
-    public Korisnik getKorisnikByEmail(String email) throws EntityNotFoundException {
+    public Korisnik getKorisnikByEmail(final String email) throws EntityNotFoundException {
 
         return korisniciRepository.getKorisnikByEmail(email, true);
     }

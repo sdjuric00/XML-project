@@ -11,6 +11,7 @@ import com.example.xml.project.service.KorisnikService;
 import com.example.xml.project.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -40,6 +41,7 @@ public class KorisniciController {
         return getPrijavaDTO(prijavaZahtev.getEmail(), prijavaZahtev.getLozinka());
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_SLUZBENIK')")
     @PostMapping(path="/registracija", produces = "application/xml", consumes = "application/xml")
     @ResponseStatus(HttpStatus.CREATED)
     public KorisnikDTO registrujSe(@Valid @RequestBody KorisnikRequest korisnikRequest) throws PasswordsDoNotMatchException, EntityAlreadyExistsException, EntityNotFoundException {
@@ -79,12 +81,12 @@ public class KorisniciController {
     @ResponseStatus(HttpStatus.OK)
     public Korisnik get(@PathVariable @Valid @NotBlank(message = "Document id is required")
                                          final String documentId
-    ) throws EntityNotFoundException, CannotUnmarshalException, JAXBException {
+    ) throws EntityNotFoundException, JAXBException {
 
         return korisniciService.get(documentId);
     }
 
-    public PrijavaDTO getPrijavaDTO(String email, String lozinka) {
+    private PrijavaDTO getPrijavaDTO(String email, String lozinka) {
         JwtPrijava jwtLogin = new JwtPrijava(email, lozinka);
 
         return tokenService.prijava(jwtLogin);
