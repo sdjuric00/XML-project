@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
-import { Trademark } from 'src/app/model/trademark/trademark';
+import { Trademark } from 'src/app/model/zig/trademark';
 import { Institucija } from 'src/app/model/opste/institucija';
 import { Podnosioci } from 'src/app/model/patent/podnosilac';
 import { PodnosilacUniversal } from 'src/app/model/podnosilac-universal';
@@ -10,15 +10,15 @@ import { Adresa } from 'src/app/model/opste/adresa';
 import { Kontakt } from 'src/app/model/opste/kontakt';
 import { FizickoLice } from 'src/app/model/opste/fizicko-lice';
 import { PunomocnikIPredstavnikZ } from 'src/app/model/patent/punomocnik-p';
-import { Boja, Boje, NicanskaKlasifikacija, VrstaZnaka, Znak } from 'src/app/model/trademark/znak';
-import { PravoPrvenstva, PriloziZ, Roba, Robe } from 'src/app/model/trademark/prilozi-z';
-import { PlaceneTakse } from 'src/app/model/trademark/placene-takse';
+import { Boja, Boje, NicanskaKlasifikacija, VrstaZnaka, Znak } from 'src/app/model/zig/znak';
+import { PravoPrvenstva, PriloziZ, Roba, Robe } from 'src/app/model/zig/prilozi-z';
+import { PlaceneTakse } from 'src/app/model/zig/placene-takse';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-trademark-application',
+  selector: 'app-zig-application',
   templateUrl: './trademark-application.component.html',
   styleUrls: ['./trademark-application.component.css'],
   providers: [
@@ -186,7 +186,7 @@ export class TrademarkApplicationComponent implements OnInit {
     }
 
     return returnList;
-     
+
   }
 
   getPravnoLice(podnosilac: PodnosilacUniversal): PravnoLice{
@@ -236,7 +236,7 @@ export class TrademarkApplicationComponent implements OnInit {
 
   getPunomocnik(): PunomocnikIPredstavnikZ {
     if(this.punomocnikFormGroup.get('ime')?.value !== ""){
-    
+
       return {
         "opste:fizicko_lice": {
           "opste:kontakt": {
@@ -284,7 +284,7 @@ export class TrademarkApplicationComponent implements OnInit {
     let zajednickiPredstvnik: PodnosilacUniversal = this.podnosilacFormGroup.get("podaciOZajednickomPredstavniku")?.value as PodnosilacUniversal;
 
     if(!zajednickiPredstvnik.isPravnoLice){
-    
+
       return {
         "fizicko_lice": {
           "opste:kontakt": {
@@ -378,7 +378,7 @@ export class TrademarkApplicationComponent implements OnInit {
   getPravoPrvenstva(): PravoPrvenstva {
 
     if (this.takseIPriloziFormGroup.get("pravoPrvenstvaZatrazeno").value) {
-      
+
       return {
         "@": {
           zatrazeno: 'true',
@@ -403,7 +403,7 @@ export class TrademarkApplicationComponent implements OnInit {
   }
 
   getPlaceneTakse(): PlaceneTakse {
-    
+
     return {
       valuta: this.takseIPriloziFormGroup.get("valuta").value,
       osnovna_taksa: +this.takseIPriloziFormGroup.get("osnovnaTaksa").value,
@@ -417,7 +417,7 @@ export class TrademarkApplicationComponent implements OnInit {
     let robe: Robe = {
       roba: []
     };
-    
+
     for (let i = 0; i < this.takseIPriloziFormGroup.get("spisakRoba").value.length; i++) {
       robe.roba.push({
         naziv: this.takseIPriloziFormGroup.get("spisakRoba").value.at(i),
@@ -426,7 +426,7 @@ export class TrademarkApplicationComponent implements OnInit {
 
     if (this.takseIPriloziFormGroup.get("pravoPrvenstvaZatrazeno").value) {
       if (!(this.takseIPriloziFormGroup.get("generalnoPunomocjeRanijePrilozeno").value || this.takseIPriloziFormGroup.get("punomocjeNaknadnoDostavljeno").value)) {
-        
+
         return {
           "@": {
             primerak_znaka_putanja: this.takseIPriloziFormGroup.get("primerakZnakaPutanja").value,
@@ -440,7 +440,7 @@ export class TrademarkApplicationComponent implements OnInit {
           punomocje_ce_biti_naknadno_dostavljeno: false
         }
       } else {
-        
+
         return {
           "@": {
             primerak_znaka_putanja: this.takseIPriloziFormGroup.get("primerakZnakaPutanja").value,
@@ -456,7 +456,7 @@ export class TrademarkApplicationComponent implements OnInit {
       }
     } else {
       if (!(this.takseIPriloziFormGroup.get("generalnoPunomocjeRanijePrilozeno").value || this.takseIPriloziFormGroup.get("punomocjeNaknadnoDostavljeno").value)) {
-        
+
         return {
           "@": {
             primerak_znaka_putanja: this.takseIPriloziFormGroup.get("primerakZnakaPutanja").value,
@@ -470,7 +470,7 @@ export class TrademarkApplicationComponent implements OnInit {
           punomocje_ce_biti_naknadno_dostavljeno: false
         }
       } else {
-        
+
         return {
           "@": {
             primerak_znaka_putanja: this.takseIPriloziFormGroup.get("primerakZnakaPutanja").value,
@@ -497,11 +497,11 @@ export class TrademarkApplicationComponent implements OnInit {
     console.log(o2x(trademark));
     let queryParams = {};
     queryParams = {
-      headers: headers, 
+      headers: headers,
       observe: "response",
       responseType: "text"
     };
-    const api_url = environment.apiUrl;
+    const api_url = environment.zigUrl;
     this.http.post(`${api_url}/trademark`, o2x(trademark), queryParams).subscribe(response => {
       console.log(response);
     })

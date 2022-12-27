@@ -18,6 +18,27 @@ public class Korisnik extends Osoba implements IdentifiableEntity {
     private TipNaloga tip_naloga;
     private String id;
 
+    public Korisnik() {}
+
+    public Korisnik(Kontakt kontakt, Adresa adresa, String ime, String prezime, String lozinka, TipNaloga tip_naloga, String id) {
+        this.kontakt = kontakt;
+        this.adresa = adresa;
+        this.ime = ime;
+        this.prezime = prezime;
+        this.lozinka = lozinka;
+        this.tip_naloga = tip_naloga;
+        this.id = id;
+    }
+
+    public Korisnik(Kontakt kontakt, Adresa adresa,String ime, String prezime, String lozinka, TipNaloga tip_naloga) {
+        this.kontakt = kontakt;
+        this.adresa = adresa;
+        this.ime = ime;
+        this.prezime = prezime;
+        this.lozinka = lozinka;
+        this.tip_naloga = tip_naloga;
+    }
+
     @Override
     @XmlAttribute(name="id", required = true)
     public String getId() {
@@ -67,7 +88,6 @@ public class Korisnik extends Osoba implements IdentifiableEntity {
         this.prezime = prezime;
     }
 
-
     @XmlElement(name="lozinka", required = true, namespace = "http://www.korisnici/korisnici")
     public String getLozinka() {
         return lozinka;
@@ -86,4 +106,8 @@ public class Korisnik extends Osoba implements IdentifiableEntity {
         this.tip_naloga = tip_naloga;
     }
 
+    public static boolean passwordsDontMatch(String password, String confirmationPassword){
+
+        return !password.equals(confirmationPassword);
+    }
 }

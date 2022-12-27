@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './component/login/login.component';
@@ -35,11 +35,16 @@ import { DopunskaPrijavaComponent } from './component/dopunska-prijava/dopunska-
 import { PrvobitnaPrijavaComponent } from './component/prvobitna-prijava/prvobitna-prijava.component';
 import { DatePipe } from '@angular/common';
 import { ToastrModule } from 'ngx-toastr';
+import {NavBarComponent} from "./component/nav-bar/nav-bar.component";
+import {RegistracijaComponent} from "./component/registracija/registracija.component";
+import {CustomInterceptor} from "./interceptor/custom.interceptor";
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
+    RegistracijaComponent,
+    NavBarComponent,
     CopyrightApplicationComponent,
     PodnosilacComponent,
     KontaktComponent,
@@ -83,7 +88,11 @@ import { ToastrModule } from 'ngx-toastr';
       closeButton: true,
     }),
   ],
-  providers: [DatePipe],
+  providers: [DatePipe, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: CustomInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

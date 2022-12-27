@@ -21,6 +21,22 @@ public class Adresa {
     @XmlElement(name="drzava", required=true, namespace = "http://ftn.ac.rs/opste")
     private String drzava;
 
+    public Adresa() {}
+
+    public Adresa(
+        final String grad,
+        final String ulica,
+        final String broj,
+        final int postanski_broj,
+        final String drzava
+    ) {
+        this.grad = grad;
+        this.ulica = ulica;
+        this.broj = broj;
+        this.postanski_broj = postanski_broj;
+        this.drzava = drzava;
+    }
+
     public String getUlica() {
         return ulica;
     }

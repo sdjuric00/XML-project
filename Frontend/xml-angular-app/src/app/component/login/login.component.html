@@ -1,6 +1,6 @@
 <div class="form-container mat-elevation-z1">
-  <h1 class="text-center">Log in</h1>
-  <form color="primary" [formGroup]="loginForm">
+  <h1 class="text-center">Prijava</h1>
+  <form color="primary" [formGroup]="formaZaPrijavu">
     <mat-form-field
       class="full-width"
       appearance="fill"
@@ -11,18 +11,18 @@
         placeholder="email@domain.com"
         formControlName="email"
         required />
-      <mat-error *ngIf="loginForm.invalid">
-        {{ getErrorMessage() }}
+      <mat-error *ngIf="formaZaPrijavu.invalid">
+        {{ uzmiPorukuOGresci() }}
       </mat-error>
     </mat-form-field>
 
     <mat-form-field class="password-field" appearance="fill">
-      <mat-label>Password</mat-label>
+      <mat-label>Šifra</mat-label>
       <input
         matInput
         [type]="hide ? 'password' : 'text'"
-        formControlName="password"
-        placeholder="Enter password" />
+        formControlName="lozinka"
+        placeholder="Šifra" />
       <button
         mat-icon-button
         matSuffix
@@ -33,22 +33,21 @@
       </button>
       <mat-error
         *ngIf="
-          loginForm.get('password')?.hasError('minlength') &&
-          !loginForm.get('password')?.hasError('required')
+          formaZaPrijavu.get('lozinka')?.hasError('minlength') &&
+          !formaZaPrijavu.get('lozinka')?.hasError('required')
         ">
-        Password should contains at least 8 characters
+        Unesite ispravnu šifru (najmanje 8 karaktera)
       </mat-error>
     </mat-form-field>
-    <a href="/forgot-password" class="link">Forgot password?</a>
 
     <div class="center margin-top">
-      <button mat-raised-button (click)="logIn()" class="login-button">
-        Log in
+      <button mat-raised-button (click)="prijava()" class="login-button">
+        Prijavi se
       </button>
     </div>
     <span class="center margin-top" style="color: var(--deep-blue)"
-    >Don't have an account?
-      <a href="/registration" style="margin-left: 5px" class="link">Sign up</a>
+    >Nemaš nalog?
+      <a href="/registracija" style="margin-left: 5px" class="link">Registruj se</a>
     </span>
   </form>
 </div>
