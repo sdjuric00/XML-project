@@ -1,10 +1,14 @@
 package com.example.xml.project.controller;
 
-import com.example.xml.project.exception.CannotUnmarshalException;
-import com.example.xml.project.exception.EntityNotFoundException;
-import com.example.xml.project.exception.InvalidDocumentException;
+import com.example.xml.project.dto.JwtPrijava;
+import com.example.xml.project.dto.KorisnikDTO;
+import com.example.xml.project.dto.PrijavaDTO;
+import com.example.xml.project.exception.*;
 import com.example.xml.project.model.Korisnici.Korisnik;
-import com.example.xml.project.service.KorisniciService;
+import com.example.xml.project.request.KorisnikRequest;
+import com.example.xml.project.request.PrijavaRequest;
+import com.example.xml.project.service.KorisnikService;
+import com.example.xml.project.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -18,10 +22,43 @@ import java.io.FileNotFoundException;
 @RequestMapping("/korisnici")
 public class KorisniciController {
 
-    private final KorisniciService korisniciService;
+    private final KorisnikService korisniciService;
+    private final TokenService tokenService;
 
-    public KorisniciController(@Autowired final KorisniciService korisniciService) {
+    public KorisniciController(
+        @Autowired final KorisnikService korisniciService,
+        @Autowired final TokenService tokenService
+    ) {
         this.korisniciService = korisniciService;
+        this.tokenService = tokenService;
+    }
+
+    @PostMapping(path="/prijava", produces = "application/xml", consumes = "application/xml")
+    @ResponseStatus(HttpStatus.OK)
+    public PrijavaDTO prijaviSe(@Valid @RequestBody final PrijavaRequest prijavaZahtev) {
+
+        return getPrijavaDTO(prijavaZahtev.getEmail(), prijavaZahtev.getLozinka());
+    }
+
+    @PostMapping(path="/registracija", produces = "application/xml", consumes = "application/xml")
+    @ResponseStatus(HttpStatus.CREATED)
+    public KorisnikDTO registrujSe(@Valid @RequestBody KorisnikRequest korisnikRequest) throws PasswordsDoNotMatchException, EntityAlreadyExistsException, EntityNotFoundException {
+
+        return korisniciService.registrujKorisnika(
+            korisnikRequest.getKontakt().getEmail(),
+            korisnikRequest.getKontakt().getFax(),
+            korisnikRequest.getKontakt().getTelefon(),
+            korisnikRequest.getAdresa().getGrad(),
+            korisnikRequest.getAdresa().getUlica(),
+            korisnikRequest.getAdresa().getBroj(),
+            korisnikRequest.getAdresa().getPostanski_broj(),
+            korisnikRequest.getAdresa().getDrzava(),
+            korisnikRequest.getIme(),
+            korisnikRequest.getPrezime(),
+            korisnikRequest.getLozinka(),
+            korisnikRequest.getPotvrdna_lozinka(),
+            korisnikRequest.getTip_naloga()
+        );
     }
 
     @PostMapping(path="/file")
@@ -46,4 +83,11 @@ public class KorisniciController {
 
         return korisniciService.get(documentId);
     }
+
+    public PrijavaDTO getPrijavaDTO(String email, String lozinka) {
+        JwtPrijava jwtLogin = new JwtPrijava(email, lozinka);
+
+        return tokenService.prijava(jwtLogin);
+    }
+
 }

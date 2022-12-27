@@ -1,11 +1,16 @@
 package com.example.xml.project.service;
 
-import com.example.xml.project.exception.CannotUnmarshalException;
-import com.example.xml.project.exception.EntityNotFoundException;
-import com.example.xml.project.exception.InvalidDocumentException;
+import com.example.xml.project.dto.JwtPrijava;
+import com.example.xml.project.dto.KorisnikDTO;
+import com.example.xml.project.dto.PrijavaDTO;
+import com.example.xml.project.exception.*;
+import com.example.xml.project.model.Adresa;
+import com.example.xml.project.model.Kontakt;
 import com.example.xml.project.model.Korisnici.Korisnik;
+import com.example.xml.project.model.Korisnici.TipNaloga;
 import com.example.xml.project.repository.GenericRepository;
 import com.example.xml.project.repository.KorisniciRepository;
+import com.example.xml.project.request.KorisnikRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
@@ -20,17 +25,19 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import java.io.*;
 
+import static com.example.xml.project.model.Korisnici.Korisnik.passwordsDontMatch;
 import static com.example.xml.project.util.Constants.*;
+import static com.example.xml.project.util.JwtProperties.getHashedNewUserPassword;
 
 @Service
-public class KorisniciService {
+public class KorisnikService {
 
     private final GenericRepository<Korisnik> repository;
     private final KorisniciRepository korisniciRepository;
     private final JAXBContext jaxbContext;
     private final Marshaller marshaller;
 
-    public KorisniciService(
+    public KorisnikService(
         @Autowired final GenericRepository<Korisnik> repository,
         @Autowired final KorisniciRepository korisniciRepository
     ) throws JAXBException
@@ -57,10 +64,11 @@ public class KorisniciService {
 
     public void saveToDB(String zahtev) throws InvalidDocumentException {
         Korisnik korisnik = checkSchema(zahtev);
+        korisnik.setLozinka(getHashedNewUserPassword(korisnik.getLozinka()));
         repository.save(korisnik, true);
     }
 
-    public Korisnik get(String documentId) throws EntityNotFoundException, CannotUnmarshalException, JAXBException {
+    public Korisnik get(String documentId) throws EntityNotFoundException, JAXBException {
 
         return repository.get(documentId);
     }
@@ -73,12 +81,51 @@ public class KorisniciService {
             Schema schema = schemaFactory.newSchema(new File(KORISNICI_SCHEMA));
             unmarshaller.setSchema(schema);
             document.replace("\n","");
-            Korisnik korisnik = (Korisnik) unmarshaller.unmarshal
-                (new StreamSource( new StringReader(document)));
 
-            return korisnik;
+            return (Korisnik) unmarshaller.unmarshal
+                (new StreamSource( new StringReader(document)));
         } catch (JAXBException | SAXException e) {
             throw new InvalidDocumentException();
         }
+    }
+
+    public Korisnik getKorisnikByEmail(String email) throws EntityNotFoundException {
+
+        return korisniciRepository.getKorisnikByEmail(email, true);
+    }
+
+    public KorisnikDTO registrujKorisnika(
+        final String email,
+        final String fax,
+        final String telefon,
+        final String grad,
+        final String ulica,
+        final String broj,
+        final int postanskiBroj,
+        final String drzava,
+        final String ime,
+        final String prezime,
+        final String lozinka,
+        final String potvrdna_lozinka,
+        final TipNaloga tip_naloga
+    ) throws PasswordsDoNotMatchException, EntityAlreadyExistsException, EntityNotFoundException {
+        if (passwordsDontMatch(lozinka, potvrdna_lozinka)) {
+            throw new PasswordsDoNotMatchException();
+        }
+        if (korisnikVecPostoji(email)) {
+            throw new EntityAlreadyExistsException(String.format("Korisnik sa %s već postoji.", email));
+        }
+        Kontakt kontakt = new Kontakt(email, telefon, fax);
+        Adresa adresa = new Adresa(grad, ulica, broj, postanskiBroj, drzava);
+        Korisnik korisnik = new Korisnik(kontakt, adresa, ime, prezime, lozinka, tip_naloga);
+        korisnik.setLozinka(getHashedNewUserPassword(korisnik.getLozinka()));
+        repository.save(korisnik, true);
+
+        return new KorisnikDTO(korisnik);
+    }
+
+    private boolean korisnikVecPostoji(String email) throws EntityNotFoundException {
+
+        return korisniciRepository.getKorisnikByEmail(email, false) != null;
     }
 }

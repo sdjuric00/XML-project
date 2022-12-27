@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../environments/environment";
-import {ZahtevAutorskoPravo} from "../model/copyright/zahtev-autorsko-pravo";
+import {ZahtevAutorskoPravo} from "../model/autorsko-pravo/zahtev-autorsko-pravo";
 import {ToastrService} from "ngx-toastr";
 
 @Injectable({
   providedIn: 'root'
 })
 export class CopyrightApplicationService {
-  private _api_url:string = environment.apiUrl;
+  private _api_url:string = environment.autorskaPravaUrl;
   constructor(private _http: HttpClient,private _toast: ToastrService) { }
 
   create(zahtevZaAutorskoPravo: ZahtevAutorskoPravo){

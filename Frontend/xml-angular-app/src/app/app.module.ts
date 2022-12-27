@@ -35,11 +35,15 @@ import { DopunskaPrijavaComponent } from './component/dopunska-prijava/dopunska-
 import { PrvobitnaPrijavaComponent } from './component/prvobitna-prijava/prvobitna-prijava.component';
 import { DatePipe } from '@angular/common';
 import { ToastrModule } from 'ngx-toastr';
+import {NavBarComponent} from "./component/nav-bar/nav-bar.component";
+import {RegistracijaComponent} from "./component/registracija/registracija.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
+    RegistracijaComponent,
+    NavBarComponent,
     CopyrightApplicationComponent,
     PodnosilacComponent,
     KontaktComponent,

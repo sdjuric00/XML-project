@@ -18,6 +18,14 @@ public class Kontakt {
     @XmlElement(name="fax", required=true, namespace = "http://ftn.ac.rs/opste")
     private String fax;
 
+    public Kontakt() {}
+
+    public Kontakt(String email, String telefon, String fax) {
+        this.email = email;
+        this.telefon = telefon;
+        this.fax = fax;
+    }
+
     public String getEmail() {
         return email;
     }
