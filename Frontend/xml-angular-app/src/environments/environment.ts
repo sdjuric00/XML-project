@@ -4,7 +4,10 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:8080'
+  autorskaPravaUrl: 'http://localhost:8081',
+  patentUrl: 'http://localhost:8082',
+  zigUrl: 'http://localhost:8083',
+  korisniciUrl: 'http://localhost:8084'
 };
 
 /*

@@ -23,6 +23,13 @@ public class GlobalExceptionHandler {
         return entityNotFoundException.getMessage();
     }
 
+    @ExceptionHandler(value = PasswordsDoNotMatchException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String passwordsDoNotMatchException(PasswordsDoNotMatchException passwordsDoNotMatchException) {
+
+        return passwordsDoNotMatchException.getMessage();
+    }
+
     @ExceptionHandler(value = EntityAlreadyExistsException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public String entityAlreadyExistsException(EntityAlreadyExistsException entityAlreadyExists) {

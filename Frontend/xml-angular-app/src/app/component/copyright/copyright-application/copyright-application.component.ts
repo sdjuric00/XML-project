@@ -3,26 +3,26 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import {CopyrightApplicationService} from "../../../service/copyright-application.service";
 import {Institucija} from "../../../model/opste/institucija";
-import {Autori, Prilozi, ZahtevAutorskoPravo} from "../../../model/copyright/zahtev-autorsko-pravo";
+import {Autori, Prilozi, ZahtevAutorskoPravo} from "../../../model/autorsko-pravo/zahtev-autorsko-pravo";
 import {DatePipe} from "@angular/common";
 import {Podnosilac} from "../../../model/patent/podnosilac";
 import {FizickoLice} from "../../../model/opste/fizicko-lice";
 import {Adresa} from "../../../model/opste/adresa";
 import {Kontakt} from "../../../model/opste/kontakt";
 import {PravnoLice} from "../../../model/opste/pravno-lice";
-import {PunomocnikAutorskaPrava} from "../../../model/copyright/punomocnik-autorska-prava";
-import {AutorskoDelo} from "../../../model/copyright/autorsko-delo";
-import {VrstaAutorskogDela} from "../../../model/copyright/vrsta-autorskog-dela";
-import {FormaZapisa} from "../../../model/copyright/forma-zapisa";
-import {PodaciONaslovuPrerada} from "../../../model/copyright/podaci-o-naslovu-prerada";
-import {AutorXml} from "../../../model/copyright/autor-xml";
-import {ImenovanAutor} from "../../../model/copyright/imenovan-autor";
-import {Prilog} from "../../../model/copyright/prilog";
+import {PunomocnikAutorskaPrava} from "../../../model/autorsko-pravo/punomocnik-autorska-prava";
+import {AutorskoDelo} from "../../../model/autorsko-pravo/autorsko-delo";
+import {VrstaAutorskogDela} from "../../../model/autorsko-pravo/vrsta-autorskog-dela";
+import {FormaZapisa} from "../../../model/autorsko-pravo/forma-zapisa";
+import {PodaciONaslovuPrerada} from "../../../model/autorsko-pravo/podaci-o-naslovu-prerada";
+import {AutorXml} from "../../../model/autorsko-pravo/autor-xml";
+import {ImenovanAutor} from "../../../model/autorsko-pravo/imenovan-autor";
+import {Prilog} from "../../../model/autorsko-pravo/prilog";
 import {Autor} from "../../../model/autor";
 import {PrilogForm} from "../prilozi/prilozi.component";
 
 @Component({
-  selector: 'app-copyright-application',
+  selector: 'app-autorsko-pravo-application',
   templateUrl: './copyright-application.component.html',
   styleUrls: ['./copyright-application.component.css'],
   providers: [

@@ -1,0 +1,94 @@
+<div class="form-container mat-elevation-z2">
+  <h1 class="text-center">Registracija</h1>
+  <div>
+    <form color="primary" [formGroup]="formaZaRegistraciju">
+      <div style="display: flex;">
+        <mat-form-field class="colomn" appearance="fill">
+          <mat-label>Ime</mat-label>
+          <input type="text" matInput formControlName="ime" [errorStateMatcher]="matcher" placeholder="Unesite ime">
+          <mat-error *ngIf="formaZaRegistraciju.get('ime').hasError('required')">
+            Ime je <strong>obavezno</strong> polje
+          </mat-error>
+          <mat-error *ngIf="formaZaRegistraciju.get('ime').hasError('pattern')">
+            Unesite pravilno ime
+          </mat-error>
+        </mat-form-field>
+
+
+        <mat-form-field class="colomn" appearance="fill">
+          <mat-label>Prezime</mat-label>
+          <input type="text" matInput formControlName="prezime" [errorStateMatcher]="matcher" placeholder="Unesite prezime">
+          <mat-error *ngIf="formaZaRegistraciju.get('prezime').hasError('required')">
+            Prezime je <strong>obavezno</strong> polje
+          </mat-error>
+          <mat-error *ngIf="formaZaRegistraciju.get('prezime').hasError('pattern')">
+            Unesite pravilno prezime
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div style="display: flex; margin-right: 2rem" *ngIf="ulogovanSluzbenik">
+        <mat-form-field appearance="fill">
+          <mat-label>Izaberite tip naloga</mat-label>
+          <mat-select formControlName="tipNalogaFormControl">
+            <mat-option value="gradjanin">GRADJANIN</mat-option>
+            <mat-option value="sluzbenik">SLUŽBENIK</mat-option>
+          </mat-select>
+          <mat-error *ngIf="formaZaRegistraciju.get('tipNalogaFormControl').hasError('required')">
+            Tip naloga je <strong>neophodno</strong> odabrati
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div style="display: flex;">
+        <mat-form-field class="password-colomn" appearance="fill">
+          <mat-label>Lozinka</mat-label>
+          <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="lozinka" [errorStateMatcher]="matcher" placeholder="Unesite lozinku">
+          <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+            <mat-icon class="mat-icon-deep-blue">{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="formaZaRegistraciju.get('lozinka').hasError('required')">
+            Lozinka je <strong>obavezno</strong> polje
+          </mat-error>
+          <mat-error
+            *ngIf="formaZaRegistraciju.get('lozinka').hasError('minlength') && !formaZaRegistraciju.get('lozinka').hasError('required')">
+            Lozinka treba da sadrzi najmanje 8 karaktera, jednu cifru i specijalni karakter
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="password-colomn" appearance="fill">
+          <mat-label>Lozinka za potvrdu</mat-label>
+          <input matInput [type]="hideConfirmPassword ? 'password' : 'text'" formControlName="ponovljenaLozinka" [errorStateMatcher]="matcher" placeholder="Unesite lozinku za potvrdu">
+          <button mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirmPassword">
+            <mat-icon class="mat-icon-deep-blue">{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="formaZaRegistraciju.get('ponovljenaLozinka').hasError('minlength') && !formaZaRegistraciju.get('ponovljenaLozinka').hasError('required')">
+            Lozinka treba da sadrzi najmanje 8 karaktera, jednu cifru i specijalni karakter
+          </mat-error>
+          <mat-error *ngIf="formaZaRegistraciju.get('ponovljenaLozinka').hasError('required')">
+            Lozinka za potvrdu je <strong>obavezno</strong> polje
+          </mat-error>
+          <mat-error *ngIf="uzmiGresku() && !formaZaRegistraciju.get('ponovljenaLozinka').hasError('minlength')">
+            Lozinke se ne poklapaju
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <br/>
+      <div style="display: flex;">
+        <app-kontakt [formGroup]="formaZaRegistraciju" style="display: inline; border: 2px solid var(--green); background-color: var(--gray-transparent); padding: 0.5rem; border-radius: 5% "></app-kontakt>
+        <app-adresa [formGroup]="formaZaRegistraciju"></app-adresa>
+      </div>
+      <br/>
+      <div class="center" *ngIf="ulogovanSluzbenik">
+        <button mat-raised-button class="green-button" (click)="registracija()">
+          Registruj novog korisnika
+        </button>
+      </div>
+      <div class="center" *ngIf="!ulogovanSluzbenik">
+        <button mat-raised-button class="green-button" (click)="registracija()">
+          Registruj se
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,5 +1,8 @@
 .form-container {
   max-width: 18rem;
+  border: 2px solid var(--green);
+  background-color: var(--gray-transparent);
+  border-radius: 1rem
 }
 
 .sign-up-link {
