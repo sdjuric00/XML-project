@@ -47,18 +47,14 @@ public class Transformator {
         HtmlConverter.convertToPdf(Files.newInputStream(Paths.get(html)), pdfDocument);
     }
 
-    public boolean generateHTML(final String htmlPutanja, final String zahtev) {
+    public boolean generateHTML(final String htmlPutanja, final ZahtevZig zahtev) {
         try {
             StreamSource transformSource = new StreamSource(new File(XSL_PUTANJA));
             Transformer transformer = transformerFactory.newTransformer(transformSource);
 
             //JAXBContext context = JAXBContext.newInstance(ZahtevZig.class);
             JAXBContext jc = JAXBContext.newInstance(ZahtevZig.class);
-            Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-
-            ZahtevZig zahtevZig = (ZahtevZig) unmarshaller.unmarshal
-                    (new StreamSource(new StringReader(zahtev)));
-            JAXBSource source = new JAXBSource(jc, zahtevZig);
+            JAXBSource source = new JAXBSource(jc, zahtev);
             System.out.println("Source" + source);
             StreamResult result = new StreamResult(new FileOutputStream(htmlPutanja));
 

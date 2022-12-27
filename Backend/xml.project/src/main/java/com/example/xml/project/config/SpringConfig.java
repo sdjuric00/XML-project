@@ -46,7 +46,7 @@ public class SpringConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
             .antMatchers(HttpMethod.OPTIONS,"/**")
             .permitAll()
-            .antMatchers("/korisnici/prijava")
+            .antMatchers("/korisnici/**")
             .permitAll()
             .anyRequest()
             .authenticated()

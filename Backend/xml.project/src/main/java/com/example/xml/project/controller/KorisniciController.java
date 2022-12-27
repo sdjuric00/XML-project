@@ -41,7 +41,6 @@ public class KorisniciController {
         return getPrijavaDTO(prijavaZahtev.getEmail(), prijavaZahtev.getLozinka());
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_SLUZBENIK')")
     @PostMapping(path="/registracija", produces = "application/xml", consumes = "application/xml")
     @ResponseStatus(HttpStatus.CREATED)
     public KorisnikDTO registrujSe(@Valid @RequestBody KorisnikRequest korisnikRequest) throws PasswordsDoNotMatchException, EntityAlreadyExistsException, EntityNotFoundException {

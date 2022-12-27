@@ -34,6 +34,9 @@ public class KorisniciRepository extends BasicXMLRepository {
             // get the collection
             System.out.println("[INFO] Retrieving the collection: " + COLLECTION_ID_KORISNICI_DB);
             col = DatabaseManager.getCollection(connectionProp.uri + COLLECTION_ID_KORISNICI_DB);
+            if (col == null) {
+                col = getOrCreateCollection(COLLECTION_ID_KORISNICI_DB);
+            }
             col.setProperty(OutputKeys.INDENT, "yes");
 
 

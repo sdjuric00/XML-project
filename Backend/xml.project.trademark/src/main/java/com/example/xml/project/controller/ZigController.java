@@ -7,9 +7,11 @@ import com.example.xml.project.service.ZigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import response.UspesanOdgovor;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
 
@@ -46,11 +48,11 @@ public class ZigController {
         return zigService.get(documentId);
     }
 
-    @PostMapping(path = "/create-trademark-html")
+    @GetMapping(path = "/create-trademark-html/{id}", produces = "application/xml", consumes = "application/xml")
     @ResponseStatus(HttpStatus.CREATED)
-    public boolean createHTML(@RequestBody final String zahtev) throws InvalidDocumentException {
+    public UspesanOdgovor createHTML(@PathVariable @Valid @NotNull(message = "Poruka ne sme biti prazna.") final String id) throws InvalidDocumentException, JAXBException, EntityNotFoundException {
 
-        return zigService.dodajZigHtml(zahtev);
+        return zigService.dodajZigHtml(id);
     }
 
     @PostMapping(path = "/create-trademark-pdf")

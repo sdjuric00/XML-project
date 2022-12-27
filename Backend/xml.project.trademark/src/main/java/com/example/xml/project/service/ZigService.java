@@ -9,6 +9,7 @@ import com.example.xml.project.transformator.Transformator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
+import response.UspesanOdgovor;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
@@ -69,9 +70,10 @@ public class ZigService {
         return repository.get(documentId);
     }
 
-    public boolean dodajZigHtml(String zahtev) {
+    public UspesanOdgovor dodajZigHtml(String id) throws JAXBException, EntityNotFoundException {
         String htmlPutanja = HTML_PUTANJA + "1.html";
-        return this.transformator.generateHTML(htmlPutanja, zahtev);
+
+        return new UspesanOdgovor(this.transformator.generateHTML(htmlPutanja, get(id)));
     }
 
     private ZahtevZig checkSchema(String document) throws InvalidDocumentException {
