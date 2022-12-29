@@ -13,6 +13,8 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
+import java.util.List;
+
 @RestController
 @RequestMapping("/autorska-prava")
 public class AutorskaPravaController {
@@ -44,5 +46,11 @@ public class AutorskaPravaController {
     ) throws EntityNotFoundException, CannotUnmarshalException, JAXBException {
 
         return autorskaPravaService.get(documentId);
+    }
+
+    @PostMapping(path="/osnovna-pretraga")
+    public List<ZahtevAutorskaDela> osnovnaPretraga(@RequestBody List<String> parametriPretrage) throws Exception {
+        System.out.println("fasjfajf");
+        return autorskaPravaService.pronadjiRezultateOsnovnePretrage(parametriPretrage);
     }
 }

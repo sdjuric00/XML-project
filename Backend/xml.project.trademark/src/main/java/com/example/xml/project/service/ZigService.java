@@ -21,6 +21,7 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import java.io.*;
+import java.util.List;
 
 import static com.example.xml.project.util.Constants.*;
 
@@ -74,6 +75,10 @@ public class ZigService {
         String htmlPutanja = HTML_PUTANJA + "1.html";
 
         return new UspesanOdgovor(this.transformator.generateHTML(htmlPutanja, get(id)));
+    }
+
+    public List<ZahtevZig> pronadjiRezultateOsnovnePretrage(List<String> parametriPretrage) throws Exception {
+        return zigRepository.pronadjiRezultateOsnovnePretrage(parametriPretrage);
     }
 
     private ZahtevZig checkSchema(String document) throws InvalidDocumentException {

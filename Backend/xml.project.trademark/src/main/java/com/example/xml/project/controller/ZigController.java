@@ -14,6 +14,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/zig")
@@ -59,6 +60,11 @@ public class ZigController {
     @ResponseStatus(HttpStatus.CREATED)
     public boolean createPDF(@RequestBody final String zahtev) throws InvalidDocumentException {
         return false;
+    }
+
+    @PostMapping(path="/osnovna-pretraga")
+    public List<ZahtevZig> osnovnaPretraga(@RequestBody List<String> parametriPretrage) throws Exception {
+        return zigService.pronadjiRezultateOsnovnePretrage(parametriPretrage);
     }
 
 }

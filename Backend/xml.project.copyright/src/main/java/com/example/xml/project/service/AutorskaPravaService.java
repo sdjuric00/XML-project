@@ -28,6 +28,7 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import java.io.*;
+import java.util.List;
 
 import static com.example.xml.project.util.Constants.*;
 
@@ -72,6 +73,10 @@ public class AutorskaPravaService {
     public ZahtevAutorskaDela get(String documentId) throws EntityNotFoundException, CannotUnmarshalException, JAXBException {
 
         return repository.get(documentId);
+    }
+
+    public List<ZahtevAutorskaDela> pronadjiRezultateOsnovnePretrage(List<String> parametriPretrage) throws Exception {
+        return autorskaPravaRepository.pronadjiRezultateOsnovnePretrage(parametriPretrage);
     }
 
     private ZahtevAutorskaDela checkSchema(String document) throws InvalidDocumentException {

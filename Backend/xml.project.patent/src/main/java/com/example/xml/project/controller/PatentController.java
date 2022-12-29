@@ -13,6 +13,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/patent")
@@ -45,6 +46,11 @@ public class PatentController {
     ) throws EntityNotFoundException, CannotUnmarshalException, JAXBException {
 
         return patentService.get(documentId);
+    }
+
+    @PostMapping(path="/osnovna-pretraga")
+    public List<ZahtevPatent> osnovnaPretraga(@RequestBody List<String> parametriPretrage) throws Exception {
+        return patentService.pronadjiRezultateOsnovnePretrage(parametriPretrage);
     }
 
 }
