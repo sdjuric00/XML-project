@@ -1,1 +1,9 @@
-<p>red-zig works!</p>
+<div style="display: flex">
+  <h2>{{zahtev.broj_prijave}}</h2>
+  <h3 style="margin-left: 15rem">{{zahtev.datum_podnosenja | date: 'dd.MM.yyyy.'}}</h3>
+</div>
+<h3>Punomocnik: {{zahtev.punomocnik.ime}} {{zahtev.punomocnik.prezime}}</h3>
+<br/>
+
+<button style="float: right" class="next-button" mat-raised-button (click)="obradaZahteva()">Obradi zahtev</button>
+

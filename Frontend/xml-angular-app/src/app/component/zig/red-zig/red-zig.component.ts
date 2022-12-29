@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {Router} from "@angular/router";
+import {ZahtevZigOsnovneInformacije} from "../../../model/zig/obj/zahtev-zig-osnovne-informacije";
 
 @Component({
   selector: 'app-red-zig',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RedZigComponent implements OnInit {
 
-  constructor() { }
+  @Input() zahtev: ZahtevZigOsnovneInformacije;
+  constructor(private _router: Router) { }
 
   ngOnInit(): void {
   }
 
+  obradaZahteva() {
+    this._router.navigate(['/obradi-zahtev-zig', this.zahtev.id]);
+  }
 }

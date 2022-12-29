@@ -1,7 +1,11 @@
 package com.example.xml.project.service;
 
+import com.example.xml.project.dto.ZahtevZigDetaljneInformacijeDTO;
+import com.example.xml.project.dto.ZahteviZigDTO;
+import com.example.xml.project.exception.CannotUnmarshalException;
 import com.example.xml.project.exception.EntityNotFoundException;
 import com.example.xml.project.exception.InvalidDocumentException;
+import com.example.xml.project.exception.XPathException;
 import com.example.xml.project.model.Z1.ZahtevZig;
 import com.example.xml.project.repository.GenericRepository;
 import com.example.xml.project.repository.ZigRepository;
@@ -16,7 +20,6 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-import javax.xml.transform.Transformer;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
@@ -68,6 +71,18 @@ public class ZigService {
     public ZahtevZig get(String documentId) throws EntityNotFoundException, JAXBException {
 
         return repository.get(documentId);
+    }
+
+    public ZahteviZigDTO uzmiZahteve(boolean obradjene) throws CannotUnmarshalException, XPathException {
+
+        ZahteviZigDTO zahteviDTO = new ZahteviZigDTO();
+        zahteviDTO.fromZahtevi(zigRepository.uzmiZahteve(obradjene));
+        return zahteviDTO;
+    }
+
+    public ZahtevZigDetaljneInformacijeDTO uzmiZahtev(String id) throws CannotUnmarshalException, XPathException {
+
+        return new ZahtevZigDetaljneInformacijeDTO(zigRepository.uzmiZahtev(id));
     }
 
     public UspesanOdgovor dodajZigHtml(String id) throws JAXBException, EntityNotFoundException {

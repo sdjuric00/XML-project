@@ -5,7 +5,7 @@ import {PunomocnikAutorskaPrava} from "../xml/punomocnik-autorska-prava";
 import {AutorskoDelo} from "../xml/autorsko-delo";
 import {Autori, Prilozi} from "../xml/zahtev-autorsko-pravo-xml";
 import {InstitucijaObj, napraviInstituciju} from "../../opste/institucija/obj/institucija";
-import {napraviPunomocnika, PunomocnikObj} from "./punomocnik";
+import {napraviPunomocnika, PunomocnikObj} from "../../opste/punomocnik/obj/punomocnik";
 import {AutorskoDeloObj, napraviAutorskoDelo} from "./autorsko-delo";
 import {AutorObj, napraviAutore} from "./autor";
 import {napraviPriloge, PrilogObj} from "./prilog";

@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PregledZahtevaZigovaComponent implements OnInit {
 
-  constructor() { }
+  pregledNeobradjenih: boolean;
+  constructor() {
+    this.pregledNeobradjenih = true;
+  }
 
   ngOnInit(): void {
   }
 
+  promeniVrstuPregleda(vrstaPregleda: string) {
+    this.pregledNeobradjenih = vrstaPregleda === 'pregledano';
+  }
 }
