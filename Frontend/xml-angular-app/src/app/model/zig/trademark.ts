@@ -1,5 +1,5 @@
 import { ZnakComponent } from "src/app/component/trademark/znak/znak.component";
-import { Institucija } from "../opste/institucija";
+import { Institucija } from "../opste/institucija/xml/institucija";
 import { PlaceneTakse } from "./placene-takse";
 import { NicanskaKlasifikacija, Znak } from "./znak";
 import { Podnosioci } from "../patent/podnosilac";
@@ -18,5 +18,5 @@ export interface Trademark {
         "pravo_prvenstva": PravoPrvenstva,
         "placene_takse": PlaceneTakse,
         "prilozi": PriloziZ
-    }   
+    }
 }

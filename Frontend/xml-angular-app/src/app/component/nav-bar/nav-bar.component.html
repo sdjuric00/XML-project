@@ -13,8 +13,26 @@
         routerLinkActive="active"
         mat-button
         color="primary"
-        >Registracija</a
-      >
+        >Registracija</a>
+
+      <a
+        [matMenuTriggerFor]="menu"
+        *ngIf="sluzbenik"
+        routerLinkActive="active"
+        mat-button
+        color="primary"
+      >Zahtevi</a>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="predjiNaAutorskaPrava()">
+          <span>Autorska Prava</span>
+        </button>
+        <button mat-menu-item (click)="predjiNaPatent()">
+          <span>Patent</span>
+        </button>
+        <button mat-menu-item (click)="predjiNaZig()">
+          <span>Zig</span>
+        </button>
+      </mat-menu>
 
       <a
         *ngIf="gradjanin"
@@ -39,39 +57,6 @@
         mat-button
         color="primary"
       >Zahtev za zig</a>
-  <!--      <a-->
-  <!--        *ngIf="isRegular"-->
-  <!--        [routerLink]="['/favourite-routes']"-->
-  <!--        routerLinkActive="active"-->
-  <!--        mat-button-->
-  <!--        color="primary"-->
-  <!--        >Favourite Routes</a-->
-  <!--      >-->
-  <!--      <a-->
-  <!--        *ngIf="isAdmin"-->
-  <!--        [routerLink]="['/drivers']"-->
-  <!--        routerLinkActive="active"-->
-  <!--        mat-button-->
-  <!--        color="primary"-->
-  <!--        >Drivers</a-->
-  <!--      >-->
-  <!--      <a-->
-  <!--        *ngIf="isAdmin"-->
-  <!--        [routerLink]="['/users']"-->
-  <!--        routerLinkActive="active"-->
-  <!--        mat-button-->
-  <!--        color="primary"-->
-  <!--        >Users</a-->
-  <!--      >-->
-
-  <!--      <a-->
-  <!--        *ngIf="isAdmin"-->
-  <!--        [routerLink]="['/messages']"-->
-  <!--        routerLinkActive="active"-->
-  <!--        mat-button-->
-  <!--        color="primary"-->
-  <!--        >Messages</a-->
-  <!--      >-->
     </div>
   </div>
 

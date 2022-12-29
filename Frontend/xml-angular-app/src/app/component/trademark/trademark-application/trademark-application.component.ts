@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { Trademark } from 'src/app/model/zig/trademark';
-import { Institucija } from 'src/app/model/opste/institucija';
+import { Institucija } from 'src/app/model/opste/institucija/xml/institucija';
 import { Podnosioci } from 'src/app/model/patent/podnosilac';
 import { PodnosilacUniversal } from 'src/app/model/podnosilac-universal';
 import { PravnoLice } from 'src/app/model/opste/pravno-lice';

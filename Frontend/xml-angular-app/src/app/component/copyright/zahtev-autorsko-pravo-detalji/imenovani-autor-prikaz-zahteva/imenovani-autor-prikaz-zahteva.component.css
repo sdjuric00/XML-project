@@ -1,0 +1,21 @@
+h5 {
+  margin: 0px;
+}
+
+h4 {
+  margin: 0px;
+}
+
+h3 {
+  margin: 10px;
+}
+
+.span-with-border {
+  margin-top: 0.4rem;
+  padding: 0.3rem;
+  border-radius: 5px;
+  width: 12rem;
+  font-size: 1.3rem;
+  border: 2px solid rgba(104,202,68,0.45);
+  background: var(--gray-transparent);
+}

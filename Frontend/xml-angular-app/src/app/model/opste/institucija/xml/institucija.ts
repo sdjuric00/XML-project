@@ -1,4 +1,4 @@
-import { Adresa } from "./adresa";
+import { Adresa } from "../../adresa";
 
 export interface Institucija{
     "opste:naziv": string,

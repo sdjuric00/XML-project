@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CopyrightApplicationService } from './copyright-application.service';
+import { AutorskaPravaService } from './autorska-prava.service';
 
 describe('CopyrightApplicationService', () => {
-  let service: CopyrightApplicationService;
+  let service: AutorskaPravaService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(CopyrightApplicationService);
+    service = TestBed.inject(AutorskaPravaService);
   });
 
   it('should be created', () => {

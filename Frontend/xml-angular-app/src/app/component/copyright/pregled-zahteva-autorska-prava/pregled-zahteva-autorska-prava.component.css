@@ -1,0 +1,11 @@
+.form-container {
+  display: block;
+  max-width: 80rem;
+  margin: 2rem auto auto;
+  background-color: var(--gray);
+  color: var(--deep-blue);
+  padding: 1%;
+  border-radius: 15px;
+  overflow: hidden;
+  clear: both;
+}

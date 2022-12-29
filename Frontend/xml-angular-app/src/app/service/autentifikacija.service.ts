@@ -36,7 +36,7 @@ export class AutentifikacijaService {
       {
         headers: new HttpHeaders().set('Content-Type', 'application/xml').set('Accept' , 'application/xml'),
         responseType:"text"
-      },
+      }
     )
   }
 

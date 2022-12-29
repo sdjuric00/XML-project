@@ -1,5 +1,5 @@
-import { Adresa } from "../opste/adresa"
-import {Kontakt} from "../opste/kontakt";
+import { Adresa } from "../../opste/adresa"
+import {Kontakt} from "../../opste/kontakt";
 
 export interface ImenovanAutor {
   "opste:kontakt": Kontakt,

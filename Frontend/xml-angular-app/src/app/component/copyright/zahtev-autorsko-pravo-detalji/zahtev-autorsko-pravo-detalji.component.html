@@ -1,0 +1,197 @@
+<div *ngIf="zahtev">
+  <div style="border: 1px solid black; padding-left: 0.6rem; padding-right: 0.6rem">
+    <p style="text-align:left; margin-bottom: 0.2rem">
+      <span style="font-size: 1.2rem; font-weight: bold">{{zahtev.institucija.naziv}}</span>
+      <span style="float: right; font-size: 1.2rem;font-weight: bold">
+        OBRAZAC A-1
+      </span>
+    </p>
+    <span style="font-size: 1rem;">{{zahtev.institucija.adresa.grad}}, {{zahtev.institucija.adresa.ulica}} {{zahtev.institucija.adresa.broj}}</span>
+
+    <div style="margin-top: 0.8rem">
+      <h3 class="text-center">ZAHTEV ZA UNOŠENJE U EVIDENCIJU I DEPONOVANJE AUTORSKIH DELA</h3>
+    </div>
+  </div>
+
+  <div style="overflow-y: auto">
+
+                          <!--    PODNOSILAC-->
+    <div *ngIf="zahtev.podnosilac.ime">
+<!--        FIZICKO LICE-->
+      <div class="celine-div">
+        <p style="text-align:left; margin-bottom: 0.2rem">
+          <span style="font-size: 1.2rem; font-weight: bold; text-align: left">Podnosilac - fizičko lice</span>
+          <span style="float: right; font-size: 1.2rem;font-weight: bold">Autor  <mat-checkbox style="margin-left: 0.4rem" [checked]="zahtev.podnosilac.autor" disabled></mat-checkbox></span>
+        </p>
+        <app-fizicko-lice-prikaz-zahteva [osoba]="zahtev.podnosilac"></app-fizicko-lice-prikaz-zahteva>
+      </div>
+    </div>
+
+    <div *ngIf="zahtev.podnosilac.naziv">
+      <!--        PRAVNO LICE-->
+      <div class="celine-div">
+        <p style="text-align:left; margin-bottom: 0.2rem">
+          <span style="font-size: 1.2rem; font-weight: bold; text-align: left">Podnosilac - pravno lice</span>
+          <span style="float: right; font-size: 1.2rem;font-weight: bold">Autor  <mat-checkbox style="margin-left: 0.4rem" [checked]="zahtev.podnosilac.autor" disabled></mat-checkbox></span>
+        </p>
+        <app-pravno-lice-prikaz-zahteva [osoba]="zahtev.podnosilac"></app-pravno-lice-prikaz-zahteva>
+      </div>
+    </div>
+
+    <!--    PUNOMOCNIK-->
+    <div *ngIf="!zahtev.punomocnik">
+      <div class="celine-div">
+        <p style="text-align:left; margin-bottom: 0.2rem">
+          <span style="font-size: 1.2rem; font-weight: bold; text-align: left">Zahtev nije podnet preko punomoćnika</span>
+        </p>
+      </div>
+    </div>
+    <div *ngIf="zahtev.punomocnik">
+      <div *ngIf="zahtev.punomocnik.ime">
+        <!--        FIZICKO LICE-->
+        <div class="celine-div">
+          <p style="text-align:left; margin-bottom: 0.2rem">
+            <span style="font-size: 1.2rem; font-weight: bold; text-align: left">Punomoćnik - fizičko lice</span>
+          </p>
+          <app-fizicko-lice-prikaz-zahteva [osoba]="zahtev.punomocnik"></app-fizicko-lice-prikaz-zahteva>
+        </div>
+      </div>
+
+      <div *ngIf="zahtev.punomocnik.naziv">
+        <!--        PRAVNO LICE-->
+        <div style="border: 2px solid var(--green); padding-left: 0.6rem; padding-right: 0.6rem; margin-top: 2rem">
+          <p style="text-align:left; margin-bottom: 0.2rem">
+            <span style="font-size: 1.2rem; font-weight: bold; text-align: left">Punomoćnik - pravno lice</span>
+          </p>
+          <app-pravno-lice-prikaz-zahteva [osoba]="zahtev"></app-pravno-lice-prikaz-zahteva>
+        </div>
+      </div>
+    </div>
+
+
+    <!--    AUTORSKO DELO-->
+    <div class="celine-div">
+      <p style="text-align:left; margin-bottom: 0.2rem">
+        <span style="font-size: 1.2rem; font-weight: bold; text-align: left">Autorsko delo</span>
+        <span style="float: right; display: flex; flex-direction: column; margin-bottom: 1rem">
+          <span style="float: right; font-size: 1.2rem;font-weight: bold">Stvoreno u radnom odnosu  <mat-checkbox style="margin-left: 0.4rem" [checked]="zahtev.autorsko_delo.stvoreno_u_radnom_odnosu" disabled></mat-checkbox></span>
+          <span style="float: right; margin-left: 1rem; font-size: 1.2rem;font-weight: bold">Autorsko delo je prerada  <mat-checkbox style="margin-left: 0.4rem" [checked]="zahtev.autorsko_delo.podaci_o_naslovu_prerada !== null" disabled></mat-checkbox></span>
+        </span>
+      </p>
+      <div style="display: flex">
+        <div>
+          <div style=" margin-top: 0.8rem; margin-left: 1rem; display: flex;">
+            <div style="display: flex; flex-direction: column">
+              <span style="font-size: 1.2rem; font-weight: bold">Naslov</span>
+              <span class="span-with-border"> {{zahtev.autorsko_delo.naslov}}</span>
+            </div>
+
+            <div style="display: flex; flex-direction: column; margin-left: 2rem">
+              <span style="font-size: 1.2rem; font-weight: bold">Alternativni naslov</span>
+
+              <span *ngIf="zahtev.autorsko_delo.alternativni_naslov" class="span-with-border"> {{zahtev.autorsko_delo.alternativni_naslov}}</span>
+              <span *ngIf="!zahtev.autorsko_delo.alternativni_naslov" class="span-with-border" style="color: var(--red)"> X </span>
+            </div>
+
+          </div>
+
+          <!--      FORMA I VRSTA A. DELA-->
+          <div style=" margin-top: 0.5rem; margin-left: 1rem; margin-bottom: 1rem">
+            <div style="display: flex">
+              <div style="display: flex; flex-direction: column; margin-left: 0.2rem">
+                <span style="font-size: 1.2rem; font-weight: bold">Forma zapisa</span>
+                <span class="span-with-border"> {{zahtev.autorsko_delo.forma_zapisa}}</span>
+              </div>
+
+              <div style="display: flex; flex-direction: column; margin-left: 2rem">
+                <span style="font-size: 1.1rem; font-weight: bold">Vrsta dela</span>
+                <span class="span-with-border"> {{zahtev.autorsko_delo.vrsta_autorskog_dela}}</span>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+
+        <div style="display: flex; flex-direction: column; margin-left: 2rem; margin-top: 0.8rem">
+          <span style="font-size: 1.1rem; font-weight: bold">Način korišćenja</span>
+          <span class="span-with-border" style="width: 20rem; height: 6.1rem"> {{zahtev.autorsko_delo.nacin_koriscenja}}</span>
+        </div>
+
+
+      </div>
+
+            <!--        PODACI O PRERADI -->
+      <div *ngIf="zahtev.autorsko_delo.podaci_o_naslovu_prerada !== null">
+        <p style="text-align:left; margin-bottom: 0.2rem">
+          <span style="font-size: 1.1rem; font-weight: bold; text-align: left">Podaci o preradi</span>
+        </p>
+        <div style="display: flex">
+          <div>
+            <div style=" margin-top: 0.8rem; margin-left: 1rem; display: flex;">
+              <div style="display: flex; flex-direction: column">
+                <span style="font-size: 1.2rem; font-weight: bold">Naslov</span>
+                <span class="span-with-border"> {{zahtev.autorsko_delo.naslov}}</span>
+              </div>
+
+              <div *ngIf="!zahtev.autorsko_delo.podaci_o_naslovu_prerada.autor?.ime">
+                <span style="float: right; font-size: 1.2rem; margin-left: 1rem; margin-top: 2.3rem">Autor je anoniman</span>
+              </div>
+
+            </div>
+
+            <app-imenovani-autor-prikaz-zahteva [autor]="zahtev.autorsko_delo.podaci_o_naslovu_prerada.autor"></app-imenovani-autor-prikaz-zahteva>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!--    AUTORI    -->
+    <div class="celine-div">
+      <p style="text-align:left; margin-bottom: 0.2rem">
+        <span style="font-size: 1.2rem; font-weight: bold; text-align: left">Autori</span>
+      </p>
+      <div *ngFor="let autor of zahtev.autori; let i=index">
+        <div *ngIf="!autor?.ime">
+          <span style="font-size: 1.2rem; margin-left: 1rem; margin-top: 2.3rem"> {{i + 1}}. Autor je anoniman</span>
+        </div>
+        <div *ngIf="autor?.ime" style="border: 1px solid var(--red); border-radius: 5px; margin-bottom: 1rem">
+          <span style="font-size: 1.2rem; margin-left: 0.5rem; margin-top: 2.3rem">{{i + 1}}.</span>
+          <app-imenovani-autor-prikaz-zahteva [autor]="autor"></app-imenovani-autor-prikaz-zahteva>
+        </div>
+      </div>
+    </div>
+
+
+    <!--    PRILOZI    -->
+    <div class="celine-div">
+      <p style="text-align:left; margin-bottom: 0.2rem">
+        <span style="font-size: 1.2rem; font-weight: bold; text-align: left">Prilozi</span>
+      </p>
+      <div *ngFor="let prilog of zahtev.prilozi; let i=index">
+        <span style="font-size: 1.2rem; margin-left: 0.5rem; margin-top: 2.3rem">{{i + 1}}. {{prilog.opis}} - {{prilog.putanja}}</span>
+      </div>
+    </div>
+
+
+                      <!--    KRAJ-->
+    <div style="padding-left: 0.5rem; padding-right: 0.1rem; margin:1rem; float: right">
+
+      <div style="display: flex; flex-direction: column; border: 1px solid black; padding: 0.5rem">
+        <span style="font-size: 1.1rem;">Broj prijave</span>
+        <span class="footer-label"> {{zahtev.broj_prijave}}</span>
+      </div>
+      <div style="display: flex; flex-direction: column; border: 1px solid black; padding: 0.5rem">
+        <span style="font-size: 1.1rem;">Datum podnošenja prijave</span>
+        <span class="footer-label"> {{zahtev.datum_podnosenja | date: 'dd.MM.yyyy.'}}</span>
+      </div>
+
+    </div>
+
+
+
+  </div>
+
+</div>

@@ -1,6 +1,6 @@
 
-import { Institucija } from "../opste/institucija";
-import {Podnosilac} from "../patent/podnosilac";
+import { Institucija } from "../../opste/institucija/xml/institucija";
+import {Podnosilac} from "../../patent/podnosilac";
 import {PunomocnikAutorskaPrava} from "./punomocnik-autorska-prava";
 import {AutorskoDelo} from "./autorsko-delo";
 import {AutorInList, AutorXml} from "./autor-xml";
@@ -16,7 +16,7 @@ export interface Prilozi {
   prilog:Prilog[]
 }
 
-export interface ZahtevAutorskoPravo {
+export interface ZahtevAutorskoPravoXml {
   zahtev_za_unosenje_u_evidenciju_i_deponovanje_autorskih_dela: {
     "@":{},
     "institucija": Institucija,

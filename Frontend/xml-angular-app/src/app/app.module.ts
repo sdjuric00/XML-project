@@ -33,11 +33,22 @@ import { PunomocnikPatentComponent } from './component/punomocnik-patent/punomoc
 import { DostavljanjeComponent } from './component/dostavljanje/dostavljanje.component';
 import { DopunskaPrijavaComponent } from './component/dopunska-prijava/dopunska-prijava.component';
 import { PrvobitnaPrijavaComponent } from './component/prvobitna-prijava/prvobitna-prijava.component';
-import { DatePipe } from '@angular/common';
+import {CommonModule, DatePipe} from '@angular/common';
 import { ToastrModule } from 'ngx-toastr';
 import {NavBarComponent} from "./component/nav-bar/nav-bar.component";
 import {RegistracijaComponent} from "./component/registracija/registracija.component";
 import {CustomInterceptor} from "./interceptor/custom.interceptor";
+import { PregledZahtevaAutorskaPravaComponent } from './component/copyright/pregled-zahteva-autorska-prava/pregled-zahteva-autorska-prava.component';
+import { TabelaZahtevaAutorskaPravaComponent } from './component/copyright/tabela-zahteva-autorska-prava/tabela-zahteva-autorska-prava.component';
+import { RedAutorskaPravaComponent } from './component/copyright/red-autorska-prava/red-autorska-prava.component';
+import { ZahtevAutorskoPravoDetaljiComponent } from './component/copyright/zahtev-autorsko-pravo-detalji/zahtev-autorsko-pravo-detalji.component';
+import { ObradiZahtevAutorskoPravoComponent } from './component/copyright/obradi-zahtev-autorsko-pravo/obradi-zahtev-autorsko-pravo.component';
+import { PopunjavaPrilogeZahtevAutorskoPravoComponent } from './component/copyright/popunjava-priloge-zahtev-autorsko-pravo/popunjava-priloge-zahtev-autorsko-pravo.component';
+import { FizickoLicePrikazZahtevaComponent } from './component/copyright/zahtev-autorsko-pravo-detalji/fizicko-lice-prikaz-zahteva/fizicko-lice-prikaz-zahteva.component';
+import {
+  PravnoLicePrikazZahtevaComponent
+} from "./component/copyright/zahtev-autorsko-pravo-detalji/pravno-lice-prikaz-zahteva/pravno-lice-prikaz-zahteva.component";
+import { ImenovaniAutorPrikazZahtevaComponent } from './component/copyright/zahtev-autorsko-pravo-detalji/imenovani-autor-prikaz-zahteva/imenovani-autor-prikaz-zahteva.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +79,16 @@ import {CustomInterceptor} from "./interceptor/custom.interceptor";
     PunomocnikPatentComponent,
     DostavljanjeComponent,
     DopunskaPrijavaComponent,
-    PrvobitnaPrijavaComponent
+    PrvobitnaPrijavaComponent,
+    PregledZahtevaAutorskaPravaComponent,
+    TabelaZahtevaAutorskaPravaComponent,
+    RedAutorskaPravaComponent,
+    ZahtevAutorskoPravoDetaljiComponent,
+    ObradiZahtevAutorskoPravoComponent,
+    PopunjavaPrilogeZahtevAutorskoPravoComponent,
+    FizickoLicePrikazZahtevaComponent,
+    PravnoLicePrikazZahtevaComponent,
+    ImenovaniAutorPrikazZahtevaComponent
   ],
   imports: [
     BrowserModule,
@@ -77,6 +97,7 @@ import {CustomInterceptor} from "./interceptor/custom.interceptor";
     ReactiveFormsModule,
     MaterialModule,
     BrowserAnimationsModule,
+    CommonModule,
     MatRadioModule,
     FormsModule,
     MatChipsModule,

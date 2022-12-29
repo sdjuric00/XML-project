@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ControlContainer, FormControl, FormGroup, Validators} from "@angular/forms";
+import {ControlContainer, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-autorsko-delo',

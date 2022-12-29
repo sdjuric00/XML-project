@@ -22,8 +22,10 @@
     "module": "es2020",
     "lib": [
       "es2020",
-      "dom"
+      "dom",
+      "ES2021.String"
     ],
+
     "useDefineForClassFields": false,
     "paths":{
       "stream":["node_modules/stream-browserify"]

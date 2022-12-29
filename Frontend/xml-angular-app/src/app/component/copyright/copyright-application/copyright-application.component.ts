@@ -1,23 +1,23 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
-import {CopyrightApplicationService} from "../../../service/copyright-application.service";
-import {Institucija} from "../../../model/opste/institucija";
-import {Autori, Prilozi, ZahtevAutorskoPravo} from "../../../model/autorsko-pravo/zahtev-autorsko-pravo";
+import {AutorskaPravaService} from "../../../service/autorska-prava.service";
+import {Institucija} from "../../../model/opste/institucija/xml/institucija";
+import {Autori, Prilozi, ZahtevAutorskoPravoXml} from "../../../model/autorsko-pravo/xml/zahtev-autorsko-pravo-xml";
 import {DatePipe} from "@angular/common";
 import {Podnosilac} from "../../../model/patent/podnosilac";
 import {FizickoLice} from "../../../model/opste/fizicko-lice";
 import {Adresa} from "../../../model/opste/adresa";
 import {Kontakt} from "../../../model/opste/kontakt";
 import {PravnoLice} from "../../../model/opste/pravno-lice";
-import {PunomocnikAutorskaPrava} from "../../../model/autorsko-pravo/punomocnik-autorska-prava";
-import {AutorskoDelo} from "../../../model/autorsko-pravo/autorsko-delo";
-import {VrstaAutorskogDela} from "../../../model/autorsko-pravo/vrsta-autorskog-dela";
-import {FormaZapisa} from "../../../model/autorsko-pravo/forma-zapisa";
-import {PodaciONaslovuPrerada} from "../../../model/autorsko-pravo/podaci-o-naslovu-prerada";
-import {AutorXml} from "../../../model/autorsko-pravo/autor-xml";
-import {ImenovanAutor} from "../../../model/autorsko-pravo/imenovan-autor";
-import {Prilog} from "../../../model/autorsko-pravo/prilog";
+import {PunomocnikAutorskaPrava} from "../../../model/autorsko-pravo/xml/punomocnik-autorska-prava";
+import {AutorskoDelo} from "../../../model/autorsko-pravo/xml/autorsko-delo";
+import {VrstaAutorskogDela} from "../../../model/autorsko-pravo/xml/vrsta-autorskog-dela";
+import {FormaZapisa} from "../../../model/autorsko-pravo/xml/forma-zapisa";
+import {PodaciONaslovuPrerada} from "../../../model/autorsko-pravo/xml/podaci-o-naslovu-prerada";
+import {AutorXml} from "../../../model/autorsko-pravo/xml/autor-xml";
+import {ImenovanAutor} from "../../../model/autorsko-pravo/xml/imenovan-autor";
+import {Prilog} from "../../../model/autorsko-pravo/xml/prilog";
 import {Autor} from "../../../model/autor";
 import {PrilogForm} from "../prilozi/prilozi.component";
 
@@ -131,7 +131,7 @@ export class CopyrightApplicationComponent implements OnInit {
 
   constructor(
     private _formBuilder: FormBuilder,
-    private _copyrightService:CopyrightApplicationService,
+    private _copyrightService:AutorskaPravaService,
     private _datePipe: DatePipe
   ) {}
 
@@ -151,7 +151,7 @@ export class CopyrightApplicationComponent implements OnInit {
     console.log(this.priloziFromGroup);
   }
 
-  getZahtevZaAutorskoPravo(): ZahtevAutorskoPravo {
+  getZahtevZaAutorskoPravo(): ZahtevAutorskoPravoXml {
     const institucija: Institucija = {
       "opste:naziv": "Zavod za intelektualnu svojinu",
       "opste:adresa": {

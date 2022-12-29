@@ -1,0 +1,11 @@
+.form-container {
+  display: block;
+  min-width: 20rem;
+  background-color: var(--gray);
+  color: var(--deep-blue);
+  padding: 1%;
+  border-radius: 10px;
+  overflow: hidden;
+  clear: both;
+  float:left;
+}

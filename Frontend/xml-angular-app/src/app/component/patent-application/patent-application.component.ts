@@ -5,7 +5,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ToastrService } from 'ngx-toastr';
 import { Adresa } from 'src/app/model/opste/adresa';
 import { FizickoLice } from 'src/app/model/opste/fizicko-lice';
-import { Institucija } from 'src/app/model/opste/institucija';
+import { Institucija } from 'src/app/model/opste/institucija/xml/institucija';
 import { Kontakt } from 'src/app/model/opste/kontakt';
 import { PravnoLice } from 'src/app/model/opste/pravno-lice';
 import { Dostavljanje } from 'src/app/model/patent/dostavljanje';
@@ -128,10 +128,10 @@ export class PatentApplicationComponent {
     nazivi.push(nazivSrpski);
 
     let nazivEngleski:Naziv = {
-    
+
         "@": {jezik: "engleski"},
         "#": this.nazivFormGroup.get('nazivEngleskiCtrl').value
-    
+
     };
 
     nazivi.push(nazivEngleski);
@@ -328,7 +328,7 @@ export class PatentApplicationComponent {
   }
 
   kreirajZahtevPatent(){
-   
+
     let patent = this.getPatent();
     const _toast: ToastrService = this.toast;
     this.patentService.create(patent).subscribe({

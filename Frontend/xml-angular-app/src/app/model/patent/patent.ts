@@ -1,5 +1,5 @@
 
-import { Institucija } from "../opste/institucija"
+import { Institucija } from "../opste/institucija/xml/institucija"
 import { Dostavljanje } from "./dostavljanje"
 import { Naziv } from "./naziv"
 import { PodaciOPronalasku } from "./podaci_o_pronalasku"
