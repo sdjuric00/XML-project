@@ -56,9 +56,11 @@ export class AutorskaPravaService {
       const parser = new xml2js.Parser({ strict: true, trim: true });
       let listaZahteva: ZahtevAutorskoPravoOsnovneInformacije[] = [];
       parser.parseString(result.toString(),(err, result) => {
-        result.zahtevi.lista_zahteva_a[0].zahtev_za_unosenje_u_evidenciju_i_deponovanje_autorskih_dela.forEach(zahtev =>
-          listaZahteva.push(napraviZahtevAutorskoPravoOsnovneInformacije(zahtev))
-        );
+        if (result?.zahtevi?.lista_zahteva_a[0]?.zahtev_za_unosenje_u_evidenciju_i_deponovanje_autorskih_dela){
+          result.zahtevi.lista_zahteva_a[0].zahtev_za_unosenje_u_evidenciju_i_deponovanje_autorskih_dela.forEach(zahtev =>
+            listaZahteva.push(napraviZahtevAutorskoPravoOsnovneInformacije(zahtev))
+          );
+        }
       })
       return listaZahteva;
     }));
@@ -75,9 +77,11 @@ export class AutorskaPravaService {
       const parser = new xml2js.Parser({ strict: true, trim: true });
       let listaZahteva: ZahtevAutorskoPravoOsnovneInformacije[] = [];
       parser.parseString(result.toString(),(err, result) => {
-        result.zahtevi.lista_zahteva_a[0].zahtev_za_unosenje_u_evidenciju_i_deponovanje_autorskih_dela.forEach(zahtev =>
-          listaZahteva.push(napraviZahtevAutorskoPravoOsnovneInformacije(zahtev))
-        );
+        if (result?.zahtevi?.lista_zahteva_a[0]?.zahtev_za_unosenje_u_evidenciju_i_deponovanje_autorskih_dela) {
+          result.zahtevi.lista_zahteva_a[0].zahtev_za_unosenje_u_evidenciju_i_deponovanje_autorskih_dela.forEach(zahtev =>
+            listaZahteva.push(napraviZahtevAutorskoPravoOsnovneInformacije(zahtev))
+          );
+        }
       })
       return listaZahteva;
     }));

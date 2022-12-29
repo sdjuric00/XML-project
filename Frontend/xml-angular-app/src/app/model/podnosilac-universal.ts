@@ -1,5 +1,5 @@
-import { Adresa } from "./adresa";
-import { Kontakt } from "./kontakt";
+import { Adresa } from "./opste/adresa/obj/adresa";
+import { Kontakt } from "./opste/kontakt/obj/kontakt";
 
 export interface PodnosilacUniversal {
     kontakt: Kontakt;

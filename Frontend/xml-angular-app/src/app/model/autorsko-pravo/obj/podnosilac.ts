@@ -1,5 +1,5 @@
-import {Kontakt, napraviKontakt} from "../../kontakt";
-import {Adresa, napraviAdresu} from "../../adresa";
+import {Kontakt, napraviKontakt} from "../../opste/kontakt/obj/kontakt";
+import {Adresa, napraviAdresu} from "../../opste/adresa/obj/adresa";
 
 export interface PodnosilacObj {
   autor: boolean;

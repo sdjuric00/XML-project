@@ -1,8 +1,11 @@
 package com.example.xml.project.controller;
 
+import com.example.xml.project.dto.ZahtevPatentDetaljneInformacijeDTO;
+import com.example.xml.project.dto.ZahteviPatentiDTO;
 import com.example.xml.project.exception.CannotUnmarshalException;
 import com.example.xml.project.exception.EntityNotFoundException;
 import com.example.xml.project.exception.InvalidDocumentException;
+import com.example.xml.project.exception.XPathException;
 import com.example.xml.project.model.P1.ZahtevPatent;
 import com.example.xml.project.service.PatentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +48,29 @@ public class PatentController {
     ) throws EntityNotFoundException, CannotUnmarshalException, JAXBException {
 
         return patentService.get(documentId);
+    }
+
+    @GetMapping(path="/neobradjeni-zahtevi", produces = "application/xml")
+    @ResponseStatus(HttpStatus.OK)
+    public ZahteviPatentiDTO uzmiNeobradjeneZahteve() throws CannotUnmarshalException, XPathException {
+
+        return patentService.uzmiZahteve(false);
+    }
+
+    @GetMapping(path="/obradjeni-zahtevi", produces = "application/xml")
+    @ResponseStatus(HttpStatus.OK)
+    public ZahteviPatentiDTO uzmiObradjeneZahteve() throws CannotUnmarshalException, XPathException {
+
+        return patentService.uzmiZahteve(true);
+    }
+
+    @GetMapping(path="/neobradjeni-zahtevi/{id}", produces = "application/xml")
+    @ResponseStatus(HttpStatus.OK)
+    public ZahtevPatentDetaljneInformacijeDTO uzmiNeobradjeneZahteve(
+        @PathVariable @Valid  @NotBlank(message = "Id zahteva je neophodan.") final String id
+    ) throws CannotUnmarshalException, XPathException {
+
+        return patentService.uzmiZahtev(id);
     }
 
 }

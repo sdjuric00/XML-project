@@ -1,8 +1,11 @@
 package com.example.xml.project.service;
 
+import com.example.xml.project.dto.ZahtevPatentDetaljneInformacijeDTO;
+import com.example.xml.project.dto.ZahteviPatentiDTO;
 import com.example.xml.project.exception.CannotUnmarshalException;
 import com.example.xml.project.exception.EntityNotFoundException;
 import com.example.xml.project.exception.InvalidDocumentException;
+import com.example.xml.project.exception.XPathException;
 import com.example.xml.project.model.P1.ZahtevPatent;
 import com.example.xml.project.repository.GenericRepository;
 import com.example.xml.project.repository.PatentRepository;
@@ -60,9 +63,22 @@ public class PatentService {
         repository.save(zahtevPatent, true);
     }
 
-    public ZahtevPatent get(String documentId) throws EntityNotFoundException, CannotUnmarshalException, JAXBException {
+    public ZahtevPatent get(String documentId) throws EntityNotFoundException, JAXBException {
 
         return repository.get(documentId);
+    }
+
+    public ZahteviPatentiDTO uzmiZahteve(boolean obradjene) throws CannotUnmarshalException, XPathException {
+
+        ZahteviPatentiDTO zahteviDTO = new ZahteviPatentiDTO();
+        zahteviDTO.fromZahtevi(patentRepository.uzmiZahteve(obradjene));
+        return zahteviDTO;
+    }
+
+
+    public ZahtevPatentDetaljneInformacijeDTO uzmiZahtev(String id) throws CannotUnmarshalException, XPathException {
+
+        return new ZahtevPatentDetaljneInformacijeDTO(patentRepository.uzmiZahtev(id));
     }
 
     private ZahtevPatent checkSchema(String document) throws InvalidDocumentException {

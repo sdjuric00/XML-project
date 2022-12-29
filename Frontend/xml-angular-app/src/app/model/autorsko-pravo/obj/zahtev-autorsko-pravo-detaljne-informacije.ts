@@ -1,6 +1,6 @@
 import {napraviPodnosioca, PodnosilacObj} from "./podnosilac";
 import {Institucija} from "../../opste/institucija/xml/institucija";
-import {Podnosilac} from "../../patent/podnosilac";
+import {Podnosilac} from "../../patent/xml/podnosilac";
 import {PunomocnikAutorskaPrava} from "../xml/punomocnik-autorska-prava";
 import {AutorskoDelo} from "../xml/autorsko-delo";
 import {Autori, Prilozi} from "../xml/zahtev-autorsko-pravo-xml";

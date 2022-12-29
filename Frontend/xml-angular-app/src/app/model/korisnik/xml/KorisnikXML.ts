@@ -1,5 +1,5 @@
-import {Adresa} from "../../opste/adresa";
-import {Kontakt} from "../../opste/kontakt";
+import {Adresa} from "../../opste/adresa/xml/adresa";
+import {Kontakt} from "../../opste/kontakt/xml/kontakt";
 
 export interface KorisnikXML {
   korisnik: {

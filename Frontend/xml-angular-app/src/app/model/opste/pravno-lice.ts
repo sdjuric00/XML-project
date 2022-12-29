@@ -1,5 +1,5 @@
-import { Adresa } from "./adresa";
-import { Kontakt } from "./kontakt";
+import { Adresa } from "./adresa/xml/adresa";
+import { Kontakt } from "./kontakt/xml/kontakt";
 
 export interface PravnoLice{
     "opste:kontakt": Kontakt,

@@ -1,4 +1,4 @@
-import { Adresa } from "../../adresa";
+import { Adresa } from "../../adresa/xml/adresa";
 
 export interface Institucija{
     "opste:naziv": string,

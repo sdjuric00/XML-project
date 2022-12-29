@@ -1,4 +1,4 @@
-import {Adresa, napraviAdresu} from "../../../adresa";
+import {Adresa, napraviAdresu} from "../../adresa/obj/adresa";
 
 export interface InstitucijaObj {
   naziv: string,

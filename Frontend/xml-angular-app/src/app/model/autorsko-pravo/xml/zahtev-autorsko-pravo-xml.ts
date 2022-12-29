@@ -1,6 +1,6 @@
 
 import { Institucija } from "../../opste/institucija/xml/institucija";
-import {Podnosilac} from "../../patent/podnosilac";
+import {Podnosilac} from "../../patent/xml/podnosilac";
 import {PunomocnikAutorskaPrava} from "./punomocnik-autorska-prava";
 import {AutorskoDelo} from "./autorsko-delo";
 import {AutorInList, AutorXml} from "./autor-xml";

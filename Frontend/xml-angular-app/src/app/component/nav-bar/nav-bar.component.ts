@@ -50,10 +50,10 @@ export class NavBarComponent implements OnInit, OnDestroy {
   }
 
   predjiNaPatent() {
-    this.router.navigate(['']);
+    this.router.navigate(['pregled-zahteva-patenta']);
   }
 
   predjiNaZig() {
-    this.router.navigate(['']);
+    this.router.navigate(['pregled-zahteva-zigova']);
   }
 }

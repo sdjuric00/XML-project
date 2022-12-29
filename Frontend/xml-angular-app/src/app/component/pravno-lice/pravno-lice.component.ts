@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {ControlContainer, FormGroup} from "@angular/forms";
-import { Adresa } from 'src/app/model/adresa';
-import { Kontakt } from 'src/app/model/kontakt';
+import { Adresa } from 'src/app/model/opste/adresa/obj/adresa';
+import { Kontakt } from 'src/app/model/opste/kontakt/obj/kontakt';
 import { PodnosilacUniversal } from 'src/app/model/podnosilac-universal';
 
 @Component({
