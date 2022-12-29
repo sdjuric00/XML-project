@@ -1,0 +1,7 @@
+<h3 *ngIf="listaZahteva.length === 0">
+  Nema zahteva
+</h3>
+
+<div *ngFor="let zahtev of listaZahteva" class="form-container mat-elevation-z2">
+  <app-red-zig [zahtev]="zahtev"></app-red-zig>
+</div>

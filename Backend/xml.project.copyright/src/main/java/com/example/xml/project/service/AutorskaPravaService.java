@@ -1,8 +1,11 @@
 package com.example.xml.project.service;
 
+import com.example.xml.project.dto.ZahtevAutorskaDelaDetaljneInformacijeDTO;
+import com.example.xml.project.dto.ZahteviAutorskaDelaDTO;
 import com.example.xml.project.exception.CannotUnmarshalException;
 import com.example.xml.project.exception.EntityNotFoundException;
 import com.example.xml.project.exception.InvalidDocumentException;
+import com.example.xml.project.exception.XPathException;
 import com.example.xml.project.model.A1.ZahtevAutorskaDela;
 import com.example.xml.project.repository.AutorskaPravaRepository;
 import com.example.xml.project.repository.GenericRepository;
@@ -28,6 +31,7 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import java.io.*;
+import java.util.List;
 
 import static com.example.xml.project.util.Constants.*;
 
@@ -69,9 +73,22 @@ public class AutorskaPravaService {
         repository.save(zahtevAutorskaDela, true);
     }
 
-    public ZahtevAutorskaDela get(String documentId) throws EntityNotFoundException, CannotUnmarshalException, JAXBException {
+    public ZahtevAutorskaDela get(String documentId) throws EntityNotFoundException, JAXBException {
 
         return repository.get(documentId);
+    }
+
+    public ZahteviAutorskaDelaDTO uzmiZahteve(boolean obradjene) throws CannotUnmarshalException, XPathException {
+
+        ZahteviAutorskaDelaDTO zahteviDTO = new ZahteviAutorskaDelaDTO();
+        zahteviDTO.fromZahtevi(autorskaPravaRepository.uzmiZahteve(obradjene));
+        return zahteviDTO;
+    }
+
+
+    public ZahtevAutorskaDelaDetaljneInformacijeDTO uzmiZahtev(String id) throws CannotUnmarshalException, XPathException {
+
+        return new ZahtevAutorskaDelaDetaljneInformacijeDTO(autorskaPravaRepository.uzmiZahtev(id));
     }
 
     private ZahtevAutorskaDela checkSchema(String document) throws InvalidDocumentException {

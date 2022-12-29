@@ -1,0 +1,59 @@
+<!--      PODACI O IMENOVANOM AUTORU-->
+<div *ngIf="autor?.ime"
+     style=" margin-top: 0.5rem; margin-left: 1rem; margin-bottom: 1rem">
+    <div style="display: flex">
+        <div style="display: flex; flex-direction: column; margin-left: 0.2rem">
+            <span style="font-size: 1.2rem; font-weight: bold">Ime i prezime</span>
+            <span
+                    class="span-with-border"> {{autor?.ime}} {{autor?.prezime}}</span>
+        </div>
+
+        <div *ngIf="autor?.pseudonim"
+             style="display: flex; flex-direction: column; margin-left: 2rem">
+            <span style="font-size: 1.1rem; font-weight: bold">Pseudonim</span>
+            <span class="span-with-border"> {{autor?.pseudonim}}</span>
+        </div>
+
+        <div *ngIf="autor?.godina_smrti"
+             style="display: flex; flex-direction: column; margin-left: 2rem">
+            <span style="font-size: 1.1rem; font-weight: bold">Godina smrti</span>
+            <span class="span-with-border"
+                  style="width: 8rem"> {{autor?.godina_smrti}}</span>
+        </div>
+
+        <div style="display: flex; flex-direction: column; margin-left: 2rem">
+            <span style="font-size: 1.1rem; font-weight: bold">Državljanstvo</span>
+            <span class="span-with-border"> {{autor?.drzavljanstvo}}</span>
+        </div>
+
+    </div>
+
+    <div style=" margin-top: 0.8rem;  margin-bottom: 1rem">
+
+        <div style="display: flex">
+            <div style="display: flex; flex-direction: column;">
+                <span style="font-size: 1.1rem; font-weight: bold">Email</span>
+                <span class="span-with-border"> {{autor?.kontakt.email}}</span>
+            </div>
+
+            <div style="display: flex; flex-direction: column; margin-left: 2rem">
+                <span style="font-size: 1.1rem; font-weight: bold">Telefon</span>
+                <span class="span-with-border"> {{autor?.kontakt.telefon}}</span>
+            </div>
+
+            <div style="display: flex; flex-direction: column; margin-left: 2rem">
+                <span style="font-size: 1.1rem; font-weight: bold">Fax</span>
+                <span class="span-with-border"
+                      style="width: 8rem;"> {{autor?.kontakt.fax}}</span>
+            </div>
+
+            <div style="display: flex; flex-direction: column; margin-left: 2rem">
+                <span style="font-size: 1.2rem; font-weight: bold">Adresa</span>
+                <span
+                        class="span-with-border"> {{autor?.adresa.ulica}} {{autor?.adresa.broj}}
+                    , <br/> {{autor?.adresa.grad}} {{autor?.adresa.postanskiBroj}}
+                    , <br/> {{autor?.adresa.drzava}}</span>
+            </div>
+        </div>
+    </div>
+</div>

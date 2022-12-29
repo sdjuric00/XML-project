@@ -1,0 +1,15 @@
+<div style="margin:2rem">
+  <h2>Pregled zahteva za autorska prava</h2>
+  <div>
+    <mat-radio-group>
+      <mat-radio-button [value]="'pregledano'" checked=true (change)="promeniVrstuPregleda('pregledano')" style="margin-right: 1rem">
+        Neobradjeni
+      </mat-radio-button>
+      <mat-radio-button [value]="'ne_pregledano'" (change)="promeniVrstuPregleda('ne_pregledano')">
+        Obradjeni
+      </mat-radio-button>
+    </mat-radio-group>
+  </div>
+  <app-tabela-zahteva-autorska-prava [pregledNeobradjenih]="pregledNeobradjenih"></app-tabela-zahteva-autorska-prava>
+</div>
+

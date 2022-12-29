@@ -1,0 +1,42 @@
+
+<div style=" margin-top: 0.8rem; margin-left: 1rem; display: flex;">
+  <div style="display: flex; flex-direction: column">
+    <span style="font-size: 1.2rem; font-weight: bold">Ime i prezime</span>
+    <span class="span-with-border"> {{osoba.ime}} {{osoba.prezime}}</span>
+  </div>
+
+  <div style="display: flex; flex-direction: column; margin-left: 2rem">
+    <span style="font-size: 1.2rem; font-weight: bold">JMBG</span>
+    <span class="span-with-border"> {{osoba.jmbg}}</span>
+  </div>
+
+  <div style="display: flex; flex-direction: column; margin-left: 2rem">
+    <span style="font-size: 1.2rem; font-weight: bold">Adresa</span>
+    <span class="span-with-border"> {{osoba.adresa.ulica}} {{osoba.adresa.broj}}, <br /> {{osoba.adresa.grad}} {{osoba.adresa.postanskiBroj}}, <br /> {{osoba.adresa.drzava}}</span>
+  </div>
+
+</div>
+
+<!--      KONTAKT-->
+<div style=" margin-top: 0.2rem; margin-left: 1rem; margin-bottom: 1rem">
+  <div style="display: flex; flex-direction: column">
+    <span style="font-size: 1.2rem; font-weight: bold">Kontakt</span>
+  </div>
+  <div style="display: flex">
+    <div style="display: flex; flex-direction: column; margin-left: 0.2rem">
+      <span style="font-size: 1.1rem; font-weight: bold">Email</span>
+      <span class="span-with-border"> {{osoba.kontakt.email}}</span>
+    </div>
+
+    <div style="display: flex; flex-direction: column; margin-left: 2rem">
+      <span style="font-size: 1.1rem; font-weight: bold">Telefon</span>
+      <span class="span-with-border"> {{osoba.kontakt.telefon}}</span>
+    </div>
+
+    <div style="display: flex; flex-direction: column; margin-left: 2rem">
+      <span style="font-size: 1.1rem; font-weight: bold">Fax</span>
+      <span class="span-with-border"> {{osoba.kontakt.fax}}</span>
+    </div>
+  </div>
+</div>
+

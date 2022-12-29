@@ -44,4 +44,16 @@ export class NavBarComponent implements OnInit, OnDestroy {
       this.authSubscription.unsubscribe();
     }
   }
+
+  predjiNaAutorskaPrava() {
+    this.router.navigate(['pregled-zahteva-autorskih-prava']);
+  }
+
+  predjiNaPatent() {
+    this.router.navigate(['pregled-zahteva-patenta']);
+  }
+
+  predjiNaZig() {
+    this.router.navigate(['pregled-zahteva-zigova']);
+  }
 }

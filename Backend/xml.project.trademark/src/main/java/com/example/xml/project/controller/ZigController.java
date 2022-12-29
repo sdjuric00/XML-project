@@ -1,7 +1,11 @@
 package com.example.xml.project.controller;
 
+import com.example.xml.project.dto.ZahtevZigDetaljneInformacijeDTO;
+import com.example.xml.project.dto.ZahteviZigDTO;
+import com.example.xml.project.exception.CannotUnmarshalException;
 import com.example.xml.project.exception.EntityNotFoundException;
 import com.example.xml.project.exception.InvalidDocumentException;
+import com.example.xml.project.exception.XPathException;
 import com.example.xml.project.model.Z1.ZahtevZig;
 import com.example.xml.project.service.ZigService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,4 +65,26 @@ public class ZigController {
         return false;
     }
 
+    @GetMapping(path="/neobradjeni-zahtevi", produces = "application/xml")
+    @ResponseStatus(HttpStatus.OK)
+    public ZahteviZigDTO uzmiNeobradjeneZahteve() throws CannotUnmarshalException, XPathException {
+
+        return zigService.uzmiZahteve(false);
+    }
+
+    @GetMapping(path="/obradjeni-zahtevi", produces = "application/xml")
+    @ResponseStatus(HttpStatus.OK)
+    public ZahteviZigDTO uzmiObradjeneZahteve() throws CannotUnmarshalException, XPathException {
+
+        return zigService.uzmiZahteve(true);
+    }
+
+    @GetMapping(path="/neobradjeni-zahtevi/{id}", produces = "application/xml")
+    @ResponseStatus(HttpStatus.OK)
+    public ZahtevZigDetaljneInformacijeDTO uzmiNeobradjeneZahteve(
+        @PathVariable @Valid  @NotBlank(message = "Id zahteva je neophodan.") final String id
+    ) throws CannotUnmarshalException, XPathException {
+
+        return zigService.uzmiZahtev(id);
+    }
 }

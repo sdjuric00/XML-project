@@ -1,0 +1,21 @@
+<div style="margin-left: 2rem; border: 1px solid black; padding-left: 0.6rem; padding-right: 0.6rem;">
+  <div style="margin-top: 0.8rem">
+    <h3 class="text-center">POPUNJAVA ZAVOD</h3>
+    <h4>Prilozi uz prijavu:</h4>
+    <div style="display: flex; flex-direction: column">
+      <span style=" font-size: 1.2rem; margin-top: 2.2rem; margin-bottom: 1rem"><b style="color: var(--green)">1.</b> Opis autorskog dela (ako je delo podneto na optičkom disku)
+      <mat-checkbox style="margin-left: 0.4rem" (click)="promenjenCheckboxOpis()"></mat-checkbox>
+    </span>
+
+      <span style="font-size: 1.2rem; margin-bottom: 1rem;"><b style="color: var(--green)">2.</b> Primer autorskog dela
+        <mat-checkbox style="margin-left: 0.4rem" (click)="promenjenCheckboxPrimer()"></mat-checkbox>
+      </span>
+    </div>
+
+    <div style="margin-bottom: 1rem; display: flex; flex-direction: row">
+      <button style="margin-left: 6rem; margin-right: 3rem; height: 2.2rem;" class="previous-button" mat-raised-button (click)="odbijanjeZahteva()">Odbij</button>
+      <button class="next-button" mat-raised-button (click)="prihvatanjeZahteva()">Prihvati</button>
+    </div>
+
+  </div>
+</div>

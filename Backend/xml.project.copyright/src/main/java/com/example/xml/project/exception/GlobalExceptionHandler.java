@@ -51,6 +51,13 @@ public class GlobalExceptionHandler {
         return cannotUnmarshalException.getMessage();
     }
 
+    @ExceptionHandler(value = XPathException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String xPathException(XPathException xPathException) {
+
+        return xPathException.getMessage();
+    }
+
     @ExceptionHandler(value = InvalidDocumentException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public String invalidDocumentException(InvalidDocumentException invalidDocumentException) {

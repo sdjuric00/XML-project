@@ -37,6 +37,13 @@ public class GlobalExceptionHandler {
         return mailCannotBeSentException.getMessage();
     }
 
+    @ExceptionHandler(value = XPathException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String xPathException(XPathException xPathException) {
+
+        return xPathException.getMessage();
+    }
+
     @ExceptionHandler(value = EntityUpdateException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public String entityUpdateException(EntityUpdateException usersUpdateException) {
