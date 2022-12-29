@@ -9,18 +9,9 @@ import com.example.xml.project.exception.XPathException;
 import com.example.xml.project.model.A1.ZahtevAutorskaDela;
 import com.example.xml.project.repository.AutorskaPravaRepository;
 import com.example.xml.project.repository.GenericRepository;
-import com.example.xml.project.util.AuthenticationUtilities;
-import com.example.xml.project.util.GeneratorId;
-import org.exist.xmldb.EXistResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
-import org.xmldb.api.DatabaseManager;
-import org.xmldb.api.base.Collection;
-import org.xmldb.api.base.Database;
-import org.xmldb.api.base.XMLDBException;
-import org.xmldb.api.modules.CollectionManagementService;
-import org.xmldb.api.modules.XMLResource;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
@@ -86,9 +77,14 @@ public class AutorskaPravaService {
     }
 
 
-    public ZahtevAutorskaDelaDetaljneInformacijeDTO uzmiZahtev(String id) throws CannotUnmarshalException, XPathException {
+    public ZahtevAutorskaDelaDetaljneInformacijeDTO uzmiZahtev(final String id) throws CannotUnmarshalException, XPathException {
 
         return new ZahtevAutorskaDelaDetaljneInformacijeDTO(autorskaPravaRepository.uzmiZahtev(id));
+    }
+
+    public List<ZahtevAutorskaDela> pronadjiRezultateOsnovnePretrage(final List<String> parametriPretrage) throws Exception {
+
+        return autorskaPravaRepository.pronadjiRezultateOsnovnePretrage(parametriPretrage);
     }
 
     private ZahtevAutorskaDela checkSchema(String document) throws InvalidDocumentException {

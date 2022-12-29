@@ -73,4 +73,10 @@ public class AutorskaPravaController {
 
         return autorskaPravaService.uzmiZahtev(id);
     }
+
+    @PostMapping(path="/osnovna-pretraga")
+    public List<ZahtevAutorskaDela> osnovnaPretraga(@RequestBody List<String> parametriPretrage) throws Exception {
+        System.out.println("fasjfajf");
+        return autorskaPravaService.pronadjiRezultateOsnovnePretrage(parametriPretrage);
+    }
 }

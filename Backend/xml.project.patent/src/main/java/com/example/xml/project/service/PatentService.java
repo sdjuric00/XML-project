@@ -22,6 +22,7 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import java.io.*;
+import java.util.List;
 
 import static com.example.xml.project.util.Constants.*;
 
@@ -68,7 +69,7 @@ public class PatentService {
         return repository.get(documentId);
     }
 
-    public ZahteviPatentiDTO uzmiZahteve(boolean obradjene) throws CannotUnmarshalException, XPathException {
+    public ZahteviPatentiDTO uzmiZahteve(final boolean obradjene) throws CannotUnmarshalException, XPathException {
 
         ZahteviPatentiDTO zahteviDTO = new ZahteviPatentiDTO();
         zahteviDTO.fromZahtevi(patentRepository.uzmiZahteve(obradjene));
@@ -76,9 +77,14 @@ public class PatentService {
     }
 
 
-    public ZahtevPatentDetaljneInformacijeDTO uzmiZahtev(String id) throws CannotUnmarshalException, XPathException {
+    public ZahtevPatentDetaljneInformacijeDTO uzmiZahtev(final String id) throws CannotUnmarshalException, XPathException {
 
         return new ZahtevPatentDetaljneInformacijeDTO(patentRepository.uzmiZahtev(id));
+    }
+
+    public List<ZahtevPatent> pronadjiRezultateOsnovnePretrage(final List<String> parametriPretrage) throws Exception {
+
+        return patentRepository.pronadjiRezultateOsnovnePretrage(parametriPretrage);
     }
 
     private ZahtevPatent checkSchema(String document) throws InvalidDocumentException {
