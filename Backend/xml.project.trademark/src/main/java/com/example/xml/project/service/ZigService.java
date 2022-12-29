@@ -2,6 +2,7 @@ package com.example.xml.project.service;
 
 import com.example.xml.project.exception.EntityNotFoundException;
 import com.example.xml.project.exception.InvalidDocumentException;
+import com.example.xml.project.exception.TransformationFailedException;
 import com.example.xml.project.model.Z1.ZahtevZig;
 import com.example.xml.project.repository.GenericRepository;
 import com.example.xml.project.repository.ZigRepository;
@@ -9,14 +10,13 @@ import com.example.xml.project.transformator.Transformator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
-import response.UspesanOdgovor;
+import com.example.xml.project.response.UspesanOdgovor;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-import javax.xml.transform.Transformer;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
@@ -70,10 +70,21 @@ public class ZigService {
         return repository.get(documentId);
     }
 
-    public UspesanOdgovor dodajZigHtml(String id) throws JAXBException, EntityNotFoundException {
-        String htmlPutanja = HTML_PUTANJA + "1.html";
+    public UspesanOdgovor dodajZigHtml(String id)
+            throws JAXBException, EntityNotFoundException, TransformationFailedException
+    {
+        String htmlPutanja = HTML_PUTANJA + id + ".html";
 
         return new UspesanOdgovor(this.transformator.generateHTML(htmlPutanja, get(id)));
+    }
+
+    public UspesanOdgovor dodajPdf(String id) throws JAXBException, EntityNotFoundException,
+            IOException, TransformationFailedException {
+        String pdfPutanja = PDF_PUTANJA + id + ".pdf";
+        String htmlPutanja = HTML_PUTANJA + id + ".html";
+        this.dodajZigHtml(id);  //prvo se pravi html za slucaj da ne postoji
+
+        return new UspesanOdgovor(this.transformator.generatePdf(htmlPutanja, pdfPutanja));
     }
 
     private ZahtevZig checkSchema(String document) throws InvalidDocumentException {

@@ -8,6 +8,6 @@ public class Constants {
     public static final String COLLECTION_ID_ZIG_DB = "db/xml/zahtevi-zig";
 
     public static final String HTML_PUTANJA = "src/main/resources/static/html/";
-    public static final String PDF_PUTANJA = "src/main/resources/static/html/";
+    public static final String PDF_PUTANJA = "src/main/resources/static/pdf/";
     public static final String XSL_PUTANJA = "./data/zig.xsl";
 }

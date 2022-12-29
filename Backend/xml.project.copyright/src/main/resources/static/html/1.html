@@ -1,0 +1,280 @@
+<html xmlns:opste="http://ftn.ac.rs/opste" xmlns:a="http://ftn.ac.rs/a">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style> .background-body {
+                    background: gray;
+                    padding: 1.5rem;
+                    padding-bottom: 0px;
+                    display: flex;
+                    align-items: center;
+                    flex-flow: column;
+                    font-family: Arial;
+                    }
+
+                    .content {
+                    background: white;
+                    min-width: 70%;
+                    min-height: 70%;
+                    }
+
+                    .center {
+                    display: flex;
+                    justify-content: center;
+                    text-align: center;
+                    align-content: center;
+                    }
+
+                    p {
+                    margin:0;
+                    padding: 0;
+                    margin-block-start: 0;
+                    margin-block-end: 0;
+                    }
+
+                    input[type="checkbox"] {
+                        vertical-align:middle;
+                    }
+                </style>
+<title>Zig (XSLT)</title>
+</head>
+<body class="background-body">
+<div class="content">
+<br>
+<div style="padding: 1.4rem;" class="center">
+<table style="border: 1px solid black; border-collapse: collapse;">
+<colgroup>
+<col style="width: 15rem;">
+<col style="width: 15rem;">
+<col style="width: 15rem">
+</colgroup>
+<tr>
+<th colspan="3">
+<p style="text-align: left; margin: 0.4rem;">ZAVOD ZA INTELEKTUALNU SVOJINU</p>
+<p style="text-align: right; margin: -1.7rem 0.4rem 0.4rem 0.4rem;">OBRAZAC A-1</p>
+<p style="text-align: left; margin: 0.4rem; font-weight: normal;">Beograd,&nbsp;Kneginje Ljubice&nbsp;5</p>
+<h4 style="font-size: 1.2rem; margin: 1.2rem; margin-bottom: 1.6rem;">ZAHTEV ZA UNOŠENJE U EVIDENCIJU I<br> DEPONOVANJE AUTORSKIH DELA</h4>
+</th>
+</tr>
+<tr>
+<th style="border: 1px solid black" colspan="3">
+<p style="margin: 0.4rem; text-align: left; font-weight: normal">
+<b>1) Podnosilac-</b> ime, prezime, adresa i državljanstvo autora ili drugog nosioca
+                                        autorskog prava ako je podnosilac fizicko lice, odnosno poslovno ime i sedište
+                                        nosioca autorskog prava ako je podnosilac pravno lice*:
+                                    </p>
+</th>
+</tr>
+<tr>
+<th style="border: 1px solid black" colspan="3">
+<p style="min-height: 5rem; margin: 0.4rem; text-align: left; font-weight: normal">
+<span>Pera&nbsp;Peric,&nbsp;Novi Sad&nbsp;Lasla Gala&nbsp;21,&nbsp;21000, &nbsp;Srbija<br>
+</span>
+</p>
+</th>
+</tr>
+<tr>
+<th style="min-width: 15rem; text-align: left; font-weight: normal; border: 1px solid black;" colspan="1">
+<p style="margin: 0.2rem">
+<span style="font-size: 0.8rem;">telefon:&nbsp;213212123</span>
+</p>
+</th><th style="min-width: 15rem; text-align: left; font-weight: normal; border: 1px solid black;" colspan="1">
+<p style="margin: 0.2rem">
+<span style="font-size: 0.8rem;">email:&nbsp;pera@gmail.com</span>
+</p>
+</th><th style="min-width: 15rem; text-align: left; font-weight: normal; border: 1px solid black;" colspan="1">
+<p style="margin: 0.2rem">
+<span style="font-size: 0.8rem;">faks:&nbsp;012345678</span>
+</p>
+</th>
+</tr>
+<tr>
+<th style="border: 1px solid black" colspan="3">
+<p style="margin: 0.4rem; text-align: left; font-weight: normal">
+<b>2)</b> Pseudonim ili znak autora (ako ga ima):
+                                    </p>
+</th>
+</tr>
+<tr>
+<th style="border: 1px solid black" colspan="3">
+<p style="min-height: 5rem; margin: 0.4rem; text-align: left; font-weight: normal">
+<span>1. Leonardo&nbsp;Da Vinci&nbsp;-&nbsp;Leo<br>
+</span><span>2. Autor je anoniman<br>
+</span>
+</p>
+</th>
+</tr>
+<tr>
+<th style="border: 1px solid black" colspan="3">
+<p style="margin: 0.4rem; text-align: left; font-weight: normal">
+<b>3)</b> Ime, prezime i adresa punomocnika, ako se prijava odnosi preko punomocnika:
+                                    </p>
+</th>
+</tr>
+<tr>
+<th style="border: 1px solid black" colspan="3">
+<p style="min-height: 5rem; margin: 0.4rem; text-align: left; font-weight: normal">
+<span>Mile&nbsp;Milic,&nbsp;Beograd&nbsp;Knez Mihailova&nbsp;1,&nbsp;11000, &nbsp;Srbija</span>
+</p>
+</th>
+</tr>
+<tr>
+<th style="border: 1px solid black" colspan="4">
+<p style="margin: 0.4rem; text-align: left; font-weight: normal">
+<b>4)</b> Naslov autorskog dela, odnosno alternativni naslov, ako ga ima,
+                                        po kome autorsko delo može da se identifikuje*:
+                                    </p>
+</th>
+</tr>
+<tr>
+<th style="border: 1px solid black" colspan="3">
+<p style="min-height: 5rem; margin: 0.4rem; text-align: left; font-weight: normal">
+<span>Naslov: Mona liza kopija<br>
+</span><span>Alternativni naslov: Mona liza u Parizu</span>
+</p>
+</th>
+</tr>
+<tr>
+<th style="border: 1px solid black" colspan="3">
+<p style="margin: 0.4rem; text-align: left; font-weight: normal">
+<b>5)</b> Podaci o naslovu autorskog dela na kome se zasniva delo prerade,
+                                        ako je u pitanju autorsko delo prerade, kao i podatak o autoru izvornog dela:
+                                    </p>
+</th>
+</tr>
+<tr>
+<th style="border: 1px solid black" colspan="3">
+<p style="min-height: 5rem; margin: 0.4rem; text-align: left; font-weight: normal">
+<span>Naslov: Mona liza<br>
+</span><span>Autor: </span><span>Leonardo&nbsp;Da Vinci-&nbsp;Leo<br>
+</span>
+</p>
+</th>
+</tr>
+<tr>
+<th style="border: 1px solid black" colspan="3">
+<p style="margin: 0.4rem; text-align: left; font-weight: normal">
+<b>6)</b> Podaci o vrsti dela(književno delo, muzicko delo, likovno delo
+                                        , racunarski program i dr.)*:
+                                    </p>
+</th>
+</tr>
+<tr>
+<th style="border: 1px solid black" colspan="3">
+<p style="min-height: 5rem; margin: 0.4rem; text-align: left; font-weight: normal">
+<span>nesto_custom</span>
+</p>
+</th>
+</tr>
+<tr>
+<th style="border: 1px solid black" colspan="3">
+<p style="margin: 0.4rem; text-align: left; font-weight: normal">
+<b>7)</b> Podaci o formi zapisa autorskog dela(štampani tekst, opticki disk
+                                        i slicno)*:
+                                    </p>
+</th>
+</tr>
+<tr>
+<th style="border: 1px solid black" colspan="3">
+<p style="min-height: 5rem; margin: 0.4rem; text-align: left; font-weight: normal">
+<span>oslikano</span>
+</p>
+</th>
+</tr>
+<tr>
+<th style="border: 1px solid black" colspan="3">
+<p style="margin: 0.4rem; text-align: left; font-weight: normal">
+<b>8)</b> Podaci o autoru ako podnosilac prijave iz tacke 1. ovog zahteva nije autor
+                                        i to: prezime, ime, adresa, državljanstvo autora(grupe autora ili koautora), a ako
+                                        su u pitanju jedan ili više autora koji nisu živi, imena autora i godine smrti autora, a
+                                        ako je u pitanju autorsko delo anonimnog autora navod da je autorsko delo delo anonimnog
+                                        autora:
+                                    </p>
+</th>
+</tr>
+<tr>
+<th style="border: 1px solid black" colspan="3">
+<p style="min-height: 5rem; margin: 0.4rem; text-align: left; font-weight: normal">
+<span>Autori:<br>
+</span><span>1. Leonardo&nbsp;Da Vinci,&nbsp;godina smrti:1356.<br>
+</span><span>2. Anonimni autor<br>
+</span>
+</p>
+</th>
+</tr>
+<tr>
+<th style="border: 1px solid black" colspan="3">
+<p style="margin: 0.4rem; text-align: left; font-weight: normal">
+<b>9)</b> Podatak da li je u pitanju autorsko delo stvoreno u radnom odnosu:
+                                    </p>
+</th>
+</tr>
+<tr>
+<th style="border: 1px solid black" colspan="3">
+<p style="min-height: 5rem; margin: 0.4rem; text-align: left; font-weight: normal">
+<span>Delo nije stvoreno u radnom odnosu</span>
+</p>
+</th>
+</tr>
+<tr>
+<th style="border: 1px solid black" colspan="3">
+<p style="margin: 0.4rem; text-align: left; font-weight: normal">
+<b>10)</b> Nacin korišcenja autorskog dela ili nameravan nacin korišcenja autorskog dela:
+                                    </p>
+</th>
+</tr>
+<tr>
+<th style="border: 1px solid black" colspan="3">
+<p style="min-height: 5rem; margin: 0.4rem; text-align: left; font-weight: normal">
+<span>Nacin korišcenja:Posmatranje</span>
+</p>
+</th>
+</tr>
+</table>
+</div>
+<div style="padding: 1.4rem;" class="center">
+<table style="border: 1px solid black; border-collapse: collapse;">
+<colgroup>
+<col style="width: 22.5rem;">
+<col style="width: 22.5rem;">
+</colgroup>
+<tr>
+<th style="border: 1px solid black" colspan="3">
+<p style="margin: 0.4rem; text-align: left; font-weight: normal">
+<b>12)</b> Prilozi koji se podnose uz zahtev:
+                                    </p>
+</th>
+</tr>
+<tr>
+<th style="border: 1px solid black" colspan="3">
+<p style="min-height: 5rem; margin: 0.4rem; text-align: left; font-weight: normal">
+<span>Opis:&nbsp;Neki opis<br>
+</span><span>Putanja:&nbsp;slika1.png<br>
+<br>
+</span><span>Opis:&nbsp;Slika slikana bojama.<br>
+</span><span>Putanja:&nbsp;video-slika.mps<br>
+<br>
+</span><span></span>
+</p>
+</th>
+</tr>
+<tr>
+<th style="border: 1px solid black" colspan="3">
+<p style="margin: 0.4rem; text-align: center; font-weight: bold">
+<h3>POPUNJAVA ZAVOD:</h3>
+</p>
+<p style="margin: 1rem 0 0.4rem 1rem; text-align: left;">
+<b>Prilozi uz prijavu:</b>
+</p>
+<p style="text-align: left; margin: 1rem 0 0.4rem 1rem; font-weight: normal">
+<input type="checkbox" style="display: inline-block; vertical-align: middle;" id="check1"><label style="display: inline-block; vertical-align: middle;" for="check1">opis autorskog dela (ako je delo podneto na optickom disku)</label>
+</p>
+<p style="text-align: left; margin: 1rem 0 0.4rem 1rem; font-weight: normal">
+<input type="checkbox" style="display: inline-block; vertical-align: middle;" id="check0"><label style="display: inline-block; vertical-align: middle;" for="check0">primer autorskog dela (slika, video zapis, audio zapis)</label>
+</p>
+</th>
+</tr>
+</table>
+</div>
+</div>
+</body>
+</html>

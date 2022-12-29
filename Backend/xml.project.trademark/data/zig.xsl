@@ -61,7 +61,7 @@
                             <tr>
                                 <th colspan="6" style="min-width: 48rem; text-align: left; font-weight: normal; border: 1px solid black;">
                                     <p style="padding: 0.3rem 0 0.3rem 0.3rem;">
-                                        <span style="min-height: 0.9rem; font-size: 0.8rem;"><b>1. Podnosilac prijave:</b> ime
+                                        <span style="min-height: 0.9rem; font-size: 1rem;"><b>1. Podnosilac prijave:</b> ime
                                             i prezime/poslovno ime, ulica i broj, poštanski broj, mesto<br/> i država prebivališta/sedišta:</span>
                                     </p>
                                 </th>
@@ -105,7 +105,7 @@
                             <tr>
                                 <th colspan="6" style="min-width: 48rem; text-align: left; font-weight: normal; border: 1px solid black;">
                                     <p style="padding: 0.3rem 0 0.3rem 0.3rem;">
-                                        <span style="min-height: 0.8rem; font-size: 0.8rem;"><b>2. Punomocnik:</b> ime
+                                        <span style="min-height: 0.8rem; font-size: 1rem;"><b>2. Punomocnik:</b> ime
                                             i prezime/poslovno ime, ulica i broj, postanski broj, mesto<br/> i drzava prebivališta/sedista:</span>
                                     </p>
                                 </th>
@@ -149,7 +149,7 @@
                             <tr>
                                 <th colspan="6" style="min-width: 48rem; text-align: left; font-weight: normal; border: 1px solid black;">
                                     <p style="padding: 0.3rem 0 0.3rem 0.3rem;">
-                                        <span style="min-height: 0.8rem; font-size: 0.8rem;"><b>3. Podaci o zajednickom predstavniku ako postoji više podnosilaca prijave:</b></span>
+                                        <span style="min-height: 0.8rem; font-size: 1rem;"><b>3. Podaci o zajednickom predstavniku ako postoji više podnosilaca prijave:</b></span>
                                     </p>
                                 </th>
                             </tr>
@@ -190,7 +190,7 @@
                             </tr>
 
                             <tr>
-                                <th colspan="3" style=" text-align: left; font-weight: normal; font-size: 0.8rem; border: 1px solid black; min-height: 0.8rem;">
+                                <th colspan="3" style=" text-align: left; font-weight: normal; font-size: 1rem; border: 1px solid black; min-height: 0.8rem;">
                                     <b><span style="padding: 0.3rem 0 0.3rem 0.3rem;">4. Prijava se odnosi za (upisati X):</span></b>
                                 </th>
 
@@ -305,14 +305,14 @@
                             <tr>
                                 <th colspan="3" style="text-align: left; font-weight: normal; border: 1px solid black;">
                                     <p style="min-height: 4rem">
-                                        <span style="font-weight: bold; font-size: 0.8rem; padding: 0.3rem 0.3rem 0rem">5. Naznacenje boje, odnosno boja<br/>  iz kojih se znak sastoji:</span>
+                                        <span style="font-weight: bold; font-size: 1rem; padding: 0.3rem 0.3rem 0rem">5. Naznacenje boje, odnosno boja<br/> <span style="font-weight: bold; font-size: 1rem; padding: 0.3rem 0 0rem 0.3rem">iz kojih se znak sastoji:</span></span>
                                         <span style="font-weight: bold; font-size: 0.8rem; padding-left: 0.3rem">
                                             <xsl:for-each select="//z:boje//z:boja">
                                                 <xsl:if test="position() = last()">
-                                                    <span style="font-weight: normal; padding: 0; margin: 0;"><xsl:value-of select="z:naziv"/></span>
+                                                    <span style="font-weight: normal; font-size: 0.9rem; padding: 0; margin: 0;"><xsl:value-of select="z:naziv"/></span>
                                                 </xsl:if>
                                                 <xsl:if test="not(position() = last())">
-                                                    <span style="font-weight: normal; padding: 0; margin: 0;"><xsl:value-of select="z:naziv"/>,&#160;</span>
+                                                    <span style="font-weight: normal; font-size: 0.9rem; padding: 0; margin: 0;"><xsl:value-of select="z:naziv"/>,&#160;</span>
                                                 </xsl:if>
                                             </xsl:for-each>
                                         </span>
@@ -323,7 +323,7 @@
                             <tr>
                                 <th colspan="3" style="text-align: left; font-weight: normal; border: 1px solid black;">
                                     <p style="min-height: 4rem">
-                                        <span style="font-weight: bold; font-size: 0.8rem; padding-left: 0.3rem">6. Transliteracija znaka*:</span>
+                                        <span style="font-weight: bold; font-size: 1rem; padding-left: 0.3rem">6. Transliteracija znaka*:</span>
                                         <br></br>
                                         <xsl:if test="not(//@pismo = 'Cirilica' or //@pismo = 'Latinica')">
                                             <span style="font-weight: normal; padding: 0; margin: 0;">&#160;<xsl:value-of select="//z:transliteracija_znaka"/></span>
@@ -335,7 +335,7 @@
                             <tr>
                                 <th colspan="3" style="text-align: left; font-weight: normal; border: 1px solid black;">
                                     <p style="min-height: 4rem">
-                                        <span style="font-weight: bold; font-size: 0.8rem; padding-left: 0.3rem">7. Prevod znaka*:</span>
+                                        <span style="font-weight: bold; font-size: 1rem; padding-left: 0.3rem">7. Prevod znaka*:</span>
                                         <br></br>
                                         <xsl:if test="not(//z:znak/@pismo = 'Cirilica' or //z:znak/@pismo = 'Latinica')">
                                             <span style="font-weight: normal; padding: 0; margin: 0;">&#160;<xsl:value-of select="//z:prevod"/></span>
@@ -347,7 +347,7 @@
                             <tr>
                                 <th colspan="3" style="text-align: left; font-weight: normal; border: 1px solid black;">
                                     <p style="min-height: 4rem">
-                                        <span style="font-weight: bold; font-size: 0.8rem; padding-left: 0.3rem">8. Opis znaka:</span>
+                                        <span style="font-weight: bold; font-size: 1rem; padding-left: 0.3rem">8. Opis znaka:</span>
                                         <span style="margin-left: 0.3rem"><br />&#160;<xsl:value-of select="//z:opis" /></span>
                                     </p>
                                 </th>
@@ -356,7 +356,7 @@
                             <tr>
                                 <th colspan="6" style="min-width: 48rem; text-align: left; font-weight: normal; border: 1px solid black;">
                                     <p style="padding: 0.3rem 0 0.3rem 0.3rem;">
-                                        <span style="min-height: 0.8rem; font-size: 0.8rem;"><b>9. Zaokružiti broj klase robe i usluga prema Nicanskoj klasifikaciji:</b></span>
+                                        <span style="min-height: 0.8rem; font-size: 1rem;"><b>9. Zaokružiti broj klase robe i usluga prema Nicanskoj klasifikaciji:</b></span>
                                     </p>
                                 </th>
                             </tr>
@@ -383,7 +383,7 @@
                             <tr>
                                 <th colspan="6" style="min-width: 48rem; text-align: left; font-weight: normal; border: 1px solid black;">
                                     <p style="padding: 0.3rem 0 0.3rem 0.3rem;">
-                                        <span style="min-height: 0.8rem; font-size: 0.8rem;"><b>10. Zatrazeno pravo prvenstva i osnov:</b></span>
+                                        <span style="min-height: 0.8rem; font-size: 1rem;"><b>10. Zatrazeno pravo prvenstva i osnov:</b></span>
                                     </p>
                                 </th>
                             </tr>
@@ -414,19 +414,19 @@
                             </tr>
                             <tr style="min-height: 3rem">
                                 <th style="text-align: left; border: 1px solid black; padding: 0.3rem;  font-size: 0.8rem;"><span><b>a) osnovna taksa</b></span></th>
-                                <th style="text-align: left; border: 1px solid black; padding: 0.3rem;  font-size: 0.8rem;"><span><xsl:value-of select="//z:osnovna_taksa"/></span></th>
+                                <th style="text-align: left; font-weight:normal; border: 1px solid black; padding: 0.3rem;  font-size: 0.8rem;"><span><xsl:value-of select="//z:osnovna_taksa"/></span></th>
                             </tr>
                             <tr style="min-height: 3rem">
                                 <th style="text-align: left; border: 1px solid black; padding: 0.3rem;  font-size: 0.8rem;"><span><b>b) za klasu</b></span></th>
-                                <th style="text-align: left; border: 1px solid black; padding: 0.3rem;  font-size: 0.8rem;"><span><xsl:value-of select="//z:taksa_za_klasu"/></span></th>
+                                <th style="text-align: left; font-weight:normal; border: 1px solid black; padding: 0.3rem;  font-size: 0.8rem;"><span><xsl:value-of select="//z:taksa_za_klasu"/></span></th>
                             </tr>
                             <tr style="min-height: 3rem">
                                 <th style="text-align: left; border: 1px solid black; padding: 0.3rem;  font-size: 0.8rem;"><span><b>v) za graficko resenje</b></span></th>
-                                <th style="text-align: left; border: 1px solid black; padding: 0.3rem;  font-size: 0.8rem;"><span><xsl:value-of select="//z:taksa_za_graficko_resenje"/></span></th>
+                                <th style="text-align: left; font-weight:normal; border: 1px solid black; padding: 0.3rem;  font-size: 0.8rem;"><span><xsl:value-of select="//z:taksa_za_graficko_resenje"/></span></th>
                             </tr>
                             <tr style="min-height: 3rem">
                                 <th style="text-align: left; border: 1px solid black; padding: 0.3rem;"><span><b>UKUPNO</b></span></th>
-                                <th style="text-align: left; border: 1px solid black; padding: 0.3rem;  font-size: 0.8rem;"><span><xsl:value-of select="//z:ukupno"/></span></th>
+                                <th style="text-align: left; font-weight:normal; border: 1px solid black; padding: 0.3rem;  font-size: 0.8rem;"><span><xsl:value-of select="//z:ukupno"/></span></th>
                             </tr>
                         </table>
                     </div>
@@ -440,10 +440,10 @@
                             <tr>
                                 <th colspan="2" style="border: 1px solid black; width: 30rem; font-size: 0.8rem; height: 2rem;"><b>Prilozi uz zahtev:</b></th>
                                 <th  rowspan="9" style="border: 1px solid black; width: 16rem; font-size: 0.8rem; text-align: center">
-                                    <span style="display: block">Broj prijave ziga</span>
-                                    <span style="display: block; margin-top: 1rem;">Ž-</span>
+                                    <span style="display: block">Broj prijave ziga:</span>
+                                    <span style="display: block; margin-top: 1rem; font-size: 1.3rem;"><xsl:value-of select="//@broj_prijave" /></span>
                                     <span style="display: block; margin-top: 1rem;"><b>Datum podnosenja:</b></span>
-                                    <span style="display: block; margin-top: 1rem;"><b></b></span>
+                                    <span style="display: block; margin-top: 1rem;"><b><xsl:value-of select="//@datum_podnosenja" /></b></span>
                                 </th>
                             </tr>
 

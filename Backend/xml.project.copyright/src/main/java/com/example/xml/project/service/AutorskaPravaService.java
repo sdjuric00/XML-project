@@ -3,21 +3,15 @@ package com.example.xml.project.service;
 import com.example.xml.project.exception.CannotUnmarshalException;
 import com.example.xml.project.exception.EntityNotFoundException;
 import com.example.xml.project.exception.InvalidDocumentException;
+import com.example.xml.project.exception.TransformationFailedException;
 import com.example.xml.project.model.A1.ZahtevAutorskaDela;
 import com.example.xml.project.repository.AutorskaPravaRepository;
 import com.example.xml.project.repository.GenericRepository;
-import com.example.xml.project.util.AuthenticationUtilities;
-import com.example.xml.project.util.GeneratorId;
-import org.exist.xmldb.EXistResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
-import org.xmldb.api.DatabaseManager;
-import org.xmldb.api.base.Collection;
-import org.xmldb.api.base.Database;
-import org.xmldb.api.base.XMLDBException;
-import org.xmldb.api.modules.CollectionManagementService;
-import org.xmldb.api.modules.XMLResource;
+import com.example.xml.project.response.UspesanOdgovor;
+import com.example.xml.project.transformator.Transformator;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
@@ -38,12 +32,15 @@ public class AutorskaPravaService {
     private final AutorskaPravaRepository autorskaPravaRepository;
     private final JAXBContext jaxbContext;
     private final Marshaller marshaller;
+    private final Transformator transformator;
 
     public AutorskaPravaService(
         @Autowired final GenericRepository<ZahtevAutorskaDela> repository,
-        @Autowired final AutorskaPravaRepository autorskaPravaRepository
+        @Autowired final AutorskaPravaRepository autorskaPravaRepository,
+        @Autowired final Transformator transformator
     ) throws JAXBException
     {
+        this.transformator = transformator;
         this.jaxbContext = JAXBContext.newInstance(ZahtevAutorskaDela.class);
         this.repository = repository;
         this.repository.setGenericRepositoryProperties(
@@ -56,6 +53,22 @@ public class AutorskaPravaService {
         this.marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
     }
 
+    public UspesanOdgovor dodajHtml(String id)
+            throws JAXBException, EntityNotFoundException, CannotUnmarshalException, TransformationFailedException {
+        String htmlPutanja = HTML_PUTANJA + id + ".html";
+
+        return new UspesanOdgovor(this.transformator.generateHTML(htmlPutanja, get(id)));
+    }
+
+    public UspesanOdgovor dodajPdf(String id) throws JAXBException, EntityNotFoundException,
+            IOException, CannotUnmarshalException, TransformationFailedException
+    {
+        String pdfPutanja = PDF_PUTANJA + id + ".pdf";
+        String htmlPutanja = HTML_PUTANJA + id + ".html";
+        this.dodajHtml(id);  //prvo se pravi html za slucaj da ne postoji
+
+        return new UspesanOdgovor(this.transformator.generatePdf(htmlPutanja, pdfPutanja));
+    }
 
     public void saveToXmlFile(final String zahtev) throws JAXBException, FileNotFoundException, InvalidDocumentException {
         ZahtevAutorskaDela zahtevAutorskaDela = checkSchema(zahtev);
