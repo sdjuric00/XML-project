@@ -6,12 +6,13 @@ import com.example.xml.project.exception.CannotUnmarshalException;
 import com.example.xml.project.exception.EntityNotFoundException;
 import com.example.xml.project.exception.InvalidDocumentException;
 import com.example.xml.project.exception.XPathException;
+import com.example.xml.project.exception.TransformationFailedException;
 import com.example.xml.project.model.Z1.ZahtevZig;
 import com.example.xml.project.service.ZigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import response.UspesanOdgovor;
+import com.example.xml.project.response.UspesanOdgovor;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -19,6 +20,8 @@ import javax.validation.constraints.NotNull;
 import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
 import java.util.List;
+import java.io.IOException;
+
 
 @RestController
 @RequestMapping("/zig")
@@ -55,15 +58,20 @@ public class ZigController {
 
     @GetMapping(path = "/create-trademark-html/{id}", produces = "application/xml", consumes = "application/xml")
     @ResponseStatus(HttpStatus.CREATED)
-    public UspesanOdgovor createHTML(@PathVariable @Valid @NotNull(message = "Poruka ne sme biti prazna.") final String id) throws InvalidDocumentException, JAXBException, EntityNotFoundException {
+    public UspesanOdgovor createHTML(@PathVariable @Valid @NotNull(message = "Poruka ne sme biti prazna.") final String id)
+            throws JAXBException, EntityNotFoundException, TransformationFailedException
+    {
 
         return zigService.dodajZigHtml(id);
     }
 
-    @PostMapping(path = "/create-trademark-pdf")
+    @GetMapping(path = "/create-trademark-pdf/{id}", produces = "application/xml", consumes = "application/xml")
     @ResponseStatus(HttpStatus.CREATED)
-    public boolean createPDF(@RequestBody final String zahtev) throws InvalidDocumentException {
-        return false;
+    public UspesanOdgovor createPDF(@PathVariable @Valid @NotNull(message = "Poruka ne sme biti prazna.") final String id)
+            throws JAXBException, EntityNotFoundException, IOException, TransformationFailedException
+    {
+
+        return zigService.dodajPdf(id);
     }
 
     @GetMapping(path="/neobradjeni-zahtevi", produces = "application/xml")

@@ -1,24 +1,24 @@
 package com.example.xml.project.transformator;
 
 import com.example.xml.project.exception.TransformationFailedException;
-import com.example.xml.project.model.Z1.ZahtevZig;
+import com.example.xml.project.model.A1.ZahtevAutorskaDela;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfWriter;import javax.xml.bind.util.JAXBSource;
+import com.itextpdf.kernel.pdf.PdfWriter;
 import org.springframework.stereotype.Component;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
+import javax.xml.bind.util.JAXBSource;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.*;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.StringReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -31,14 +31,14 @@ public class Transformator {
 
     private static TransformerFactory transformerFactory;
 
-    private final javax.xml.bind.JAXBContext jaxbContext;
+    private final JAXBContext jaxbContext;
 
     public Transformator() throws JAXBException {
         documentFactory = DocumentBuilderFactory.newInstance();
         documentFactory.setNamespaceAware(true);
         documentFactory.setIgnoringComments(true);
         documentFactory.setIgnoringElementContentWhitespace(true);
-        this.jaxbContext = javax.xml.bind.JAXBContext.newInstance(ZahtevZig.class);
+        this.jaxbContext = JAXBContext.newInstance(ZahtevAutorskaDela.class);
         transformerFactory = TransformerFactory.newInstance();
     }
 
@@ -50,13 +50,15 @@ public class Transformator {
         return true;
     }
 
-    public boolean generateHTML(final String htmlPutanja, final ZahtevZig zahtev) throws TransformationFailedException {
+    public boolean generateHTML(final String htmlPutanja, final ZahtevAutorskaDela zahtev)
+            throws TransformationFailedException
+    {
         try {
             StreamSource transformSource = new StreamSource(new File(XSL_PUTANJA));
             Transformer transformer = transformerFactory.newTransformer(transformSource);
 
             //JAXBContext context = JAXBContext.newInstance(ZahtevZig.class);
-            JAXBContext jc = JAXBContext.newInstance(ZahtevZig.class);
+            JAXBContext jc = JAXBContext.newInstance(ZahtevAutorskaDela.class);
             JAXBSource source = new JAXBSource(jc, zahtev);
             System.out.println("Source" + source);
             StreamResult result = new StreamResult(new FileOutputStream(htmlPutanja));

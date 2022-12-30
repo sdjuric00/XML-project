@@ -5,18 +5,24 @@ import com.example.xml.project.dto.ZahteviAutorskaDelaDTO;
 import com.example.xml.project.exception.CannotUnmarshalException;
 import com.example.xml.project.exception.EntityNotFoundException;
 import com.example.xml.project.exception.InvalidDocumentException;
+
 import com.example.xml.project.exception.XPathException;
+import com.example.xml.project.exception.TransformationFailedException;
+
 import com.example.xml.project.model.A1.ZahtevAutorskaDela;
 import com.example.xml.project.service.AutorskaPravaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import com.example.xml.project.response.UspesanOdgovor;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
 import java.util.List;
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/autorska-prava")
@@ -78,5 +84,22 @@ public class AutorskaPravaController {
     public List<ZahtevAutorskaDela> osnovnaPretraga(@RequestBody List<String> parametriPretrage) throws Exception {
         System.out.println("fasjfajf");
         return autorskaPravaService.pronadjiRezultateOsnovnePretrage(parametriPretrage);
+
+    @GetMapping(path = "/kreiraj-html/{id}", produces = "application/xml", consumes = "application/xml")
+    @ResponseStatus(HttpStatus.CREATED)
+    public UspesanOdgovor createHTML(@PathVariable @Valid @NotNull(message = "Poruka ne sme biti prazna.") final String id)
+            throws JAXBException, EntityNotFoundException, CannotUnmarshalException, TransformationFailedException
+    {
+
+        return autorskaPravaService.dodajHtml(id);
+    }
+
+    @GetMapping(path = "/kreiraj-pdf/{id}", produces = "application/xml", consumes = "application/xml")
+    @ResponseStatus(HttpStatus.CREATED)
+    public UspesanOdgovor createPDF(@PathVariable @Valid @NotNull(message = "Poruka ne sme biti prazna.") final String id)
+            throws JAXBException, EntityNotFoundException, IOException, CannotUnmarshalException, TransformationFailedException
+    {
+
+        return autorskaPravaService.dodajPdf(id);
     }
 }

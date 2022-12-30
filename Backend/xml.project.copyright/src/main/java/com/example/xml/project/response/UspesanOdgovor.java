@@ -1,4 +1,4 @@
-package response;
+package com.example.xml.project.response;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;

@@ -9,4 +9,8 @@ public class Constants {
 
 
     public static final String COLLECTION_ID_AUTORSKA_PRAVA_ZAHTEV_DB = "db/xml/zahtevi-autorska-prava";
+
+    public static final String HTML_PUTANJA = "src/main/resources/static/html/";
+    public static final String PDF_PUTANJA = "src/main/resources/static/pdf/";
+    public static final String XSL_PUTANJA = "./data/a1.xsl";
 }
