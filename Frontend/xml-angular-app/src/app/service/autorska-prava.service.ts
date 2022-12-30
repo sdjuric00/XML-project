@@ -88,7 +88,7 @@ export class AutorskaPravaService {
   }
 
   uzmiZahtevPoId(zahtevId: string): Observable<ZahtevAutorskoPravoDetaljneInformacije> {
-    return this._http.get(`${this._api_url}/autorska-prava/neobradjeni-zahtevi/${zahtevId}`, {
+    return this._http.get(`${this._api_url}/autorska-prava/zahtev/${zahtevId}`, {
         headers: new HttpHeaders().set('Accept' , 'application/xml'),
         responseType:"text"
       }

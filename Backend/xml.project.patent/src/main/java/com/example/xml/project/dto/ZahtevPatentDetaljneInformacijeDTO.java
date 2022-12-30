@@ -145,8 +145,6 @@ public class ZahtevPatentDetaljneInformacijeDTO {
         this.dostavljanje = dostavljanje;
     }
 
-    @XmlElementWrapper(name="zahtev_za_priznanje_prava_iz_ranijih_prijava", namespace = "http://www.patent/patent")
-    @XmlElement(name="prijava", required = true, namespace = "http://www.patent/patent")
     public List<Prijava> getZahtev_za_priznanje_prava_iz_ranijih_prijava() {
         return zahtev_za_priznanje_prava_iz_ranijih_prijava;
     }

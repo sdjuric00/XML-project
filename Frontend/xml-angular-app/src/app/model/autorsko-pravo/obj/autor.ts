@@ -15,7 +15,7 @@ export interface AutorObj {
 export function napraviAutora(autor): AutorObj {
   if (autor.imenovani_autor === null || autor.imenovani_autor === undefined){
     return {
-      anonimni_autor: ''
+      anonimni_autor: 'anonimni_autor'
     }
   } else {
     return napraviImenovanogAutora(autor.imenovani_autor[0]);

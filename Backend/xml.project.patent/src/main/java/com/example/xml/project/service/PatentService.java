@@ -78,7 +78,7 @@ public class PatentService {
 
 
     public ZahtevPatentDetaljneInformacijeDTO uzmiZahtev(final String id) throws CannotUnmarshalException, XPathException {
-
+        ZahtevPatentDetaljneInformacijeDTO z = new ZahtevPatentDetaljneInformacijeDTO(patentRepository.uzmiZahtev(id));
         return new ZahtevPatentDetaljneInformacijeDTO(patentRepository.uzmiZahtev(id));
     }
 

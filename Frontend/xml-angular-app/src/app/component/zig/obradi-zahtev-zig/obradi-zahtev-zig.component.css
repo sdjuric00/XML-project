@@ -1,0 +1,15 @@
+.levo {
+  width: 66%;
+  position: absolute;
+  left: 0px;
+  height: 90%;
+  margin-left: 1rem;
+}
+
+.desno {
+  width: 34%;
+  position: absolute;
+  right: 0px;
+  height: 90%;
+  /*margin-left: 1rem;*/
+}

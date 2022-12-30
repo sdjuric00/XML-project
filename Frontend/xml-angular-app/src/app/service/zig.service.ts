@@ -17,6 +17,10 @@ import {
   napraviZahtevZigOsnovneInformacije,
   ZahtevZigOsnovneInformacije
 } from "../model/zig/obj/zahtev-zig-osnovne-informacije";
+import {
+  napraviZahtevZigDetaljneInformacije,
+  ZahtevZigDetaljneInformacije
+} from "../model/zig/obj/zahtev-zig-detaljne-informacije";
 
 @Injectable({
   providedIn: 'root'
@@ -92,8 +96,8 @@ export class ZigService {
     }));
   }
 
-  uzmiZahtevPoId(zahtevId: string): Observable<ZahtevAutorskoPravoDetaljneInformacije> {
-    return this._http.get(`${this._api_url}/zig/neobradjeni-zahtevi/${zahtevId}`, {
+  uzmiZahtevPoId(zahtevId: string): Observable<ZahtevZigDetaljneInformacije> {
+    return this._http.get(`${this._api_url}/zig/zahtev/${zahtevId}`, {
         headers: new HttpHeaders().set('Accept' , 'application/xml'),
         responseType:"text"
       }
@@ -103,9 +107,9 @@ export class ZigService {
       result = result.replaceAll('ns4:', '');
       result = result.replaceAll('opste:', '');
       const parser = new xml2js.Parser({ strict: true, trim: true });
-      let zahtev: ZahtevAutorskoPravoDetaljneInformacije;
+      let zahtev: ZahtevZigDetaljneInformacije;
       parser.parseString(result.toString(),(err, result) => {
-        zahtev = napraviZahtevAutorskoPravoDetaljneInformacije(result.zahtev_za_priznanje_ziga);
+        zahtev = napraviZahtevZigDetaljneInformacije(result.zahtev_za_priznanje_ziga);
       });
       return zahtev;
     }));
