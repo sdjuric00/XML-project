@@ -3,9 +3,12 @@ package com.example.xml.project.service;
 import com.example.xml.project.exception.CannotUnmarshalException;
 import com.example.xml.project.exception.EntityNotFoundException;
 import com.example.xml.project.exception.InvalidDocumentException;
+import com.example.xml.project.exception.TransformationFailedException;
 import com.example.xml.project.model.P1.ZahtevPatent;
 import com.example.xml.project.repository.GenericRepository;
 import com.example.xml.project.repository.PatentRepository;
+import com.example.xml.project.response.UspesanOdgovor;
+import com.example.xml.project.transformator.Transformator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
@@ -29,12 +32,15 @@ public class PatentService {
     private final PatentRepository patentRepository;
     private final JAXBContext jaxbContext;
     private final Marshaller marshaller;
+    private final Transformator transformator;
 
     public PatentService(
         @Autowired final GenericRepository<ZahtevPatent> repository,
-        @Autowired final PatentRepository patentRepository
+        @Autowired final PatentRepository patentRepository,
+        @Autowired final Transformator transformator
     ) throws JAXBException
     {
+        this.transformator = transformator;
         this.jaxbContext = JAXBContext.newInstance(ZahtevPatent.class);
         this.repository = repository;
         this.repository.setGenericRepositoryProperties(
@@ -63,6 +69,23 @@ public class PatentService {
     public ZahtevPatent get(String documentId) throws EntityNotFoundException, CannotUnmarshalException, JAXBException {
 
         return repository.get(documentId);
+    }
+
+    public UspesanOdgovor dodajHtml(String id)
+            throws JAXBException, EntityNotFoundException, CannotUnmarshalException, TransformationFailedException {
+        String htmlPutanja = HTML_PUTANJA + id + ".html";
+
+        return new UspesanOdgovor(this.transformator.generateHTML(htmlPutanja, get(id)));
+    }
+
+    public UspesanOdgovor dodajPdf(String id) throws JAXBException, EntityNotFoundException,
+            IOException, CannotUnmarshalException, TransformationFailedException
+    {
+        String pdfPutanja = PDF_PUTANJA + id + ".pdf";
+        String htmlPutanja = HTML_PUTANJA + id + ".html";
+        this.dodajHtml(id);  //prvo se pravi html za slucaj da ne postoji
+
+        return new UspesanOdgovor(this.transformator.generatePdf(htmlPutanja, pdfPutanja));
     }
 
     private ZahtevPatent checkSchema(String document) throws InvalidDocumentException {

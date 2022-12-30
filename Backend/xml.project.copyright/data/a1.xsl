@@ -40,7 +40,7 @@
                         vertical-align:middle;
                     }
                 </style>
-                <title>Zig (XSLT)</title>
+                <title>Autorsko pravo (XSLT)</title>
             </head>
             <body class="background-body">
                 <div class="content">
