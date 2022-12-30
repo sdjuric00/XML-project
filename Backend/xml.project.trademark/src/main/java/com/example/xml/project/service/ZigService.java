@@ -87,9 +87,6 @@ public class ZigService {
         return new ZahtevZigDetaljneInformacijeDTO(zigRepository.uzmiZahtev(id));
     }
 
-    public UspesanOdgovor dodajZigHtml(String id) throws JAXBException, EntityNotFoundException {
-        String htmlPutanja = HTML_PUTANJA + "1.html";
-
     public UspesanOdgovor dodajZigHtml(String id)
             throws JAXBException, EntityNotFoundException, TransformationFailedException
     {
@@ -100,6 +97,7 @@ public class ZigService {
 
     public List<ZahtevZig> pronadjiRezultateOsnovnePretrage(List<String> parametriPretrage) throws Exception {
         return zigRepository.pronadjiRezultateOsnovnePretrage(parametriPretrage);
+    }
 
     public UspesanOdgovor dodajPdf(String id) throws JAXBException, EntityNotFoundException,
             IOException, TransformationFailedException {

@@ -91,6 +91,7 @@ public class PatentService {
     public List<ZahtevPatent> pronadjiRezultateOsnovnePretrage(final List<String> parametriPretrage) throws Exception {
 
         return patentRepository.pronadjiRezultateOsnovnePretrage(parametriPretrage);
+    }
 
     public UspesanOdgovor dodajHtml(String id)
             throws JAXBException, EntityNotFoundException, CannotUnmarshalException, TransformationFailedException {

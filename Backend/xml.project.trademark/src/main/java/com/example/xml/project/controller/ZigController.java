@@ -56,7 +56,7 @@ public class ZigController {
         return zigService.get(documentId);
     }
 
-    @GetMapping(path = "/create-trademark-html/{id}", produces = "application/xml", consumes = "application/xml")
+    @GetMapping(path = "/kreiraj-html/{id}", produces = "application/xml", consumes = "application/xml")
     @ResponseStatus(HttpStatus.CREATED)
     public UspesanOdgovor createHTML(@PathVariable @Valid @NotNull(message = "Poruka ne sme biti prazna.") final String id)
             throws JAXBException, EntityNotFoundException, TransformationFailedException
@@ -65,7 +65,7 @@ public class ZigController {
         return zigService.dodajZigHtml(id);
     }
 
-    @GetMapping(path = "/create-trademark-pdf/{id}", produces = "application/xml", consumes = "application/xml")
+    @GetMapping(path = "/kreiraj-pdf/{id}", produces = "application/xml", consumes = "application/xml")
     @ResponseStatus(HttpStatus.CREATED)
     public UspesanOdgovor createPDF(@PathVariable @Valid @NotNull(message = "Poruka ne sme biti prazna.") final String id)
             throws JAXBException, EntityNotFoundException, IOException, TransformationFailedException

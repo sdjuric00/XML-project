@@ -84,6 +84,7 @@ public class AutorskaPravaController {
     public List<ZahtevAutorskaDela> osnovnaPretraga(@RequestBody List<String> parametriPretrage) throws Exception {
         System.out.println("fasjfajf");
         return autorskaPravaService.pronadjiRezultateOsnovnePretrage(parametriPretrage);
+    }
 
     @GetMapping(path = "/kreiraj-html/{id}", produces = "application/xml", consumes = "application/xml")
     @ResponseStatus(HttpStatus.CREATED)
