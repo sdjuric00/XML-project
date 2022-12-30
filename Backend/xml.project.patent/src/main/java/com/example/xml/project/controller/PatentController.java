@@ -65,9 +65,9 @@ public class PatentController {
         return patentService.uzmiZahteve(true);
     }
 
-    @GetMapping(path="/neobradjeni-zahtevi/{id}", produces = "application/xml")
+    @GetMapping(path="/zahtev/{id}", produces = "application/xml")
     @ResponseStatus(HttpStatus.OK)
-    public ZahtevPatentDetaljneInformacijeDTO uzmiNeobradjeneZahteve(
+    public ZahtevPatentDetaljneInformacijeDTO uzmiZahtevPoId(
         @PathVariable @Valid  @NotBlank(message = "Id zahteva je neophodan.") final String id
     ) throws CannotUnmarshalException, XPathException {
 
@@ -76,7 +76,7 @@ public class PatentController {
 
     @PostMapping(path="/osnovna-pretraga")
     public List<ZahtevPatent> osnovnaPretraga(@RequestBody List<String> parametriPretrage) throws Exception {
+
         return patentService.pronadjiRezultateOsnovnePretrage(parametriPretrage);
     }
-
 }

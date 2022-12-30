@@ -55,6 +55,12 @@ import { RedPatentComponent } from './component/patent/red-patent/red-patent.com
 import { PregledZahtevaZigovaComponent } from './component/zig/pregled-zahteva-zigova/pregled-zahteva-zigova.component';
 import { TabelaZahtevaZigoviComponent } from './component/zig/tabela-zahteva-zigovi/tabela-zahteva-zigovi.component';
 import { RedZigComponent } from './component/zig/red-zig/red-zig.component';
+import { ObradiZahtevPatentComponent } from './component/patent/obradi-zahtev-patent/obradi-zahtev-patent.component';
+import { PopunjavaPrilogeZahtevPatentComponent } from './component/patent/popunjava-priloge-zahtev-patent/popunjava-priloge-zahtev-patent.component';
+import { ZahtevPatentDetaljiComponent } from './component/patent/zahtev-patent-detalji/zahtev-patent-detalji.component';
+import { ObradiZahtevZigComponent } from './component/zig/obradi-zahtev-zig/obradi-zahtev-zig.component';
+import { PopunjavaPrilogeZahtevZigComponent } from './component/zig/popunjava-priloge-zahtev-zig/popunjava-priloge-zahtev-zig.component';
+import { ZahtevZigDetaljiComponent } from './component/zig/zahtev-zig-detalji/zahtev-zig-detalji.component';
 
 @NgModule({
   declarations: [
@@ -100,7 +106,13 @@ import { RedZigComponent } from './component/zig/red-zig/red-zig.component';
     RedPatentComponent,
     PregledZahtevaZigovaComponent,
     TabelaZahtevaZigoviComponent,
-    RedZigComponent
+    RedZigComponent,
+    ObradiZahtevPatentComponent,
+    PopunjavaPrilogeZahtevPatentComponent,
+    ZahtevPatentDetaljiComponent,
+    ObradiZahtevZigComponent,
+    PopunjavaPrilogeZahtevZigComponent,
+    ZahtevZigDetaljiComponent
   ],
   imports: [
     BrowserModule,

@@ -9,7 +9,7 @@
             <xs:element name="institucija" type="xs-opste:institucija"/>
             <xs:element name="podaci_o_pronalasku" type="xs-p:podaci_o_pronalasku"/>
             <xs:element name="podnosilac" type="xs-opste:podnosilac"/>
-            <xs:element name="pronalazac" type="xs-p:pronalazac"/>
+            <xs:element name="pronalazac" type="xs-p:pronalazac" minOccurs="0"/>
             <xs:element name="punomocnik" type="xs-p:punomocnik"/>
             <xs:element name="dostavljanje" type="xs-p:dostavljanje"/>
             <xs:element name="zahtev_za_priznanje_prava_iz_ranijih_prijava" type="xs-p:zahtev_za_priznanje_prava_iz_ranijih_prijava"/>

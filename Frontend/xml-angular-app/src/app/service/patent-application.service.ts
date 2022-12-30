@@ -4,18 +4,17 @@ import {environment} from "../../environments/environment";
 import { Patent } from '../model/patent/xml/patent';
 import {map, Observable} from "rxjs";
 import {
-  napraviZahtevAutorskoPravoOsnovneInformacije,
-  ZahtevAutorskoPravoOsnovneInformacije
-} from "../model/autorsko-pravo/obj/zahtev-autorsko-pravo-osnovne-informacije";
-import {
-  napraviZahtevAutorskoPravoDetaljneInformacije,
-  ZahtevAutorskoPravoDetaljneInformacije
+  napraviZahtevAutorskoPravoDetaljneInformacije
 } from "../model/autorsko-pravo/obj/zahtev-autorsko-pravo-detaljne-informacije";
 import * as xml2js from 'xml2js';
 import {
   napraviZahtevPatentOsnovneInformacije,
   ZahtevPatentOsnovneInformacije
 } from "../model/patent/obj/zahtev-patent-osnovne-informacije";
+import {
+  napraviZahtevPatentDetaljneInformacije,
+  ZahtevPatentDetaljneInformacije
+} from "../model/patent/obj/zahtev-patent-detaljne-informacije";
 
 @Injectable({
   providedIn: 'root'
@@ -79,8 +78,8 @@ export class PatentApplicationService {
     }));
   }
 
-  uzmiZahtevPoId(zahtevId: string): Observable<ZahtevAutorskoPravoDetaljneInformacije> {
-    return this._http.get(`${this._api_url}/patent/neobradjeni-zahtevi/${zahtevId}`, {
+  uzmiZahtevPoId(zahtevId: string): Observable<ZahtevPatentDetaljneInformacije> {
+    return this._http.get(`${this._api_url}/patent/zahtev/${zahtevId}`, {
         headers: new HttpHeaders().set('Accept' , 'application/xml'),
         responseType:"text"
       }
@@ -90,9 +89,9 @@ export class PatentApplicationService {
       result = result.replaceAll('ns4:', '');
       result = result.replaceAll('opste:', '');
       const parser = new xml2js.Parser({ strict: true, trim: true });
-      let zahtev: ZahtevAutorskoPravoDetaljneInformacije;
+      let zahtev: ZahtevPatentDetaljneInformacije;
       parser.parseString(result.toString(),(err, result) => {
-        zahtev = napraviZahtevAutorskoPravoDetaljneInformacije(result.zahtev_za_priznavanje_patenta);
+        zahtev = napraviZahtevPatentDetaljneInformacije(result.zahtev_za_priznavanje_patenta);
       });
       return zahtev;
     }));

@@ -31,5 +31,4 @@ export class ZahtevAutorskoPravoDetaljiComponent implements OnInit, OnDestroy {
       this.autorskaPravaSubscription.unsubscribe();
     }
   }
-
 }

@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 
 @Component({
-  selector: 'app-obradi-zahtev-autorsko-pravo',
-  templateUrl: './obradi-zahtev-autorsko-pravo.component.html',
-  styleUrls: ['./obradi-zahtev-autorsko-pravo.component.css']
+  selector: 'app-obradi-zahtev-zig',
+  templateUrl: './obradi-zahtev-zig.component.html',
+  styleUrls: ['./obradi-zahtev-zig.component.css']
 })
-export class ObradiZahtevAutorskoPravoComponent implements OnInit {
+export class ObradiZahtevZigComponent implements OnInit {
 
   zahtevId: string;
 
@@ -17,5 +17,4 @@ export class ObradiZahtevAutorskoPravoComponent implements OnInit {
   ngOnInit(): void {
     this.zahtevId = this._params.snapshot.paramMap.get('id');
   }
-
 }

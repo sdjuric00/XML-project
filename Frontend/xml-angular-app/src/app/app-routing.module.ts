@@ -15,6 +15,8 @@ import {
   PregledZahtevaPatentaComponent
 } from "./component/patent/pregled-zahteva-patenta/pregled-zahteva-patenta.component";
 import {PregledZahtevaZigovaComponent} from "./component/zig/pregled-zahteva-zigova/pregled-zahteva-zigova.component";
+import {ObradiZahtevPatentComponent} from "./component/patent/obradi-zahtev-patent/obradi-zahtev-patent.component";
+import {ObradiZahtevZigComponent} from "./component/zig/obradi-zahtev-zig/obradi-zahtev-zig.component";
 
 const routes: Routes = [
   { path: 'prijava', component: LoginComponent },
@@ -26,6 +28,8 @@ const routes: Routes = [
   { path: 'pregled-zahteva-patenta', component: PregledZahtevaPatentaComponent},
   { path: 'pregled-zahteva-zigova', component: PregledZahtevaZigovaComponent},
   { path: 'obradi-zahtev-autorsko-pravo/:id', component: ObradiZahtevAutorskoPravoComponent},
+  { path: 'obradi-zahtev-patent/:id', component: ObradiZahtevPatentComponent},
+  { path: 'obradi-zahtev-zig/:id', component: ObradiZahtevZigComponent},
   { path: '', redirectTo: 'prijava', pathMatch: 'full' }
 ];
 
