@@ -15,6 +15,6 @@ export function napraviZahtevAutorskoPravoOsnovneInformacije(zahtevJson): Zahtev
     broj_prijave: zahtevJson.broj_prijave[0],
     datum_podnosenja: zahtevJson.datum_podnosenja[0],
     podnosilac: napraviPodnosioca(zahtevJson.podnosilac[0]),
-    pregledano: zahtevJson.pregledano[0]
+    pregledano: zahtevJson.pregledano[0] === 'true'
   }
 }

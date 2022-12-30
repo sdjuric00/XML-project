@@ -29,12 +29,4 @@ export class ZahtevPatentDetaljiComponent implements OnInit, OnDestroy {
       this.patentSubscription.unsubscribe();
     }
   }
-
-  dopunskaPrijava():string {
-    if (this.zahtev.dopunska_prijava === true){
-      return "true";
-    }
-
-    return "false";
-  }
 }

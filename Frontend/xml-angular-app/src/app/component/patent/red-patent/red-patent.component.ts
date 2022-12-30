@@ -10,12 +10,33 @@ import {ZahtevPatentOsnovneInformacije} from "../../../model/patent/obj/zahtev-p
 export class RedPatentComponent implements OnInit {
 
   @Input() zahtev: ZahtevPatentOsnovneInformacije;
+  prikaziDugme: boolean = false;
   constructor(private _router: Router) { }
 
   ngOnInit(): void {
+    this.prikaziDugme = this.zahtev.pregledano;
   }
 
   obradaZahteva() {
     this._router.navigate(['/obradi-zahtev-patent', this.zahtev.id]);
+  }
+
+  daLiJePregledano(): string {
+    if (this.zahtev.pregledano === true){
+
+      return "true";
+    }
+
+    return "false";
+  }
+
+  prikaziDugmeF(): string {
+
+    if (this.prikaziDugme === true){
+
+      return "true";
+    }
+
+    return "false";
   }
 }

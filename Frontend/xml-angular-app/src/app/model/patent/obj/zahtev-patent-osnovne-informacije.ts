@@ -16,7 +16,7 @@ export function napraviZahtevPatentOsnovneInformacije(zahtevJson): ZahtevPatentO
     broj_prijave: zahtevJson.broj_prijave[0],
     datum_podnosenja: zahtevJson.datum_podnosenja[0],
     podnosilac: napraviPodnosioca(zahtevJson.podnosilac[0]),
-    pregledano: zahtevJson.pregledano[0],
-    dopunska_prijava: zahtevJson.dopunska_prijava[0]
+    pregledano: zahtevJson.pregledano[0] == 'true',
+    dopunska_prijava: zahtevJson.dopunska_prijava[0] == 'true'
   }
 }

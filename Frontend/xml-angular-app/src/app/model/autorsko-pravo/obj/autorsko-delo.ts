@@ -19,7 +19,6 @@ function napraviPodatkeONaslovuPrerada(podaciONaslovuPreradaElement) {
 }
 
 export function napraviAutorskoDelo(autorskoDeloJSON): AutorskoDeloObj {
-
   const vrsta_dela = (autorskoDeloJSON.vrsta_autorskog_dela[0].vrsta_custom === null ||
     autorskoDeloJSON.vrsta_autorskog_dela[0].vrsta_custom === undefined)?
     autorskoDeloJSON.vrsta_autorskog_dela[0].vrsta_enum: autorskoDeloJSON.vrsta_autorskog_dela[0].vrsta_custom;
@@ -31,7 +30,7 @@ export function napraviAutorskoDelo(autorskoDeloJSON): AutorskoDeloObj {
   if (autorskoDeloJSON.alternativni_naslov === null || autorskoDeloJSON.alternativni_naslov === undefined){
     if (autorskoDeloJSON.podaci_o_naslovu_prerada === null || autorskoDeloJSON.podaci_o_naslovu_prerada === undefined){
       return {
-        stvoreno_u_radnom_odnosu: autorskoDeloJSON.$.stvoreno_u_radnom_odnosu,
+        stvoreno_u_radnom_odnosu: autorskoDeloJSON.$.stvoreno_u_radnom_odnosu == 'true',
         nacin_koriscenja: autorskoDeloJSON.$.nacin_koriscenja,
         vrsta_autorskog_dela: vrsta_dela,
         forma_zapisa: forma_zapisa,
@@ -40,7 +39,7 @@ export function napraviAutorskoDelo(autorskoDeloJSON): AutorskoDeloObj {
     } else {
 
       return {
-        stvoreno_u_radnom_odnosu: autorskoDeloJSON.$.stvoreno_u_radnom_odnosu,
+        stvoreno_u_radnom_odnosu: autorskoDeloJSON.$.stvoreno_u_radnom_odnosu == 'true',
         nacin_koriscenja: autorskoDeloJSON.$.nacin_koriscenja,
         vrsta_autorskog_dela: vrsta_dela,
         forma_zapisa: forma_zapisa,
@@ -52,7 +51,7 @@ export function napraviAutorskoDelo(autorskoDeloJSON): AutorskoDeloObj {
   else {
     if (autorskoDeloJSON.podaci_o_naslovu_prerada === null || autorskoDeloJSON.podaci_o_naslovu_prerada === undefined) {
       return {
-        stvoreno_u_radnom_odnosu: autorskoDeloJSON.$.stvoreno_u_radnom_odnosu,
+        stvoreno_u_radnom_odnosu: autorskoDeloJSON.$.stvoreno_u_radnom_odnosu == 'true',
         nacin_koriscenja: autorskoDeloJSON.$.nacin_koriscenja,
         vrsta_autorskog_dela: vrsta_dela,
         forma_zapisa: forma_zapisa,
@@ -61,7 +60,7 @@ export function napraviAutorskoDelo(autorskoDeloJSON): AutorskoDeloObj {
       }
     } else {
       return {
-        stvoreno_u_radnom_odnosu: autorskoDeloJSON.$.stvoreno_u_radnom_odnosu,
+        stvoreno_u_radnom_odnosu: autorskoDeloJSON.$.stvoreno_u_radnom_odnosu == 'true',
         nacin_koriscenja: autorskoDeloJSON.$.nacin_koriscenja,
         vrsta_autorskog_dela: vrsta_dela,
         forma_zapisa: forma_zapisa,
