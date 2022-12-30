@@ -1,1 +1,295 @@
-<p>zahtev-zig-detalji works!</p>
+<div *ngIf="zahtev">
+  <div style="border: 1px solid black; padding-left: 0.6rem; padding-right: 0.6rem">
+    <p style="text-align:left; margin-bottom: 0.2rem">
+      <span style="font-size: 1.2rem; font-weight: bold">{{zahtev.institucija.naziv}}</span>
+      <span style="float: right; font-size: 1.2rem;font-weight: bold">
+        OBRAZAC Z-1
+      </span>
+    </p>
+    <span style="font-size: 1rem;">{{zahtev.institucija.adresa.grad}}, {{zahtev.institucija.adresa.ulica}} {{zahtev.institucija.adresa.broj}}</span>
+
+    <div style="margin-top: 0.8rem">
+      <h3 class="text-center">ZAHTEV ZA PRIZNANJE ŽIGA</h3>
+      <h4 *ngIf="zahtev.vrsta_ziga.toUpperCase() === 'INDIVIDUALNI'" class="text-center" style="color: var(--red)">Individualni žig</h4>
+      <h4 *ngIf="zahtev.vrsta_ziga.toUpperCase() === 'KOLEKTIVNI'" class="text-center" style="color: var(--red)">Kolektivni žig</h4>
+      <h4 *ngIf="zahtev.vrsta_ziga.toUpperCase() === 'GARANCIJE'" class="text-center" style="color: var(--red)">Žig garancije</h4>
+    </div>
+  </div>
+
+  <div style="overflow-y: auto">
+
+    <!--    PODNOSIOCI-->
+    <div class="celine-div">
+      <div>
+        <p style="text-align:left; margin-bottom: 0.2rem">
+          <span style="font-size: 1.2rem; font-weight: bold; text-align: left">Podnosioci</span>
+        </p>
+      </div>
+      <div *ngFor="let podnosilac of zahtev.podnosioci; let i=index">
+        <div *ngIf="podnosilac.ime">
+          <!--        FIZICKO LICE-->
+          <div style="margin-left: 2rem">
+            <p style="text-align:left; margin-bottom: 0.2rem">
+              <span style="font-size: 1.2rem; font-weight: bold; text-align: left"><b style="color: var(--red)">{{i + 1}}.</b> Podnosilac - fizičko lice</span>
+            </p>
+            <app-fizicko-lice-prikaz-zahteva [osoba]="podnosilac"></app-fizicko-lice-prikaz-zahteva>
+          </div>
+        </div>
+
+        <div *ngIf="podnosilac.naziv">
+          <!--        PRAVNO LICE-->
+          <div style="margin-left: 2rem">
+            <p style="text-align:left; margin-bottom: 0.2rem">
+              <span style="font-size: 1.2rem; font-weight: bold; text-align: left"><b style="color: var(--red)">{{i + 1}}.</b> Podnosilac - pravno lice</span>
+            </p>
+            <app-pravno-lice-prikaz-zahteva [osoba]="podnosilac"></app-pravno-lice-prikaz-zahteva>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!--    PUNOMOCNIK-->
+    <div *ngIf="!zahtev.punomocnik">
+      <div class="celine-div">
+        <p style="text-align:left; margin-bottom: 0.2rem">
+          <span style="font-size: 1.2rem; font-weight: bold; text-align: left">Zahtev nije podnet preko punomoćnika</span>
+        </p>
+      </div>
+    </div>
+    <div *ngIf="zahtev.punomocnik">
+      <div *ngIf="zahtev.punomocnik.ime">
+        <!--        FIZICKO LICE-->
+        <div class="celine-div">
+          <p style="text-align:left; margin-bottom: 0.2rem">
+            <span style="font-size: 1.2rem; font-weight: bold; text-align: left">Punomoćnik - fizičko lice</span>
+          </p>
+          <app-fizicko-lice-prikaz-zahteva [osoba]="zahtev.punomocnik"></app-fizicko-lice-prikaz-zahteva>
+        </div>
+      </div>
+
+      <div *ngIf="zahtev.punomocnik.naziv">
+        <!--        PRAVNO LICE-->
+        <div style="border: 2px solid var(--green); padding-left: 0.6rem; padding-right: 0.6rem; margin-top: 2rem">
+          <p style="text-align:left; margin-bottom: 0.2rem">
+            <span style="font-size: 1.2rem; font-weight: bold; text-align: left">Punomoćnik - pravno lice</span>
+          </p>
+          <app-pravno-lice-prikaz-zahteva [osoba]="zahtev.punomocnik"></app-pravno-lice-prikaz-zahteva>
+        </div>
+      </div>
+    </div>
+
+
+    <!--    ZAJEDNICKI PREDSTAVNIK-->
+    <div *ngIf="zahtev.podnosioci.length === 1">
+      <div class="celine-div">
+        <p style="text-align:left; margin-bottom: 0.2rem">
+          <span style="font-size: 1.2rem; font-weight: bold; text-align: left">Zajednički predstavnik</span>
+        </p>
+        <p style="text-align:left; margin-bottom: 0.2rem; margin-left: 1rem">
+
+          <span style="font-size: 1.2rem;text-align: left; color:var(--red)">Podnosilac je ujedno i zajednički predstavnik</span>
+        </p>
+      </div>
+    </div>
+    <div *ngIf="zahtev.podnosioci.length > 1">
+      <div *ngIf="zahtev.podaci_o_zajednickom_predstavniku.ime">
+        <!--        FIZICKO LICE-->
+        <div class="celine-div">
+          <p style="text-align:left; margin-bottom: 0.2rem">
+            <span style="font-size: 1.2rem; font-weight: bold; text-align: left">Zajednički predstavnik - fizičko lice</span>
+          </p>
+          <app-fizicko-lice-prikaz-zahteva [osoba]="zahtev.podaci_o_zajednickom_predstavniku"></app-fizicko-lice-prikaz-zahteva>
+        </div>
+      </div>
+
+      <div *ngIf="zahtev.podaci_o_zajednickom_predstavniku.naziv">
+        <!--        PRAVNO LICE-->
+        <div style="border: 2px solid var(--green); padding-left: 0.6rem; padding-right: 0.6rem; margin-top: 2rem">
+          <p style="text-align:left; margin-bottom: 0.2rem">
+            <span style="font-size: 1.2rem; font-weight: bold; text-align: left">Zajednički predstavnik - pravno lice</span>
+          </p>
+          <app-pravno-lice-prikaz-zahteva [osoba]="zahtev.podaci_o_zajednickom_predstavniku"></app-pravno-lice-prikaz-zahteva>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!--    ZNAK-->
+    <div>
+      <div class="celine-div">
+        <p style="text-align:left; margin-bottom: 0.2rem">
+          <span style="font-size: 1.2rem; font-weight: bold; text-align: left">Znak</span>
+        </p>
+        <div style="display: flex; flex-direction: row">
+          <div>
+            <p style="text-align:left; margin-bottom: 0.2rem; margin-left: 1rem">
+
+                <span style="font-size: 1.1rem;text-align: left; font-weight: bold">
+                  Vrsta znaka: {{zahtev.znak.vrsta_znaka}}
+                </span>
+            </p>
+
+            <p style="text-align:left; margin-bottom: 0.2rem; margin-left: 1rem">
+
+                <span style="font-size: 1.1rem;text-align: left; font-weight: bold">
+                  Boje, odnosno boja iz kojih se znak sastoji:
+                  <b *ngFor="let boja of zahtev.znak.boje; let i=index">
+                    {{boja}}
+                    <b *ngIf="i + 1 !== zahtev.znak.boje.length">,</b>
+                  </b>
+                </span>
+              </p>
+
+              <p style="text-align:left; margin-bottom: 0.2rem; margin-left: 1rem">
+
+                  <span style="font-size: 1.1rem;text-align: left; font-weight: bold">
+                    Pismo: {{zahtev.znak.pismo}}
+
+                  </span>
+              </p>
+
+              <p style="text-align:left; margin-bottom: 0.2rem; margin-left: 1rem">
+
+                <span *ngIf="zahtev.znak.transliteracija_znaka" style="font-size: 1.1rem;text-align: left; font-weight: bold">
+                  Transliteracija znaka: {{zahtev.znak.transliteracija_znaka}}
+
+                </span>
+
+                <span *ngIf="!zahtev.znak.transliteracija_znaka" style="font-size: 1.1rem;text-align: left; font-weight: bold">
+                  Transliteracija znaka: <b style="color: var(--red)">X</b>
+
+                </span>
+              </p>
+
+              <p style="text-align:left; margin-bottom: 0.2rem; margin-left: 1rem">
+
+                <span *ngIf="zahtev.znak.prevod" style="font-size: 1.1rem;text-align: left; font-weight: bold">
+                  Prevod znaka: {{zahtev.znak.prevod}}
+
+                </span>
+
+                    <span *ngIf="!zahtev.znak.prevod" style="font-size: 1.1rem;text-align: left; font-weight: bold">
+                  Prevod znaka: <b style="color: var(--red)">X</b>
+
+                </span>
+              </p>
+
+              <p style="text-align:left; margin-bottom: 0.2rem; margin-left: 1rem">
+
+                <span style="font-size: 1.1rem;text-align: left; font-weight: bold">
+                  Opis: {{zahtev.znak.opis}}
+
+                </span>
+              </p>
+          </div>
+
+          <div class="celine-div-izgled-znaka">
+            <p style="text-align:left; margin-bottom: 0.2rem;">
+
+                <span style="font-size: 1.1rem;text-align: left; font-weight: bold">
+                  Izgled znaka:
+                </span>
+            </p>
+            <p style="text-align:left; margin-bottom: 0.2rem;">
+
+                TREBA OVDE SLIKE SRKI
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!--    NICANSKA KLASIFIKACIJA -->
+    <div>
+      <div class="celine-div">
+        <p style="text-align:left; margin-bottom: 0.2rem">
+          <span style="font-size: 1.2rem; font-weight: bold; text-align: left">Izabrane klase iz Ničanske klasifikacije</span>
+        </p>
+        <div *ngFor="let broj of brojevi">
+          <mat-radio-button disabled [checked]="daLiJeIzabranBroj(broj)"
+                            style="margin-right: 1rem;">
+            {{broj}}
+          </mat-radio-button>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!--    PRAVO PRVENSTVA -->
+    <div>
+      <div class="celine-div">
+        <p style="text-align:left; margin-bottom: 0.2rem">
+          <span style="font-size: 1.2rem; font-weight: bold; text-align: left">Zatraženo pravo prvenstva i osnov</span>
+        </p>
+        <p style="text-align:left; margin-bottom: 0.2rem; margin-left: 1rem">
+
+          <span *ngIf="zahtev.pravo_prvenstva.zatrazeno && zahtev.pravo_prvenstva.osnov" style="font-size: 1.2rem;text-align: left; color:var(--red)">
+            Zatraženo pravo prvenstva uz osnov: <b>{{zahtev.pravo_prvenstva.osnov}}</b>
+          </span>
+          <span *ngIf="zahtev.pravo_prvenstva.zatrazeno && !zahtev.pravo_prvenstva.osnov" style="font-size: 1.2rem;text-align: left; color:var(--red)">
+            Zatraženo pravo prvenstva bez osnova
+          </span>
+
+          <span *ngIf="!zahtev.pravo_prvenstva.zatrazeno" style="font-size: 1.2rem;text-align: left; color:var(--red)">
+            Nije zatraženo pravo prvenstva
+          </span>
+        </p>
+      </div>
+    </div>
+
+
+
+    <!--    PRILOZI    -->
+    <div class="celine-div">
+      <p style="text-align:left; margin-bottom: 0.2rem">
+        <span style="font-size: 1.2rem; font-weight: bold; text-align: left">Prilozi</span>
+      </p>
+
+      <span style="font-size: 1.2rem; margin-left: 0.5rem; margin-top: 2.3rem">1. Primerak znaka - {{zahtev.prilozi.primerak_znaka_putanja}}<br/></span>
+      <span style="font-size: 1.2rem; margin-left: 0.5rem; margin-top: 2.3rem">2. Spisak robe i usluga -
+        <b *ngFor="let roba of zahtev.prilozi.spisak_roba_i_usluga; let i=index">
+                    {{roba.naziv}}
+          <b *ngIf="i + 1 !== zahtev.prilozi.spisak_roba_i_usluga.length">,</b>
+        </b>
+        <br/></span>
+      <span *ngIf="zahtev.prilozi.punomocje_ce_biti_naknadno_dostavljeno" style="font-size: 1.2rem; margin-left: 0.5rem; margin-top: 2.3rem">3. Punomoćje - biće naknadno priloženo<br/></span>
+      <span *ngIf="!zahtev.prilozi.punomocje_ce_biti_naknadno_dostavljeno" style="font-size: 1.2rem; margin-left: 0.5rem; margin-top: 2.3rem">3. Punomoćje - {{zahtev.prilozi.punomocje_putanja}}<br/></span>
+
+      <span *ngIf="zahtev.prilozi.generalno_punomocje_ranije_prilozeno" style="font-size: 1.2rem; margin-left: 0.5rem; margin-top: 2.3rem">4. Generalno punomoćje ranije priloženo - DA<br/></span>
+      <span *ngIf="!zahtev.prilozi.generalno_punomocje_ranije_prilozeno" style="font-size: 1.2rem; margin-left: 0.5rem; margin-top: 2.3rem">4. Generalno punomoćje ranije priloženo - NE<br/></span>
+
+      <span *ngIf="zahtev.prilozi.punomocje_ce_biti_naknadno_dostavljeno" style="font-size: 1.2rem; margin-left: 0.5rem; margin-top: 2.3rem">5. Punomoćje će biti naknadno priloženo - DA<br/></span>
+      <span *ngIf="!zahtev.prilozi.punomocje_ce_biti_naknadno_dostavljeno" style="font-size: 1.2rem; margin-left: 0.5rem; margin-top: 2.3rem">5. Punomoćje će biti naknadno priloženo - NE<br/></span>
+
+      <span style="font-size: 1.2rem; margin-left: 0.5rem; margin-top: 2.3rem">6. Opšti akt o kolektivnom žigu/žigu garancije - {{zahtev.prilozi.opsti_akt_o_kolektivnom_zigu_garancije_putanja}}<br/></span>
+      <span style="font-size: 1.2rem; margin-left: 0.5rem; margin-top: 2.3rem">7. Dokaz o uplati takse - {{zahtev.prilozi.dokaz_o_uplati_takse_putanja}}<br/></span>
+      <span *ngIf="zahtev.prilozi.dokaz_o_pravu_prvenstva_putanja" style="font-size: 1.2rem; margin-left: 0.5rem; margin-top: 2.3rem">8. Dokaz o pravu prvenstva - {{zahtev.prilozi.dokaz_o_pravu_prvenstva_putanja}}<br/></span>
+
+
+    </div>
+
+
+    <!--    KRAJ-->
+    <div style="padding-left: 0.5rem; padding-right: 0.1rem; margin:1rem; float: right">
+
+      <div style="display: flex; flex-direction: column; border: 1px solid black; padding: 0.5rem">
+        <span style="font-size: 1.1rem;">Broj prijave</span>
+        <span class="footer-label"> {{zahtev.broj_prijave}}</span>
+      </div>
+      <div style="display: flex; flex-direction: column; border: 1px solid black; padding: 0.5rem">
+        <span style="font-size: 1.1rem;">Datum podnošenja prijave</span>
+        <span class="footer-label"> {{zahtev.datum_podnosenja | date: 'dd.MM.yyyy.'}}</span>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+

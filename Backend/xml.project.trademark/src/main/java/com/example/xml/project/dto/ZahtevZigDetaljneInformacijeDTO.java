@@ -2,8 +2,6 @@ package com.example.xml.project.dto;
 
 import com.example.xml.project.model.*;
 import com.example.xml.project.model.Z1.*;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDate;
@@ -146,8 +144,6 @@ public class ZahtevZigDetaljneInformacijeDTO {
         this.prilozi = prilozi;
     }
 
-    @XmlElementWrapper(name = "podnosioci")
-    @XmlElement(name = "podnosilac")
     public List<Podnosilac> getPodnosioci() {
         return podnosioci;
     }
@@ -156,8 +152,6 @@ public class ZahtevZigDetaljneInformacijeDTO {
         this.podnosioci = podnosioci;
     }
 
-    @XmlElementWrapper(name = "nicanska_klasifikacija")
-    @XmlElement(name = "broj")
     public List<OdabraneKategorije> getNicanska_klasifikacija() {
         return nicanska_klasifikacija;
     }

@@ -11,8 +11,8 @@
     <div style="margin-top: 0.8rem">
 
       <h3 class="text-center">ZAHTEV ZA PRIZNANJE PATENTA</h3>
-      <h5 *ngIf="dopunskaPrijava() === 'true'" class="text-center">Dopunska prijava</h5>
-      <h5 *ngIf="dopunskaPrijava() === 'false'" class="text-center">Izdvojena prijava</h5>
+      <h5 *ngIf="this.zahtev.dopunska_prijava" class="text-center">Dopunska prijava</h5>
+      <h5 *ngIf="!this.zahtev.dopunska_prijava" class="text-center">Izdvojena prijava</h5>
     </div>
   </div>
 
