@@ -61,6 +61,7 @@ import { ZahtevPatentDetaljiComponent } from './component/patent/zahtev-patent-d
 import { ObradiZahtevZigComponent } from './component/zig/obradi-zahtev-zig/obradi-zahtev-zig.component';
 import { PopunjavaPrilogeZahtevZigComponent } from './component/zig/popunjava-priloge-zahtev-zig/popunjava-priloge-zahtev-zig.component';
 import { ZahtevZigDetaljiComponent } from './component/zig/zahtev-zig-detalji/zahtev-zig-detalji.component';
+import {OdbijZahtevComponent} from "./component/odbij-zahtev/odbij-zahtev.component";
 
 @NgModule({
   declarations: [
@@ -112,7 +113,8 @@ import { ZahtevZigDetaljiComponent } from './component/zig/zahtev-zig-detalji/za
     ZahtevPatentDetaljiComponent,
     ObradiZahtevZigComponent,
     PopunjavaPrilogeZahtevZigComponent,
-    ZahtevZigDetaljiComponent
+    ZahtevZigDetaljiComponent,
+    OdbijZahtevComponent
   ],
   imports: [
     BrowserModule,

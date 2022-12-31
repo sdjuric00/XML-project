@@ -4,6 +4,6 @@
 </div>
 <h3>Podnosilac: {{zahtev.podnosilac.ime}} {{zahtev.podnosilac.prezime}}</h3>
 <br/>
-<button style="float: right" class="next-button" mat-raised-button (click)="obradaZahteva()">Obradi zahtev</button>
+<button *ngIf="!zahtev.pregledano" style="float: right" class="next-button" mat-raised-button (click)="obradaZahteva()">Obradi zahtev</button>
 
 

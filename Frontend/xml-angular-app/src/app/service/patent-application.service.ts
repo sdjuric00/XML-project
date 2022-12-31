@@ -3,9 +3,6 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import { Patent } from '../model/patent/xml/patent';
 import {map, Observable} from "rxjs";
-import {
-  napraviZahtevAutorskoPravoDetaljneInformacije
-} from "../model/autorsko-pravo/obj/zahtev-autorsko-pravo-detaljne-informacije";
 import * as xml2js from 'xml2js';
 import {
   napraviZahtevPatentOsnovneInformacije,
@@ -15,6 +12,7 @@ import {
   napraviZahtevPatentDetaljneInformacije,
   ZahtevPatentDetaljneInformacije
 } from "../model/patent/obj/zahtev-patent-detaljne-informacije";
+import * as JsonToXML from "js2xmlparser";
 
 @Injectable({
   providedIn: 'root'
@@ -95,5 +93,34 @@ export class PatentApplicationService {
       });
       return zahtev;
     }));
+  }
+
+  privatiZahtev(resenje: { ime_prezime_sluzbenika: string; referenca_na_zahtev: string, sifra_obradjenog_zahteva: string; })
+    :Observable<any>{
+    const resenjeXml = JsonToXML.parse("resenje", resenje);
+    console.log(resenjeXml)
+    return this._http.post(
+      `${this._api_url}/patenti/resenje/prihvatanje`,
+      resenjeXml,
+      {
+        headers: new HttpHeaders().set('Content-Type', 'application/xml').set('Accept' , 'application/xml'),
+        responseType:"text"
+      }
+    )
+  }
+
+  odbijZahtev(resenje: { ime_prezime_sluzbenika: string; referenca_na_zahtev: string; razlog_odbijanja: string;})
+    :Observable<any>{
+    const resenjeXml = JsonToXML.parse("resenje", resenje);
+    console.log(resenjeXml)
+    return this._http.post(
+      `${this._api_url}/patenti/resenje/odbijanje`,
+      resenjeXml,
+      {
+        headers: new HttpHeaders().set('Content-Type', 'application/xml').set('Accept' , 'application/xml'),
+        responseType:"text"
+      }
+    )
+
   }
 }
