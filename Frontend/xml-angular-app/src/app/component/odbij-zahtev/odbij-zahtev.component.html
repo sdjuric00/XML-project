@@ -1,0 +1,22 @@
+<div style="background-color:var(--white);">
+  <h1 mat-dialog-title>Odbijanje zahteva</h1>
+
+  <div mat-dialog-content>
+  <textarea
+    matInput
+    rows="5"
+    placeholder="Unesite razlog odbijanja..."
+    [(ngModel)]="razlog"></textarea>
+  </div>
+
+  <mat-error *ngIf="stisnutoJePotvrdi && !formaJeValidna()">Morate uneti razlog odbijanja.</mat-error>
+  <div mat-dialog-actions class="center-buttons">
+    <button mat-button (click)="cancel()" style="margin-right:3rem">Odustani</button>
+    <button mat-button (click)="confirm()" cdkFocusInitial style="background-color: var(--deep-blue);color: var(--white) !important;">
+      Potvrdi
+    </button>
+
+  </div>
+</div>
+
+

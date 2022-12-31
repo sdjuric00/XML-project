@@ -64,6 +64,13 @@ public class PatentService {
         repository.save(zahtevPatent, true);
     }
 
+    public void saveToDBObj(ZahtevPatent zahtevPatent, boolean generisiId) throws InvalidDocumentException {
+
+        repository.save(zahtevPatent, generisiId);
+    }
+
+
+
     public ZahtevPatent get(String documentId) throws EntityNotFoundException, JAXBException {
 
         return repository.get(documentId);
@@ -80,6 +87,11 @@ public class PatentService {
     public ZahtevPatentDetaljneInformacijeDTO uzmiZahtev(final String id) throws CannotUnmarshalException, XPathException {
         ZahtevPatentDetaljneInformacijeDTO z = new ZahtevPatentDetaljneInformacijeDTO(patentRepository.uzmiZahtev(id));
         return new ZahtevPatentDetaljneInformacijeDTO(patentRepository.uzmiZahtev(id));
+    }
+
+    public ZahtevPatent uzmiZahtevBezDTO(final String id) throws CannotUnmarshalException, XPathException {
+
+        return patentRepository.uzmiZahtev(id);
     }
 
     public List<ZahtevPatent> pronadjiRezultateOsnovnePretrage(final List<String> parametriPretrage) throws Exception {
