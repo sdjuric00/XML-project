@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.*;
 @XmlRootElement(name="resenje")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name="resenje",
-    propOrder={"referenca_na_zahtev", "ime_prezime_sluzbenika", "sifra_obradjenog_zahteva", "opis_checkbox", "primer_checkbox"}
+    propOrder={"referenca_na_zahtev", "ime_prezime_sluzbenika", "sifra_obradjenog_zahteva"}
 )
 public class ResenjePrihvatanjeRequest {
 
@@ -17,12 +17,6 @@ public class ResenjePrihvatanjeRequest {
 
     @XmlElement(name="sifra_obradjenog_zahteva", required = true)
     private String sifra_obradjenog_zahteva;
-
-    @XmlElement(name="opis_checkbox", required = true)
-    private boolean opis_checkbox;
-
-    @XmlElement(name="primer_checkbox", required = true)
-    private boolean primer_checkbox;
 
     public String getReferenca_na_zahtev() {
         return referenca_na_zahtev;
@@ -46,21 +40,5 @@ public class ResenjePrihvatanjeRequest {
 
     public void setSifra_obradjenog_zahteva(String sifra_obradjenog_zahteva) {
         this.sifra_obradjenog_zahteva = sifra_obradjenog_zahteva;
-    }
-
-    public boolean isOpis_checkbox() {
-        return opis_checkbox;
-    }
-
-    public void setOpis_checkbox(boolean opis_checkbox) {
-        this.opis_checkbox = opis_checkbox;
-    }
-
-    public boolean isPrimer_checkbox() {
-        return primer_checkbox;
-    }
-
-    public void setPrimer_checkbox(boolean primer_checkbox) {
-        this.primer_checkbox = primer_checkbox;
     }
 }

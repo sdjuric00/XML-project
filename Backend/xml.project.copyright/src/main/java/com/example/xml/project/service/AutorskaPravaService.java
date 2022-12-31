@@ -64,6 +64,11 @@ public class AutorskaPravaService {
         repository.save(zahtevAutorskaDela, true);
     }
 
+    public void saveToDBObj(ZahtevAutorskaDela zahtevAutorskaDela, boolean generisiId) throws InvalidDocumentException {
+
+        repository.save(zahtevAutorskaDela, generisiId);
+    }
+
     public ZahtevAutorskaDela get(String documentId) throws EntityNotFoundException, JAXBException {
 
         return repository.get(documentId);
@@ -74,6 +79,11 @@ public class AutorskaPravaService {
         ZahteviAutorskaDelaDTO zahteviDTO = new ZahteviAutorskaDelaDTO();
         zahteviDTO.fromZahtevi(autorskaPravaRepository.uzmiZahteve(obradjene));
         return zahteviDTO;
+    }
+
+    public ZahtevAutorskaDela uzmiZahtevBezDTO(final String id) throws CannotUnmarshalException, XPathException {
+
+        return autorskaPravaRepository.uzmiZahtev(id);
     }
 
 
