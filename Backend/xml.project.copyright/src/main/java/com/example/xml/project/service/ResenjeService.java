@@ -1,9 +1,6 @@
 package com.example.xml.project.service;
 
-import com.example.xml.project.dto.ZahtevAutorskaDelaDetaljneInformacijeDTO;
-import com.example.xml.project.dto.ZahteviAutorskaDelaDTO;
 import com.example.xml.project.exception.CannotUnmarshalException;
-import com.example.xml.project.exception.EntityNotFoundException;
 import com.example.xml.project.exception.InvalidDocumentException;
 import com.example.xml.project.exception.XPathException;
 import com.example.xml.project.model.A1.ZahtevAutorskaDela;
@@ -22,11 +19,14 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
-import java.io.*;
+import java.io.File;
+import java.io.StringReader;
+import java.time.LocalDate;
 
 import static com.example.xml.project.model.resenje.Resenje.napraviResenjeZaOdbijanjeZahteva;
 import static com.example.xml.project.model.resenje.Resenje.napraviResenjeZaPrihvatanjeZahteva;
-import static com.example.xml.project.util.Constants.*;
+import static com.example.xml.project.util.Constants.COLLECTION_ID_RESENJE_AUTORSKA_PRAVA_DB;
+import static com.example.xml.project.util.Constants.RESENJE_SCHEMA;
 
 @Service
 public class ResenjeService {
@@ -35,12 +35,15 @@ public class ResenjeService {
     private final ResenjeRepository resenjeRepository;
     private final JAXBContext jaxbContext;
     private final Marshaller marshaller;
+    private final AutorskaPravaService autorskaPravaService;
 
     public ResenjeService(
         @Autowired final GenericRepository<Resenje> repository,
-        @Autowired final ResenjeRepository resenjeRepository
+        @Autowired final ResenjeRepository resenjeRepository,
+        @Autowired final AutorskaPravaService autorskaPravaService
     ) throws JAXBException {
         this.resenjeRepository = resenjeRepository;
+        this.autorskaPravaService = autorskaPravaService;
         this.jaxbContext = JAXBContext.newInstance(Resenje.class);
         this.repository = repository;
         this.repository.setGenericRepositoryProperties(
@@ -52,27 +55,35 @@ public class ResenjeService {
         this.marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
     }
 
-    public void saveToDB(Resenje resenje) throws InvalidDocumentException {
-//        Resenje resenje = checkSchema(zahtev);
-        repository.save(resenje, true);
-    }
 
     public void prihvatiZahtev(
         final String sifra_obradjenog_zahteva,
         final String ime_prezime_sluzbenika,
-        final String referenca_na_zahtev
-    ) {
+        final String referenca_na_zahtev,
+        final boolean dat_opis_autorskog_dela,
+        final boolean dat_primer_autorskog_dela
+    ) throws CannotUnmarshalException, XPathException, InvalidDocumentException {
         Resenje resenje = napraviResenjeZaPrihvatanjeZahteva(referenca_na_zahtev, ime_prezime_sluzbenika, sifra_obradjenog_zahteva);
         repository.save(resenje, true);
+        ZahtevAutorskaDela zahtevAutorskaDela = autorskaPravaService.uzmiZahtevBezDTO(referenca_na_zahtev);
+        zahtevAutorskaDela.setPregledano(true);
+        //SRKI SAMO SETUJ ONA DVA PRILOGA
+        autorskaPravaService.saveToDBObj(zahtevAutorskaDela, false);
     }
 
     public void odbijZahtev(
         final String razlog_odbijanja,
         final String ime_prezime_sluzbenika,
-        final String referenca_na_zahtev
-    ) {
+        final String referenca_na_zahtev,
+        final boolean dat_opis_autorskog_dela,
+        final boolean dat_primer_autorskog_dela
+    ) throws CannotUnmarshalException, XPathException, InvalidDocumentException {
         Resenje resenje = napraviResenjeZaOdbijanjeZahteva(referenca_na_zahtev, ime_prezime_sluzbenika, razlog_odbijanja);
         repository.save(resenje, true);
+        ZahtevAutorskaDela zahtevAutorskaDela = autorskaPravaService.uzmiZahtevBezDTO(referenca_na_zahtev);
+        zahtevAutorskaDela.setPregledano(true);
+        //SRKI SAMO SETUJ ONA DVA PRILOGA
+        autorskaPravaService.saveToDBObj(zahtevAutorskaDela, false);
     }
 
 //    public ZahtevAutorskaDela get(String documentId) throws EntityNotFoundException, JAXBException {

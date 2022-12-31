@@ -1,6 +1,8 @@
 package com.example.xml.project.controller;
 
+import com.example.xml.project.exception.CannotUnmarshalException;
 import com.example.xml.project.exception.InvalidDocumentException;
+import com.example.xml.project.exception.XPathException;
 import com.example.xml.project.request.ResenjeOdbijanjeRequest;
 import com.example.xml.project.request.ResenjePrihvatanjeRequest;
 import com.example.xml.project.service.ResenjeService;
@@ -20,23 +22,27 @@ public class ResenjeController {
 
     @PostMapping(path = "/prihvatanje", produces = "application/xml", consumes = "application/xml")
     @ResponseStatus(HttpStatus.CREATED)
-    public void prihvatiZahtev(@RequestBody final ResenjePrihvatanjeRequest resenjeRequest) throws InvalidDocumentException {
+    public void prihvatiZahtev(@RequestBody final ResenjePrihvatanjeRequest resenjeRequest) throws InvalidDocumentException, CannotUnmarshalException, XPathException {
 
         resenjeService.prihvatiZahtev(
             resenjeRequest.getSifra_obradjenog_zahteva(),
             resenjeRequest.getIme_prezime_sluzbenika(),
-            resenjeRequest.getReferenca_na_zahtev()
+            resenjeRequest.getReferenca_na_zahtev(),
+            resenjeRequest.isOpis_checkbox(),
+            resenjeRequest.isPrimer_checkbox()
         );
     }
 
     @PostMapping(path = "/odbijanje", produces = "application/xml", consumes = "application/xml")
     @ResponseStatus(HttpStatus.CREATED)
-    public void odbijZahtev(@RequestBody final ResenjeOdbijanjeRequest resenjeRequest) throws InvalidDocumentException {
+    public void odbijZahtev(@RequestBody final ResenjeOdbijanjeRequest resenjeRequest) throws InvalidDocumentException, CannotUnmarshalException, XPathException {
 
         resenjeService.odbijZahtev(
             resenjeRequest.getRazlog_odbijanja(),
             resenjeRequest.getIme_prezime_sluzbenika(),
-            resenjeRequest.getReferenca_na_zahtev()
+            resenjeRequest.getReferenca_na_zahtev(),
+            resenjeRequest.isOpis_checkbox(),
+            resenjeRequest.isPrimer_checkbox()
         );
     }
 
