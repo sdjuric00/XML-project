@@ -11,6 +11,7 @@ import com.example.xml.project.exception.TransformationFailedException;
 
 import com.example.xml.project.model.A1.ZahtevAutorskaDela;
 import com.example.xml.project.request.ZahtevAutorskaDelaRequest;
+import com.example.xml.project.request.PretragaRequest;
 import com.example.xml.project.service.AutorskaPravaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -103,9 +104,9 @@ public class AutorskaPravaController {
     }
 
     @PostMapping(path="/osnovna-pretraga")
-    public List<ZahtevAutorskaDela> osnovnaPretraga(@RequestBody List<String> parametriPretrage) throws Exception {
+    public ZahteviAutorskaDelaDTO osnovnaPretraga(@RequestBody PretragaRequest pretragaRequest) throws Exception {
         System.out.println("fasjfajf");
-        return autorskaPravaService.pronadjiRezultateOsnovnePretrage(parametriPretrage);
+        return autorskaPravaService.pronadjiRezultateOsnovnePretrage(pretragaRequest.getParametriPretrage());
     }
 
     @GetMapping(path = "/kreiraj-html/{id}", produces = "application/xml")

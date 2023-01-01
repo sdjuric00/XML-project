@@ -10,6 +10,7 @@ import com.example.xml.project.exception.TransformationFailedException;
 import com.example.xml.project.model.Z1.ZahtevZig;
 import com.example.xml.project.repository.GenericRepository;
 import com.example.xml.project.repository.ZigRepository;
+import com.example.xml.project.request.ParametarPretrage;
 import com.example.xml.project.transformator.Transformator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -95,8 +96,10 @@ public class ZigService {
         return new UspesanOdgovor(this.transformator.generateHTML(htmlPutanja, get(id)));
     }
 
-    public List<ZahtevZig> pronadjiRezultateOsnovnePretrage(List<String> parametriPretrage) throws Exception {
-        return zigRepository.pronadjiRezultateOsnovnePretrage(parametriPretrage);
+    public ZahteviZigDTO pronadjiRezultateOsnovnePretrage(List<ParametarPretrage> parametriPretrage) throws Exception {
+        ZahteviZigDTO zahteviDTO = new ZahteviZigDTO();
+        zahteviDTO.fromZahtevi(zigRepository.pronadjiRezultateOsnovnePretrage(parametriPretrage));
+        return zahteviDTO;
     }
 
     public UspesanOdgovor dodajPdf(String id) throws JAXBException, EntityNotFoundException,

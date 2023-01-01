@@ -17,6 +17,7 @@ import com.example.xml.project.model.Punomocnik;
 import com.example.xml.project.repository.AutorskaPravaRepository;
 import com.example.xml.project.repository.GenericRepository;
 import com.example.xml.project.response.UspesnaTransformacija;
+import com.example.xml.project.request.ParametarPretrage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
@@ -124,6 +125,11 @@ public class AutorskaPravaService {
         this.saveToDB(sw.toString());
     }
 
+    public void saveToDBObj(ZahtevAutorskaDela zahtevAutorskaDela, boolean generisiId) throws InvalidDocumentException {
+
+        repository.save(zahtevAutorskaDela, generisiId);
+    }
+
     public ZahtevAutorskaDela get(String documentId) throws EntityNotFoundException, JAXBException {
 
         return repository.get(documentId);
@@ -136,15 +142,21 @@ public class AutorskaPravaService {
         return zahteviDTO;
     }
 
+    public ZahtevAutorskaDela uzmiZahtevBezDTO(final String id) throws CannotUnmarshalException, XPathException {
+
+        return autorskaPravaRepository.uzmiZahtev(id);
+    }
+
 
     public ZahtevAutorskaDelaDetaljneInformacijeDTO uzmiZahtev(final String id) throws CannotUnmarshalException, XPathException {
 
         return new ZahtevAutorskaDelaDetaljneInformacijeDTO(autorskaPravaRepository.uzmiZahtev(id));
     }
 
-    public List<ZahtevAutorskaDela> pronadjiRezultateOsnovnePretrage(final List<String> parametriPretrage) throws Exception {
-
-        return autorskaPravaRepository.pronadjiRezultateOsnovnePretrage(parametriPretrage);
+    public ZahteviAutorskaDelaDTO pronadjiRezultateOsnovnePretrage(final List<ParametarPretrage> parametriPretrage) throws Exception {
+        ZahteviAutorskaDelaDTO zahteviDTO = new ZahteviAutorskaDelaDTO();
+        zahteviDTO.fromZahtevi(autorskaPravaRepository.pronadjiRezultateOsnovnePretrage(parametriPretrage));
+        return zahteviDTO;
     }
 
     private ZahtevAutorskaDela checkSchema(String document) throws InvalidDocumentException {

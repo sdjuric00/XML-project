@@ -62,6 +62,8 @@ import { ObradiZahtevZigComponent } from './component/zig/obradi-zahtev-zig/obra
 import { PopunjavaPrilogeZahtevZigComponent } from './component/zig/popunjava-priloge-zahtev-zig/popunjava-priloge-zahtev-zig.component';
 import { ZahtevZigDetaljiComponent } from './component/zig/zahtev-zig-detalji/zahtev-zig-detalji.component';
 import { DugmiciZaSkidanjeComponent } from './component/dugmici-za-skidanje/dugmici-za-skidanje.component';
+import { HomePageComponent } from './component/home-page/home-page.component';
+import {OdbijZahtevComponent} from "./component/odbij-zahtev/odbij-zahtev.component";
 
 @NgModule({
   declarations: [
@@ -114,7 +116,9 @@ import { DugmiciZaSkidanjeComponent } from './component/dugmici-za-skidanje/dugm
     ObradiZahtevZigComponent,
     PopunjavaPrilogeZahtevZigComponent,
     ZahtevZigDetaljiComponent,
-    DugmiciZaSkidanjeComponent
+    DugmiciZaSkidanjeComponent,
+    HomePageComponent,
+    OdbijZahtevComponent
   ],
   imports: [
     BrowserModule,

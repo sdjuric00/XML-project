@@ -9,8 +9,8 @@ export interface DostavljanjeObj {
 export function napraviDostavljanje(dostavljanje): DostavljanjeObj {
 
   return {
-    elektronski: dostavljanje.$?.elektronski,
-    pismeno: dostavljanje.$?.pismeno,
+    elektronski: dostavljanje.$?.elektronski == 'true',
+    pismeno: dostavljanje.$?.pismeno == 'true',
     adresa: napraviAdresu(dostavljanje.adresa[0])
   };
 }

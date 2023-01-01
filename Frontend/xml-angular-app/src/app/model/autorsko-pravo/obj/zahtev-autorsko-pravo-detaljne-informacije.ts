@@ -29,7 +29,7 @@ export function napraviZahtevAutorskoPravoDetaljneInformacije(zahtevJson): Zahte
     id: zahtevJson.id[0],
     broj_prijave: zahtevJson.broj_prijave[0],
     datum_podnosenja: zahtevJson.datum_podnosenja[0],
-    pregledano: zahtevJson.pregledano[0],
+    pregledano: zahtevJson.pregledano[0] === 'true',
     podnosilac: napraviPodnosioca(zahtevJson.podnosilac[0]),
     institucija: napraviInstituciju(zahtevJson.institucija[0]),
     punomocnik: napraviPunomocnika(zahtevJson.punomocnik[0]),

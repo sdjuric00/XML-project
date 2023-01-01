@@ -5,5 +5,5 @@
 <h3>Punomocnik: {{zahtev.punomocnik.ime}} {{zahtev.punomocnik.prezime}}</h3>
 <br/>
 
-<button style="float: right" class="next-button" mat-raised-button (click)="obradaZahteva()">Obradi zahtev</button>
+<button *ngIf="!zahtev.pregledano" style="float: right" class="next-button" mat-raised-button (click)="obradaZahteva()">Obradi zahtev</button>
 

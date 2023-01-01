@@ -14,6 +14,8 @@ import {
   ZahtevAutorskoPravoDetaljneInformacije
 } from "../model/autorsko-pravo/obj/zahtev-autorsko-pravo-detaljne-informacije";
 import { napraviUspesnuTransformaciju, UspesnaTransformacija } from '../model/opste/uspesna-transformacija';
+import { OsnovnaPretraga } from '../model/pretraga/osnovna-pretraga';
+import * as JsonToXML from "js2xmlparser";
 
 @Injectable({
   providedIn: 'root'
@@ -107,16 +109,6 @@ export class AutorskaPravaService {
     }));
   }
 
-  // kreirajPDF(zahtevId: string): Observable<HttpResponse<string>> {
-  //   let headers = new HttpHeaders({ "Content-Type": "application/xml"});
-  //   return this._http.get(`${this._api_url}/autorska-prava/kreiraj-pdf/${zahtevId}`, {
-  //       headers: headers,
-  //       observe: "response",
-  //       responseType:"text"
-  //     }
-  //   );
-  // }
-
   kreirajPDF(zahtevId: string): Observable<UspesnaTransformacija> {
     return this._http.get(`${this._api_url}/autorska-prava/kreiraj-pdf/${zahtevId}`, {
         headers: new HttpHeaders().set('Accept' , 'application/xml'),
@@ -154,4 +146,63 @@ export class AutorskaPravaService {
       return zahtev;
     }));
   }
+
+  osnovnaPretraga(osnovnaPretraga: OsnovnaPretraga):Observable<ZahtevAutorskoPravoOsnovneInformacije[]>{
+    const headers = new HttpHeaders({ "Content-Type": "application/xml"}).set("Accept", "application/xml");
+    let queryParams = {};
+    queryParams = {
+      headers: headers,
+      responseType: "text"
+    };
+    var o2x = require('object-to-xml');
+    return this._http.post(
+      `${this._api_url}/autorska-prava/osnovna-pretraga`,
+      o2x(osnovnaPretraga),
+      queryParams
+    ).pipe(map((result:string)=>{
+      console.log(result);
+      result = result.replaceAll('ns2:','')
+      result = result.replaceAll('ns3:', '');
+      const parser = new xml2js.Parser({ strict: true, trim: true });
+      let listaZahteva: ZahtevAutorskoPravoOsnovneInformacije[] = [];
+      parser.parseString(result.toString(),(err, result) => {
+        if (result?.zahtevi?.lista_zahteva_a[0]?.zahtev_za_unosenje_u_evidenciju_i_deponovanje_autorskih_dela) {
+          result.zahtevi.lista_zahteva_a[0].zahtev_za_unosenje_u_evidenciju_i_deponovanje_autorskih_dela.forEach(zahtev =>
+            listaZahteva.push(napraviZahtevAutorskoPravoOsnovneInformacije(zahtev))
+          );
+        }
+      })
+      return listaZahteva;
+  }));
+}
+  privatiZahtev(resenje: { ime_prezime_sluzbenika: string; opis_checkbox: boolean; sifra_obradjenog_zahteva: string; primer_checkbox: boolean; referenca_na_zahtev: string })
+  :Observable<any>{
+    const resenjeXml = JsonToXML.parse("resenje", resenje);
+    console.log(resenjeXml)
+    return this._http.post(
+      `${this._api_url}/autorska-prava/resenje/prihvatanje`,
+      resenjeXml,
+      {
+        headers: new HttpHeaders().set('Content-Type', 'application/xml').set('Accept' , 'application/xml'),
+        responseType:"text"
+      }
+    )
+
+  }
+
+  odbijZahtev(resenje: { ime_prezime_sluzbenika: string; opis_checkbox: boolean; razlog_odbijanja: string; primer_checkbox: boolean; referenca_na_zahtev: string })
+    :Observable<any>{
+    const resenjeXml = JsonToXML.parse("resenje", resenje);
+    console.log(resenjeXml)
+    return this._http.post(
+      `${this._api_url}/autorska-prava/resenje/odbijanje`,
+      resenjeXml,
+      {
+        headers: new HttpHeaders().set('Content-Type', 'application/xml').set('Accept' , 'application/xml'),
+        responseType:"text"
+      }
+    )
+
+  }
+
 }

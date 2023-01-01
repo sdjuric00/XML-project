@@ -15,7 +15,7 @@ export interface PronalazacObj {
 }
 
 export function napraviPronalazaca(pronalazac): PronalazacObj {
-  let anonimno: boolean = pronalazac.$.anonimno;
+  let anonimno: boolean = pronalazac.$.anonimno == 'true';
   if (pronalazac.imenovani_pronalazac=== null || pronalazac.imenovani_pronalazac === undefined){
     return {
       anonimno: anonimno,

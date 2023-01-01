@@ -27,8 +27,8 @@ export function napraviPunomocnikaPatent(punomocnikJSON): PunomocnikPatentObj {
     const pravno_lice = punomocnikJSON.pravno_lice[0];
 
     return {
-      za_zastupanje: punomocnikJSON.$.za_zastupanje,
-      za_prijem_pismeno: punomocnikJSON.$.za_prijem_pismeno,
+      za_zastupanje: punomocnikJSON.$.za_zastupanje == 'true',
+      za_prijem_pismeno: punomocnikJSON.$.za_prijem_pismeno == 'true',
       kontakt: napraviKontakt(pravno_lice.kontakt[0]),
       adresa: napraviAdresu(pravno_lice.adresa[0]),
       naziv: pravno_lice.naziv[0],
@@ -39,8 +39,8 @@ export function napraviPunomocnikaPatent(punomocnikJSON): PunomocnikPatentObj {
     const fizicko_lice = punomocnikJSON.fizicko_lice[0];
 
     return {
-      za_zastupanje: punomocnikJSON.$.za_zastupanje,
-      za_prijem_pismeno: punomocnikJSON.$.za_prijem_pismeno,
+      za_zastupanje: punomocnikJSON.$.za_zastupanje == 'true',
+      za_prijem_pismeno: punomocnikJSON.$.za_prijem_pismeno == 'true',
       kontakt: napraviKontakt(fizicko_lice.kontakt[0]),
       adresa: napraviAdresu(fizicko_lice.adresa[0]),
       ime: fizicko_lice.ime[0],

@@ -16,7 +16,7 @@ export function napraviZahtevZigOsnovneInformacije(zahtevJson): ZahtevZigOsnovne
     broj_prijave: zahtevJson.broj_prijave[0],
     datum_podnosenja: zahtevJson.datum_podnosenja[0],
     punomocnik: napraviPunomocnika(zahtevJson.punomocnik[0]),
-    pregledano: zahtevJson.pregledano[0],
+    pregledano: zahtevJson.pregledano[0] === 'true',
     vrsta_ziga: zahtevJson.vrsta_ziga[0]
   }
 }

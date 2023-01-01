@@ -9,6 +9,7 @@ import com.example.xml.project.exception.XPathException;
 import com.example.xml.project.exception.TransformationFailedException;
 import com.example.xml.project.model.P1.ZahtevPatent;
 import com.example.xml.project.response.UspesanOdgovor;
+import com.example.xml.project.request.PretragaRequest;
 import com.example.xml.project.service.PatentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -79,9 +80,9 @@ public class PatentController {
     }
 
     @PostMapping(path="/osnovna-pretraga")
-    public List<ZahtevPatent> osnovnaPretraga(@RequestBody List<String> parametriPretrage) throws Exception {
+    public ZahteviPatentiDTO osnovnaPretraga(@RequestBody PretragaRequest pretragaRequest) throws Exception {
 
-        return patentService.pronadjiRezultateOsnovnePretrage(parametriPretrage);
+        return patentService.pronadjiRezultateOsnovnePretrage(pretragaRequest.getParametriPretrage());
     }
 
     @GetMapping(path = "/kreiraj-html/{id}", produces = "application/xml", consumes = "application/xml")
