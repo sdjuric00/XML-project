@@ -111,5 +111,7 @@
             <xs:element name="opis" type="xs:string"/>
             <xs:element name="primerak" type="xs:string"/>
         </xs:sequence>
+        <xs:attribute name="opis_prilozen" type="xs:boolean"/>
+        <xs:attribute name="primerak_prilozen" type="xs:boolean"/>
     </xs:complexType>
 </xs:schema>

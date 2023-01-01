@@ -4,7 +4,7 @@ import com.example.xml.project.exception.CannotUnmarshalException;
 import com.example.xml.project.exception.InvalidDocumentException;
 import com.example.xml.project.exception.XPathException;
 import com.example.xml.project.model.A1.ZahtevAutorskaDela;
-import com.example.xml.project.model.resenje.Resenje;
+import com.example.xml.project.model.A1.resenje.Resenje;
 import com.example.xml.project.repository.GenericRepository;
 import com.example.xml.project.repository.ResenjeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +21,9 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import java.io.File;
 import java.io.StringReader;
-import java.time.LocalDate;
 
-import static com.example.xml.project.model.resenje.Resenje.napraviResenjeZaOdbijanjeZahteva;
-import static com.example.xml.project.model.resenje.Resenje.napraviResenjeZaPrihvatanjeZahteva;
+import static com.example.xml.project.model.A1.resenje.Resenje.napraviResenjeZaOdbijanjeZahteva;
+import static com.example.xml.project.model.A1.resenje.Resenje.napraviResenjeZaPrihvatanjeZahteva;
 import static com.example.xml.project.util.Constants.COLLECTION_ID_RESENJE_AUTORSKA_PRAVA_DB;
 import static com.example.xml.project.util.Constants.RESENJE_SCHEMA;
 
@@ -67,7 +66,8 @@ public class ResenjeService {
         repository.save(resenje, true);
         ZahtevAutorskaDela zahtevAutorskaDela = autorskaPravaService.uzmiZahtevBezDTO(referenca_na_zahtev);
         zahtevAutorskaDela.setPregledano(true);
-        //SRKI SAMO SETUJ ONA DVA PRILOGA
+        zahtevAutorskaDela.getPrilozi().setOpis_prilozen(dat_opis_autorskog_dela);
+        zahtevAutorskaDela.getPrilozi().setPrimerak_prilozen(dat_primer_autorskog_dela);
         autorskaPravaService.saveToDBObj(zahtevAutorskaDela, false);
     }
 
@@ -82,7 +82,8 @@ public class ResenjeService {
         repository.save(resenje, true);
         ZahtevAutorskaDela zahtevAutorskaDela = autorskaPravaService.uzmiZahtevBezDTO(referenca_na_zahtev);
         zahtevAutorskaDela.setPregledano(true);
-        //SRKI SAMO SETUJ ONA DVA PRILOGA
+        zahtevAutorskaDela.getPrilozi().setOpis_prilozen(dat_opis_autorskog_dela);
+        zahtevAutorskaDela.getPrilozi().setPrimerak_prilozen(dat_primer_autorskog_dela);
         autorskaPravaService.saveToDBObj(zahtevAutorskaDela, false);
     }
 

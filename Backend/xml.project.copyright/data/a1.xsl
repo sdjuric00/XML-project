@@ -345,12 +345,14 @@
                     <div class="center" style="padding: 1.4rem;">
                         <table style="border: 1px solid black; border-collapse: collapse;">
                             <colgroup>
-                                <col style="width: 22.5rem;"/>
-                                <col style="width: 22.5rem;"/>
+                                <col style="width: 11.25rem;"/>
+                                <col style="width: 11.25rem;"/>
+                                <col style="width: 11.25rem" />
+                                <col style="width: 11.25rem" />
                             </colgroup>
 
-                            <tr>
-                                <th colspan="3" style="border: 1px solid black">
+                            <tr style="min-width: 45rem;">
+                                <th colspan="4" style="border: 1px solid black">
                                     <p style="margin: 0.4rem; text-align: left; font-weight: normal">
                                         <b>12)</b> Prilozi koji se podnose uz zahtev:
                                     </p>
@@ -358,7 +360,7 @@
                             </tr>
 
                             <tr>
-                                <th colspan="3" style="border: 1px solid black">
+                                <th colspan="4" style="border: 1px solid black">
                                     <p style="min-height: 5rem; margin: 0.4rem; text-align: left; font-weight: normal">
                                         <span>Opis:&#160;<xsl:value-of select="//a:opis" /><br /></span>
                                         <span>Primerak:&#160;
@@ -382,7 +384,7 @@
                             </tr>
 
                             <tr>
-                                <th colspan="3" style="border: 1px solid black">
+                                <th colspan="4" style="border: 1px solid black">
                                     <p style="margin: 0.4rem; text-align: center; font-weight: bold">
                                         <h4 style="font-size: 1.1rem; margin:0;">POPUNJAVA ZAVOD:</h4>
                                     </p>
@@ -390,33 +392,62 @@
                             </tr>
 
                             <tr>
-                                <th colspan="3" style="border: 1px solid black">
+                                <th colspan="4" style="border: 1px solid black">
                                     <p style="margin: 0.4rem; text-align: left;"><b>Prilozi uz prijavu:</b></p>
                                 </th>
                             </tr>
 
                             <tr>
-                                <th colspan="1" style="border: 1px solid black">
-                                    <p style="margin: 0.4rem; text-align: center;"><b></b></p>
-                                </th>
-                                <th colspan="2" style="border: 1px solid black">
+                                <th colspan="3" style="border: 1px solid black">
                                     <p style="text-align: left; margin: 0.4rem; font-weight: normal">
                                         <span>
                                             opis autorskog dela (ako je delo podneto na optickom disku)
                                         </span>
                                     </p>
                                 </th>
+                                <th colspan="1" style="border: 1px solid black">
+                                    <p style="margin: 0.4rem; text-align: center;">
+                                        <b>
+                                            <xsl:if test="//@opis_prilozen = 'true'">
+                                                X
+                                            </xsl:if>
+                                        </b>
+                                    </p>
+                                </th>
                             </tr>
 
                             <tr>
-                                <th colspan="1" style="border: 1px solid black">
-                                    <p style="margin: 0.4rem; text-align: center;"><b>X</b></p>
-                                </th>
-                                <th colspan="2" style="border: 1px solid black">
+                                <th colspan="3" style="border: 1px solid black">
                                     <p style="text-align: left; margin: 0.4rem; font-weight: normal">
                                         <span>
                                             primer autorskog dela (slika, video zapis, audio zapis)
                                         </span>
+                                    </p>
+                                </th>
+                                <th colspan="1" style="border: 1px solid black">
+                                    <p style="margin: 0.4rem; text-align: center;">
+                                        <b>
+                                            <xsl:if test="//@primerak_prilozen = 'true'">
+                                                X
+                                            </xsl:if>
+                                        </b>
+                                    </p>
+                                </th>
+                            </tr>
+
+                            <tr>
+                                <th colspan="4" style="border: 1px solid black">
+                                    <p style="text-align: right; font-size: 1rem; font-weight: normal; margin-top: 3rem; margin-right: 1rem; margin-bottom: 0;">
+                                        Broj prijave:
+                                    </p>
+                                    <p style="text-align: right; font-size: 1.2rem; font-weight: bold; margin-top: 0.5rem; margin-right: 1rem;">
+                                        <span><xsl:value-of select="//@broj_prijave" /></span>
+                                    </p>
+                                    <p style="text-align: right; font-size: 1rem; font-weight: normal; margin-top: 1rem; margin-right: 1rem; margin-bottom: 0;">
+                                        Datum podnošenja:
+                                    </p>
+                                    <p style="text-align: right; font-size: 1.2rem; font-weight: bold; margin-top: 0.5rem; margin-right: 1rem;">
+                                        <span><xsl:value-of select="//@datum_podnosenja" /></span>
                                     </p>
                                 </th>
                             </tr>

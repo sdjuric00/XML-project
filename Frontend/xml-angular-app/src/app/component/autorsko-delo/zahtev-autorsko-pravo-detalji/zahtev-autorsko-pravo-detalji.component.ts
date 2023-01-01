@@ -25,7 +25,7 @@ export class ZahtevAutorskoPravoDetaljiComponent implements OnInit, OnDestroy {
     this.autorskaPravaSubscription = this._autorskaPravaService.uzmiZahtevPoId(this.zahtevId)
       .subscribe(result=> {
         this.zahtev = result;
-        console.log(result.autorsko_delo.podaci_o_naslovu_prerada.autor);
+        console.log(result);
       });
   }
 
