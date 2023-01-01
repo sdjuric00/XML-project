@@ -2,11 +2,9 @@ package com.example.xml.project.model.A1;
 
 import com.example.xml.project.model.Institucija;
 import com.example.xml.project.model.Podnosilac;
-import com.example.xml.project.model.Prilog;
+import com.example.xml.project.model.Prilozi;
 import com.example.xml.project.model.Punomocnik;
 import com.example.xml.project.model.*;
-import com.example.xml.project.model.A1.Autor;
-import com.example.xml.project.model.A1.AutorskoDelo;
 import com.example.xml.project.util.IdentifiableEntity;
 
 import javax.xml.bind.annotation.*;
@@ -52,9 +50,36 @@ public class ZahtevAutorskaDela implements IdentifiableEntity {
     @XmlElement(name="autor", namespace = "http://ftn.ac.rs/a")
     private List<Autor> autori = new ArrayList<>();
 
-    @XmlElementWrapper(name="prilozi", namespace = "http://ftn.ac.rs/a")
-    @XmlElement(name="prilog", namespace = "http://ftn.ac.rs/a")
-    private List<Prilog> prilozi = new ArrayList<>();
+    @XmlElement(name="prilozi", required = true, namespace = "http://ftn.ac.rs/a")
+    private Prilozi prilozi;
+
+    public ZahtevAutorskaDela() {
+
+    }
+
+    public ZahtevAutorskaDela(
+            final String id,
+            final String broj_prijave,
+            final LocalDate datum_podnosenja,
+            final boolean pregledano,
+            final Institucija institucija,
+            final Podnosilac podnosilac,
+            final Punomocnik punomocnik,
+            final AutorskoDelo autorsko_delo,
+            final List<Autor> autori,
+            final Prilozi prilozi
+    ) {
+        this.id = id;
+        this.broj_prijave = broj_prijave;
+        this.datum_podnosenja = datum_podnosenja;
+        this.pregledano = pregledano;
+        this.institucija = institucija;
+        this.podnosilac = podnosilac;
+        this.punomocnik = punomocnik;
+        this.autorsko_delo = autorsko_delo;
+        this.autori = autori;
+        this.prilozi = prilozi;
+    }
 
     public String getBroj_prijave() {
         return broj_prijave;
@@ -130,13 +155,11 @@ public class ZahtevAutorskaDela implements IdentifiableEntity {
         this.autori = autori;
     }
 
-    public List<Prilog> getPrilozi() {
+    public Prilozi getPrilozi() {
         return prilozi;
     }
 
-    public void setPrilozi(List<Prilog> prilozi) {
+    public void setPrilozi(Prilozi prilozi) {
         this.prilozi = prilozi;
     }
-
-
 }

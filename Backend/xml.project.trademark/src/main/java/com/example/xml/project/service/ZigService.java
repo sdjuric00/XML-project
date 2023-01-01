@@ -6,14 +6,16 @@ import com.example.xml.project.exception.CannotUnmarshalException;
 import com.example.xml.project.exception.EntityNotFoundException;
 import com.example.xml.project.exception.InvalidDocumentException;
 import com.example.xml.project.exception.XPathException;
+import com.example.xml.project.exception.TransformationFailedException;
 import com.example.xml.project.model.Z1.ZahtevZig;
 import com.example.xml.project.repository.GenericRepository;
 import com.example.xml.project.repository.ZigRepository;
+import com.example.xml.project.request.ParametarPretrage;
 import com.example.xml.project.transformator.Transformator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
-import response.UspesanOdgovor;
+import com.example.xml.project.response.UspesanOdgovor;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
@@ -91,19 +93,33 @@ public class ZigService {
         return new ZahtevZigDetaljneInformacijeDTO(zigRepository.uzmiZahtev(id));
     }
 
+
     public ZahtevZig uzmiZahtevBezDTO(final String id) throws CannotUnmarshalException, XPathException {
 
         return zigRepository.uzmiZahtev(id);
     }
 
-    public UspesanOdgovor dodajZigHtml(String id) throws JAXBException, EntityNotFoundException {
-        String htmlPutanja = HTML_PUTANJA + "1.html";
+    public UspesanOdgovor dodajZigHtml(String id)
+            throws JAXBException, EntityNotFoundException, TransformationFailedException
+    {
+        String htmlPutanja = HTML_PUTANJA + id + ".html";
 
         return new UspesanOdgovor(this.transformator.generateHTML(htmlPutanja, get(id)));
     }
 
-    public List<ZahtevZig> pronadjiRezultateOsnovnePretrage(List<String> parametriPretrage) throws Exception {
-        return zigRepository.pronadjiRezultateOsnovnePretrage(parametriPretrage);
+    public ZahteviZigDTO pronadjiRezultateOsnovnePretrage(List<ParametarPretrage> parametriPretrage) throws Exception {
+        ZahteviZigDTO zahteviDTO = new ZahteviZigDTO();
+        zahteviDTO.fromZahtevi(zigRepository.pronadjiRezultateOsnovnePretrage(parametriPretrage));
+        return zahteviDTO;
+    }
+
+    public UspesanOdgovor dodajPdf(String id) throws JAXBException, EntityNotFoundException,
+            IOException, TransformationFailedException {
+        String pdfPutanja = PDF_PUTANJA + id + ".pdf";
+        String htmlPutanja = HTML_PUTANJA + id + ".html";
+        this.dodajZigHtml(id);  //prvo se pravi html za slucaj da ne postoji
+
+        return new UspesanOdgovor(this.transformator.generatePdf(htmlPutanja, pdfPutanja));
     }
 
     private ZahtevZig checkSchema(String document) throws InvalidDocumentException {

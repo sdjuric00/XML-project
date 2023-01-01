@@ -24,7 +24,7 @@ public class ZahtevAutorskaDelaDetaljneInformacijeDTO {
     private Punomocnik punomocnik;
     private AutorskoDelo autorsko_delo;
     private List<Autor> autori = new ArrayList<>();
-    private List<Prilog> prilozi = new ArrayList<>();
+    private Prilozi prilozi;
 
     public ZahtevAutorskaDelaDetaljneInformacijeDTO() {
     }
@@ -115,11 +115,11 @@ public class ZahtevAutorskaDelaDetaljneInformacijeDTO {
         this.autori = autori;
     }
 
-    public List<Prilog> getPrilozi() {
+    public Prilozi getPrilozi() {
         return prilozi;
     }
 
-    public void setPrilozi(List<Prilog> prilozi) {
+    public void setPrilozi(Prilozi prilozi) {
         this.prilozi = prilozi;
     }
 }

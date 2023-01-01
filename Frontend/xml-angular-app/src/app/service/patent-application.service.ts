@@ -12,6 +12,7 @@ import {
   napraviZahtevPatentDetaljneInformacije,
   ZahtevPatentDetaljneInformacije
 } from "../model/patent/obj/zahtev-patent-detaljne-informacije";
+import { OsnovnaPretraga } from '../model/pretraga/osnovna-pretraga';
 import * as JsonToXML from "js2xmlparser";
 
 @Injectable({
@@ -63,9 +64,11 @@ export class PatentApplicationService {
     ).pipe(map(result=>{
       result = result.replaceAll('ns2:', '');
       result = result.replaceAll('ns3:', '');
+      console.log(result);
       const parser = new xml2js.Parser({ strict: true, trim: true });
       let listaZahteva: ZahtevPatentOsnovneInformacije[] = [];
       parser.parseString(result.toString(),(err, result) => {
+        console.log(result);
         if (result?.zahtevi?.lista_zahteva_p[0]?.zahtev_za_priznavanje_patenta) {
           result.zahtevi.lista_zahteva_p[0].zahtev_za_priznavanje_patenta.forEach(zahtev =>
             listaZahteva.push(napraviZahtevPatentOsnovneInformacije(zahtev))
@@ -95,6 +98,35 @@ export class PatentApplicationService {
     }));
   }
 
+  osnovnaPretraga(osnovnaPretraga: OsnovnaPretraga):Observable<ZahtevPatentOsnovneInformacije[]>{
+    const headers = new HttpHeaders({ "Content-Type": "application/xml"}).set("Accept", "application/xml");
+    let queryParams = {};
+    queryParams = {
+      headers: headers,
+      responseType: "text"
+    };
+    var o2x = require('object-to-xml');
+    return this._http.post(
+      `${this._api_url}/patent/osnovna-pretraga`,
+      o2x(osnovnaPretraga),
+      queryParams
+    ).pipe(map((result:string)=>{
+      console.log(result);
+      result = result.replaceAll('ns2:','')
+      result = result.replaceAll('ns3:', '');
+      const parser = new xml2js.Parser({ strict: true, trim: true });
+      let listaZahteva: ZahtevPatentOsnovneInformacije[] = [];
+      parser.parseString(result.toString(),(err, result) => {
+        console.log(result);
+        if (result?.zahtevi?.lista_zahteva_p[0]?.zahtev_za_priznavanje_patenta) {
+          result.zahtevi.lista_zahteva_p[0].zahtev_za_priznavanje_patenta.forEach(zahtev =>
+            listaZahteva.push(napraviZahtevPatentOsnovneInformacije(zahtev))
+          );
+        }
+      })
+      return listaZahteva;
+  }));
+}
   privatiZahtev(resenje: { ime_prezime_sluzbenika: string; referenca_na_zahtev: string, sifra_obradjenog_zahteva: string; })
     :Observable<any>{
     const resenjeXml = JsonToXML.parse("resenje", resenje);

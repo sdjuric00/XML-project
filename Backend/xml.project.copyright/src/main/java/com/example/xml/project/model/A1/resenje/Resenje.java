@@ -1,4 +1,4 @@
-package com.example.xml.project.model.resenje;
+package com.example.xml.project.model.A1.resenje;
 
 import com.example.xml.project.model.*;
 import com.example.xml.project.util.IdentifiableEntity;
@@ -106,5 +106,13 @@ public class Resenje implements IdentifiableEntity {
 
     public void setSifra_obradjenog_zahteva(String sifra_obradjenog_zahteva) {
         this.sifra_obradjenog_zahteva = sifra_obradjenog_zahteva;
+    }
+
+    public String getBroj_prijave() {
+        return null;
+    }
+
+    public void setBroj_prijave(String broj_prijave) {
+
     }
 }

@@ -13,6 +13,7 @@ import {
   ZahtevZigDetaljneInformacije
 } from "../model/zig/obj/zahtev-zig-detaljne-informacije";
 import * as JsonToXML from "js2xmlparser";
+import { OsnovnaPretraga } from '../model/pretraga/osnovna-pretraga';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,7 @@ export class ZigService {
   private _api_url:string = environment.zigUrl;
   constructor(private _http: HttpClient,private _toast: ToastrService) {}
 
-  // create(zahtevZaAutorskoPravo: zXml){
+  // create(zahtevZaAutorskoPravo: ZahtevAutorskoPravoXml){
   //   console.log("fafsfaf");
   //   let headers = new HttpHeaders({ "Content-Type": "application/xml"});
   //   console.log(zahtevZaAutorskoPravo);
@@ -136,4 +137,35 @@ export class ZigService {
     )
 
   }
+
+  osnovnaPretraga(osnovnaPretraga: OsnovnaPretraga):Observable<ZahtevZigOsnovneInformacije[]>{
+    const headers = new HttpHeaders({ "Content-Type": "application/xml"}).set("Accept", "application/xml");
+    let queryParams = {};
+    queryParams = {
+      headers: headers,
+      responseType: "text"
+    };
+    var o2x = require('object-to-xml');
+    return this._http.post(
+      `${this._api_url}/zig/osnovna-pretraga`,
+      o2x(osnovnaPretraga),
+      queryParams
+    ).pipe(map((result:string)=>{
+      console.log(result);
+      result = result.replaceAll('ns2:','')
+      result = result.replaceAll('ns3:', '');
+      const parser = new xml2js.Parser({ strict: true, trim: true });
+      let listaZahteva: ZahtevZigOsnovneInformacije[] = [];
+      parser.parseString(result.toString(),(err, result) => {
+        console.log(result);
+        if (result?.zahtevi?.lista_zahteva_z[0]?.zahtev_za_priznanje_ziga){
+          result.zahtevi.lista_zahteva_z[0].zahtev_za_priznanje_ziga.forEach(zahtev =>
+            listaZahteva.push(napraviZahtevZigOsnovneInformacije(zahtev))
+          );
+        }
+      })
+      return listaZahteva;
+    }));
+  }
 }
+

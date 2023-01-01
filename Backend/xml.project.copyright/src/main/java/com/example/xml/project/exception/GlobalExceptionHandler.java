@@ -82,4 +82,11 @@ public class GlobalExceptionHandler {
 
         return UNAUTHORIZED_MESSAGE;
     }
+
+    @ExceptionHandler({ TransformationFailedException.class})
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+    public final String handleAccessDeniedException(TransformationFailedException ex) {
+
+        return ex.getMessage();
+    }
 }

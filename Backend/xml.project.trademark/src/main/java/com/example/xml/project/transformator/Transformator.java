@@ -1,5 +1,6 @@
 package com.example.xml.project.transformator;
 
+import com.example.xml.project.exception.TransformationFailedException;
 import com.example.xml.project.model.Z1.ZahtevZig;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.kernel.geom.PageSize;
@@ -41,13 +42,15 @@ public class Transformator {
         transformerFactory = TransformerFactory.newInstance();
     }
 
-    public void generatePDF(String html, String pdf) throws IOException {
-        PdfDocument pdfDocument = new PdfDocument(new PdfWriter(pdf));
+    public boolean generatePdf(String htmlPutanja, String pdfPutanja) throws IOException {
+        PdfDocument pdfDocument = new PdfDocument(new PdfWriter(pdfPutanja));
         pdfDocument.setDefaultPageSize(new PageSize(780, 2000));
-        HtmlConverter.convertToPdf(Files.newInputStream(Paths.get(html)), pdfDocument);
+        HtmlConverter.convertToPdf(Files.newInputStream(Paths.get(htmlPutanja)), pdfDocument);
+
+        return true;
     }
 
-    public boolean generateHTML(final String htmlPutanja, final ZahtevZig zahtev) {
+    public boolean generateHTML(final String htmlPutanja, final ZahtevZig zahtev) throws TransformationFailedException {
         try {
             StreamSource transformSource = new StreamSource(new File(XSL_PUTANJA));
             Transformer transformer = transformerFactory.newTransformer(transformSource);
@@ -59,15 +62,9 @@ public class Transformator {
             StreamResult result = new StreamResult(new FileOutputStream(htmlPutanja));
 
             transformer.transform(source, result);
-            generatePDF("src/main/resources/static/html/1.html", "src/main/resources/static/pdf/1.pdf");
 
-        } catch (TransformerConfigurationException e) {
-            e.printStackTrace();
-
-            return false;
         } catch (Exception e) {
-
-            throw new RuntimeException(e);
+            throw new TransformationFailedException("Creation of html failed. Try again late.");
         }
 
         return true;

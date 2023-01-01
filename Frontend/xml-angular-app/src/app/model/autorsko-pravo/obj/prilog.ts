@@ -1,16 +1,11 @@
 export interface PrilogObj {
-  putanja: string;
   opis: string;
+  primerak: string;
 }
 
-export function napraviPriloge(prilozi): PrilogObj[] {
-  let listaPriloga: PrilogObj[] = [];
-  prilozi.forEach(prilog => {
-    listaPriloga.push({
-      putanja: prilog.$.putanja,
-      opis: prilog.opis[0]
-    })
-  })
-
-  return listaPriloga;
+export function napraviPriloge(prilozi): PrilogObj {
+  return {
+    opis: prilozi.opis,
+    primerak: prilozi.primerak
+  }
 }

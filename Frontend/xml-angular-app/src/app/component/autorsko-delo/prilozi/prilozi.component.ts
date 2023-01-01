@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ControlContainer, FormGroup} from "@angular/forms";
+import { Observable, ReplaySubject } from 'rxjs';
 
 export interface PrilogForm {
   putanja:any;
@@ -18,6 +19,8 @@ export class PriloziComponent implements OnInit {
   selectedImage: any = null;
   opis: string = '';
   greska: boolean = false;
+
+  primerAutorskogDelaBase64 = '';
 
   constructor(private controlContainer: ControlContainer) {
     this.priloziFormGroup = <FormGroup>this.controlContainer.control;
@@ -40,24 +43,45 @@ export class PriloziComponent implements OnInit {
 
   onFileSelected(event: any): void {
     this.selectedImage = event.target.files[0] ?? null;
-    this.greska = false;
+    this.convertFile(event.target.files[0]).subscribe(base64 => {
+      this.primerAutorskogDelaBase64 = base64;
+      this.greska = false;
+    });
   }
 
+  convertFile(file: File): Observable<string> {
+    const result = new ReplaySubject<string>(1);
+    const reader = new FileReader();
+    reader.readAsBinaryString(file);
+    reader.onload = event => result.next(btoa(event.target.result.toString()));
+    return result;
+  }
 
   updateOpis(value: string) {
     this.opis = value;
   }
 
-  addPrilog(input: HTMLInputElement) {
-    if (this.selectedImage !== null && this.selectedImage !== undefined && this.selectedImage !== ''){
-      this.prilozi.push({putanja:this.selectedImage, opis: this.opis});
-      this.priloziFormGroup.get('prilozi')?.setValue(this.prilozi);
-      this.selectedImage = '';
-      this.opis = '';
-      input.value = '';
-    }
-    else {
-      this.greska = true;
+  proveriValidnost() {
+    return this.opis === null || this.opis === undefined || this.opis === '' || this.primerAutorskogDelaBase64 === '';
+  }
+
+  ucitajPrilog() {
+    if (!this.proveriValidnost()) {
+      this.priloziFormGroup.get("opis").setValue(this.opis);
+      this.priloziFormGroup.get("primerak").setValue(this.primerAutorskogDelaBase64);
     }
   }
+
+  // addPrilog(input: HTMLInputElement) {
+  //   if (this.selectedImage !== null && this.selectedImage !== undefined && this.selectedImage !== ''){
+  //     this.prilozi.push({putanja:this.selectedImage, opis: this.opis});
+  //     this.priloziFormGroup.get('prilozi')?.setValue(this.prilozi);
+  //     this.selectedImage = '';
+  //     this.opis = '';
+  //     input.value = '';
+  //   }
+  //   else {
+  //     this.greska = true;
+  //   }
+  // }
 }

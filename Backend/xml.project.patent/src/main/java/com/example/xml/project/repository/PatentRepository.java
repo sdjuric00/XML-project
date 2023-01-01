@@ -3,6 +3,7 @@ package com.example.xml.project.repository;
 import com.example.xml.project.exception.CannotUnmarshalException;
 import com.example.xml.project.exception.XPathException;
 import com.example.xml.project.model.P1.ZahtevPatent;
+import com.example.xml.project.request.ParametarPretrage;
 import com.example.xml.project.util.AuthenticationUtilities;
 import com.example.xml.project.util.XMLParser;
 import org.exist.xmldb.EXistResource;
@@ -166,7 +167,7 @@ public class PatentRepository extends BasicXMLRepository {
         return zahtevPatent;
     }
 
-    public List<ZahtevPatent> pronadjiRezultateOsnovnePretrage(List<String> parameters) throws Exception {
+    public List<ZahtevPatent> pronadjiRezultateOsnovnePretrage(List<ParametarPretrage> parameters) throws Exception {
         String xPathIzraz = "/zahtev_za_priznavanje_patenta";
         List<ZahtevPatent> listaRez = new LinkedList<>();
         try {
@@ -183,11 +184,14 @@ public class PatentRepository extends BasicXMLRepository {
                 res = (XMLResource) i.nextResource();
 
                 String xml = res.getContent().toString();
-                for (String parameter : parameters) {
-                    if (xml.contains(parameter)) {
+                System.out.println("tralala");
+                System.out.println(xml);
+                for (ParametarPretrage parameter : parameters) {
+                    if (xml.contains(parameter.getParametar())) {
+                        System.out.println("blabla");
                         ZahtevPatent zahtevPatent = (ZahtevPatent) XMLParser.unmarshal("", "", false, true, res);
                         if (!listaRez.contains(zahtevPatent)) {
-
+                            System.out.println("listaa");
                             listaRez.add(zahtevPatent);
                         }
                     }

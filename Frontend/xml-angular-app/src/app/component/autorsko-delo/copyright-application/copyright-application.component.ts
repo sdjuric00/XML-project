@@ -44,7 +44,9 @@ export class CopyrightApplicationComponent implements OnInit {
   }
 
   priloziFromGroup = this._formBuilder.group({
-    prilozi: new FormControl([])
+    opis: new FormControl('', Validators.required),
+    primerak: new FormControl('', Validators.required),
+    primer_prilog_base64: new FormControl('', Validators.required),
   })
 
   autoriFromGroup = this._formBuilder.group({
@@ -417,11 +419,10 @@ export class CopyrightApplicationComponent implements OnInit {
   }
 
   private getPrilozi(): Prilozi {
-    let prilozi: Prilozi = {prilog: []};
-    this.priloziFromGroup.get('prilozi').value.forEach(pr =>
-    {
-      prilozi.prilog.push(this.getPrilog(pr))
-    })
+    let prilozi: Prilozi = {
+      opis: this.priloziFromGroup.get('opis').value,
+      primerak: this.priloziFromGroup.get('primerak').value
+    };
 
     return prilozi;
   }
