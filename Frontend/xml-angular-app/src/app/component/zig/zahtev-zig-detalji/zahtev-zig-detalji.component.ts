@@ -13,13 +13,16 @@ export class ZahtevZigDetaljiComponent implements OnInit, OnDestroy {
   @Input() zahtevId: string;
   zahtev: ZahtevZigDetaljneInformacije;
   zigSubscription: Subscription;
+  brojevi: string[] = ['1. Hemijski proizvodi', '2. ', '3. ', '4. ', '5. '];
 
-  constructor(private _zigService: ZigService) {}
+  constructor(private _zigService: ZigService) {
+  }
 
   ngOnInit(): void {
     this.zigSubscription = this._zigService.uzmiZahtevPoId(this.zahtevId)
       .subscribe(result=> {
         this.zahtev = result;
+        console.log(result);
       });
   }
 
@@ -29,4 +32,14 @@ export class ZahtevZigDetaljiComponent implements OnInit, OnDestroy {
     }
   }
 
+  daLiJeIzabranBroj(broj: string): boolean {
+    let pronadjeno: boolean = false;
+    this.zahtev.nicanska_klasifikacija.forEach(vrednost => {
+      if (vrednost.includes(broj)){
+        pronadjeno = true;
+      }
+    })
+
+    return pronadjeno;
+  }
 }

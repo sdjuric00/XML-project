@@ -17,7 +17,7 @@ export function napraviPodnosioca(podnosilac): PodnosilacObj{
   if (podnosilac.fizicko_lice === null || podnosilac.fizicko_lice === undefined){
     const pravno_lice = podnosilac.pravno_lice[0];
     return {
-      autor: podnosilac.$.autor,
+      autor: podnosilac.$.autor == 'true',
       kontakt: napraviKontakt(pravno_lice.kontakt[0]),
       adresa: napraviAdresu(pravno_lice.adresa[0]),
       naziv: pravno_lice.naziv[0],
@@ -28,7 +28,7 @@ export function napraviPodnosioca(podnosilac): PodnosilacObj{
     const fizicko_lice = podnosilac.fizicko_lice[0];
 
     return {
-      autor: podnosilac.$.autor,
+      autor: podnosilac.$.autor == 'true',
       kontakt: napraviKontakt(fizicko_lice.kontakt[0]),
       adresa: napraviAdresu(fizicko_lice.adresa[0]),
       ime: fizicko_lice.ime[0],
@@ -36,4 +36,13 @@ export function napraviPodnosioca(podnosilac): PodnosilacObj{
       jmbg: fizicko_lice.jmbg[0]
     }
   }
+}
+
+export function napraviListuPodnosilaca(podnosiociJSON): PodnosilacObj[]{
+  let listaPodnosioca: PodnosilacObj[] = [];
+  podnosiociJSON.forEach(podnosilac => {
+    listaPodnosioca.push(napraviPodnosioca(podnosilac));
+  })
+
+  return listaPodnosioca;
 }

@@ -65,6 +65,13 @@ public class PatentService {
         repository.save(zahtevPatent, true);
     }
 
+    public void saveToDBObj(ZahtevPatent zahtevPatent, boolean generisiId) throws InvalidDocumentException {
+
+        repository.save(zahtevPatent, generisiId);
+    }
+
+
+
     public ZahtevPatent get(String documentId) throws EntityNotFoundException, JAXBException {
 
         return repository.get(documentId);
@@ -88,6 +95,11 @@ public class PatentService {
         zahteviDTO.fromZahtevi(patentRepository.pronadjiRezultateOsnovnePretrage(parametriPretrage));
         return zahteviDTO;
     }
+    public ZahtevPatent uzmiZahtevBezDTO(final String id) throws CannotUnmarshalException, XPathException {
+
+        return patentRepository.uzmiZahtev(id);
+    }
+
 
     private ZahtevPatent checkSchema(String document) throws InvalidDocumentException {
         try {

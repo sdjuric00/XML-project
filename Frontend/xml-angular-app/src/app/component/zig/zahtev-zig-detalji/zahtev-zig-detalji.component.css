@@ -1,3 +1,53 @@
+h5 {
+  margin: 0px;
+}
+
+h4 {
+  margin: 0px;
+}
+
+h3 {
+  margin: 10px;
+}
+
+.span-with-border {
+  margin-top: 0.4rem;
+  padding: 0.3rem;
+  border-radius: 5px;
+  width: 12rem;
+  font-size: 1.3rem;
+  border: 2px solid rgba(104,202,68,0.45);
+  background: var(--gray-transparent);
+}
+
+.footer-label {
+  margin-top: 0.4rem;
+  width: 12rem;
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.celine-div {
+  border: 2.5px solid var(--green);
+  padding-left: 0.6rem;
+  padding-right: 0.6rem;
+  margin-top: 2rem;
+}
+
+.celine-div-izgled-znaka {
+  border: 1px solid var(--deep-blue);
+  padding-left: 0.2rem;
+  padding-right: 0.2rem;
+  border-radius: 5px;
+  margin-left: 5rem;
+  float:right;
+  margin-bottom: 1rem;
+}
+
+table, tr, td, th{
+  border: 2px solid var(--deep-blue) !important;
+  padding: 0.5rem !important;
+}
 
 
 

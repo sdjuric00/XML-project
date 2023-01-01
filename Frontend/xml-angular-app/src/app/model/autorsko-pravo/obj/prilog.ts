@@ -1,5 +1,3 @@
-import {AutorObj, napraviImenovanogAutora} from "./autor";
-
 export interface PrilogObj {
   putanja: string;
   opis: string;
