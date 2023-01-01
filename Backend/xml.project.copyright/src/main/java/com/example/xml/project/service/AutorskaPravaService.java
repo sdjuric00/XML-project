@@ -9,6 +9,7 @@ import com.example.xml.project.exception.XPathException;
 import com.example.xml.project.model.A1.ZahtevAutorskaDela;
 import com.example.xml.project.repository.AutorskaPravaRepository;
 import com.example.xml.project.repository.GenericRepository;
+import com.example.xml.project.request.ParametarPretrage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
@@ -82,9 +83,10 @@ public class AutorskaPravaService {
         return new ZahtevAutorskaDelaDetaljneInformacijeDTO(autorskaPravaRepository.uzmiZahtev(id));
     }
 
-    public List<ZahtevAutorskaDela> pronadjiRezultateOsnovnePretrage(final List<String> parametriPretrage) throws Exception {
-
-        return autorskaPravaRepository.pronadjiRezultateOsnovnePretrage(parametriPretrage);
+    public ZahteviAutorskaDelaDTO pronadjiRezultateOsnovnePretrage(final List<ParametarPretrage> parametriPretrage) throws Exception {
+        ZahteviAutorskaDelaDTO zahteviDTO = new ZahteviAutorskaDelaDTO();
+        zahteviDTO.fromZahtevi(autorskaPravaRepository.pronadjiRezultateOsnovnePretrage(parametriPretrage));
+        return zahteviDTO;
     }
 
     private ZahtevAutorskaDela checkSchema(String document) throws InvalidDocumentException {

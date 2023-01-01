@@ -13,6 +13,7 @@ import {
   napraviZahtevAutorskoPravoDetaljneInformacije,
   ZahtevAutorskoPravoDetaljneInformacije
 } from "../model/autorsko-pravo/obj/zahtev-autorsko-pravo-detaljne-informacije";
+import { OsnovnaPretraga } from '../model/pretraga/osnovna-pretraga';
 
 @Injectable({
   providedIn: 'root'
@@ -105,4 +106,33 @@ export class AutorskaPravaService {
       return zahtev;
     }));
   }
+
+  osnovnaPretraga(osnovnaPretraga: OsnovnaPretraga):Observable<ZahtevAutorskoPravoOsnovneInformacije[]>{
+    const headers = new HttpHeaders({ "Content-Type": "application/xml"}).set("Accept", "application/xml");
+    let queryParams = {};
+    queryParams = {
+      headers: headers,
+      responseType: "text"
+    };
+    var o2x = require('object-to-xml');
+    return this._http.post(
+      `${this._api_url}/autorska-prava/osnovna-pretraga`,
+      o2x(osnovnaPretraga),
+      queryParams
+    ).pipe(map((result:string)=>{
+      console.log(result);
+      result = result.replaceAll('ns2:','')
+      result = result.replaceAll('ns3:', '');
+      const parser = new xml2js.Parser({ strict: true, trim: true });
+      let listaZahteva: ZahtevAutorskoPravoOsnovneInformacije[] = [];
+      parser.parseString(result.toString(),(err, result) => {
+        if (result?.zahtevi?.lista_zahteva_a[0]?.zahtev_za_unosenje_u_evidenciju_i_deponovanje_autorskih_dela) {
+          result.zahtevi.lista_zahteva_a[0].zahtev_za_unosenje_u_evidenciju_i_deponovanje_autorskih_dela.forEach(zahtev =>
+            listaZahteva.push(napraviZahtevAutorskoPravoOsnovneInformacije(zahtev))
+          );
+        }
+      })
+      return listaZahteva;
+  }));
+}
 }

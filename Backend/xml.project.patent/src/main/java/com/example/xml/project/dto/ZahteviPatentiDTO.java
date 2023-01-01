@@ -15,11 +15,11 @@ public class ZahteviPatentiDTO {
 
     public ZahteviPatentiDTO(){}
 
-    public List<ZahtevPatentOsnovneInformacijeDTO> getLista_zahteva_a() {
+    public List<ZahtevPatentOsnovneInformacijeDTO> getLista_zahteva_p() {
         return lista_zahteva_p;
     }
 
-    public void setLista_zahteva_a(List<ZahtevPatentOsnovneInformacijeDTO> zahteviLista) {
+    public void setLista_zahteva_p(List<ZahtevPatentOsnovneInformacijeDTO> zahteviLista) {
         this.lista_zahteva_p = zahteviLista;
     }
 

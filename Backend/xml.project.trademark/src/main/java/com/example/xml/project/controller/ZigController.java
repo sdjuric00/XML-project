@@ -7,6 +7,7 @@ import com.example.xml.project.exception.EntityNotFoundException;
 import com.example.xml.project.exception.InvalidDocumentException;
 import com.example.xml.project.exception.XPathException;
 import com.example.xml.project.model.Z1.ZahtevZig;
+import com.example.xml.project.request.PretragaRequest;
 import com.example.xml.project.service.ZigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -90,8 +91,8 @@ public class ZigController {
     }
 
     @PostMapping(path="/osnovna-pretraga")
-    public List<ZahtevZig> osnovnaPretraga(@RequestBody List<String> parametriPretrage) throws Exception {
-        return zigService.pronadjiRezultateOsnovnePretrage(parametriPretrage);
+    public ZahteviZigDTO osnovnaPretraga(@RequestBody PretragaRequest pretragaRequest) throws Exception {
+        return zigService.pronadjiRezultateOsnovnePretrage(pretragaRequest.getParametriPretrage());
     }
 
 }

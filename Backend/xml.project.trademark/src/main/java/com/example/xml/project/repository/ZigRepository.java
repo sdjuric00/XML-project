@@ -3,6 +3,7 @@ package com.example.xml.project.repository;
 import com.example.xml.project.exception.CannotUnmarshalException;
 import com.example.xml.project.exception.XPathException;
 import com.example.xml.project.model.Z1.ZahtevZig;
+import com.example.xml.project.request.ParametarPretrage;
 import com.example.xml.project.util.AuthenticationUtilities;
 import com.example.xml.project.util.XMLParser;
 import org.exist.xmldb.EXistResource;
@@ -165,7 +166,7 @@ public class ZigRepository extends BasicXMLRepository {
         return zahtevZig;
     }
 
-    public List<ZahtevZig> pronadjiRezultateOsnovnePretrage(final List<String> parameters) throws Exception {
+    public List<ZahtevZig> pronadjiRezultateOsnovnePretrage(final List<ParametarPretrage> parameters) throws Exception {
         String xPathIzraz = "/zahtev_za_priznanje_ziga";
         List<ZahtevZig> listaRez = new LinkedList<>();
         try {
@@ -183,8 +184,8 @@ public class ZigRepository extends BasicXMLRepository {
 
                 String xml = res.getContent().toString();
                 System.out.println(xml);
-                for (String parameter : parameters) {
-                    if (xml.contains(parameter)) {
+                for (ParametarPretrage parameter : parameters) {
+                    if (xml.contains(parameter.getParametar())) {
                         ZahtevZig zahtevZig = (ZahtevZig) XMLParser.unmarshal("", "", false, true, res);
                         if (!listaRez.contains(zahtevZig)) {
 

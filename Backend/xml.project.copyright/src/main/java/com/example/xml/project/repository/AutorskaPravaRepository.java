@@ -3,6 +3,7 @@ package com.example.xml.project.repository;
 import com.example.xml.project.exception.CannotUnmarshalException;
 import com.example.xml.project.exception.XPathException;
 import com.example.xml.project.model.A1.ZahtevAutorskaDela;
+import com.example.xml.project.request.ParametarPretrage;
 import org.exist.xmldb.EXistResource;
 import org.springframework.stereotype.Component;
 import org.xmldb.api.DatabaseManager;
@@ -30,7 +31,7 @@ import java.util.ArrayList;
 @Component
 public class AutorskaPravaRepository extends BasicXMLRepository {
 
-    public List<ZahtevAutorskaDela> pronadjiRezultateOsnovnePretrage(List<String> parameters) throws Exception {
+    public List<ZahtevAutorskaDela> pronadjiRezultateOsnovnePretrage(List<ParametarPretrage> parameters) throws Exception {
         String xPathIzraz = "/zahtev_za_unosenje_u_evidenciju_i_deponovanje_autorskih_dela";
         List<ZahtevAutorskaDela> listaRez = new ArrayList<ZahtevAutorskaDela>();
         try {
@@ -48,8 +49,8 @@ public class AutorskaPravaRepository extends BasicXMLRepository {
 
                 String xml = res.getContent().toString();
                 System.out.println(xml);
-                for (String parameter : parameters) {
-                    if (xml.contains(parameter)) {
+                for (ParametarPretrage parameter : parameters) {
+                    if (xml.contains(parameter.getParametar())) {
                         ZahtevAutorskaDela zahtevAutorskaDela = (ZahtevAutorskaDela) XMLParser.unmarshal("", "", false, true, res);
                         if (!listaRez.contains(zahtevAutorskaDela)) {
 

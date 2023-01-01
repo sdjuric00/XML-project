@@ -9,6 +9,7 @@ import com.example.xml.project.exception.XPathException;
 import com.example.xml.project.model.P1.ZahtevPatent;
 import com.example.xml.project.repository.GenericRepository;
 import com.example.xml.project.repository.PatentRepository;
+import com.example.xml.project.request.ParametarPretrage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
@@ -82,9 +83,10 @@ public class PatentService {
         return new ZahtevPatentDetaljneInformacijeDTO(patentRepository.uzmiZahtev(id));
     }
 
-    public List<ZahtevPatent> pronadjiRezultateOsnovnePretrage(final List<String> parametriPretrage) throws Exception {
-
-        return patentRepository.pronadjiRezultateOsnovnePretrage(parametriPretrage);
+    public ZahteviPatentiDTO pronadjiRezultateOsnovnePretrage(final List<ParametarPretrage> parametriPretrage) throws Exception {
+        ZahteviPatentiDTO zahteviDTO = new ZahteviPatentiDTO();
+        zahteviDTO.fromZahtevi(patentRepository.pronadjiRezultateOsnovnePretrage(parametriPretrage));
+        return zahteviDTO;
     }
 
     private ZahtevPatent checkSchema(String document) throws InvalidDocumentException {

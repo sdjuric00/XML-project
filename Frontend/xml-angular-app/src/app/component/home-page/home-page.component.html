@@ -1,0 +1,45 @@
+<div style="text-align: center;margin-top:3rem;">
+    <mat-form-field class="example-chip-list" appearance="fill" style="width:40rem;">
+        <mat-label>Pretraga</mat-label>
+        <mat-chip-list #chipList aria-label="Fruit selection">
+          <mat-chip *ngFor="let s of searchList" (removed)="remove(s)">
+            {{s}}
+            <button matChipRemove>
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip>
+          <input placeholder="Unesite rec, frazu..."
+                 [matChipInputFor]="chipList"
+                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                 [matChipInputAddOnBlur]="addOnBlur"
+                 (matChipInputTokenEnd)="add($event)">
+        </mat-chip-list>
+      </mat-form-field>
+
+      <button (click)="pretrazi()" mat-button style="background-color:var( --green); margin-left:3rem;">Pretrazi</button>
+
+      <div *ngIf="prikaziPatente">
+        <p style="color:var(--green)">ZAHTEVI ZA PRIZNAVANJE PATENTA</p>
+        <div *ngFor="let zahtev of listaZahtevaPatenti" class="form-container mat-elevation-z2">
+          <app-red-patent [zahtev]="zahtev"></app-red-patent>
+        </div><br>
+        <mat-divider></mat-divider>
+      </div>
+      
+
+      <div *ngIf="prikaziAutorskaPrava">
+        <br>
+          <p style="color:var(--green)">ZAHTEVI ZA UNOSENJE U EVIDENCIJU I DEPONOVANJE AUTORSKIH DELA</p>
+          <div *ngFor="let zahtev of listaZahtevaAutorskaPrava" class="form-container mat-elevation-z2">
+            <app-red-autorska-prava [zahtev]="zahtev"></app-red-autorska-prava>
+          </div><br>
+          <mat-divider></mat-divider>
+      </div>
+      <div *ngIf="prikaziZigove">
+        <br>
+        <p style="color:var(--green)">ZAHTEVI ZA PRIZNANJE ZIGA</p>
+        <div *ngFor="let zahtev of listaZahtevaZigova" class="form-container mat-elevation-z2">
+          <app-red-zig [zahtev]="zahtev"></app-red-zig>
+        </div>
+      </div>
+</div>
