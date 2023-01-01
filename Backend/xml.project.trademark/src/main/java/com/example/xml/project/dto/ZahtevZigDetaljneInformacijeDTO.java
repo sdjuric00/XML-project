@@ -16,6 +16,7 @@ public class ZahtevZigDetaljneInformacijeDTO {
     private String broj_prijave;
     private LocalDate datum_podnosenja;
     private boolean pregledano = false;
+    private String referenca_na_resenje = "-1";
     private String vrsta_ziga;
     private Institucija institucija;
     private Punomocnik punomocnik;
@@ -26,6 +27,7 @@ public class ZahtevZigDetaljneInformacijeDTO {
     private Prilozi prilozi;
     private List<Podnosilac> podnosioci;
     private List<OdabraneKategorije> nicanska_klasifikacija = new ArrayList<>();
+    private PopunjavaZavod popunjava_zavod;
 
     public ZahtevZigDetaljneInformacijeDTO() {
     }
@@ -35,6 +37,7 @@ public class ZahtevZigDetaljneInformacijeDTO {
         this.broj_prijave = zahtevZig.getBroj_prijave();
         this.datum_podnosenja = zahtevZig.getDatum_podnosenja();
         this.pregledano = zahtevZig.isPregledano();
+        this.referenca_na_resenje = zahtevZig.getReferenca_na_resenje();
         this.vrsta_ziga = zahtevZig.getZig().toString();
         this.institucija = zahtevZig.getInstitucija();
         this.podnosioci = zahtevZig.getPodnosioci();
@@ -45,6 +48,12 @@ public class ZahtevZigDetaljneInformacijeDTO {
         this.pravo_prvenstva = zahtevZig.getPravo_prvenstva();
         this.prilozi = zahtevZig.getPrilozi();
         this.nicanska_klasifikacija = zahtevZig.getNicanska_klasifikacija();
+        if (zahtevZig.getPopunjava_zavod() == null){
+            this.popunjava_zavod = new PopunjavaZavod();
+        }
+        else {
+            this.popunjava_zavod = zahtevZig.getPopunjava_zavod();
+        }
     }
 
     public String getId() {
@@ -158,5 +167,21 @@ public class ZahtevZigDetaljneInformacijeDTO {
 
     public void setNicanska_klasifikacija(List<OdabraneKategorije> nicanska_klasifikacija) {
         this.nicanska_klasifikacija = nicanska_klasifikacija;
+    }
+
+    public String getReferenca_na_resenje() {
+        return referenca_na_resenje;
+    }
+
+    public void setReferenca_na_resenje(String referenca_na_resenje) {
+        this.referenca_na_resenje = referenca_na_resenje;
+    }
+
+    public PopunjavaZavod getPopunjava_zavod() {
+        return popunjava_zavod;
+    }
+
+    public void setPopunjava_zavod(PopunjavaZavod popunjava_zavod) {
+        this.popunjava_zavod = popunjava_zavod;
     }
 }

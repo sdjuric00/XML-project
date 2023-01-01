@@ -6,3 +6,4 @@
 <br/>
 
 <button *ngIf="!zahtev.pregledano" style="float: right" class="next-button" mat-raised-button (click)="obradaZahteva()">Obradi zahtev</button>
+<button *ngIf="zahtev.pregledano" style="float: right" class="next-button" mat-raised-button (click)="detaljiZahteva()">Detalji</button>

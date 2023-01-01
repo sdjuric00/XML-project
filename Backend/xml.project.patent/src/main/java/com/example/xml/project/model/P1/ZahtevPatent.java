@@ -22,6 +22,9 @@ public class ZahtevPatent implements IdentifiableEntity {
     @XmlAttribute(name="id", required = true)
     private String id;
 
+    @XmlAttribute(name = "referenca_na_resenje")
+    private String referenca_na_resenje = "-1";
+
     @XmlAttribute(name="broj_prijave")
     private String broj_prijave;
 
@@ -166,5 +169,13 @@ public class ZahtevPatent implements IdentifiableEntity {
 
     public void setPregledano(boolean pregledano) {
         this.pregledano = pregledano;
+    }
+
+    public String getReferenca_na_resenje() {
+        return referenca_na_resenje;
+    }
+
+    public void setReferenca_na_resenje(String referenca_na_resenje) {
+        this.referenca_na_resenje = referenca_na_resenje;
     }
 }

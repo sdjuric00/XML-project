@@ -2,7 +2,8 @@ package com.example.xml.project.repository;
 
 import com.example.xml.project.exception.CannotUnmarshalException;
 import com.example.xml.project.exception.XPathException;
-import com.example.xml.project.model.resenje.Resenje;
+import com.example.xml.project.model.Z1.ZahtevZig;
+import com.example.xml.project.model.Z1.resenje.Resenje;
 import org.exist.xmldb.EXistResource;
 import org.springframework.stereotype.Component;
 import org.xmldb.api.DatabaseManager;
@@ -17,10 +18,12 @@ import javax.xml.transform.OutputKeys;
 import javax.xml.transform.stream.StreamSource;
 import java.io.StringReader;
 
-import static com.example.xml.project.util.Constants.COLLECTION_ID_RESENJE_PATENTI_DB;
+import static com.example.xml.project.util.Constants.*;
+import static com.example.xml.project.util.Constants.COLLECTION_ID_ZIG_DB;
 
 @Component
 public class ResenjeRepository extends BasicXMLRepository {
+
     public Resenje uzmi(final String id) throws XPathException, CannotUnmarshalException {
         Collection col = null;
         XMLResource resXml = null;
@@ -28,10 +31,10 @@ public class ResenjeRepository extends BasicXMLRepository {
 
         try {
             // get the collection
-            System.out.println("[INFO] Retrieving the collection: " + COLLECTION_ID_RESENJE_PATENTI_DB);
-            col = DatabaseManager.getCollection(connectionProp.uri + COLLECTION_ID_RESENJE_PATENTI_DB);
+            System.out.println("[INFO] Retrieving the collection: " + COLLECTION_ID_RESENJE_ZIG_DB);
+            col = DatabaseManager.getCollection(connectionProp.uri + COLLECTION_ID_RESENJE_ZIG_DB);
             if (col == null) {
-                col = getOrCreateCollection(COLLECTION_ID_RESENJE_PATENTI_DB);
+                col = getOrCreateCollection(COLLECTION_ID_RESENJE_ZIG_DB);
             }
             col.setProperty(OutputKeys.INDENT, "yes");
 
@@ -43,7 +46,7 @@ public class ResenjeRepository extends BasicXMLRepository {
             // make the service aware of namespaces, using the default one
 
 
-            String xpathExp = "declare variable $data as document-node()* := collection('/" + COLLECTION_ID_RESENJE_PATENTI_DB + "');\n" +
+            String xpathExp = "declare variable $data as document-node()* := collection('/" + COLLECTION_ID_RESENJE_ZIG_DB + "');\n" +
                 "\n" +
                 "for $v in $data\n" +
                 "where $v//resenje[@id='" + id + "']\n" +

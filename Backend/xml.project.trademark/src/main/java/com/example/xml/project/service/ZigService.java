@@ -65,8 +65,13 @@ public class ZigService {
     }
 
     public void saveToDB(String zahtev) throws InvalidDocumentException {
-        ZahtevZig zahtevAutorskaDela = checkSchema(zahtev);
-        repository.save(zahtevAutorskaDela, true);
+        ZahtevZig zahtevZig = checkSchema(zahtev);
+        repository.save(zahtevZig, true);
+    }
+
+    public void saveToDBObj(ZahtevZig zahtevZig, boolean generisiId) throws InvalidDocumentException {
+
+        repository.save(zahtevZig, generisiId);
     }
 
     public ZahtevZig get(String documentId) throws EntityNotFoundException, JAXBException {
@@ -84,6 +89,11 @@ public class ZigService {
     public ZahtevZigDetaljneInformacijeDTO uzmiZahtev(String id) throws CannotUnmarshalException, XPathException {
 
         return new ZahtevZigDetaljneInformacijeDTO(zigRepository.uzmiZahtev(id));
+    }
+
+    public ZahtevZig uzmiZahtevBezDTO(final String id) throws CannotUnmarshalException, XPathException {
+
+        return zigRepository.uzmiZahtev(id);
     }
 
     public UspesanOdgovor dodajZigHtml(String id) throws JAXBException, EntityNotFoundException {

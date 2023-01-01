@@ -15,7 +15,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 
 @RestController
-@RequestMapping("/patenti/resenje")
+@RequestMapping("/zig/resenje")
 public class ResenjeController {
 
     private final ResenjeService resenjeService;
@@ -31,7 +31,15 @@ public class ResenjeController {
         resenjeService.prihvatiZahtev(
             resenjeRequest.getSifra_obradjenog_zahteva(),
             resenjeRequest.getIme_prezime_sluzbenika(),
-            resenjeRequest.getReferenca_na_zahtev()
+            resenjeRequest.getReferenca_na_zahtev(),
+            resenjeRequest.isPrimerak_znaka_dat(),
+            resenjeRequest.isSpisak_robe_dat(),
+            resenjeRequest.isPunomocje_dato(),
+            resenjeRequest.isGeneralno_punomocje_ranije_prilozeno(),
+            resenjeRequest.isPunomocje_ce_biti_naknadno_dostavljeno(),
+            resenjeRequest.isOpiste_akt(),
+            resenjeRequest.isDokaz_o_pravu_prvenstva(),
+            resenjeRequest.isDokaz_o_uplati_takse()
         );
     }
 
@@ -42,7 +50,15 @@ public class ResenjeController {
         resenjeService.odbijZahtev(
             resenjeRequest.getRazlog_odbijanja(),
             resenjeRequest.getIme_prezime_sluzbenika(),
-            resenjeRequest.getReferenca_na_zahtev()
+            resenjeRequest.getReferenca_na_zahtev(),
+            resenjeRequest.isPrimerak_znaka_dat(),
+            resenjeRequest.isSpisak_robe_dat(),
+            resenjeRequest.isPunomocje_dato(),
+            resenjeRequest.isGeneralno_punomocje_ranije_prilozeno(),
+            resenjeRequest.isPunomocje_ce_biti_naknadno_dostavljeno(),
+            resenjeRequest.isOpiste_akt(),
+            resenjeRequest.isDokaz_o_pravu_prvenstva(),
+            resenjeRequest.isDokaz_o_uplati_takse()
         );
     }
 
@@ -54,6 +70,5 @@ public class ResenjeController {
 
         return resenjeService.uzmi(id);
     }
-
 }
 

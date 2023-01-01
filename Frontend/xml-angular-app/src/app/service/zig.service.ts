@@ -1,18 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../environments/environment";
-import {ZahtevAutorskoPravoXml} from "../model/autorsko-pravo/xml/zahtev-autorsko-pravo-xml";
 import {ToastrService} from "ngx-toastr";
 import {map, Observable} from "rxjs";
 import * as xml2js from 'xml2js';
-import {
-  napraviZahtevAutorskoPravoOsnovneInformacije,
-  ZahtevAutorskoPravoOsnovneInformacije
-} from "../model/autorsko-pravo/obj/zahtev-autorsko-pravo-osnovne-informacije";
-import {
-  napraviZahtevAutorskoPravoDetaljneInformacije,
-  ZahtevAutorskoPravoDetaljneInformacije
-} from "../model/autorsko-pravo/obj/zahtev-autorsko-pravo-detaljne-informacije";
 import {
   napraviZahtevZigOsnovneInformacije,
   ZahtevZigOsnovneInformacije
@@ -21,6 +12,7 @@ import {
   napraviZahtevZigDetaljneInformacije,
   ZahtevZigDetaljneInformacije
 } from "../model/zig/obj/zahtev-zig-detaljne-informacije";
+import * as JsonToXML from "js2xmlparser";
 
 @Injectable({
   providedIn: 'root'
@@ -113,5 +105,35 @@ export class ZigService {
       });
       return zahtev;
     }));
+  }
+
+  privatiZahtev(resenje: { ime_prezime_sluzbenika: string; punomocje_ce_biti_naknadno_dostavljeno: boolean; primerak_znaka_dat: boolean; spisak_robe_dat: boolean; generalno_punomocje_ranije_prilozeno: boolean; punomocje_dato: boolean; dokaz_o_uplati_takse: boolean; opiste_akt: boolean; dokaz_o_pravu_prvenstva: boolean; sifra_obradjenog_zahteva: string; referenca_na_zahtev: string })
+    :Observable<any>{
+    const resenjeXml = JsonToXML.parse("resenje", resenje);
+    console.log(resenjeXml)
+    return this._http.post(
+      `${this._api_url}/zig/resenje/prihvatanje`,
+      resenjeXml,
+      {
+        headers: new HttpHeaders().set('Content-Type', 'application/xml').set('Accept' , 'application/xml'),
+        responseType:"text"
+      }
+    )
+
+  }
+
+  odbijZahtev(resenje: { ime_prezime_sluzbenika: string; punomocje_ce_biti_naknadno_dostavljeno: boolean; primerak_znaka_dat: boolean; spisak_robe_dat: boolean; generalno_punomocje_ranije_prilozeno: boolean; punomocje_dato: boolean; dokaz_o_uplati_takse: boolean; opiste_akt: boolean; dokaz_o_pravu_prvenstva: boolean; razlog_odbijanja: any; referenca_na_zahtev: string })
+    :Observable<any>{
+    const resenjeXml = JsonToXML.parse("resenje", resenje);
+    console.log(resenjeXml)
+    return this._http.post(
+      `${this._api_url}/zig/resenje/odbijanje`,
+      resenjeXml,
+      {
+        headers: new HttpHeaders().set('Content-Type', 'application/xml').set('Accept' , 'application/xml'),
+        responseType:"text"
+      }
+    )
+
   }
 }

@@ -1,1 +1,100 @@
-<p>popunjava-priloge-zahtev-zig works!</p>
+<div *ngIf="!resenje" style="margin-left: 2rem; border: 1px solid black; padding-left: 0.6rem; padding-right: 0.6rem;">
+  <div style="margin-top: 0.8rem">
+    <h3 class="text-center">POPUNJAVA ZAVOD</h3>
+    <h4>Prilozi uz zahtev:</h4>
+    <div style="display: flex; flex-direction: column">
+      <span style=" font-size: 1.2rem; margin-top: 0.2rem; margin-bottom: 1rem"><b style="color: var(--green)">1.</b> Primerak znaka
+      <mat-checkbox style="margin-right: 0.4rem; float:right" (click)="promenjenCheckboxPrimerakZnaka()"></mat-checkbox>
+    </span>
+
+      <span style="font-size: 1.2rem; margin-bottom: 1rem;"><b style="color: var(--green)">2.</b> Spisak robe i usluga
+        <mat-checkbox style="margin-right: 0.4rem; float:right" (click)="promenjenCheckboxSpisakRobeIUsluga()"></mat-checkbox>
+      </span>
+
+      <span style="font-size: 1.2rem; margin-bottom: 1rem;"><b style="color: var(--green)">3.</b> Punomoćje
+        <mat-checkbox style="margin-right: 0.4rem; float:right" (click)="promenjenCheckboxPunomocje()"></mat-checkbox>
+      </span>
+
+      <span style="font-size: 1.2rem; margin-bottom: 1rem;"><b style="color: var(--green)">4.</b> Generalno punomoćje ranije priloženo
+        <mat-checkbox style="margin-right: 0.4rem; float:right" (click)="promenjenCheckboxGeneralnoPunomocjeRanijePrilozeno()"></mat-checkbox>
+      </span>
+
+      <span style="font-size: 1.2rem; margin-bottom: 1rem;"><b style="color: var(--green)">5.</b> Punomoćje će biti naknadno dostavljeno
+        <mat-checkbox style="margin-right: 0.4rem; float:right" (click)="promenjenCheckboxPunomocjeNaknadnoDostavljeno()"></mat-checkbox>
+      </span>
+
+      <span style="font-size: 1.2rem; margin-bottom: 1rem;"><b style="color: var(--green)">6.</b> Opšti akt o kolektivnom žigu/žigu garancije
+        <mat-checkbox style="margin-right: 0.4rem; float:right" (click)="promenjenCheckboxOpstiAkt()"></mat-checkbox>
+      </span>
+
+      <span style="font-size: 1.2rem; margin-bottom: 1rem;"><b style="color: var(--green)">7.</b> Dokaz o pravu prvenstva
+        <mat-checkbox style="margin-right: 0.4rem; float:right" (click)="promenjenCheckboxDokazOPravuPrvenstva()"></mat-checkbox>
+      </span>
+
+      <span style="font-size: 1.2rem; margin-bottom: 1rem;"><b style="color: var(--green)">8.</b> Dokaz o uplati takse
+        <mat-checkbox style="margin-right: 0.4rem; float:right" (click)="promenjenCheckboxDokazOUplatiTakse()"></mat-checkbox>
+      </span>
+    </div>
+
+    <div style="margin-bottom: 1rem; display: flex; flex-direction: row">
+      <button style="margin-left: 6rem; margin-right: 3rem; height: 2.2rem;" class="previous-button" mat-raised-button (click)="odbijanjeZahteva()">Odbij</button>
+      <button class="next-button" mat-raised-button (click)="prihvatanjeZahteva()">Prihvati</button>
+    </div>
+
+  </div>
+</div>
+
+
+<div *ngIf="resenje" style="margin-left: 2rem; border: 1px solid black; padding-left: 0.6rem; padding-right: 0.6rem;">
+  <div style="margin-top: 0.8rem">
+    <h3 class="text-center">Rešenje - <b style="color:var(--red)">{{odbijenoIliPrihvaceno()}} ZAHTEV</b></h3>
+
+    <h4>Prilozi uz zahtev:</h4>
+    <div style="display: flex; flex-direction: column">
+      <span style=" font-size: 1.2rem; margin-top: 0.2rem; margin-bottom: 1rem"><b style="color: var(--green)">1.</b> Primerak znaka
+      <mat-checkbox style="margin-right: 0.4rem; float:right" disabled [checked]="zahtev.popunjava_zavod?.primerak_znaka"></mat-checkbox>
+    </span>
+
+      <span style="font-size: 1.2rem; margin-bottom: 1rem;"><b style="color: var(--green)">2.</b> Spisak robe i usluga
+        <mat-checkbox style="margin-right: 0.4rem; float:right" disabled [checked]="zahtev.popunjava_zavod?.spisak_roba_i_usluga"></mat-checkbox>
+      </span>
+
+      <span style="font-size: 1.2rem; margin-bottom: 1rem;"><b style="color: var(--green)">3.</b> Punomoćje
+        <mat-checkbox style="margin-right: 0.4rem; float:right" disabled [checked]="zahtev.popunjava_zavod?.punomocje"></mat-checkbox>
+      </span>
+
+      <span style="font-size: 1.2rem; margin-bottom: 1rem;"><b style="color: var(--green)">4.</b> Generalno punomoćje ranije priloženo
+        <mat-checkbox style="margin-right: 0.4rem; float:right" disabled [checked]="zahtev.popunjava_zavod?.generalno_punomocje_ranije_prilozeno"></mat-checkbox>
+      </span>
+
+      <span style="font-size: 1.2rem; margin-bottom: 1rem;"><b style="color: var(--green)">5.</b> Punomoćje će biti naknadno dostavljeno
+        <mat-checkbox style="margin-right: 0.4rem; float:right" disabled [checked]="zahtev.popunjava_zavod?.punomocje_ce_biti_naknadno_dostavljeno"></mat-checkbox>
+      </span>
+
+      <span style="font-size: 1.2rem; margin-bottom: 1rem;"><b style="color: var(--green)">6.</b> Opšti akt o kolektivnom žigu/žigu garancije
+        <mat-checkbox style="margin-right: 0.4rem; float:right" disabled [checked]="zahtev.popunjava_zavod?.opsti_akt"></mat-checkbox>
+      </span>
+
+      <span style="font-size: 1.2rem; margin-bottom: 1rem;"><b style="color: var(--green)">7.</b> Dokaz o pravu prvenstva
+        <mat-checkbox style="margin-right: 0.4rem; float:right" disabled [checked]="zahtev.popunjava_zavod?.dokaz_o_pravu_prvenstva"></mat-checkbox>
+      </span>
+
+      <span style="font-size: 1.2rem; margin-bottom: 1rem;"><b style="color: var(--green)">8.</b> Dokaz o uplati takse
+        <mat-checkbox style="margin-right: 0.4rem; float:right" disabled [checked]="zahtev.popunjava_zavod?.dokaz_o_uplati_takse"></mat-checkbox>
+      </span>
+    </div>
+
+    <h3 *ngIf="resenje.razlog_odbijanja">Razlog odbijanja - <b style="color:var(--red)">{{resenje.razlog_odbijanja}}</b></h3>
+
+
+    <div style="padding-left: 0.5rem; padding-right: 0.1rem; margin:1rem; float: right">
+
+      <div style="display: flex; flex-direction: column; padding: 0.5rem">
+        <span style="font-size: 1.1rem;">{{resenje.ime_prezime_sluzbenika}}</span>
+        <span style="font-size: 1.1rem;" class="footer-label"><b>{{resenje.datum_obrade | date: 'dd.MM.yyyy.'}}</b></span>
+      </div>
+
+    </div>
+
+  </div>
+</div>

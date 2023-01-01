@@ -1,5 +1,6 @@
 package com.example.xml.project.service;
 
+import com.example.xml.project.dto.ResenjeDTO;
 import com.example.xml.project.exception.CannotUnmarshalException;
 import com.example.xml.project.exception.InvalidDocumentException;
 import com.example.xml.project.exception.XPathException;
@@ -69,6 +70,7 @@ public class ResenjeService {
         repository.save(resenje, true);
         ZahtevPatent zahtevPatent = patentService.uzmiZahtevBezDTO(referenca_na_zahtev);
         zahtevPatent.setPregledano(true);
+        zahtevPatent.setReferenca_na_resenje(resenje.getId());
         zahtevPatent.setPriznati_datum_podnosenja(LocalDate.now());
         patentService.saveToDBObj(zahtevPatent, false);
     }
@@ -82,32 +84,15 @@ public class ResenjeService {
         repository.save(resenje, true);
         ZahtevPatent zahtevPatent = patentService.uzmiZahtevBezDTO(referenca_na_zahtev);
         zahtevPatent.setPregledano(true);
+        zahtevPatent.setReferenca_na_resenje(resenje.getId());
         zahtevPatent.setPriznati_datum_podnosenja(LocalDate.now());
         patentService.saveToDBObj(zahtevPatent, false);
     }
 
-//    public ZahtevAutorskaDela get(String documentId) throws EntityNotFoundException, JAXBException {
-//
-//        return repository.get(documentId);
-//    }
-//
-//    public ZahteviAutorskaDelaDTO uzmiZahteve(boolean obradjene) throws CannotUnmarshalException, XPathException {
-//
-//        ZahteviAutorskaDelaDTO zahteviDTO = new ZahteviAutorskaDelaDTO();
-//        zahteviDTO.fromZahtevi(autorskaPravaRepository.uzmiZahteve(obradjene));
-//        return zahteviDTO;
-//    }
-//
-//
-//    public ZahtevAutorskaDelaDetaljneInformacijeDTO uzmiZahtev(final String id) throws CannotUnmarshalException, XPathException {
-//
-//        return new ZahtevAutorskaDelaDetaljneInformacijeDTO(autorskaPravaRepository.uzmiZahtev(id));
-//    }
-//
-//    public List<ZahtevAutorskaDela> pronadjiRezultateOsnovnePretrage(final List<String> parametriPretrage) throws Exception {
-//
-//        return autorskaPravaRepository.pronadjiRezultateOsnovnePretrage(parametriPretrage);
-//    }
+    public ResenjeDTO uzmi(String id) throws CannotUnmarshalException, XPathException {
+
+        return new ResenjeDTO(resenjeRepository.uzmi(id));
+    }
 
     private Resenje checkSchema(String document) throws InvalidDocumentException {
         try {
@@ -117,10 +102,9 @@ public class ResenjeService {
             Schema schema = schemaFactory.newSchema(new File(RESENJE_SCHEMA));
             unmarshaller.setSchema(schema);
             document.replace("\n","");
-            Resenje resenje = (Resenje) unmarshaller.unmarshal
-                (new StreamSource( new StringReader(document)));
 
-            return resenje;
+            return (Resenje) unmarshaller.unmarshal
+                (new StreamSource( new StringReader(document)));
         } catch (JAXBException | SAXException e) {
             throw new InvalidDocumentException();
         }

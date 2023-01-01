@@ -7,6 +7,9 @@ import {PatentApplicationService} from "../../../service/patent-application.serv
 import {Router} from "@angular/router";
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {OdbijZahtevComponent} from "../../odbij-zahtev/odbij-zahtev.component";
+import {Resenje} from "../../../model/resenje/resenje";
+import {ZahtevPatentDetaljneInformacije} from "../../../model/patent/obj/zahtev-patent-detaljne-informacije";
+import {ResenjeService} from "../../../service/resenje.service";
 
 @Component({
   selector: 'app-popunjava-priloge-zahtev-patent',
@@ -15,20 +18,41 @@ import {OdbijZahtevComponent} from "../../odbij-zahtev/odbij-zahtev.component";
 })
 export class PopunjavaPrilogeZahtevPatentComponent implements OnInit, OnDestroy {
   @Input() zahtevId: string;
+  @Input() nijePopunjeno: boolean;
+
+  zahtev: ZahtevPatentDetaljneInformacije;
+  resenje: Resenje;
+
   ulogovaniKorisnik: Korisnik;
   patentSubscription: Subscription;
   autentifikacijaSubscription: Subscription;
+  resenjeSubscription: Subscription;
   razlog_odbijanja: string = '';
+
   constructor(
     private _patentService: PatentApplicationService,
     private _autentifikacijaService: AutentifikacijaService,
+    private _resenjeService: ResenjeService,
     private _toast: ToastrService,
     private _router: Router,
     private dialog: MatDialog
-  ) { }
+  ) {
+    this.zahtev = null;
+  }
 
   ngOnInit(): void {
-    this.autentifikacijaSubscription = this._autentifikacijaService.getSubjectCurrentUser().subscribe(korisnik => this.ulogovaniKorisnik = korisnik)
+    this.autentifikacijaSubscription = this._autentifikacijaService.getSubjectCurrentUser().subscribe(korisnik => this.ulogovaniKorisnik = korisnik);
+    if (!this.nijePopunjeno){
+      this.patentSubscription = this._patentService.uzmiZahtevPoId(this.zahtevId)
+        .subscribe(result=> {
+          this.zahtev = result;
+          this.resenjeSubscription = this._resenjeService.uzmiResenjeZaPatentPoId(result.referenca_na_resenje)
+            .subscribe(resenje=> {
+              this.resenje = resenje;
+
+            });
+        });
+    }
   }
 
   prihvatanjeZahteva() {
@@ -84,6 +108,20 @@ export class PopunjavaPrilogeZahtevPatentComponent implements OnInit, OnDestroy 
     if (this.autentifikacijaSubscription){
       this.autentifikacijaSubscription.unsubscribe();
     }
+
+    if (this.resenjeSubscription){
+      this.resenjeSubscription.unsubscribe();
+    }
+  }
+
+  odbijenoIliPrihvaceno(): string {
+    console.log(this.resenje);
+    if (this.resenje.razlog_odbijanja){
+
+      return "ODBIJEN";
+    }
+
+    return "PRIHVAĆEN"
   }
 
 }

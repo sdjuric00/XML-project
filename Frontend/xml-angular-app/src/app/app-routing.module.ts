@@ -27,9 +27,12 @@ const routes: Routes = [
   { path: 'pregled-zahteva-autorskih-prava', component: PregledZahtevaAutorskaPravaComponent},
   { path: 'pregled-zahteva-patenta', component: PregledZahtevaPatentaComponent},
   { path: 'pregled-zahteva-zigova', component: PregledZahtevaZigovaComponent},
-  { path: 'obradi-zahtev-autorsko-pravo/:id', component: ObradiZahtevAutorskoPravoComponent},
-  { path: 'obradi-zahtev-patent/:id', component: ObradiZahtevPatentComponent},
-  { path: 'obradi-zahtev-zig/:id', component: ObradiZahtevZigComponent},
+  { path: 'zahtev-autorsko-pravo/obrada/:id', component: ObradiZahtevAutorskoPravoComponent},
+  { path: 'zahtev-patent/obrada/:id', component: ObradiZahtevPatentComponent},
+  { path: 'zahtev-zig/obrada/:id', component: ObradiZahtevZigComponent},
+  { path: 'zahtev-autorsko-pravo/detalji/:id', component: ObradiZahtevAutorskoPravoComponent},
+  { path: 'zahtev-patent/detalji/:id', component: ObradiZahtevPatentComponent},
+  { path: 'zahtev-zig/detalji/:id', component: ObradiZahtevZigComponent},
   { path: '', redirectTo: 'prijava', pathMatch: 'full' }
 ];
 

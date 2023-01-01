@@ -4,7 +4,6 @@ import com.example.xml.project.model.Institucija;
 import com.example.xml.project.model.LocalDateAdapter;
 import com.example.xml.project.model.Podnosilac;
 import com.example.xml.project.model.Punomocnik;
-import com.example.xml.project.model.Z1.enums.VrstaZnakaEnum;
 import com.example.xml.project.model.Z1.enums.ZigEnum;
 import com.example.xml.project.util.IdentifiableEntity;
 
@@ -17,7 +16,7 @@ import java.util.List;
 @XmlRootElement(name="zahtev_za_priznanje_ziga", namespace = "http://www.zig/zig")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name="zahtev_za_priznanje_ziga",
-        propOrder={"institucija", "podnosioci", "punomocnik", "podaci_o_zajednickom_predstavniku", "znak", "nicanska_klasifikacija", "pravo_prvenstva", "placene_takse", "prilozi"},
+        propOrder={"institucija", "podnosioci", "punomocnik", "podaci_o_zajednickom_predstavniku", "znak", "nicanska_klasifikacija", "pravo_prvenstva", "placene_takse", "prilozi", "popunjava_zavod"},
         namespace = "http://www.zig/zig"
 )
 public class ZahtevZig implements IdentifiableEntity {
@@ -34,6 +33,9 @@ public class ZahtevZig implements IdentifiableEntity {
 
     @XmlAttribute(name = "pregledano", required = true)
     private boolean pregledano = false;
+
+    @XmlAttribute(name = "referenca_na_resenje")
+    private String referenca_na_resenje = "-1";
 
     @XmlAttribute(name = "zig", required = true)
     private ZigEnum zig;
@@ -66,6 +68,9 @@ public class ZahtevZig implements IdentifiableEntity {
 
     @XmlElement(name = "prilozi", required = true, namespace = "http://www.zig/zig")
     private Prilozi prilozi;
+
+    @XmlElement(name = "popunjava_zavod", namespace = "http://www.zig/zig")
+    private PopunjavaZavod popunjava_zavod;
 
     @Override
     public String getId() {
@@ -179,5 +184,21 @@ public class ZahtevZig implements IdentifiableEntity {
 
     public void setPrilozi(Prilozi prilozi) {
         this.prilozi = prilozi;
+    }
+
+    public PopunjavaZavod getPopunjava_zavod() {
+        return popunjava_zavod;
+    }
+
+    public void setPopunjava_zavod(PopunjavaZavod popunjava_zavod) {
+        this.popunjava_zavod = popunjava_zavod;
+    }
+
+    public String getReferenca_na_resenje() {
+        return referenca_na_resenje;
+    }
+
+    public void setReferenca_na_resenje(String referenca_na_resenje) {
+        this.referenca_na_resenje = referenca_na_resenje;
     }
 }
