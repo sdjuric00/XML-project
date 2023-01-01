@@ -170,8 +170,10 @@
       <p style="text-align:left; margin-bottom: 0.2rem">
         <span style="font-size: 1.2rem; font-weight: bold; text-align: left">Prilozi</span>
       </p>
-      <div *ngFor="let prilog of zahtev.prilozi; let i=index">
-        <span style="font-size: 1.2rem; margin-left: 0.5rem; margin-top: 2.3rem">{{i + 1}}. {{prilog.opis}} - {{prilog.putanja}}</span>
+      <div style="margin-bottom: 1rem;">
+        <span style="font-size: 1.2rem; margin-left: 0.5rem; margin-top: 2.3rem;">
+          {{zahtev.prilozi.opis}} - <a class="primerak-a" [href]="slikeUrl + zahtev.prilozi.primerak" target="_blank" matTooltip="Primerak autorskog dela" >primerak autorskog dela</a>
+        </span>
       </div>
     </div>
 

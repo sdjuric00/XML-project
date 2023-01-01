@@ -1,0 +1,18 @@
+.dugmici-content {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+}
+
+button {
+    margin: 2rem 1rem 2rem;
+    background-color: var(--green);
+    color: var(--deep-blue);
+    font-weight: bold;
+}
+
+a {
+    text-decoration: none;
+    color: var(--deep-blue);
+}

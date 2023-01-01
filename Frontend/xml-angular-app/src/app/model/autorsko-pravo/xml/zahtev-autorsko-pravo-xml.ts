@@ -12,8 +12,8 @@ export interface Autori {
 }
 
 export interface Prilozi {
-  "@"?:{},
-  prilog:Prilog[]
+  "opis": string,
+  "primerak": string
 }
 
 export interface ZahtevAutorskoPravoXml {

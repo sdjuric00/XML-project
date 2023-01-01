@@ -7,14 +7,20 @@ import com.example.xml.project.exception.EntityNotFoundException;
 import com.example.xml.project.exception.InvalidDocumentException;
 import com.example.xml.project.exception.XPathException;
 import com.example.xml.project.exception.TransformationFailedException;
+import com.example.xml.project.model.A1.Autor;
+import com.example.xml.project.model.A1.AutorskoDelo;
 import com.example.xml.project.model.A1.ZahtevAutorskaDela;
+import com.example.xml.project.model.Institucija;
+import com.example.xml.project.model.Podnosilac;
+import com.example.xml.project.model.Prilozi;
+import com.example.xml.project.model.Punomocnik;
 import com.example.xml.project.repository.AutorskaPravaRepository;
 import com.example.xml.project.repository.GenericRepository;
+import com.example.xml.project.response.UspesnaTransformacija;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
 
-import com.example.xml.project.response.UspesanOdgovor;
 import com.example.xml.project.transformator.Transformator;
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
@@ -25,9 +31,11 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import java.io.*;
+import java.time.LocalDate;
 import java.util.List;
 
 import static com.example.xml.project.util.Constants.*;
+import static com.example.xml.project.util.SlikeTransformator.sacuvajSliku;
 
 @Service
 public class AutorskaPravaService {
@@ -57,21 +65,21 @@ public class AutorskaPravaService {
         this.marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
     }
 
-    public UspesanOdgovor dodajHtml(String id)
-            throws JAXBException, EntityNotFoundException, CannotUnmarshalException, TransformationFailedException {
+    public UspesnaTransformacija dodajHtml(String id)
+            throws JAXBException, EntityNotFoundException, TransformationFailedException, IOException {
         String htmlPutanja = HTML_PUTANJA + id + ".html";
 
-        return new UspesanOdgovor(this.transformator.generateHTML(htmlPutanja, get(id)));
+        return new UspesnaTransformacija(this.transformator.generateHTML(htmlPutanja, get(id)));
     }
 
-    public UspesanOdgovor dodajPdf(String id) throws JAXBException, EntityNotFoundException,
+    public UspesnaTransformacija dodajPdf(String id) throws JAXBException, EntityNotFoundException,
             IOException, CannotUnmarshalException, TransformationFailedException
     {
         String pdfPutanja = PDF_PUTANJA + id + ".pdf";
         String htmlPutanja = HTML_PUTANJA + id + ".html";
         this.dodajHtml(id);  //prvo se pravi html za slucaj da ne postoji
 
-        return new UspesanOdgovor(this.transformator.generatePdf(htmlPutanja, pdfPutanja));
+        return new UspesnaTransformacija(this.transformator.generatePdf(htmlPutanja, pdfPutanja));
     }
 
     public void saveToXmlFile(final String zahtev) throws JAXBException, FileNotFoundException, InvalidDocumentException {
@@ -84,6 +92,36 @@ public class AutorskaPravaService {
     public void saveToDB(String zahtev) throws InvalidDocumentException {
         ZahtevAutorskaDela zahtevAutorskaDela = checkSchema(zahtev);
         repository.save(zahtevAutorskaDela, true);
+    }
+
+    public void saveNewRequest(
+            String id,
+            final String broj_prijave,
+            final LocalDate datum_podnosenja,
+            final boolean pregledano,
+            final Institucija institucija,
+            final Podnosilac podnosilac,
+            final Punomocnik punomocnik,
+            final AutorskoDelo autorsko_delo,
+            final List<Autor> autori,
+            final Prilozi prilozi
+    )
+            throws JAXBException, FileNotFoundException, InvalidDocumentException, TransformationFailedException
+    {
+        String imeSlike = sacuvajSliku(prilozi.getPrimerak());
+        prilozi.setPrimerak(imeSlike);
+        if (id == null) {
+            id = "1";    //zbog check seme da validira, posle ce setovati dobar broj
+        }
+
+        ZahtevAutorskaDela zahtev = new ZahtevAutorskaDela(id, broj_prijave, datum_podnosenja
+        ,pregledano, institucija, podnosilac, punomocnik, autorsko_delo, autori, prilozi);
+        Marshaller marshaller = jaxbContext.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+        StringWriter sw = new StringWriter();
+        marshaller.marshal(zahtev, sw);
+
+        this.saveToDB(sw.toString());
     }
 
     public ZahtevAutorskaDela get(String documentId) throws EntityNotFoundException, JAXBException {

@@ -33,3 +33,13 @@ h3 {
   padding-right: 0.6rem;
   margin-top: 2rem;
 }
+
+.primerak-a:hover {
+  text-decoration: underline !important;
+  text-underline-position: under;
+}
+
+.primerak-a {
+  text-decoration: none;
+}
+

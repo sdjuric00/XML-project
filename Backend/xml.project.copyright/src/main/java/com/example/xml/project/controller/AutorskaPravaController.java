@@ -10,11 +10,13 @@ import com.example.xml.project.exception.XPathException;
 import com.example.xml.project.exception.TransformationFailedException;
 
 import com.example.xml.project.model.A1.ZahtevAutorskaDela;
+import com.example.xml.project.request.ZahtevAutorskaDelaRequest;
 import com.example.xml.project.service.AutorskaPravaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import com.example.xml.project.response.UspesanOdgovor;
+import com.example.xml.project.response.UspesnaTransformacija;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -46,6 +48,26 @@ public class AutorskaPravaController {
     public void saveToDb(@RequestBody final String zahtev) throws InvalidDocumentException {
         System.out.println(zahtev);
         autorskaPravaService.saveToDB(zahtev);
+    }
+
+    @PostMapping(produces = "application/xml", consumes = "application/xml")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void saveNewRequest(@Valid @RequestBody ZahtevAutorskaDelaRequest zahtev)
+            throws InvalidDocumentException, JAXBException, FileNotFoundException, TransformationFailedException
+    {
+
+        autorskaPravaService.saveNewRequest(
+                zahtev.getId(),
+                zahtev.getBroj_prijave(),
+                zahtev.getDatum_podnosenja(),
+                zahtev.isPregledano(),
+                zahtev.getInstitucija(),
+                zahtev.getPodnosilac(),
+                zahtev.getPunomocnik(),
+                zahtev.getAutorsko_delo(),
+                zahtev.getAutori(),
+                zahtev.getPrilozi()
+        );
     }
 
     @GetMapping(path="{documentId}", produces = "application/xml")
@@ -86,18 +108,17 @@ public class AutorskaPravaController {
         return autorskaPravaService.pronadjiRezultateOsnovnePretrage(parametriPretrage);
     }
 
-    @GetMapping(path = "/kreiraj-html/{id}", produces = "application/xml", consumes = "application/xml")
+    @GetMapping(path = "/kreiraj-html/{id}", produces = "application/xml")
     @ResponseStatus(HttpStatus.CREATED)
-    public UspesanOdgovor createHTML(@PathVariable @Valid @NotNull(message = "Poruka ne sme biti prazna.") final String id)
-            throws JAXBException, EntityNotFoundException, CannotUnmarshalException, TransformationFailedException
-    {
+    public UspesnaTransformacija createHTML(@PathVariable @Valid @NotNull(message = "Id ne sme biti prazan.") final String id)
+            throws JAXBException, EntityNotFoundException, TransformationFailedException, IOException {
 
         return autorskaPravaService.dodajHtml(id);
     }
 
-    @GetMapping(path = "/kreiraj-pdf/{id}", produces = "application/xml", consumes = "application/xml")
+    @GetMapping(path = "/kreiraj-pdf/{id}", produces = "application/xml")
     @ResponseStatus(HttpStatus.CREATED)
-    public UspesanOdgovor createPDF(@PathVariable @Valid @NotNull(message = "Poruka ne sme biti prazna.") final String id)
+    public UspesnaTransformacija createPDF(@PathVariable @Valid @NotNull(message = "Id ne sme biti prazan.") final String id)
             throws JAXBException, EntityNotFoundException, IOException, CannotUnmarshalException, TransformationFailedException
     {
 

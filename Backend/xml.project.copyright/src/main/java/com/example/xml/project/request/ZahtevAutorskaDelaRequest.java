@@ -1,5 +1,7 @@
-package com.example.xml.project.model.A1;
+package com.example.xml.project.request;
 
+import com.example.xml.project.model.A1.Autor;
+import com.example.xml.project.model.A1.AutorskoDelo;
 import com.example.xml.project.model.Institucija;
 import com.example.xml.project.model.Podnosilac;
 import com.example.xml.project.model.Prilozi;
@@ -16,10 +18,10 @@ import java.util.List;
 @XmlRootElement(name="zahtev_za_unosenje_u_evidenciju_i_deponovanje_autorskih_dela", namespace = "http://ftn.ac.rs/a")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name="zahtev_za_unosenje_u_evidenciju_i_deponovanje_autorskih_dela",
-    propOrder={"institucija", "podnosilac", "punomocnik", "autorsko_delo", "autori", "prilozi"},
-    namespace = "http://ftn.ac.rs/a"
+        propOrder={"institucija", "podnosilac", "punomocnik", "autorsko_delo", "autori", "prilozi"},
+        namespace = "http://ftn.ac.rs/a"
 )
-public class ZahtevAutorskaDela implements IdentifiableEntity {
+public class ZahtevAutorskaDelaRequest implements IdentifiableEntity {
 
     @XmlAttribute(name="id", required = true)
     private String id;
@@ -52,34 +54,6 @@ public class ZahtevAutorskaDela implements IdentifiableEntity {
 
     @XmlElement(name="prilozi", required = true, namespace = "http://ftn.ac.rs/a")
     private Prilozi prilozi;
-
-    public ZahtevAutorskaDela() {
-
-    }
-
-    public ZahtevAutorskaDela(
-            final String id,
-            final String broj_prijave,
-            final LocalDate datum_podnosenja,
-            final boolean pregledano,
-            final Institucija institucija,
-            final Podnosilac podnosilac,
-            final Punomocnik punomocnik,
-            final AutorskoDelo autorsko_delo,
-            final List<Autor> autori,
-            final Prilozi prilozi
-    ) {
-        this.id = id;
-        this.broj_prijave = broj_prijave;
-        this.datum_podnosenja = datum_podnosenja;
-        this.pregledano = pregledano;
-        this.institucija = institucija;
-        this.podnosilac = podnosilac;
-        this.punomocnik = punomocnik;
-        this.autorsko_delo = autorsko_delo;
-        this.autori = autori;
-        this.prilozi = prilozi;
-    }
 
     public String getBroj_prijave() {
         return broj_prijave;

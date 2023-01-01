@@ -20,11 +20,11 @@ export interface ZahtevAutorskoPravoDetaljneInformacije {
   punomocnik: PunomocnikObj;
   autorsko_delo: AutorskoDeloObj;
   autori: AutorObj[];
-  prilozi: PrilogObj[];
+  prilozi: PrilogObj;
 }
 
 export function napraviZahtevAutorskoPravoDetaljneInformacije(zahtevJson): ZahtevAutorskoPravoDetaljneInformacije{
-
+  
   return {
     id: zahtevJson.id[0],
     broj_prijave: zahtevJson.broj_prijave[0],
@@ -35,6 +35,6 @@ export function napraviZahtevAutorskoPravoDetaljneInformacije(zahtevJson): Zahte
     punomocnik: napraviPunomocnika(zahtevJson.punomocnik[0]),
     autorsko_delo: napraviAutorskoDelo(zahtevJson.autorsko_delo[0]),
     autori: napraviAutore(zahtevJson.autori),
-    prilozi: napraviPriloge(zahtevJson.prilozi)
+    prilozi: napraviPriloge(zahtevJson.prilozi[0])
   }
 }

@@ -39,6 +39,11 @@
                     input[type="checkbox"] {
                         vertical-align:middle;
                     }
+
+                    a {
+                        text-decoration: none;
+                    }
+
                 </style>
                 <title>Autorsko pravo (XSLT)</title>
             </head>
@@ -117,7 +122,7 @@
                                     <p style="min-height: 5rem; margin: 0.4rem; text-align: left; font-weight: normal">
                                         <xsl:for-each select="//a:autori//a:autor">
                                             <xsl:choose>
-                                                <xsl:when test="a:imenovani_autor">
+                                                <xsl:when test="a:imenovani_autor//a:pseudonim">
                                                     <span><xsl:value-of select="position()" />. <xsl:value-of select="a:imenovani_autor/a:ime"/>&#160;<xsl:value-of select="a:imenovani_autor/a:prezime"/>&#160;-&#160;<xsl:value-of select="a:imenovani_autor/a:pseudonim"/><br /></span>
                                                 </xsl:when>
                                                 <xsl:otherwise>
@@ -152,7 +157,7 @@
                                                 </xsl:choose>
                                             </xsl:when>
                                             <xsl:otherwise>
-                                                /
+                                                Prijava se ne odnosi preko punomocnika
                                             </xsl:otherwise>
                                         </xsl:choose>
                                     </p>
@@ -191,18 +196,23 @@
                             <tr>
                                 <th colspan="3" style="border: 1px solid black">
                                     <p style="min-height: 5rem; margin: 0.4rem; text-align: left; font-weight: normal">
-                                        <xsl:if test="//a:podaci_o_naslovu_prerada">
-                                            <span>Naslov: <xsl:value-of select="//a:podaci_o_naslovu_prerada/a:naslov" /><br /></span>
-                                            <span>Autor: </span>
-                                                <xsl:choose>
-                                                    <xsl:when test="//a:podaci_o_naslovu_prerada/a:autor/a:imenovani_autor">
-                                                        <span><xsl:value-of select="//a:podaci_o_naslovu_prerada//a:ime"/>&#160;<xsl:value-of select="//a:podaci_o_naslovu_prerada//a:prezime"/>-&#160;<xsl:value-of select="//a:podaci_o_naslovu_prerada//a:pseudonim"/><br /></span>
-                                                    </xsl:when>
-                                                    <xsl:otherwise>
-                                                        <span>Anonimni autor<br /></span>
-                                                    </xsl:otherwise>
-                                                </xsl:choose>
-                                        </xsl:if>
+                                        <xsl:choose>
+                                            <xsl:when test="//a:podaci_o_naslovu_prerada">
+                                                <span>Naslov: <xsl:value-of select="//a:podaci_o_naslovu_prerada/a:naslov" /><br /></span>
+                                                <span>Autor: </span>
+                                                    <xsl:choose>
+                                                        <xsl:when test="//a:podaci_o_naslovu_prerada/a:autor/a:imenovani_autor">
+                                                            <span><xsl:value-of select="//a:podaci_o_naslovu_prerada//a:ime"/>&#160;<xsl:value-of select="//a:podaci_o_naslovu_prerada//a:prezime"/>-&#160;<xsl:value-of select="//a:podaci_o_naslovu_prerada//a:pseudonim"/><br /></span>
+                                                        </xsl:when>
+                                                        <xsl:otherwise>
+                                                            <span>Anonimni autor<br /></span>
+                                                        </xsl:otherwise>
+                                                    </xsl:choose>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                Autorsko delo nije prerada
+                                            </xsl:otherwise>
+                                        </xsl:choose>
                                     </p>
                                 </th>
                             </tr>
@@ -350,11 +360,23 @@
                             <tr>
                                 <th colspan="3" style="border: 1px solid black">
                                     <p style="min-height: 5rem; margin: 0.4rem; text-align: left; font-weight: normal">
-                                        <xsl:for-each select="//a:prilozi//a:prilog">
-                                            <span>Opis:&#160;<xsl:value-of select="a:opis" /><br /></span>
-                                            <span>Putanja:&#160;<xsl:value-of select="@putanja" /><br /><br /></span>
-                                        </xsl:for-each>
-                                        <span></span>
+                                        <span>Opis:&#160;<xsl:value-of select="//a:opis" /><br /></span>
+                                        <span>Primerak:&#160;
+                                            <a target="_blank">
+                                                <xsl:attribute name="href">
+                                                    <xsl:value-of select="concat('http://localhost:8081/images/', //a:primerak)" />
+                                                </xsl:attribute>
+                                                <xsl:value-of select="//a:primerak" />
+                                            </a>
+                                        </span>
+                                        <br />
+                                        <span>
+                                            <img style="height: 6rem; width: auto;">
+                                                <xsl:attribute name="src">
+                                                    <xsl:value-of select="concat('http://localhost:8081/images/', //a:primerak)"/>
+                                                </xsl:attribute>
+                                            </img>
+                                        </span>
                                     </p>
                                 </th>
                             </tr>
@@ -362,16 +384,39 @@
                             <tr>
                                 <th colspan="3" style="border: 1px solid black">
                                     <p style="margin: 0.4rem; text-align: center; font-weight: bold">
-                                        <h3>POPUNJAVA ZAVOD:</h3>
+                                        <h4 style="font-size: 1.1rem; margin:0;">POPUNJAVA ZAVOD:</h4>
                                     </p>
-                                    <p style="margin: 1rem 0 0.4rem 1rem; text-align: left;"><b>Prilozi uz prijavu:</b></p>
-                                    <p style="text-align: left; margin: 1rem 0 0.4rem 1rem; font-weight: normal">
-                                        <input id="check1" style="display: inline-block; vertical-align: middle;" type="checkbox" />
-                                        <label for="check1" style="display: inline-block; vertical-align: middle;">opis autorskog dela (ako je delo podneto na optickom disku)</label>
+                                </th>
+                            </tr>
+
+                            <tr>
+                                <th colspan="3" style="border: 1px solid black">
+                                    <p style="margin: 0.4rem; text-align: left;"><b>Prilozi uz prijavu:</b></p>
+                                </th>
+                            </tr>
+
+                            <tr>
+                                <th colspan="1" style="border: 1px solid black">
+                                    <p style="margin: 0.4rem; text-align: center;"><b></b></p>
+                                </th>
+                                <th colspan="2" style="border: 1px solid black">
+                                    <p style="text-align: left; margin: 0.4rem; font-weight: normal">
+                                        <span>
+                                            opis autorskog dela (ako je delo podneto na optickom disku)
+                                        </span>
                                     </p>
-                                    <p style="text-align: left; margin: 1rem 0 0.4rem 1rem; font-weight: normal">
-                                        <input id="check0" style="display: inline-block; vertical-align: middle;" type="checkbox" />
-                                        <label for="check0" style="display: inline-block; vertical-align: middle;">primer autorskog dela (slika, video zapis, audio zapis)</label>
+                                </th>
+                            </tr>
+
+                            <tr>
+                                <th colspan="1" style="border: 1px solid black">
+                                    <p style="margin: 0.4rem; text-align: center;"><b>X</b></p>
+                                </th>
+                                <th colspan="2" style="border: 1px solid black">
+                                    <p style="text-align: left; margin: 0.4rem; font-weight: normal">
+                                        <span>
+                                            primer autorskog dela (slika, video zapis, audio zapis)
+                                        </span>
                                     </p>
                                 </th>
                             </tr>

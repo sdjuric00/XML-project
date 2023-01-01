@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../environments/environment";
-import {ZahtevAutorskoPravoXml} from "../model/autorsko-pravo/xml/zahtev-autorsko-pravo-xml";
 import {ToastrService} from "ngx-toastr";
 import {map, Observable} from "rxjs";
 import * as xml2js from 'xml2js';
@@ -21,6 +20,7 @@ import {
   napraviZahtevZigDetaljneInformacije,
   ZahtevZigDetaljneInformacije
 } from "../model/zig/obj/zahtev-zig-detaljne-informacije";
+import { ZahtevAutorskoPravoXml } from '../model/autorsko-pravo/xml/zahtev-autorsko-pravo-xml';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +29,7 @@ export class ZigService {
   private _api_url:string = environment.zigUrl;
   constructor(private _http: HttpClient,private _toast: ToastrService) {}
 
-  // create(zahtevZaAutorskoPravo: zXml){
+  // create(zahtevZaAutorskoPravo: ZahtevAutorskoPravoXml){
   //   console.log("fafsfaf");
   //   let headers = new HttpHeaders({ "Content-Type": "application/xml"});
   //   console.log(zahtevZaAutorskoPravo);
