@@ -79,7 +79,8 @@ public class ResenjeService {
             opsti_akt,
             dokaz_o_pravu_prvenstva,
             dokaz_o_uplati_takse,
-            resenje
+            resenje,
+            true
         );
     }
 
@@ -106,7 +107,8 @@ public class ResenjeService {
             punomocje_ce_biti_naknadno_dostavljeno,
             opsti_akt, dokaz_o_pravu_prvenstva,
             dokaz_o_uplati_takse,
-            resenje
+            resenje,
+            false
         );
     }
 
@@ -120,11 +122,13 @@ public class ResenjeService {
         final boolean opsti_akt,
         final boolean dokaz_o_pravu_prvenstva,
         final boolean dokaz_o_uplati_takse,
-        final Resenje resenje
+        final Resenje resenje,
+        final boolean prihvaceno
     ) throws CannotUnmarshalException, XPathException, InvalidDocumentException {
         repository.save(resenje, true);
         ZahtevZig zahtevZig = zigService.uzmiZahtevBezDTO(referenca_na_zahtev);
         zahtevZig.setPregledano(true);
+        zahtevZig.setPrihvaceno(prihvaceno);
         zahtevZig.setReferenca_na_resenje(resenje.getId());
         zahtevZig.setPopunjava_zavod(new PopunjavaZavod());
         zahtevZig.getPopunjava_zavod().setPrimerak_znaka(primerak_znaka_dat);

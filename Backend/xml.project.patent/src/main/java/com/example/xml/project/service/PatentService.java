@@ -1,5 +1,6 @@
 package com.example.xml.project.service;
 
+import com.example.xml.project.dto.IzvestajDTO;
 import com.example.xml.project.dto.ZahtevPatentDetaljneInformacijeDTO;
 import com.example.xml.project.dto.ZahteviPatentiDTO;
 import com.example.xml.project.exception.CannotUnmarshalException;
@@ -79,11 +80,14 @@ public class PatentService {
         repository.save(zahtevPatent, generisiId);
     }
 
-
-
     public ZahtevPatent get(String documentId) throws EntityNotFoundException, JAXBException {
 
         return repository.get(documentId);
+    }
+
+    public IzvestajDTO generisiIzvestaj(final LocalDate pocetniDatum, final LocalDate krajnjiDatum) throws CannotUnmarshalException, XPathException {
+
+        return patentRepository.generisiIzvestaj(pocetniDatum, krajnjiDatum);
     }
 
     public ZahteviPatentiDTO uzmiZahteve(final boolean obradjene) throws CannotUnmarshalException, XPathException {

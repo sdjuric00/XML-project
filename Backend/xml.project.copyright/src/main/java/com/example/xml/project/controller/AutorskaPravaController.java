@@ -1,5 +1,6 @@
 package com.example.xml.project.controller;
 
+import com.example.xml.project.dto.IzvestajDTO;
 import com.example.xml.project.dto.ZahtevAutorskaDelaDetaljneInformacijeDTO;
 import com.example.xml.project.dto.ZahteviAutorskaDelaDTO;
 import com.example.xml.project.exception.CannotUnmarshalException;
@@ -10,12 +11,12 @@ import com.example.xml.project.exception.XPathException;
 import com.example.xml.project.exception.TransformationFailedException;
 
 import com.example.xml.project.model.A1.ZahtevAutorskaDela;
+import com.example.xml.project.request.OpsegDatumaRequest;
 import com.example.xml.project.request.ZahtevAutorskaDelaRequest;
 import com.example.xml.project.request.PretragaRequest;
 import com.example.xml.project.service.AutorskaPravaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import com.example.xml.project.response.UspesnaTransformacija;
 
@@ -24,6 +25,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
+import java.time.LocalDate;
 import java.util.List;
 import java.io.IOException;
 
@@ -68,6 +70,16 @@ public class AutorskaPravaController {
                 zahtev.getAutorsko_delo(),
                 zahtev.getAutori(),
                 zahtev.getPrilozi()
+        );
+    }
+
+    @PostMapping(path="/izvestaj", consumes = "application/xml", produces = "application/xml")
+    @ResponseStatus(HttpStatus.OK)
+    public IzvestajDTO generisiIzvestaj(@Valid @RequestBody final OpsegDatumaRequest opsegDatumaRequest) throws EntityNotFoundException, JAXBException, CannotUnmarshalException, XPathException {
+
+        return autorskaPravaService.generisiIzvestaj(
+            LocalDate.parse(opsegDatumaRequest.getPocetni_datum()),
+            LocalDate.parse(opsegDatumaRequest.getKrajnji_datum())
         );
     }
 

@@ -72,6 +72,7 @@ public class ResenjeService {
         zahtevPatent.setPregledano(true);
         zahtevPatent.setReferenca_na_resenje(resenje.getId());
         zahtevPatent.setPriznati_datum_podnosenja(LocalDate.now());
+        zahtevPatent.setPrihvaceno(true);
         patentService.saveToDBObj(zahtevPatent, false);
     }
 
@@ -86,6 +87,7 @@ public class ResenjeService {
         zahtevPatent.setPregledano(true);
         zahtevPatent.setReferenca_na_resenje(resenje.getId());
         zahtevPatent.setPriznati_datum_podnosenja(LocalDate.now());
+        zahtevPatent.setPrihvaceno(false);
         patentService.saveToDBObj(zahtevPatent, false);
     }
 

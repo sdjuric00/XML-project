@@ -64,6 +64,9 @@ import { ZahtevZigDetaljiComponent } from './component/zig/zahtev-zig-detalji/za
 import { DugmiciZaSkidanjeComponent } from './component/dugmici-za-skidanje/dugmici-za-skidanje.component';
 import { HomePageComponent } from './component/home-page/home-page.component';
 import {OdbijZahtevComponent} from "./component/odbij-zahtev/odbij-zahtev.component";
+import { IzvestajiComponent } from './component/izvestaji/izvestaji.component';
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MAT_DATE_LOCALE, MatNativeDateModule} from "@angular/material/core";
 
 @NgModule({
   declarations: [
@@ -118,7 +121,8 @@ import {OdbijZahtevComponent} from "./component/odbij-zahtev/odbij-zahtev.compon
     ZahtevZigDetaljiComponent,
     DugmiciZaSkidanjeComponent,
     HomePageComponent,
-    OdbijZahtevComponent
+    OdbijZahtevComponent,
+    IzvestajiComponent
   ],
   imports: [
     BrowserModule,
@@ -138,12 +142,19 @@ import {OdbijZahtevComponent} from "./component/odbij-zahtev/odbij-zahtev.compon
       preventDuplicates: true,
       closeButton: true,
     }),
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
-  providers: [DatePipe, {
-    provide: HTTP_INTERCEPTORS,
-    useClass: CustomInterceptor,
-    multi: true
-  }],
+  providers: [
+    DatePipe,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: CustomInterceptor,
+      multi: true
+    },
+
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

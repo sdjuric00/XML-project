@@ -1,5 +1,6 @@
 package com.example.xml.project.controller;
 
+import com.example.xml.project.dto.IzvestajDTO;
 import com.example.xml.project.dto.ZahtevPatentDetaljneInformacijeDTO;
 import com.example.xml.project.dto.ZahteviPatentiDTO;
 import com.example.xml.project.exception.CannotUnmarshalException;
@@ -8,6 +9,7 @@ import com.example.xml.project.exception.InvalidDocumentException;
 import com.example.xml.project.exception.XPathException;
 import com.example.xml.project.exception.TransformationFailedException;
 import com.example.xml.project.model.P1.ZahtevPatent;
+import com.example.xml.project.request.OpsegDatumaRequest;
 import com.example.xml.project.request.ZahtevPatentRequest;
 import com.example.xml.project.request.PretragaRequest;
 import com.example.xml.project.response.UspesnaTransformacija;
@@ -22,6 +24,7 @@ import javax.validation.constraints.NotNull;
 import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/patent")
@@ -76,6 +79,16 @@ public class PatentController {
                 zahtev.getPunomocnik(),
                 zahtev.getDostavljanje(),
                 zahtev.getZahtev_za_priznanje_prava_iz_ranijih_prijava()
+        );
+    }
+
+    @PostMapping(path="/izvestaj", consumes = "application/xml", produces = "application/xml")
+    @ResponseStatus(HttpStatus.OK)
+    public IzvestajDTO generisiIzvestaj(@Valid @RequestBody final OpsegDatumaRequest opsegDatumaRequest) throws EntityNotFoundException, JAXBException, CannotUnmarshalException, XPathException {
+
+        return patentService.generisiIzvestaj(
+            LocalDate.parse(opsegDatumaRequest.getPocetni_datum()),
+            LocalDate.parse(opsegDatumaRequest.getKrajnji_datum())
         );
     }
 

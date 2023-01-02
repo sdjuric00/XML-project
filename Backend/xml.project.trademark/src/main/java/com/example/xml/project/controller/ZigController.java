@@ -1,5 +1,6 @@
 package com.example.xml.project.controller;
 
+import com.example.xml.project.dto.IzvestajDTO;
 import com.example.xml.project.dto.ZahtevZigDetaljneInformacijeDTO;
 import com.example.xml.project.dto.ZahteviZigDTO;
 import com.example.xml.project.exception.CannotUnmarshalException;
@@ -8,6 +9,7 @@ import com.example.xml.project.exception.InvalidDocumentException;
 import com.example.xml.project.exception.XPathException;
 import com.example.xml.project.exception.TransformationFailedException;
 import com.example.xml.project.model.Z1.ZahtevZig;
+import com.example.xml.project.request.OpsegDatumaRequest;
 import com.example.xml.project.request.PretragaRequest;
 import com.example.xml.project.request.ZigRequest;
 import com.example.xml.project.response.UspesnaTransformacija;
@@ -21,6 +23,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
+import java.time.LocalDate;
 import java.util.List;
 import java.io.IOException;
 
@@ -79,6 +82,16 @@ public class ZigController {
     ) throws EntityNotFoundException, JAXBException {
 
         return zigService.get(documentId);
+    }
+
+    @PostMapping(path="/izvestaj", consumes = "application/xml", produces = "application/xml")
+    @ResponseStatus(HttpStatus.OK)
+    public IzvestajDTO generisiIzvestaj(@Valid @RequestBody final OpsegDatumaRequest opsegDatumaRequest) throws EntityNotFoundException, JAXBException, CannotUnmarshalException, XPathException {
+
+        return zigService.generisiIzvestaj(
+            LocalDate.parse(opsegDatumaRequest.getPocetni_datum()),
+            LocalDate.parse(opsegDatumaRequest.getKrajnji_datum())
+        );
     }
 
     @GetMapping(path="/neobradjeni-zahtevi", produces = "application/xml")
