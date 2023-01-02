@@ -8,6 +8,7 @@ import { ZahtevAutorskoPravoOsnovneInformacije } from 'src/app/model/autorsko-pr
 import { AutorskaPravaService } from 'src/app/service/autorska-prava.service';
 import { ZahtevZigOsnovneInformacije } from 'src/app/model/zig/obj/zahtev-zig-osnovne-informacije';
 import { ZigService } from 'src/app/service/zig.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home-page',
@@ -16,7 +17,7 @@ import { ZigService } from 'src/app/service/zig.service';
 })
 export class HomePageComponent implements OnInit {
 
-  constructor(private patentService: PatentApplicationService, private autorskaPravaService: AutorskaPravaService, private zigService: ZigService ) { }
+  constructor(private patentService: PatentApplicationService, private autorskaPravaService: AutorskaPravaService, private zigService: ZigService, private _router: Router ) { }
 
   ngOnInit(): void {
   }
@@ -49,6 +50,10 @@ export class HomePageComponent implements OnInit {
     if (index >= 0) {
       this.searchList.splice(index, 1);
     }
+  }
+
+  naprednaPretraga(){
+    this._router.navigate(['/napredna-pretraga']);
   }
 
   pretrazi(){

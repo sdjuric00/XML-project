@@ -138,5 +138,8 @@ public class PatentController {
         return patentService.dodajPdf(id);
     }
 
-
+    @PostMapping(path="/dokumenti-referenciraju/{documentId}")
+    public ZahteviPatentiDTO getDokumentiKojiReferenciraju(@PathVariable String documentId) throws Exception {
+        return patentService.pronadjiDokumenteKojiReferenciraju(documentId);
+    }
 }

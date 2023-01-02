@@ -68,6 +68,8 @@ import { IzvestajiComponent } from './component/izvestaji/izvestaji.component';
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MAT_DATE_LOCALE, MatNativeDateModule} from "@angular/material/core";
 
+import { NaprednaPretragaComponent } from './component/napredna-pretraga/napredna-pretraga.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -122,7 +124,8 @@ import {MAT_DATE_LOCALE, MatNativeDateModule} from "@angular/material/core";
     DugmiciZaSkidanjeComponent,
     HomePageComponent,
     OdbijZahtevComponent,
-    IzvestajiComponent
+    IzvestajiComponent,
+    NaprednaPretragaComponent,
   ],
   imports: [
     BrowserModule,

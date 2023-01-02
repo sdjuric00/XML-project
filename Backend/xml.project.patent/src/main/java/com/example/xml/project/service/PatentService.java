@@ -11,6 +11,8 @@ import com.example.xml.project.exception.TransformationFailedException;
 import com.example.xml.project.model.Institucija;
 import com.example.xml.project.model.P1.*;
 import com.example.xml.project.model.Podnosilac;
+import com.example.xml.project.model.P1.Prijava;
+import com.example.xml.project.model.P1.ZahtevPatent;
 import com.example.xml.project.repository.GenericRepository;
 import com.example.xml.project.repository.PatentRepository;
 import com.example.xml.project.response.UspesnaTransformacija;
@@ -30,6 +32,7 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import java.io.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.xml.project.util.Constants.*;
@@ -111,6 +114,32 @@ public class PatentService {
     public ZahtevPatent uzmiZahtevBezDTO(final String id) throws CannotUnmarshalException, XPathException {
 
         return patentRepository.uzmiZahtev(id);
+    }
+
+    public ZahteviPatentiDTO pronadjiDokumenteKojiReferenciraju(final String documentId) throws Exception {
+        List<ZahtevPatent> obradjeniZahtevi = patentRepository.uzmiZahteve(true);
+        List<ZahtevPatent> neobradjeniZahtevi = patentRepository.uzmiZahteve(false);
+
+        List<ZahtevPatent> dokumentiKojiReferenciraju = new ArrayList<>();
+        for(ZahtevPatent zahtev : obradjeniZahtevi){
+            for(Prijava prijava : zahtev.getZahtev_za_priznanje_prava_iz_ranijih_prijava()){
+                if(prijava.getBroj_ranije_prijave().equals(documentId)){
+                    dokumentiKojiReferenciraju.add(zahtev);
+                }
+            }
+        }
+
+        for(ZahtevPatent zahtev : neobradjeniZahtevi){
+            for(Prijava prijava : zahtev.getZahtev_za_priznanje_prava_iz_ranijih_prijava()){
+                if(prijava.getBroj_ranije_prijave().equals(documentId)){
+                    dokumentiKojiReferenciraju.add(zahtev);
+                }
+            }
+        }
+
+        ZahteviPatentiDTO zahteviDTO = new ZahteviPatentiDTO();
+        zahteviDTO.fromZahtevi(dokumentiKojiReferenciraju);
+        return zahteviDTO;
     }
 
 

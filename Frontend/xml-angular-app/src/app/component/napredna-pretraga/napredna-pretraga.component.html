@@ -1,0 +1,61 @@
+<form [formGroup]="naprednaPretragaForm">
+<div>
+    <h2 style="text-align:center">Pretraga po metapodacima</h2>
+    <div style="display: flex; flex-direction: row; margin-top:3rem; float:left; margin-left:2rem;">
+        <div style="margin-right:3rem;">
+            <mat-form-field class="example-form-field" appearance="fill">
+                <mat-label>Element</mat-label>
+                <input matInput type="text" placeholder="Unesite naziv elementa" formControlName="naziv">
+            </mat-form-field><br><br>
+            <button mat-raised-button style=" width:12rem;" (click)="dodajNovuVrednost()">Dodaj novu vrednost</button><br><br>
+            <button mat-raised-button style=" width:12rem;" (click)="pretrazi()">Pretrazi</button>
+        </div>
+        <div  formArrayName="vrednosti">
+            <div *ngFor="let vred of vrednosti;let i =index;">
+                <div [formGroupName]="i" style="display: flex; flex-direction: row; ">
+                    <mat-form-field class="example-form-field" appearance="fill" style="margin-right:1rem;">
+                        <mat-label>Vrednost</mat-label>
+                        <input matInput type="text" placeholder="Unesite vrednost elementa" formControlName="vrednost">
+                    </mat-form-field>
+                    <mat-form-field class="example-form-field" appearance="fill">
+                        <mat-label>Operator</mat-label>
+                        <input matInput type="text" placeholder="Izaberite operator" formControlName="operator" [matAutocomplete]="auto">
+                        <mat-autocomplete #auto="matAutocomplete">
+                            <mat-option *ngFor="let opcija of operatori" [value]="opcija">
+                              {{opcija}}
+                            </mat-option>
+                          </mat-autocomplete>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="float:right; margin-right:10rem;border: 1px lightgrey solid; padding:2rem; border-radius:1rem;" *ngIf="prikaziPatente || prikaziAutorskaPrava || prikaziZigove">
+        <div *ngIf="prikaziPatente">
+          <p style="color:var(--green);text-align: center;">ZAHTEVI ZA PRIZNAVANJE PATENTA</p>
+          <div *ngFor="let zahtev of listaZahtevaPatenti" class="form-container mat-elevation-z2">
+            <app-red-patent [zahtev]="zahtev"></app-red-patent>
+          </div><br>
+          <mat-divider></mat-divider>
+        </div>
+        
+  
+        <div *ngIf="prikaziAutorskaPrava">
+          <br>
+            <p style="color:var(--green);text-align: center;">ZAHTEVI ZA UNOSENJE U EVIDENCIJU I DEPONOVANJE AUTORSKIH DELA</p>
+            <div *ngFor="let zahtev of listaZahtevaAutorskaPrava" class="form-container mat-elevation-z2">
+              <app-red-autorska-prava [zahtev]="zahtev"></app-red-autorska-prava>
+            </div><br>
+            <mat-divider></mat-divider>
+        </div>
+        <div *ngIf="prikaziZigove">
+          <br>
+          <p style="color:var(--green);text-align: center;">ZAHTEVI ZA PRIZNANJE ZIGA</p>
+          <div *ngFor="let zahtev of listaZahtevaZigova" class="form-container mat-elevation-z2">
+            <app-red-zig [zahtev]="zahtev"></app-red-zig>
+          </div>
+        </div>
+        </div>
+</div>
+</form>

@@ -253,6 +253,7 @@ public class PatentRepository extends BasicXMLRepository {
         return result;
     }
 
+
     public IzvestajDTO generisiIzvestaj(final LocalDate pocetniDatum, final LocalDate krajnjiDatum) throws CannotUnmarshalException, XPathException {
         Collection col = null;
         XMLResource resXml = null;
@@ -344,4 +345,5 @@ public class PatentRepository extends BasicXMLRepository {
 
         return zahtevPatent.isPregledano() && !zahtevPatent.isPrihvaceno();
     }
+
 }
