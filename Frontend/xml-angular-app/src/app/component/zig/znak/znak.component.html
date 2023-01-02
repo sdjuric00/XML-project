@@ -18,11 +18,11 @@
     <div [formGroup]="znakFormGroup" style="padding-left:8.5rem">
 
         <div style="display: flex">
-            <div class="vrste-container">
+            <div class="vrste-container" style="margin-left: 2rem;">
                 <h3>Vrsta znaka</h3>
                 <mat-radio-group>
                     <mat-radio-button class="example-radio-group" [value]="'verbalni'"
-                        (change)="changeVrstaZnaka('verbalni')" style="margin-right: 1rem" [checked]="vrstaZnaka === 'verbalni'">
+                        (change)="changeVrstaZnaka('verbalni')" style="margin-right: 1rem">
                         Verbalni
                     </mat-radio-button>
                     <mat-radio-button class="example-radio-group" [value]="'graficki'" (change)="changeVrstaZnaka('graficki')">
@@ -47,7 +47,7 @@
             </div>
 
             <div style="display: flex">
-                <div class="vrste-container" style="margin-right: 8rem;">
+                <div class="vrste-container">
                     <h3>Tip ziga</h3>
                     <mat-radio-group>
                         <mat-radio-button class="example-radio-group" [value]="'individualni'" (change)="changeTipZiga('individualni')"
@@ -61,14 +61,27 @@
                             (change)="changeTipZiga('garancije')">
                             Garancije
                         </mat-radio-button>
-                        <mat-radio-button class="example-radio-group" [value]="'Ostalo'" (change)="changeTipZiga('Ostalo')">
-                            <mat-form-field appearance="fill" class="input-field">
-                                <mat-label>Ostale vrste</mat-label>
-                                <input #customTip matInput placeholder="Ostale vrste"
-                                    (keyup)="changeCustomTipZiga(customTip.value)" [disabled]="tipZiga !== 'Ostalo'">
-                            </mat-form-field>
-                        </mat-radio-button>
                     </mat-radio-group>
+                </div>
+            </div>
+            <div style="display: flex">
+                <div class="vrste-container" style="margin-right: 1rem;">
+                    <h3>Ničanska klasifikacija</h3>
+                        <mat-checkbox style="display: block;" (click)="dodajNicansku('1. Hemijski proizvodi')">
+                            1. Hemijski proizvodi
+                        </mat-checkbox>
+                        <mat-checkbox style="display: block;" (click)="dodajNicansku('2. Boje i lakovi')">
+                            2. Boje i lakovi
+                        </mat-checkbox>
+                        <mat-checkbox style="display: block;" (click)="dodajNicansku('3. Nemedicinska kozmetika')">
+                            3. Nemedicinska kozmetika
+                        </mat-checkbox>
+                        <mat-checkbox style="display: block;" (click)="dodajNicansku('4. Industrija ulja i masti')">
+                            4. Industrija ulja i masti
+                        </mat-checkbox>
+                        <mat-checkbox style="display: block;" (click)="dodajNicansku('5. Farmaceutski proizvodi')">
+                            5. Farmaceutski proizvodi
+                        </mat-checkbox>
                 </div>
             </div>
         </div>
@@ -110,7 +123,7 @@
                 </div>
 
                 <h3>Osnovni podaci</h3>
-
+                
                 <div style="display: flex;">
                     <mat-form-field style="display: block;" appearance="fill" class="input-field">
                         <mat-label>Opis</mat-label>
@@ -123,17 +136,6 @@
                         </mat-error>
                     </mat-form-field>
                     
-                    <mat-form-field style="display: block;" appearance="fill" class="input-field">
-                        <mat-label>Ničanska klasifikacija</mat-label>
-                        <mat-select formControlName="nicanskaKlasifikacija">
-                            <mat-option *ngFor="let klasifikacija of klasifikacije" [value]="klasifikacija">
-                                {{klasifikacija}}
-                            </mat-option>
-                        </mat-select>
-                        <mat-error *ngIf="znakFormGroup.get('nicanskaKlasifikacija')?.hasError('required')">
-                            Klasifikacija je <strong>obavezno</strong> polje
-                        </mat-error>
-                    </mat-form-field>
                 </div>
 
                 <div style="display:flex;">

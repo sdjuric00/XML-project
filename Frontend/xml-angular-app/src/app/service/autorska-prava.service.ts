@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpResponse} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {ZahtevAutorskoPravoXml} from "../model/autorsko-pravo/xml/zahtev-autorsko-pravo-xml";
 import {ToastrService} from "ngx-toastr";
@@ -13,6 +13,7 @@ import {
   napraviZahtevAutorskoPravoDetaljneInformacije,
   ZahtevAutorskoPravoDetaljneInformacije
 } from "../model/autorsko-pravo/obj/zahtev-autorsko-pravo-detaljne-informacije";
+import { napraviUspesnuTransformaciju, UspesnaTransformacija } from '../model/opste/uspesna-transformacija';
 import { OsnovnaPretraga } from '../model/pretraga/osnovna-pretraga';
 import * as JsonToXML from "js2xmlparser";
 
@@ -103,6 +104,44 @@ export class AutorskaPravaService {
       let zahtev: ZahtevAutorskoPravoDetaljneInformacije;
       parser.parseString(result.toString(),(err, result) => {
         zahtev = napraviZahtevAutorskoPravoDetaljneInformacije(result.zahtev_za_unosenje_u_evidenciju_i_deponovanje_autorskih_dela);
+      });
+      return zahtev;
+    }));
+  }
+
+  kreirajPDF(zahtevId: string): Observable<UspesnaTransformacija> {
+    return this._http.get(`${this._api_url}/autorska-prava/kreiraj-pdf/${zahtevId}`, {
+        headers: new HttpHeaders().set('Accept' , 'application/xml'),
+        responseType:"text"
+      }
+    ).pipe(map(result=>{
+      result = result.replaceAll('ns2:', '');
+      result = result.replaceAll('ns3:', '');
+      result = result.replaceAll('ns4:', '');
+      const parser = new xml2js.Parser({ strict: true, trim: true });
+      let zahtev: UspesnaTransformacija;
+      parser.parseString(result.toString(),(err, result) => {
+        console.log(result)
+        zahtev = napraviUspesnuTransformaciju(result.uspesnaTransformacija);
+      });
+      return zahtev;
+    }));
+  }
+
+  kreirajHTML(zahtevId: string) {
+    return this._http.get(`${this._api_url}/autorska-prava/kreiraj-html/${zahtevId}`, {
+        headers: new HttpHeaders().set('Accept' , 'application/xml'),
+        responseType:"text"
+      }
+    ).pipe(map(result=>{
+      result = result.replaceAll('ns2:', '');
+      result = result.replaceAll('ns3:', '');
+      result = result.replaceAll('ns4:', '');
+      const parser = new xml2js.Parser({ strict: true, trim: true });
+      let zahtev: UspesnaTransformacija;
+      parser.parseString(result.toString(),(err, result) => {
+        console.log(result)
+        zahtev = napraviUspesnuTransformaciju(result.uspesnaTransformacija);
       });
       return zahtev;
     }));

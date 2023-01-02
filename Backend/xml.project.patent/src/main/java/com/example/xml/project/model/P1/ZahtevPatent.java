@@ -22,6 +22,9 @@ public class ZahtevPatent implements IdentifiableEntity {
     @XmlAttribute(name="id", required = true)
     private String id;
 
+    @XmlAttribute(name = "referenca_na_resenje")
+    private String referenca_na_resenje = "-1";
+
     @XmlAttribute(name="broj_prijave")
     private String broj_prijave;
 
@@ -61,6 +64,39 @@ public class ZahtevPatent implements IdentifiableEntity {
     @XmlElementWrapper(name="zahtev_za_priznanje_prava_iz_ranijih_prijava", namespace = "http://www.patent/patent")
     @XmlElement(name="prijava", required = true, namespace = "http://www.patent/patent")
     private List<Prijava> zahtev_za_priznanje_prava_iz_ranijih_prijava = new ArrayList<>();
+
+    public ZahtevPatent() {
+
+    }
+
+    public ZahtevPatent(final String id,
+                        final String broj_prijave,
+                        final LocalDate datum_prijema,
+                        final LocalDate priznati_datum_podnosenja,
+                        final boolean dopunska_prijava,
+                        final boolean pregledano,
+                        final Institucija institucija,
+                        final List<Naziv> podaci_o_pronalasku,
+                        final Podnosilac podnosilac,
+                        final PronalazacP pronalazac,
+                        final PunomocnikP punomocnik,
+                        final Dostavljanje dostavljanje,
+                        final List<Prijava> zahtev_za_priznanje_prava_iz_ranijih_prijava
+    ) {
+        this.id = id;
+        this.broj_prijave = broj_prijave;
+        this.datum_prijema = datum_prijema;
+        this.priznati_datum_podnosenja = priznati_datum_podnosenja;
+        this.dopunska_prijava = dopunska_prijava;
+        this.pregledano = pregledano;
+        this.institucija = institucija;
+        this.podaci_o_pronalasku = podaci_o_pronalasku;
+        this.podnosilac = podnosilac;
+        this.pronalazac = pronalazac;
+        this.punomocnik = punomocnik;
+        this.dostavljanje = dostavljanje;
+        this.zahtev_za_priznanje_prava_iz_ranijih_prijava = zahtev_za_priznanje_prava_iz_ranijih_prijava;
+    }
 
     @Override
     public String getId() {
@@ -166,5 +202,13 @@ public class ZahtevPatent implements IdentifiableEntity {
 
     public void setPregledano(boolean pregledano) {
         this.pregledano = pregledano;
+    }
+
+    public String getReferenca_na_resenje() {
+        return referenca_na_resenje;
+    }
+
+    public void setReferenca_na_resenje(String referenca_na_resenje) {
+        this.referenca_na_resenje = referenca_na_resenje;
     }
 }

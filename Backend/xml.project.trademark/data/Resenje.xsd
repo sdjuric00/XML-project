@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://ftn.ac.rs/resenje" elementFormDefault="qualified">
+
+    <xs:element name="resenje">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="datum_obrade" type="xs:date"/>
+                <xs:element name="ime_prezime_sluzbenika" type="xs:string"/>
+                <xs:choice>
+                    <xs:element name="sifra_obradjenog_zahteva" type="xs:string"/>
+                    <xs:element minOccurs="1" name="razlog_odbijanja" type="xs:string"/>
+                </xs:choice>
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:positiveInteger" use="required"/>
+            <xs:attribute name="referenca_na_zahtev" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

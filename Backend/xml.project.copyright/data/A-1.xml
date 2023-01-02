@@ -123,16 +123,9 @@
 
     </autori>
 
-    <prilozi>
-
-        <prilog putanja="slika1.png">
-            <opis>Neki opis</opis>
-        </prilog>
-
-        <prilog putanja="video-slika.mps">
-            <opis>Slika slikana bojama.</opis>
-        </prilog>
-
+    <prilozi opis_prilozen="false" primerak_prilozen="false">
+        <opis>Neki opis</opis>
+        <primerak>1.jpg</primerak>
     </prilozi>
 
 </zahtev_za_unosenje_u_evidenciju_i_deponovanje_autorskih_dela>

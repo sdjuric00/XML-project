@@ -6,13 +6,15 @@ import com.example.xml.project.exception.CannotUnmarshalException;
 import com.example.xml.project.exception.EntityNotFoundException;
 import com.example.xml.project.exception.InvalidDocumentException;
 import com.example.xml.project.exception.XPathException;
+import com.example.xml.project.exception.TransformationFailedException;
 import com.example.xml.project.model.Z1.ZahtevZig;
 import com.example.xml.project.request.PretragaRequest;
+import com.example.xml.project.request.ZigRequest;
+import com.example.xml.project.response.UspesnaTransformacija;
 import com.example.xml.project.service.ZigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import response.UspesanOdgovor;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -20,6 +22,8 @@ import javax.validation.constraints.NotNull;
 import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
 import java.util.List;
+import java.io.IOException;
+
 
 @RestController
 @RequestMapping("/zig")
@@ -45,6 +49,29 @@ public class ZigController {
         zigService.saveToDB(zahtev);
     }
 
+    @PostMapping(produces = "application/xml", consumes = "application/xml")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void saveNewRequest(@Valid @RequestBody ZigRequest zahtev)
+            throws InvalidDocumentException, JAXBException, TransformationFailedException {
+
+        zigService.saveNewRequest(
+                zahtev.getId(),
+                zahtev.getBroj_prijave(),
+                zahtev.getDatum_podnosenja(),
+                zahtev.isPregledano(),
+                zahtev.getZig(),
+                zahtev.getInstitucija(),
+                zahtev.getPodnosioci(),
+                zahtev.getPunomocnik(),
+                zahtev.getPodaci_o_zajednickom_predstavniku(),
+                zahtev.getZnak(),
+                zahtev.getNicanska_klasifikacija(),
+                zahtev.getPravo_prvenstva(),
+                zahtev.getPlacene_takse(),
+                zahtev.getPrilozi()
+        );
+    }
+
     @GetMapping(path="{documentId}", produces = "application/xml")
     @ResponseStatus(HttpStatus.OK)
     public ZahtevZig get(@PathVariable @Valid @NotBlank(message = "Document id is required")
@@ -52,19 +79,6 @@ public class ZigController {
     ) throws EntityNotFoundException, JAXBException {
 
         return zigService.get(documentId);
-    }
-
-    @GetMapping(path = "/create-trademark-html/{id}", produces = "application/xml", consumes = "application/xml")
-    @ResponseStatus(HttpStatus.CREATED)
-    public UspesanOdgovor createHTML(@PathVariable @Valid @NotNull(message = "Poruka ne sme biti prazna.") final String id) throws InvalidDocumentException, JAXBException, EntityNotFoundException {
-
-        return zigService.dodajZigHtml(id);
-    }
-
-    @PostMapping(path = "/create-trademark-pdf")
-    @ResponseStatus(HttpStatus.CREATED)
-    public boolean createPDF(@RequestBody final String zahtev) throws InvalidDocumentException {
-        return false;
     }
 
     @GetMapping(path="/neobradjeni-zahtevi", produces = "application/xml")
@@ -93,6 +107,23 @@ public class ZigController {
     @PostMapping(path="/osnovna-pretraga")
     public ZahteviZigDTO osnovnaPretraga(@RequestBody PretragaRequest pretragaRequest) throws Exception {
         return zigService.pronadjiRezultateOsnovnePretrage(pretragaRequest.getParametriPretrage());
+    }
+
+    @GetMapping(path = "/kreiraj-html/{id}", produces = "application/xml")
+    @ResponseStatus(HttpStatus.CREATED)
+    public UspesnaTransformacija createHTML(@PathVariable @Valid @NotNull(message = "Id ne sme biti prazan.") final String id)
+            throws JAXBException, EntityNotFoundException, TransformationFailedException, IOException {
+
+        return zigService.dodajHtml(id);
+    }
+
+    @GetMapping(path = "/kreiraj-pdf/{id}", produces = "application/xml")
+    @ResponseStatus(HttpStatus.CREATED)
+    public UspesnaTransformacija createPDF(@PathVariable @Valid @NotNull(message = "Id ne sme biti prazan.") final String id)
+            throws JAXBException, EntityNotFoundException, IOException, CannotUnmarshalException, TransformationFailedException
+    {
+
+        return zigService.dodajPdf(id);
     }
 
 }

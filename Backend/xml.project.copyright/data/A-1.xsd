@@ -9,7 +9,7 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="institucija" type="xs-opste:institucija"/>
-                <xs:element maxOccurs="unbounded" name="podnosilac" type="xs-opste:podnosilac"/>
+                <xs:element maxOccurs="1" name="podnosilac" type="xs-opste:podnosilac"/>
                 <xs:element name="punomocnik" type="xs-opste:punomocnik" minOccurs="0"/>
                 <xs:element name="autorsko_delo" type="xs-a:autorsko_delo"/>
                 <xs:element name="autori" type="xs-a:autori"/>
@@ -94,8 +94,7 @@
             </xs:extension>
         </xs:complexContent>
     </xs:complexType>
-    <xs:complexType name="anonimni_autor">
-    </xs:complexType>
+    <xs:complexType name="anonimni_autor"> </xs:complexType>
     <xs:complexType name="autor">
         <xs:choice>
             <xs:element name="anonimni_autor" type="xs-a:anonimni_autor"/>
@@ -108,14 +107,11 @@
         </xs:sequence>
     </xs:complexType>
     <xs:complexType name="prilozi">
-        <xs:sequence maxOccurs="unbounded" minOccurs="1">
-            <xs:element name="prilog" type="xs-a:prilog"/>
-        </xs:sequence>
-    </xs:complexType>
-    <xs:complexType name="prilog">
         <xs:sequence>
             <xs:element name="opis" type="xs:string"/>
+            <xs:element name="primerak" type="xs:string"/>
         </xs:sequence>
-        <xs:attribute name="putanja" type="xs:string"/>
+        <xs:attribute name="opis_prilozen" type="xs:boolean"/>
+        <xs:attribute name="primerak_prilozen" type="xs:boolean"/>
     </xs:complexType>
 </xs:schema>

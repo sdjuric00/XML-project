@@ -14,16 +14,19 @@ import {
 } from "../model/patent/obj/zahtev-patent-detaljne-informacije";
 import { OsnovnaPretraga } from '../model/pretraga/osnovna-pretraga';
 import * as JsonToXML from "js2xmlparser";
+import { ToastrService } from 'ngx-toastr';
+import { napraviUspesnuTransformaciju, UspesnaTransformacija } from '../model/opste/uspesna-transformacija';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PatentApplicationService {
   private _api_url:string = environment.patentUrl;
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient,private _toast: ToastrService) { }
 
-  create(zahtevPatent: Patent){
+  create(zahtevPatent: Patent) {
     let headers = new HttpHeaders({ "Content-Type": "application/xml"});
+    console.log(zahtevPatent);
     var o2x = require('object-to-xml');
     let queryParams = {};
     queryParams = {
@@ -31,6 +34,7 @@ export class PatentApplicationService {
       observe: "response",
       responseType: "text"
     };
+    const toast: ToastrService = this._toast;
     return this._http.post(`${this._api_url}/patent`, o2x(zahtevPatent), queryParams);
   }
 
@@ -155,4 +159,44 @@ export class PatentApplicationService {
     )
 
   }
+
+  kreirajPDF(zahtevId: string): Observable<UspesnaTransformacija> {
+    return this._http.get(`${this._api_url}/patent/kreiraj-pdf/${zahtevId}`, {
+        headers: new HttpHeaders().set('Accept' , 'application/xml'),
+        responseType:"text"
+      }
+    ).pipe(map(result=>{
+      result = result.replaceAll('ns2:', '');
+      result = result.replaceAll('ns3:', '');
+      result = result.replaceAll('ns4:', '');
+      const parser = new xml2js.Parser({ strict: true, trim: true });
+      let zahtev: UspesnaTransformacija;
+      parser.parseString(result.toString(),(err, result) => {
+        console.log(result)
+        zahtev = napraviUspesnuTransformaciju(result.uspesnaTransformacija);
+      });
+      return zahtev;
+    }));
+  }
+
+  kreirajHTML(zahtevId: string) {
+    return this._http.get(`${this._api_url}/patent/kreiraj-html/${zahtevId}`, {
+        headers: new HttpHeaders().set('Accept' , 'application/xml'),
+        responseType:"text"
+      }
+    ).pipe(map(result=>{
+      result = result.replaceAll('ns2:', '');
+      result = result.replaceAll('ns3:', '');
+      result = result.replaceAll('ns4:', '');
+      const parser = new xml2js.Parser({ strict: true, trim: true });
+      let zahtev: UspesnaTransformacija;
+      parser.parseString(result.toString(),(err, result) => {
+        console.log(result)
+        zahtev = napraviUspesnuTransformaciju(result.uspesnaTransformacija);
+      });
+      return zahtev;
+    }));
+  }
+
+
 }

@@ -7,6 +7,11 @@ import {Subscription} from "rxjs";
 import {Router} from "@angular/router";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {OdbijZahtevComponent} from "../../odbij-zahtev/odbij-zahtev.component";
+import {
+  ZahtevAutorskoPravoDetaljneInformacije
+} from "../../../model/autorsko-pravo/obj/zahtev-autorsko-pravo-detaljne-informacije";
+import {ResenjeService} from "../../../service/resenje.service";
+import {Resenje} from "../../../model/resenje/resenje";
 
 @Component({
   selector: 'app-popunjava-priloge-zahtev-autorsko-pravo',
@@ -16,16 +21,25 @@ import {OdbijZahtevComponent} from "../../odbij-zahtev/odbij-zahtev.component";
 export class PopunjavaPrilogeZahtevAutorskoPravoComponent implements OnInit, OnDestroy {
 
   @Input() zahtevId: string;
+  @Input() nijePopunjeno: boolean;
+
+  zahtev: ZahtevAutorskoPravoDetaljneInformacije;
+  resenje: Resenje;
+
   opisCheckbox: boolean;
   primerCheckbox: boolean;
   ulogovaniKorisnik: Korisnik;
+
   autorskaPravaSubscription: Subscription;
   autentifikacijaSubscription: Subscription;
+  resenjeSubscription: Subscription;
+
   razlog_odbijanja: string = '';
 
   constructor(
     private _autorskaPravaService: AutorskaPravaService,
     private _autentifikacijaService: AutentifikacijaService,
+    private _resenjeService: ResenjeService,
     private _toast: ToastrService,
     private _router: Router,
     private dialog: MatDialog
@@ -33,10 +47,22 @@ export class PopunjavaPrilogeZahtevAutorskoPravoComponent implements OnInit, OnD
     this.opisCheckbox = false;
     this.primerCheckbox = false;
     this.ulogovaniKorisnik = null;
+    this.zahtev = null;
   }
 
   ngOnInit(): void {
     this.autentifikacijaSubscription = this._autentifikacijaService.getSubjectCurrentUser().subscribe(korisnik => this.ulogovaniKorisnik = korisnik)
+    if (!this.nijePopunjeno){
+      this.autorskaPravaSubscription = this._autorskaPravaService.uzmiZahtevPoId(this.zahtevId)
+        .subscribe(result=> {
+          this.zahtev = result;
+          this.resenjeSubscription = this._resenjeService.uzmiResenjeZaAutorskoDeloPoId(result.referenca_na_resenje)
+            .subscribe(resenje=> {
+              this.resenje = resenje;
+
+            });
+        });
+    }
   }
 
   promenjenCheckboxOpis() {
@@ -104,5 +130,18 @@ export class PopunjavaPrilogeZahtevAutorskoPravoComponent implements OnInit, OnD
     if (this.autentifikacijaSubscription){
       this.autentifikacijaSubscription.unsubscribe();
     }
+
+    if (this.resenjeSubscription){
+      this.resenjeSubscription.unsubscribe();
+    }
+  }
+
+  odbijenoIliPrihvaceno(): string {
+    if (this.resenje.razlog_odbijanja){
+
+      return "ODBIJEN";
+    }
+
+    return "PRIHVAĆEN"
   }
 }

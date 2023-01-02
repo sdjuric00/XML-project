@@ -61,6 +61,7 @@ import { ZahtevPatentDetaljiComponent } from './component/patent/zahtev-patent-d
 import { ObradiZahtevZigComponent } from './component/zig/obradi-zahtev-zig/obradi-zahtev-zig.component';
 import { PopunjavaPrilogeZahtevZigComponent } from './component/zig/popunjava-priloge-zahtev-zig/popunjava-priloge-zahtev-zig.component';
 import { ZahtevZigDetaljiComponent } from './component/zig/zahtev-zig-detalji/zahtev-zig-detalji.component';
+import { DugmiciZaSkidanjeComponent } from './component/dugmici-za-skidanje/dugmici-za-skidanje.component';
 import { HomePageComponent } from './component/home-page/home-page.component';
 import {OdbijZahtevComponent} from "./component/odbij-zahtev/odbij-zahtev.component";
 import { NaprednaPretragaComponent } from './component/napredna-pretraga/napredna-pretraga.component';
@@ -117,6 +118,7 @@ import { NaprednaPretragaPoljaComponent } from './component/napredna-pretraga-po
     ObradiZahtevZigComponent,
     PopunjavaPrilogeZahtevZigComponent,
     ZahtevZigDetaljiComponent,
+    DugmiciZaSkidanjeComponent,
     HomePageComponent,
     OdbijZahtevComponent,
     NaprednaPretragaComponent,

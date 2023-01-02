@@ -8,6 +8,7 @@ import {napraviListuPrijava, PrijavaObj} from "./prijava";
 
 export interface ZahtevPatentDetaljneInformacije {
   id: string;
+  referenca_na_resenje: string;
   broj_prijave: string;
   datum_obrade: Date;
   datum_podnosenja: Date;
@@ -26,6 +27,7 @@ export function napraviZahtevPatentDetaljneInformacije(zahtevJson): ZahtevPatent
 
   return {
     broj_prijave: zahtevJson.broj_prijave[0],
+    referenca_na_resenje: zahtevJson.referenca_na_resenje[0],
     datum_obrade: zahtevJson.datum_obrade[0],
     datum_podnosenja: zahtevJson.datum_podnosenja[0],
     dopunska_prijava: zahtevJson.dopunska_prijava[0] === 'true',

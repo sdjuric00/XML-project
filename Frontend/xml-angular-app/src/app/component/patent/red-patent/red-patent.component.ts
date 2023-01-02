@@ -16,6 +16,10 @@ export class RedPatentComponent implements OnInit {
   }
 
   obradaZahteva() {
-    this._router.navigate(['/obradi-zahtev-patent', this.zahtev.id]);
+    this._router.navigate(['/zahtev-patent/obrada', this.zahtev.id]);
+  }
+
+  detaljiZahteva() {
+    this._router.navigate(['/zahtev-patent/detalji', this.zahtev.id]);
   }
 }

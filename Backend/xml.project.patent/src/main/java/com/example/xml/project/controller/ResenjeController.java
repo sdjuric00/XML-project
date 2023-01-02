@@ -1,5 +1,6 @@
 package com.example.xml.project.controller;
 
+import com.example.xml.project.dto.ResenjeDTO;
 import com.example.xml.project.exception.CannotUnmarshalException;
 import com.example.xml.project.exception.InvalidDocumentException;
 import com.example.xml.project.exception.XPathException;
@@ -9,6 +10,9 @@ import com.example.xml.project.service.ResenjeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 
 @RestController
 @RequestMapping("/patenti/resenje")
@@ -40,6 +44,15 @@ public class ResenjeController {
             resenjeRequest.getIme_prezime_sluzbenika(),
             resenjeRequest.getReferenca_na_zahtev()
         );
+    }
+
+    @GetMapping(path="/{id}", produces = "application/xml")
+    @ResponseStatus(HttpStatus.OK)
+    public ResenjeDTO uzmiPoId(
+        @PathVariable @Valid @NotBlank(message = "Id rešenja zahteva je neophodan.") final String id
+    ) throws CannotUnmarshalException, XPathException {
+
+        return resenjeService.uzmi(id);
     }
 
 }

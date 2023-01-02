@@ -6,10 +6,15 @@ import com.example.xml.project.exception.CannotUnmarshalException;
 import com.example.xml.project.exception.EntityNotFoundException;
 import com.example.xml.project.exception.InvalidDocumentException;
 import com.example.xml.project.exception.XPathException;
-import com.example.xml.project.model.P1.Prijava;
 import com.example.xml.project.model.P1.ZahtevPatent;
+import com.example.xml.project.exception.TransformationFailedException;
+import com.example.xml.project.model.Institucija;
+import com.example.xml.project.model.P1.*;
+import com.example.xml.project.model.Podnosilac;
 import com.example.xml.project.repository.GenericRepository;
 import com.example.xml.project.repository.PatentRepository;
+import com.example.xml.project.response.UspesnaTransformacija;
+import com.example.xml.project.transformator.Transformator;
 import com.example.xml.project.request.ParametarPretrage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +30,7 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import java.io.*;
 import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.List;
 
 import static com.example.xml.project.util.Constants.*;
@@ -36,12 +42,15 @@ public class PatentService {
     private final PatentRepository patentRepository;
     private final JAXBContext jaxbContext;
     private final Marshaller marshaller;
+    private final Transformator transformator;
 
     public PatentService(
         @Autowired final GenericRepository<ZahtevPatent> repository,
-        @Autowired final PatentRepository patentRepository
+        @Autowired final PatentRepository patentRepository,
+        @Autowired final Transformator transformator
     ) throws JAXBException
     {
+        this.transformator = transformator;
         this.jaxbContext = JAXBContext.newInstance(ZahtevPatent.class);
         this.repository = repository;
         this.repository.setGenericRepositoryProperties(
@@ -128,6 +137,53 @@ public class PatentService {
         return zahteviDTO;
     }
 
+
+    public UspesnaTransformacija dodajHtml(String id)
+            throws JAXBException, EntityNotFoundException, TransformationFailedException, IOException {
+        String htmlPutanja = HTML_PUTANJA + id + ".html";
+
+        return new UspesnaTransformacija(this.transformator.generateHTML(htmlPutanja, get(id)));
+    }
+
+    public UspesnaTransformacija dodajPdf(String id) throws JAXBException, EntityNotFoundException,
+            IOException, CannotUnmarshalException, TransformationFailedException
+    {
+        String pdfPutanja = PDF_PUTANJA + id + ".pdf";
+        String htmlPutanja = HTML_PUTANJA + id + ".html";
+        this.dodajHtml(id);  //prvo se pravi html za slucaj da ne postoji
+
+        return new UspesnaTransformacija(this.transformator.generatePdf(htmlPutanja, pdfPutanja));
+
+    }
+
+    public void saveNewRequest(
+            String id,
+            final String broj_prijave,
+            final LocalDate datum_prijema,
+            final LocalDate priznati_datum_podnosenja,
+            final boolean dopunska_prijava,
+            final boolean pregledano,
+            final Institucija institucija,
+            final List<Naziv> podaci_o_pronalasku,
+            final Podnosilac podnosilac,
+            final PronalazacP pronalazac,
+            final PunomocnikP punomocnik,
+            final Dostavljanje dostavljanje,
+            final List<Prijava> zahtev_za_priznanje_prava_iz_ranijih_prijava
+    ) throws InvalidDocumentException, JAXBException {
+        if (id == null) {
+            id = "1";    //zbog check seme da validira, posle ce setovati dobar broj
+        }
+
+        ZahtevPatent zahtev = new ZahtevPatent(id, broj_prijave, datum_prijema, priznati_datum_podnosenja, dopunska_prijava,
+                pregledano, institucija, podaci_o_pronalasku, podnosilac, pronalazac, punomocnik, dostavljanje, zahtev_za_priznanje_prava_iz_ranijih_prijava);
+        Marshaller marshaller = jaxbContext.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+        StringWriter sw = new StringWriter();
+        marshaller.marshal(zahtev, sw);
+
+        this.saveToDB(sw.toString());
+    }
 
     private ZahtevPatent checkSchema(String document) throws InvalidDocumentException {
         try {

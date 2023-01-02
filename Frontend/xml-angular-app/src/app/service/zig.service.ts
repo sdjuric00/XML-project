@@ -1,18 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../environments/environment";
-import {ZahtevAutorskoPravoXml} from "../model/autorsko-pravo/xml/zahtev-autorsko-pravo-xml";
 import {ToastrService} from "ngx-toastr";
 import {map, Observable} from "rxjs";
 import * as xml2js from 'xml2js';
-import {
-  napraviZahtevAutorskoPravoOsnovneInformacije,
-  ZahtevAutorskoPravoOsnovneInformacije
-} from "../model/autorsko-pravo/obj/zahtev-autorsko-pravo-osnovne-informacije";
-import {
-  napraviZahtevAutorskoPravoDetaljneInformacije,
-  ZahtevAutorskoPravoDetaljneInformacije
-} from "../model/autorsko-pravo/obj/zahtev-autorsko-pravo-detaljne-informacije";
 import {
   napraviZahtevZigOsnovneInformacije,
   ZahtevZigOsnovneInformacije
@@ -21,7 +12,10 @@ import {
   napraviZahtevZigDetaljneInformacije,
   ZahtevZigDetaljneInformacije
 } from "../model/zig/obj/zahtev-zig-detaljne-informacije";
+import * as JsonToXML from "js2xmlparser";
 import { OsnovnaPretraga } from '../model/pretraga/osnovna-pretraga';
+import { Trademark } from '../model/zig/xml/trademark';
+import { napraviUspesnuTransformaciju, UspesnaTransformacija } from '../model/opste/uspesna-transformacija';
 
 @Injectable({
   providedIn: 'root'
@@ -30,29 +24,22 @@ export class ZigService {
   private _api_url:string = environment.zigUrl;
   constructor(private _http: HttpClient,private _toast: ToastrService) {}
 
-  // create(zahtevZaAutorskoPravo: zXml){
-  //   console.log("fafsfaf");
-  //   let headers = new HttpHeaders({ "Content-Type": "application/xml"});
-  //   console.log(zahtevZaAutorskoPravo);
-  //   var o2x = require('object-to-xml');
-  //   console.log(o2x(zahtevZaAutorskoPravo));
-  //   let queryParams = {};
-  //   queryParams = {
-  //     headers: headers,
-  //     observe: "response",
-  //     responseType: "text"
-  //   };
-  //   const toast: ToastrService = this._toast;
-  //   this._http.post(`${this._api_url}/autorska-prava`, o2x(zahtevZaAutorskoPravo), queryParams).subscribe(
-  //     {
-  //       next(response): void {
-  //         toast.success('Uspešno ste poslali zahtev za unosenje u evidenciju i deponovanje autorskih dela', 'Uspešno slanje');
-  //       },
-  //       error(): void {
-  //         toast.error('Desila se greška prilikom slanja zahteva!', 'Greška');
-  //       },
-  //     });
-  // }
+  create(zahtevZig: Trademark){
+    console.log("fafsfaf");
+    let headers = new HttpHeaders({ "Content-Type": "application/xml"});
+    console.log(zahtevZig);
+    var o2x = require('object-to-xml');
+    console.log(o2x(zahtevZig));
+    let queryParams = {};
+    queryParams = {
+      headers: headers,
+      observe: "response",
+      responseType: "text"
+    };
+    const toast: ToastrService = this._toast;
+    
+    return this._http.post(`${this._api_url}/zig`, o2x(zahtevZig), queryParams);
+  }
 
   uzmiNeobradjeneZahteve():Observable<ZahtevZigOsnovneInformacije[]> {
     return this._http.get(`${this._api_url}/zig/neobradjeni-zahtevi`, {
@@ -116,6 +103,36 @@ export class ZigService {
     }));
   }
 
+  privatiZahtev(resenje: { ime_prezime_sluzbenika: string; punomocje_ce_biti_naknadno_dostavljeno: boolean; primerak_znaka_dat: boolean; spisak_robe_dat: boolean; generalno_punomocje_ranije_prilozeno: boolean; punomocje_dato: boolean; dokaz_o_uplati_takse: boolean; opiste_akt: boolean; dokaz_o_pravu_prvenstva: boolean; sifra_obradjenog_zahteva: string; referenca_na_zahtev: string })
+    :Observable<any>{
+    const resenjeXml = JsonToXML.parse("resenje", resenje);
+    console.log(resenjeXml)
+    return this._http.post(
+      `${this._api_url}/zig/resenje/prihvatanje`,
+      resenjeXml,
+      {
+        headers: new HttpHeaders().set('Content-Type', 'application/xml').set('Accept' , 'application/xml'),
+        responseType:"text"
+      }
+    )
+
+  }
+
+  odbijZahtev(resenje: { ime_prezime_sluzbenika: string; punomocje_ce_biti_naknadno_dostavljeno: boolean; primerak_znaka_dat: boolean; spisak_robe_dat: boolean; generalno_punomocje_ranije_prilozeno: boolean; punomocje_dato: boolean; dokaz_o_uplati_takse: boolean; opiste_akt: boolean; dokaz_o_pravu_prvenstva: boolean; razlog_odbijanja: any; referenca_na_zahtev: string })
+    :Observable<any>{
+    const resenjeXml = JsonToXML.parse("resenje", resenje);
+    console.log(resenjeXml)
+    return this._http.post(
+      `${this._api_url}/zig/resenje/odbijanje`,
+      resenjeXml,
+      {
+        headers: new HttpHeaders().set('Content-Type', 'application/xml').set('Accept' , 'application/xml'),
+        responseType:"text"
+      }
+    )
+
+  }
+
   osnovnaPretraga(osnovnaPretraga: OsnovnaPretraga):Observable<ZahtevZigOsnovneInformacije[]>{
     const headers = new HttpHeaders({ "Content-Type": "application/xml"}).set("Accept", "application/xml");
     let queryParams = {};
@@ -143,7 +160,46 @@ export class ZigService {
         }
       })
       return listaZahteva;
-  }));
-}
+    }));
+  }
+
+  kreirajHTML(zahtevId: string) {
+    return this._http.get(`${this._api_url}/zig/kreiraj-html/${zahtevId}`, {
+        headers: new HttpHeaders().set('Accept' , 'application/xml'),
+        responseType:"text"
+      }
+    ).pipe(map(result=>{
+      result = result.replaceAll('ns2:', '');
+      result = result.replaceAll('ns3:', '');
+      result = result.replaceAll('ns4:', '');
+      const parser = new xml2js.Parser({ strict: true, trim: true });
+      let zahtev: UspesnaTransformacija;
+      parser.parseString(result.toString(),(err, result) => {
+        console.log(result)
+        zahtev = napraviUspesnuTransformaciju(result.uspesnaTransformacija);
+      });
+      return zahtev;
+    }));
+  }
+
+  kreirajPDF(zahtevId: string): Observable<UspesnaTransformacija> {
+    return this._http.get(`${this._api_url}/zig/kreiraj-pdf/${zahtevId}`, {
+        headers: new HttpHeaders().set('Accept' , 'application/xml'),
+        responseType:"text"
+      }
+    ).pipe(map(result=>{
+      result = result.replaceAll('ns2:', '');
+      result = result.replaceAll('ns3:', '');
+      result = result.replaceAll('ns4:', '');
+      const parser = new xml2js.Parser({ strict: true, trim: true });
+      let zahtev: UspesnaTransformacija;
+      parser.parseString(result.toString(),(err, result) => {
+        console.log(result)
+        zahtev = napraviUspesnuTransformaciju(result.uspesnaTransformacija);
+      });
+      return zahtev;
+    }));
+  }
+
 }
 

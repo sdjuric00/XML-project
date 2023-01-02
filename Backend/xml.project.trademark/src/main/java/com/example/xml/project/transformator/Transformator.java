@@ -1,10 +1,13 @@
 package com.example.xml.project.transformator;
 
+import com.example.xml.project.exception.TransformationFailedException;
 import com.example.xml.project.model.Z1.ZahtevZig;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;import javax.xml.bind.util.JAXBSource;
+
+import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Component;
 
 import javax.xml.bind.JAXBContext;
@@ -41,13 +44,18 @@ public class Transformator {
         transformerFactory = TransformerFactory.newInstance();
     }
 
-    public void generatePDF(String html, String pdf) throws IOException {
-        PdfDocument pdfDocument = new PdfDocument(new PdfWriter(pdf));
+    public byte[] generatePdf(String htmlPutanja, String pdfPutanja) throws IOException {
+        PdfDocument pdfDocument = new PdfDocument(new PdfWriter(pdfPutanja));
         pdfDocument.setDefaultPageSize(new PageSize(780, 2000));
-        HtmlConverter.convertToPdf(Files.newInputStream(Paths.get(html)), pdfDocument);
+        HtmlConverter.convertToPdf(Files.newInputStream(Paths.get(htmlPutanja)), pdfDocument);
+        File fajl = new File(pdfPutanja);
+
+        return FileUtils.readFileToByteArray(fajl);
     }
 
-    public boolean generateHTML(final String htmlPutanja, final ZahtevZig zahtev) {
+    public byte[] generateHTML(final String htmlPutanja, final ZahtevZig zahtev)
+            throws TransformationFailedException, IOException {
+        File fajl;
         try {
             StreamSource transformSource = new StreamSource(new File(XSL_PUTANJA));
             Transformer transformer = transformerFactory.newTransformer(transformSource);
@@ -59,17 +67,13 @@ public class Transformator {
             StreamResult result = new StreamResult(new FileOutputStream(htmlPutanja));
 
             transformer.transform(source, result);
-            generatePDF("src/main/resources/static/html/1.html", "src/main/resources/static/pdf/1.pdf");
 
-        } catch (TransformerConfigurationException e) {
-            e.printStackTrace();
+            fajl = new File(htmlPutanja);
 
-            return false;
         } catch (Exception e) {
-
-            throw new RuntimeException(e);
+            throw new TransformationFailedException("Creation of html failed. Try again late.");
         }
 
-        return true;
+        return FileUtils.readFileToByteArray(fajl);
     }
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
     targetNamespace="http://www.zig/zig" xmlns:xs-z="http://www.zig/zig"
-    xmlns:xs-opste="http://ftn.ac.rs/opste">
+    xmlns:xs-opste="http://ftn.ac.rs/opste" xmlns:xs-resenje="http://ftn.ac.rs/resenje">
 
     <xs:import namespace="http://ftn.ac.rs/opste" schemaLocation="Opste.xsd"/>
     <xs:element name="zahtev_za_priznanje_ziga">
@@ -31,6 +31,7 @@
                         </xs:complexContent>
                     </xs:complexType>
                 </xs:element>
+                <xs:element name="popunjava_zavod" type="xs-z:popunjava_zavod" minOccurs="0"/>
             </xs:sequence>
             <xs:attribute name="broj_prijave">
                 <xs:simpleType>
@@ -41,6 +42,7 @@
             </xs:attribute>
             <xs:attribute name="datum_podnosenja" type="xs:date"/>
             <xs:attribute name="pregledano" type="xs:boolean"/>
+            <xs:attribute name="referenca_na_resenje" type="xs:string"/>
             <xs:attribute name="zig" type="xs-z:zig"/>
             <xs:attribute name="id" type="xs:positiveInteger" use="required"/>
         </xs:complexType>
@@ -129,8 +131,20 @@
             <xs:element name="punomocje_ce_biti_naknadno_dostavljeno" type="xs:boolean"/>
         </xs:sequence>
     </xs:complexType>
-    <xs:complexType name="odabrane_kategorije">
+    <xs:complexType name="popunjava_zavod">
         <xs:sequence>
+            <xs:element name="primerak_znaka" type="xs:boolean"/>
+            <xs:element name="spisak_roba_i_usluga" type="xs:boolean"/>
+            <xs:element name="punomocje" type="xs:boolean"/>
+            <xs:element name="generalno_punomocje_ranije_prilozeno" type="xs:boolean"/>
+            <xs:element name="punomocje_ce_biti_naknadno_dostavljeno" type="xs:boolean"/>
+            <xs:element name="opsti_akt" type="xs:boolean"/>
+            <xs:element name="dokaz_o_pravu_prvenstva" type="xs:boolean"/>
+            <xs:element name="dokaz_o_uplati_takse" type="xs:boolean"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="odabrane_kategorije">
+        <xs:sequence maxOccurs="unbounded">
             <xs:element name="broj">
                 <xs:simpleType>
                     <xs:restriction base="xs-z:broj_klase_enum"/>

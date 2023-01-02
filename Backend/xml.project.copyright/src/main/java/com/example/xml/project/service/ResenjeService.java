@@ -1,10 +1,11 @@
 package com.example.xml.project.service;
 
+import com.example.xml.project.dto.ResenjeDTO;
 import com.example.xml.project.exception.CannotUnmarshalException;
 import com.example.xml.project.exception.InvalidDocumentException;
 import com.example.xml.project.exception.XPathException;
 import com.example.xml.project.model.A1.ZahtevAutorskaDela;
-import com.example.xml.project.model.resenje.Resenje;
+import com.example.xml.project.model.A1.resenje.Resenje;
 import com.example.xml.project.repository.GenericRepository;
 import com.example.xml.project.repository.ResenjeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +22,9 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import java.io.File;
 import java.io.StringReader;
-import java.time.LocalDate;
 
-import static com.example.xml.project.model.resenje.Resenje.napraviResenjeZaOdbijanjeZahteva;
-import static com.example.xml.project.model.resenje.Resenje.napraviResenjeZaPrihvatanjeZahteva;
+import static com.example.xml.project.model.A1.resenje.Resenje.napraviResenjeZaOdbijanjeZahteva;
+import static com.example.xml.project.model.A1.resenje.Resenje.napraviResenjeZaPrihvatanjeZahteva;
 import static com.example.xml.project.util.Constants.COLLECTION_ID_RESENJE_AUTORSKA_PRAVA_DB;
 import static com.example.xml.project.util.Constants.RESENJE_SCHEMA;
 
@@ -36,14 +36,17 @@ public class ResenjeService {
     private final JAXBContext jaxbContext;
     private final Marshaller marshaller;
     private final AutorskaPravaService autorskaPravaService;
+    private final EmailService emailService;
 
     public ResenjeService(
         @Autowired final GenericRepository<Resenje> repository,
         @Autowired final ResenjeRepository resenjeRepository,
-        @Autowired final AutorskaPravaService autorskaPravaService
+        @Autowired final AutorskaPravaService autorskaPravaService,
+        @Autowired final EmailService emailService
     ) throws JAXBException {
         this.resenjeRepository = resenjeRepository;
         this.autorskaPravaService = autorskaPravaService;
+        this.emailService = emailService;
         this.jaxbContext = JAXBContext.newInstance(Resenje.class);
         this.repository = repository;
         this.repository.setGenericRepositoryProperties(
@@ -64,11 +67,9 @@ public class ResenjeService {
         final boolean dat_primer_autorskog_dela
     ) throws CannotUnmarshalException, XPathException, InvalidDocumentException {
         Resenje resenje = napraviResenjeZaPrihvatanjeZahteva(referenca_na_zahtev, ime_prezime_sluzbenika, sifra_obradjenog_zahteva);
-        repository.save(resenje, true);
-        ZahtevAutorskaDela zahtevAutorskaDela = autorskaPravaService.uzmiZahtevBezDTO(referenca_na_zahtev);
-        zahtevAutorskaDela.setPregledano(true);
-        //SRKI SAMO SETUJ ONA DVA PRILOGA
-        autorskaPravaService.saveToDBObj(zahtevAutorskaDela, false);
+        ZahtevAutorskaDela zahtevAutorskaDela = popuniPotrebnaPoljaZahteva(referenca_na_zahtev, dat_opis_autorskog_dela, dat_primer_autorskog_dela, resenje);
+
+        emailService.posaljiResenjeOPrihvatanjuKorisniku(zahtevAutorskaDela);
     }
 
     public void odbijZahtev(
@@ -79,35 +80,32 @@ public class ResenjeService {
         final boolean dat_primer_autorskog_dela
     ) throws CannotUnmarshalException, XPathException, InvalidDocumentException {
         Resenje resenje = napraviResenjeZaOdbijanjeZahteva(referenca_na_zahtev, ime_prezime_sluzbenika, razlog_odbijanja);
+        ZahtevAutorskaDela zahtevAutorskaDela = popuniPotrebnaPoljaZahteva(referenca_na_zahtev, dat_opis_autorskog_dela, dat_primer_autorskog_dela, resenje);
+
+        emailService.posaljiResenjeOOdbijanjuKorisniku(zahtevAutorskaDela);
+    }
+
+    public ResenjeDTO uzmi(String id) throws CannotUnmarshalException, XPathException {
+
+        return new ResenjeDTO(resenjeRepository.uzmi(id));
+    }
+
+    private ZahtevAutorskaDela popuniPotrebnaPoljaZahteva(
+        final String referenca_na_zahtev,
+        final boolean dat_opis_autorskog_dela,
+        final boolean dat_primer_autorskog_dela,
+        final Resenje resenje
+    ) throws CannotUnmarshalException, XPathException, InvalidDocumentException {
         repository.save(resenje, true);
         ZahtevAutorskaDela zahtevAutorskaDela = autorskaPravaService.uzmiZahtevBezDTO(referenca_na_zahtev);
         zahtevAutorskaDela.setPregledano(true);
-        //SRKI SAMO SETUJ ONA DVA PRILOGA
+        zahtevAutorskaDela.setReferenca_na_resenje(resenje.getId());
+        zahtevAutorskaDela.getPrilozi().setOpis_prilozen(dat_opis_autorskog_dela);
+        zahtevAutorskaDela.getPrilozi().setPrimerak_prilozen(dat_primer_autorskog_dela);
         autorskaPravaService.saveToDBObj(zahtevAutorskaDela, false);
-    }
 
-//    public ZahtevAutorskaDela get(String documentId) throws EntityNotFoundException, JAXBException {
-//
-//        return repository.get(documentId);
-//    }
-//
-//    public ZahteviAutorskaDelaDTO uzmiZahteve(boolean obradjene) throws CannotUnmarshalException, XPathException {
-//
-//        ZahteviAutorskaDelaDTO zahteviDTO = new ZahteviAutorskaDelaDTO();
-//        zahteviDTO.fromZahtevi(autorskaPravaRepository.uzmiZahteve(obradjene));
-//        return zahteviDTO;
-//    }
-//
-//
-//    public ZahtevAutorskaDelaDetaljneInformacijeDTO uzmiZahtev(final String id) throws CannotUnmarshalException, XPathException {
-//
-//        return new ZahtevAutorskaDelaDetaljneInformacijeDTO(autorskaPravaRepository.uzmiZahtev(id));
-//    }
-//
-//    public List<ZahtevAutorskaDela> pronadjiRezultateOsnovnePretrage(final List<String> parametriPretrage) throws Exception {
-//
-//        return autorskaPravaRepository.pronadjiRezultateOsnovnePretrage(parametriPretrage);
-//    }
+        return zahtevAutorskaDela;
+    }
 
     private Resenje checkSchema(String document) throws InvalidDocumentException {
         try {

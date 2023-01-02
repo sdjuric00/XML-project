@@ -108,4 +108,12 @@ public class Resenje implements IdentifiableEntity {
     public void setSifra_obradjenog_zahteva(String sifra_obradjenog_zahteva) {
         this.sifra_obradjenog_zahteva = sifra_obradjenog_zahteva;
     }
+
+    public String getBroj_prijave() {
+        return null;
+    }
+
+    public void setBroj_prijave(String broj_prijave) {
+
+    }
 }

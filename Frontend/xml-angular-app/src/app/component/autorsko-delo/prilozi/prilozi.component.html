@@ -16,8 +16,8 @@
     <div style="padding:0.5rem; margin-top: 1rem; width: 15rem;border: 2px solid var(--green); border-radius: 1rem">
       <h3>Dodaj prilog</h3>
       <div style="margin-bottom: 1rem;" class="load-image">
-        <button type="button" mat-raised-button (click)="fileInput.click()">Učitaj prilog<mat-icon>link</mat-icon></button>
-        <input hidden (change)="onFileSelected($event)" #fileInput type="file">
+        <button type="button" mat-raised-button (click)="fileInput.click()">Učitaj primerak<mat-icon>link</mat-icon></button>
+        <input hidden (change)="onFileSelected($event)" accept="image/*" #fileInput type="file">
         <span class="file-name">{{selectedImage?.name}}</span>
       </div>
       <mat-form-field appearance="fill" class="input-field-margin-right">
@@ -28,13 +28,12 @@
         *ngIf="greska">
         Prilog se prvo <strong>mora</strong> učitati
       </mat-error>
-      <button class="dodaj-prilog-button" mat-raised-button (click)="addPrilog(input)">Dodaj</button>
     </div>
 
 
   </div>
   <div style="display: flex">
     <button style="margin-left:84%" class="previous-button" mat-raised-button matStepperPrevious>Nazad</button>
-    <button style="margin-left:1rem" class="next-button" mat-raised-button matStepperNext [disabled]="prilozi.length === 0">Dalje</button>
+    <button style="margin-left:1rem" class="next-button" mat-raised-button matStepperNext [disabled]="proveriValidnost()" (click)="ucitajPrilog()">Dalje</button>
   </div>
 </div>

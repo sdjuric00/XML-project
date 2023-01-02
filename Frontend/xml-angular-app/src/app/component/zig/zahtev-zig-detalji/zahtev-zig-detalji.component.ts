@@ -2,6 +2,7 @@ import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from "rxjs";
 import {ZigService} from "../../../service/zig.service";
 import {ZahtevZigDetaljneInformacije} from "../../../model/zig/obj/zahtev-zig-detaljne-informacije";
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-zahtev-zig-detalji',
@@ -14,6 +15,8 @@ export class ZahtevZigDetaljiComponent implements OnInit, OnDestroy {
   zahtev: ZahtevZigDetaljneInformacije;
   zigSubscription: Subscription;
   brojevi: string[] = ['1. Hemijski proizvodi', '2. ', '3. ', '4. ', '5. '];
+
+  public slikeUrl:string = environment.staticPodaciSlikeZig;
 
   constructor(private _zigService: ZigService) {
   }

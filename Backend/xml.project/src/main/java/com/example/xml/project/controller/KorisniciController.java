@@ -22,7 +22,7 @@ import java.io.FileNotFoundException;
 @RestController
 @RequestMapping("/korisnici")
 public class KorisniciController {
-
+    
     private final KorisnikService korisniciService;
     private final TokenService tokenService;
 

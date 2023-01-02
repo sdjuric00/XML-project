@@ -18,6 +18,10 @@ export class RedAutorskaPravaComponent implements OnInit {
   }
 
   obradaZahteva() {
-    this._router.navigate(['/obradi-zahtev-autorsko-pravo', this.zahtev.id]);
+    this._router.navigate(['/zahtev-autorsko-pravo/obrada', this.zahtev.id]);
+  }
+
+  detaljiZahteva() {
+    this._router.navigate(['/zahtev-autorsko-pravo/detalji', this.zahtev.id]);
   }
 }

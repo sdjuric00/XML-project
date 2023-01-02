@@ -16,6 +16,10 @@ export class RedZigComponent implements OnInit {
   }
 
   obradaZahteva() {
-    this._router.navigate(['/obradi-zahtev-zig', this.zahtev.id]);
+    this._router.navigate(['/zahtev-zig/obrada', this.zahtev.id]);
+  }
+
+  detaljiZahteva() {
+    this._router.navigate(['/zahtev-zig/detalji', this.zahtev.id]);
   }
 }

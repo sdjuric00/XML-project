@@ -5,9 +5,11 @@ import {napraviListuPodnosilaca, PodnosilacObj} from "../../autorsko-pravo/obj/p
 import {napraviPravoPrvenstva, PravoPrvenstvaObj} from "./pravo-prvenstva";
 import {napraviPrilogeZig, PriloziZigObj} from "./prilozi-zig";
 import {napraviZnak, ZnakObj} from "./znak";
+import {napraviPopunjavaZavod, PopunjavaZavodObj} from "./popunjava-zavod";
 
 export interface ZahtevZigDetaljneInformacije {
   id: string;
+  referenca_na_resenje: string;
   broj_prijave: string;
   datum_podnosenja: Date;
   institucija: InstitucijaObj;
@@ -21,12 +23,14 @@ export interface ZahtevZigDetaljneInformacije {
   punomocnik: PunomocnikObj;
   vrsta_ziga: string;
   znak: ZnakObj;
+  popunjava_zavod: PopunjavaZavodObj;
 }
 
 export function napraviZahtevZigDetaljneInformacije(zahtevJson): ZahtevZigDetaljneInformacije{
-  console.log(zahtevJson);
+
   return {
     id: zahtevJson.id[0],
+    referenca_na_resenje: zahtevJson.referenca_na_resenje[0],
     broj_prijave: zahtevJson.broj_prijave[0],
     datum_podnosenja: zahtevJson.datum_podnosenja[0],
     institucija: napraviInstituciju(zahtevJson.institucija[0]),
@@ -39,7 +43,8 @@ export function napraviZahtevZigDetaljneInformacije(zahtevJson): ZahtevZigDetalj
     prilozi: napraviPrilogeZig(zahtevJson.prilozi[0]),
     punomocnik: napraviPunomocnika(zahtevJson.punomocnik[0]),
     vrsta_ziga: zahtevJson.vrsta_ziga[0],
-    znak: napraviZnak(zahtevJson.znak[0])
+    znak: napraviZnak(zahtevJson.znak[0]),
+    popunjava_zavod: napraviPopunjavaZavod(zahtevJson.popunjava_zavod[0])
   }
 }
 

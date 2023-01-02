@@ -19,6 +19,7 @@ public class ZahtevPatentDetaljneInformacijeDTO {
     private LocalDate datum_podnosenja;
     private LocalDate datum_obrade;
     private boolean pregledano = false;
+    private String referenca_na_resenje = "-1";
     private Institucija institucija;
     private Podnosilac podnosilac;
     private PronalazacP pronalazac;
@@ -37,6 +38,7 @@ public class ZahtevPatentDetaljneInformacijeDTO {
         this.datum_podnosenja = zahtevPatent.getDatum_prijema();
         this.datum_obrade = zahtevPatent.getPriznati_datum_podnosenja();
         this.pregledano = zahtevPatent.isPregledano();
+        this.referenca_na_resenje = zahtevPatent.getReferenca_na_resenje();
         this.institucija = zahtevPatent.getInstitucija();
         this.podnosilac = zahtevPatent.getPodnosilac();
         this.pronalazac = zahtevPatent.getPronalazac();
@@ -151,5 +153,13 @@ public class ZahtevPatentDetaljneInformacijeDTO {
 
     public void setZahtev_za_priznanje_prava_iz_ranijih_prijava(List<Prijava> zahtev_za_priznanje_prava_iz_ranijih_prijava) {
         this.zahtev_za_priznanje_prava_iz_ranijih_prijava = zahtev_za_priznanje_prava_iz_ranijih_prijava;
+    }
+
+    public String getReferenca_na_resenje() {
+        return referenca_na_resenje;
+    }
+
+    public void setReferenca_na_resenje(String referenca_na_resenje) {
+        this.referenca_na_resenje = referenca_na_resenje;
     }
 }
