@@ -10,6 +10,8 @@ import {OdbijZahtevComponent} from "../../odbij-zahtev/odbij-zahtev.component";
 import {
   ZahtevAutorskoPravoDetaljneInformacije
 } from "../../../model/autorsko-pravo/obj/zahtev-autorsko-pravo-detaljne-informacije";
+import {ResenjeService} from "../../../service/resenje.service";
+import {Resenje} from "../../../model/resenje/resenje";
 
 @Component({
   selector: 'app-popunjava-priloge-zahtev-autorsko-pravo',
@@ -20,18 +22,24 @@ export class PopunjavaPrilogeZahtevAutorskoPravoComponent implements OnInit, OnD
 
   @Input() zahtevId: string;
   @Input() nijePopunjeno: boolean;
+
   zahtev: ZahtevAutorskoPravoDetaljneInformacije;
+  resenje: Resenje;
 
   opisCheckbox: boolean;
   primerCheckbox: boolean;
   ulogovaniKorisnik: Korisnik;
+
   autorskaPravaSubscription: Subscription;
   autentifikacijaSubscription: Subscription;
+  resenjeSubscription: Subscription;
+
   razlog_odbijanja: string = '';
 
   constructor(
     private _autorskaPravaService: AutorskaPravaService,
     private _autentifikacijaService: AutentifikacijaService,
+    private _resenjeService: ResenjeService,
     private _toast: ToastrService,
     private _router: Router,
     private dialog: MatDialog
@@ -48,7 +56,11 @@ export class PopunjavaPrilogeZahtevAutorskoPravoComponent implements OnInit, OnD
       this.autorskaPravaSubscription = this._autorskaPravaService.uzmiZahtevPoId(this.zahtevId)
         .subscribe(result=> {
           this.zahtev = result;
-          console.log(result.autorsko_delo.podaci_o_naslovu_prerada.autor);
+          this.resenjeSubscription = this._resenjeService.uzmiResenjeZaAutorskoDeloPoId(result.referenca_na_resenje)
+            .subscribe(resenje=> {
+              this.resenje = resenje;
+
+            });
         });
     }
   }
@@ -118,5 +130,18 @@ export class PopunjavaPrilogeZahtevAutorskoPravoComponent implements OnInit, OnD
     if (this.autentifikacijaSubscription){
       this.autentifikacijaSubscription.unsubscribe();
     }
+
+    if (this.resenjeSubscription){
+      this.resenjeSubscription.unsubscribe();
+    }
+  }
+
+  odbijenoIliPrihvaceno(): string {
+    if (this.resenje.razlog_odbijanja){
+
+      return "ODBIJEN";
+    }
+
+    return "PRIHVAĆEN"
   }
 }

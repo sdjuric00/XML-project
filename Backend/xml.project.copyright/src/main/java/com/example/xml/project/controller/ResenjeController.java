@@ -1,5 +1,6 @@
 package com.example.xml.project.controller;
 
+import com.example.xml.project.dto.ResenjeDTO;
 import com.example.xml.project.exception.CannotUnmarshalException;
 import com.example.xml.project.exception.InvalidDocumentException;
 import com.example.xml.project.exception.XPathException;
@@ -9,6 +10,9 @@ import com.example.xml.project.service.ResenjeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 
 @RestController
 @RequestMapping("/autorska-prava/resenje")
@@ -46,42 +50,13 @@ public class ResenjeController {
         );
     }
 
-//    @GetMapping(path="{documentId}", produces = "application/xml")
-//    @ResponseStatus(HttpStatus.OK)
-//    public ZahtevAutorskaDela get(@PathVariable @Valid @NotBlank(message = "Document id is required")
-//                                  final String documentId
-//    ) throws EntityNotFoundException, JAXBException {
-//
-//        return autorskaPravaService.get(documentId);
-//    }
-//
-//    @GetMapping(path="/neobradjeni-zahtevi", produces = "application/xml")
-//    @ResponseStatus(HttpStatus.OK)
-//    public ZahteviAutorskaDelaDTO uzmiNeobradjeneZahteve() throws CannotUnmarshalException, XPathException {
-//
-//        return autorskaPravaService.uzmiZahteve(false);
-//    }
-//
-//    @GetMapping(path="/obradjeni-zahtevi", produces = "application/xml")
-//    @ResponseStatus(HttpStatus.OK)
-//    public ZahteviAutorskaDelaDTO uzmiObradjeneZahteve() throws CannotUnmarshalException, XPathException {
-//
-//        return autorskaPravaService.uzmiZahteve(true);
-//    }
-//
-//    @GetMapping(path="/zahtev/{id}", produces = "application/xml")
-//    @ResponseStatus(HttpStatus.OK)
-//    public ZahtevAutorskaDelaDetaljneInformacijeDTO uzmiZahtevPoId(
-//        @PathVariable @Valid  @NotBlank(message = "Id zahteva je neophodan.") final String id
-//    ) throws CannotUnmarshalException, XPathException {
-//
-//        return autorskaPravaService.uzmiZahtev(id);
-//    }
-//
-//    @PostMapping(path="/osnovna-pretraga")
-//    public List<ZahtevAutorskaDela> osnovnaPretraga(@RequestBody List<String> parametriPretrage) throws Exception {
-//        System.out.println("fasjfajf");
-//        return autorskaPravaService.pronadjiRezultateOsnovnePretrage(parametriPretrage);
-//    }
+    @GetMapping(path="/{id}", produces = "application/xml")
+    @ResponseStatus(HttpStatus.OK)
+    public ResenjeDTO uzmiPoId(
+        @PathVariable @Valid @NotBlank(message = "Id rešenja zahteva je neophodan.") final String id
+    ) throws CannotUnmarshalException, XPathException {
+
+        return resenjeService.uzmi(id);
+    }
 }
 

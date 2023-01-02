@@ -34,6 +34,9 @@ public class ZahtevAutorskaDela implements IdentifiableEntity {
     @XmlAttribute(name="pregledano", required = true)
     private boolean pregledano = false;
 
+    @XmlAttribute(name = "referenca_na_resenje")
+    private String referenca_na_resenje = "-1";
+
     @XmlElement(name="institucija", required = true, namespace = "http://ftn.ac.rs/a")
     private Institucija institucija;
 
@@ -161,5 +164,13 @@ public class ZahtevAutorskaDela implements IdentifiableEntity {
 
     public void setPrilozi(Prilozi prilozi) {
         this.prilozi = prilozi;
+    }
+
+    public String getReferenca_na_resenje() {
+        return referenca_na_resenje;
+    }
+
+    public void setReferenca_na_resenje(String referenca_na_resenje) {
+        this.referenca_na_resenje = referenca_na_resenje;
     }
 }

@@ -1,5 +1,6 @@
 package com.example.xml.project.service;
 
+import com.example.xml.project.dto.ResenjeDTO;
 import com.example.xml.project.exception.CannotUnmarshalException;
 import com.example.xml.project.exception.InvalidDocumentException;
 import com.example.xml.project.exception.XPathException;
@@ -63,12 +64,7 @@ public class ResenjeService {
         final boolean dat_primer_autorskog_dela
     ) throws CannotUnmarshalException, XPathException, InvalidDocumentException {
         Resenje resenje = napraviResenjeZaPrihvatanjeZahteva(referenca_na_zahtev, ime_prezime_sluzbenika, sifra_obradjenog_zahteva);
-        repository.save(resenje, true);
-        ZahtevAutorskaDela zahtevAutorskaDela = autorskaPravaService.uzmiZahtevBezDTO(referenca_na_zahtev);
-        zahtevAutorskaDela.setPregledano(true);
-        zahtevAutorskaDela.getPrilozi().setOpis_prilozen(dat_opis_autorskog_dela);
-        zahtevAutorskaDela.getPrilozi().setPrimerak_prilozen(dat_primer_autorskog_dela);
-        autorskaPravaService.saveToDBObj(zahtevAutorskaDela, false);
+        popuniPotrebnaPoljaZahteva(referenca_na_zahtev, dat_opis_autorskog_dela, dat_primer_autorskog_dela, resenje);
     }
 
     public void odbijZahtev(
@@ -79,36 +75,28 @@ public class ResenjeService {
         final boolean dat_primer_autorskog_dela
     ) throws CannotUnmarshalException, XPathException, InvalidDocumentException {
         Resenje resenje = napraviResenjeZaOdbijanjeZahteva(referenca_na_zahtev, ime_prezime_sluzbenika, razlog_odbijanja);
+        popuniPotrebnaPoljaZahteva(referenca_na_zahtev, dat_opis_autorskog_dela, dat_primer_autorskog_dela, resenje);
+    }
+
+    public ResenjeDTO uzmi(String id) throws CannotUnmarshalException, XPathException {
+
+        return new ResenjeDTO(resenjeRepository.uzmi(id));
+    }
+
+    private void popuniPotrebnaPoljaZahteva(
+        final String referenca_na_zahtev,
+        final boolean dat_opis_autorskog_dela,
+        final boolean dat_primer_autorskog_dela,
+        final Resenje resenje
+    ) throws CannotUnmarshalException, XPathException, InvalidDocumentException {
         repository.save(resenje, true);
         ZahtevAutorskaDela zahtevAutorskaDela = autorskaPravaService.uzmiZahtevBezDTO(referenca_na_zahtev);
         zahtevAutorskaDela.setPregledano(true);
+        zahtevAutorskaDela.setReferenca_na_resenje(resenje.getId());
         zahtevAutorskaDela.getPrilozi().setOpis_prilozen(dat_opis_autorskog_dela);
         zahtevAutorskaDela.getPrilozi().setPrimerak_prilozen(dat_primer_autorskog_dela);
         autorskaPravaService.saveToDBObj(zahtevAutorskaDela, false);
     }
-
-//    public ZahtevAutorskaDela get(String documentId) throws EntityNotFoundException, JAXBException {
-//
-//        return repository.get(documentId);
-//    }
-//
-//    public ZahteviAutorskaDelaDTO uzmiZahteve(boolean obradjene) throws CannotUnmarshalException, XPathException {
-//
-//        ZahteviAutorskaDelaDTO zahteviDTO = new ZahteviAutorskaDelaDTO();
-//        zahteviDTO.fromZahtevi(autorskaPravaRepository.uzmiZahteve(obradjene));
-//        return zahteviDTO;
-//    }
-//
-//
-//    public ZahtevAutorskaDelaDetaljneInformacijeDTO uzmiZahtev(final String id) throws CannotUnmarshalException, XPathException {
-//
-//        return new ZahtevAutorskaDelaDetaljneInformacijeDTO(autorskaPravaRepository.uzmiZahtev(id));
-//    }
-//
-//    public List<ZahtevAutorskaDela> pronadjiRezultateOsnovnePretrage(final List<String> parametriPretrage) throws Exception {
-//
-//        return autorskaPravaRepository.pronadjiRezultateOsnovnePretrage(parametriPretrage);
-//    }
 
     private Resenje checkSchema(String document) throws InvalidDocumentException {
         try {
