@@ -9,7 +9,11 @@ public class LocalDateAdapter extends XmlAdapter<String, LocalDate> {
     }
 
     public String marshal(LocalDate v) throws Exception {
-        return v.toString();
+        if (v != null){
+            return v.toString();
+        }
+
+        return "";
     }
 }
 

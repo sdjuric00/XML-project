@@ -1,5 +1,6 @@
 package com.example.xml.project.service;
 
+import com.example.xml.project.dto.IzvestajDTO;
 import com.example.xml.project.dto.ZahtevAutorskaDelaDetaljneInformacijeDTO;
 import com.example.xml.project.dto.ZahteviAutorskaDelaDTO;
 import com.example.xml.project.exception.CannotUnmarshalException;
@@ -115,8 +116,18 @@ public class AutorskaPravaService {
             id = "1";    //zbog check seme da validira, posle ce setovati dobar broj
         }
 
-        ZahtevAutorskaDela zahtev = new ZahtevAutorskaDela(id, broj_prijave, datum_podnosenja
-        ,pregledano, institucija, podnosilac, punomocnik, autorsko_delo, autori, prilozi);
+        ZahtevAutorskaDela zahtev = new ZahtevAutorskaDela(
+            id,
+            broj_prijave,
+            datum_podnosenja,
+            pregledano,
+            institucija,
+            podnosilac,
+            punomocnik,
+            autorsko_delo,
+            autori,
+            prilozi
+        );
         Marshaller marshaller = jaxbContext.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         StringWriter sw = new StringWriter();
@@ -174,5 +185,10 @@ public class AutorskaPravaService {
         } catch (JAXBException | SAXException e) {
             throw new InvalidDocumentException();
         }
+    }
+
+    public IzvestajDTO generisiIzvestaj(final LocalDate pocetniDatum, final LocalDate krajnjiDatum) throws CannotUnmarshalException, XPathException {
+
+        return autorskaPravaRepository.generisiIzvestaj(pocetniDatum, krajnjiDatum);
     }
 }

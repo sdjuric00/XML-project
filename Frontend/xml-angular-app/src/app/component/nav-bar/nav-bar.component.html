@@ -35,6 +35,14 @@
       </mat-menu>
 
       <a
+        *ngIf="sluzbenik"
+        [routerLink]="['/izvestaj']"
+        routerLinkActive="active"
+        mat-button
+        color="primary"
+      >Izveštaj</a>
+
+      <a
         *ngIf="gradjanin"
         [routerLink]="['/autorska-prava']"
         routerLinkActive="active"

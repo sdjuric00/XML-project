@@ -42,6 +42,9 @@ public class ZahtevPatent implements IdentifiableEntity {
     @XmlAttribute(name="pregledano", required = true)
     private boolean pregledano;
 
+    @XmlAttribute(name="prihvaceno")
+    private boolean prihvaceno = false;
+
     @XmlElement(name="institucija", required = true, namespace = "http://www.patent/patent")
     private Institucija institucija;
 
@@ -210,5 +213,13 @@ public class ZahtevPatent implements IdentifiableEntity {
 
     public void setReferenca_na_resenje(String referenca_na_resenje) {
         this.referenca_na_resenje = referenca_na_resenje;
+    }
+
+    public boolean isPrihvaceno() {
+        return prihvaceno;
+    }
+
+    public void setPrihvaceno(boolean prihvaceno) {
+        this.prihvaceno = prihvaceno;
     }
 }
