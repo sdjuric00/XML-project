@@ -1,7 +1,6 @@
 package com.example.xml.project.service;
 
 import com.example.xml.project.dto.ResenjeDTO;
-import com.example.xml.project.dto.ZahtevZigDetaljneInformacijeDTO;
 import com.example.xml.project.exception.CannotUnmarshalException;
 import com.example.xml.project.exception.InvalidDocumentException;
 import com.example.xml.project.exception.XPathException;
@@ -70,7 +69,18 @@ public class ResenjeService {
         final boolean dokaz_o_uplati_takse
     ) throws CannotUnmarshalException, XPathException, InvalidDocumentException {
         Resenje resenje = napraviResenjeZaPrihvatanjeZahteva(referenca_na_zahtev, ime_prezime_sluzbenika, sifra_obradjenog_zahteva);
-        popuniPotrebnaPoljaZahteva(referenca_na_zahtev, primerak_znaka_dat, spisak_robe_dat, punomocje_dato, generalno_punomocje_ranije_prilozeno, punomocje_ce_biti_naknadno_dostavljeno, opsti_akt, dokaz_o_pravu_prvenstva, dokaz_o_uplati_takse, resenje);
+        popuniPotrebnaPoljaZahteva(
+            referenca_na_zahtev,
+            primerak_znaka_dat,
+            spisak_robe_dat,
+            punomocje_dato,
+            generalno_punomocje_ranije_prilozeno,
+            punomocje_ce_biti_naknadno_dostavljeno,
+            opsti_akt,
+            dokaz_o_pravu_prvenstva,
+            dokaz_o_uplati_takse,
+            resenje
+        );
     }
 
     public void odbijZahtev(
@@ -87,7 +97,17 @@ public class ResenjeService {
         final boolean dokaz_o_uplati_takse
     ) throws CannotUnmarshalException, XPathException, InvalidDocumentException {
         Resenje resenje = napraviResenjeZaOdbijanjeZahteva(referenca_na_zahtev, ime_prezime_sluzbenika, razlog_odbijanja);
-        popuniPotrebnaPoljaZahteva(referenca_na_zahtev, primerak_znaka_dat, spisak_robe_dat, punomocje_dato, generalno_punomocje_ranije_prilozeno, punomocje_ce_biti_naknadno_dostavljeno, opsti_akt, dokaz_o_pravu_prvenstva, dokaz_o_uplati_takse, resenje);
+        popuniPotrebnaPoljaZahteva(
+            referenca_na_zahtev,
+            primerak_znaka_dat,
+            spisak_robe_dat,
+            punomocje_dato,
+            generalno_punomocje_ranije_prilozeno,
+            punomocje_ce_biti_naknadno_dostavljeno,
+            opsti_akt, dokaz_o_pravu_prvenstva,
+            dokaz_o_uplati_takse,
+            resenje
+        );
     }
 
     private void popuniPotrebnaPoljaZahteva(
