@@ -9,8 +9,13 @@
     margin-bottom: 1rem;
 }
 
+mat-checkbox {
+    margin-top: 0.5rem;
+}
+
 .vrste-container {
-    margin-left: 4rem;
+    padding: 2rem;
+    margin-left: 2rem;
     border: 2px solid var(--green);
     background-color: var(--gray-transparent);
     padding: 0.5rem;
@@ -20,7 +25,7 @@
 }
 
 .basic-data-container {
-    margin-left: 4rem;
+    margin-left: 2rem;
     border: 2px solid var(--green);
     background-color: var(--gray-transparent);
     padding: 0.5rem;

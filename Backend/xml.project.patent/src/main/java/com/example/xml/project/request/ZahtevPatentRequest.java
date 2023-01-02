@@ -1,7 +1,8 @@
-package com.example.xml.project.model.P1;
+package com.example.xml.project.request;
 
 import com.example.xml.project.model.Institucija;
 import com.example.xml.project.model.LocalDateAdapter;
+import com.example.xml.project.model.P1.*;
 import com.example.xml.project.model.Podnosilac;
 import com.example.xml.project.util.IdentifiableEntity;
 
@@ -17,7 +18,7 @@ import java.util.List;
         propOrder={"institucija", "podaci_o_pronalasku", "podnosilac", "pronalazac", "punomocnik", "dostavljanje", "zahtev_za_priznanje_prava_iz_ranijih_prijava"},
         namespace = "http://www.patent/patent"
 )
-public class ZahtevPatent implements IdentifiableEntity {
+public class ZahtevPatentRequest implements IdentifiableEntity {
 
     @XmlAttribute(name="id", required = true)
     private String id;
@@ -63,40 +64,7 @@ public class ZahtevPatent implements IdentifiableEntity {
 
     @XmlElementWrapper(name="zahtev_za_priznanje_prava_iz_ranijih_prijava", namespace = "http://www.patent/patent")
     @XmlElement(name="prijava", required = true, namespace = "http://www.patent/patent")
-    private List<Prijava> zahtev_za_priznanje_prava_iz_ranijih_prijava = new ArrayList<>();
-
-    public ZahtevPatent() {
-
-    }
-
-    public ZahtevPatent(final String id,
-                        final String broj_prijave,
-                        final LocalDate datum_prijema,
-                        final LocalDate priznati_datum_podnosenja,
-                        final boolean dopunska_prijava,
-                        final boolean pregledano,
-                        final Institucija institucija,
-                        final List<Naziv> podaci_o_pronalasku,
-                        final Podnosilac podnosilac,
-                        final PronalazacP pronalazac,
-                        final PunomocnikP punomocnik,
-                        final Dostavljanje dostavljanje,
-                        final List<Prijava> zahtev_za_priznanje_prava_iz_ranijih_prijava
-    ) {
-        this.id = id;
-        this.broj_prijave = broj_prijave;
-        this.datum_prijema = datum_prijema;
-        this.priznati_datum_podnosenja = priznati_datum_podnosenja;
-        this.dopunska_prijava = dopunska_prijava;
-        this.pregledano = pregledano;
-        this.institucija = institucija;
-        this.podaci_o_pronalasku = podaci_o_pronalasku;
-        this.podnosilac = podnosilac;
-        this.pronalazac = pronalazac;
-        this.punomocnik = punomocnik;
-        this.dostavljanje = dostavljanje;
-        this.zahtev_za_priznanje_prava_iz_ranijih_prijava = zahtev_za_priznanje_prava_iz_ranijih_prijava;
-    }
+    private List<Prijava> zahtev_za_priznanje_prava_iz_ranijih_prijava;
 
     @Override
     public String getId() {

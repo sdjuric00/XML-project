@@ -11,7 +11,7 @@
         <label>Primerak znaka</label>
 
         <div class="load-image">
-            <input hidden #fileInput1 type="file" (change)="primerakZnakaChanged($event)">
+            <input hidden #fileInput1 type="file" accept="image/*" (change)="primerakZnakaChanged($event)">
             <span class="file-name">{{primerakZnakaPutanja}}</span>
             <button type="button" mat-raised-button (click)="fileInput1.click()">Dodaj<mat-icon>link</mat-icon></button>
         </div>
@@ -23,7 +23,7 @@
         <label>Primerak punomocja</label>
     
         <div class="load-image">
-            <input hidden #fileInput2 type="file" (change)="punomocjeChanged($event)">
+            <input hidden #fileInput2 type="file" accept="image/*" (change)="punomocjeChanged($event)">
             <span class="file-name">{{punomocjePutanja}}</span>
             <button type="button" mat-raised-button (click)="fileInput2.click()">Dodaj<mat-icon>link</mat-icon></button>
         </div>
@@ -35,7 +35,7 @@
         <label>Akt o kolektivnom zigu</label>
     
         <div class="load-image">
-            <input hidden #fileInput3 type="file" (change)="opstiAktOKolektivnoZiguChanged($event)">
+            <input hidden #fileInput3 type="file" accept="image/*" (change)="opstiAktOKolektivnoZiguChanged($event)">
             <span class="file-name">{{opstiAktOKolektivnoZiguPutanja}}</span>
             <button type="button" mat-raised-button (click)="fileInput3.click()">Dodaj<mat-icon>link</mat-icon></button>
         </div>
@@ -47,7 +47,7 @@
         <label>Dokaz o pravu prvenstva</label>
     
         <div class="load-image">
-            <input hidden #fileInput4 type="file" (change)="dozakOPravuPrvenstvaChanged($event)">
+            <input hidden #fileInput4 type="file" accept="image/*" (change)="dozakOPravuPrvenstvaChanged($event)">
             <span class="file-name">{{dozakOPravuPrvenstvaPutanja}}</span>
             <button type="button" mat-raised-button (click)="fileInput4.click()">Dodaj<mat-icon>link</mat-icon></button>
         </div>
@@ -59,7 +59,7 @@
         <label>Dokaz o uplati takse</label>
     
         <div class="load-image">
-            <input hidden #fileInput5 type="file" (change)="dokazOUplatiTakseChanged($event)">
+            <input hidden #fileInput5 type="file" accept="image/*" (change)="dokazOUplatiTakseChanged($event)">
             <span class="file-name">{{dokazOUplatiTaksePutanja}}</span>
             <button type="button" mat-raised-button (click)="fileInput5.click()">Dodaj<mat-icon>link</mat-icon></button>
         </div>

@@ -47,7 +47,7 @@
                     vertical-align:middle;
                     }
                 </style>
-                <title>Patent (XSLT)</title>
+                <title>Patent</title>
             </head>
             <body class="background-body">
                 <div class="content">
@@ -473,10 +473,10 @@
                                             <xsl:if test="//@elektronski = 'true' and //@pismeno = 'true'">
                                                 <span>ELEKTRONSKI, PISMENO</span>
                                             </xsl:if>
-                                            <xsl:if test="//@elektronski">
+                                            <xsl:if test="//@elektronski = 'true' and //@pismeno = 'false'">
                                                 <span>ELEKTRONSKI</span>
                                             </xsl:if>
-                                            <xsl:if test="//@pismeno = 'true'">
+                                            <xsl:if test="//@pismeno = 'true' and //@elektronski = 'false'">
                                                 <span>PISMENO</span>
                                             </xsl:if>
                                         </span>
@@ -560,32 +560,41 @@
                             </tr>
 
                             <tr>
-                                <xsl:for-each select="//p:zahtev_za_priznanje_prava_iz_ranijih_prijava//p:prijava">
-                                    <th colspan="1" width="10%" style="border: 1px solid black">
-                                        <p style="margin: 0.4rem; text-align: center; font-weight: normal">
-                                            <span><b>1.</b></span>
+                                <xsl:if test="count(//p:zahtev_za_priznanje_prava_iz_ranijih_prijava//p:prijava) > 0">
+                                    <xsl:for-each select="//p:zahtev_za_priznanje_prava_iz_ranijih_prijava//p:prijava">
+                                        <th colspan="1" width="10%" style="border: 1px solid black">
+                                            <p style="margin: 0.4rem; text-align: center; font-weight: normal">
+                                                <span><b>1.</b></span>
+                                            </p>
+                                        </th>
+
+                                        <th colspan="1" width="30%" style="border: 1px solid black">
+                                            <p style="margin: 0.4rem; text-align: center; font-weight: normal">
+                                                <span><xsl:value-of select="p:datum_podnosenja_prijave" /></span>
+                                            </p>
+                                        </th>
+
+                                        <th colspan="1" width="30%" style="border: 1px solid black">
+                                            <p style="margin: 0.4rem; text-align: center; font-weight: normal">
+                                                <span><xsl:value-of select="p:broj_ranije_prijave" /></span>
+                                            </p>
+                                        </th>
+
+                                        <th colspan="2" width="30%" style="border: 1px solid black">
+                                            <p style="margin: 0.4rem; text-align: center; font-weight: normal">
+                                                <span><xsl:value-of select="p:dvoslovna_oznaka_drzave" /></span>
+                                            </p>
+                                        </th>
+                                    </xsl:for-each>
+
+                                </xsl:if>
+                                <xsl:if test="count(//p:zahtev_za_priznanje_prava_iz_ranijih_prijava//p:prijava) = 0">
+                                    <th colspan="5" style="border: 1px solid black">
+                                        <p style="margin: 0.4rem; text-align: left; font-weight: normal">
+                                            <span>Nema ranijih prijava</span>
                                         </p>
                                     </th>
-
-                                    <th colspan="1" width="30%" style="border: 1px solid black">
-                                        <p style="margin: 0.4rem; text-align: center; font-weight: normal">
-                                            <span><xsl:value-of select="p:datum_podnosenja_prijave" /></span>
-                                        </p>
-                                    </th>
-
-                                    <th colspan="1" width="30%" style="border: 1px solid black">
-                                        <p style="margin: 0.4rem; text-align: center; font-weight: normal">
-                                            <span><xsl:value-of select="p:broj_ranije_prijave" /></span>
-                                        </p>
-                                    </th>
-
-                                    <th colspan="2" width="30%" style="border: 1px solid black">
-                                        <p style="margin: 0.4rem; text-align: center; font-weight: normal">
-                                            <span><xsl:value-of select="p:dvoslovna_oznaka_drzave" /></span>
-                                        </p>
-                                    </th>
-                                </xsl:for-each>
-
+                                </xsl:if>
                             </tr>
 
                         </table>

@@ -1,9 +1,10 @@
-package com.example.xml.project.model.Z1;
+package com.example.xml.project.request;
 
 import com.example.xml.project.model.Institucija;
 import com.example.xml.project.model.LocalDateAdapter;
 import com.example.xml.project.model.Podnosilac;
 import com.example.xml.project.model.Punomocnik;
+import com.example.xml.project.model.Z1.*;
 import com.example.xml.project.model.Z1.enums.ZigEnum;
 import com.example.xml.project.util.IdentifiableEntity;
 
@@ -19,7 +20,7 @@ import java.util.List;
         propOrder={"institucija", "podnosioci", "punomocnik", "podaci_o_zajednickom_predstavniku", "znak", "nicanska_klasifikacija", "pravo_prvenstva", "placene_takse", "prilozi", "popunjava_zavod"},
         namespace = "http://www.zig/zig"
 )
-public class ZahtevZig implements IdentifiableEntity {
+public class ZigRequest implements IdentifiableEntity {
 
     @XmlAttribute(name = "id", required = true)
     private String id;
@@ -58,7 +59,7 @@ public class ZahtevZig implements IdentifiableEntity {
 
     @XmlElementWrapper(name = "nicanska_klasifikacija", namespace = "http://www.zig/zig")
     @XmlElement(name = "broj", namespace = "http://www.zig/zig", required = true)
-    private List<OdabraneKategorije> nicanska_klasifikacija = new ArrayList<>();
+    private List<OdabraneKategorije> nicanska_klasifikacija;
 
     @XmlElement(name = "pravo_prvenstva", required = true, namespace = "http://www.zig/zig")
     private PravoPrvenstva pravo_prvenstva;
@@ -68,44 +69,6 @@ public class ZahtevZig implements IdentifiableEntity {
 
     @XmlElement(name = "prilozi", required = true, namespace = "http://www.zig/zig")
     private Prilozi prilozi;
-
-    @XmlElement(name = "popunjava_zavod", namespace = "http://www.zig/zig")
-    private PopunjavaZavod popunjava_zavod;
-
-    public ZahtevZig() {
-
-    }
-
-    public ZahtevZig(final String id,
-                     final String broj_prijave,
-                     final LocalDate datum_podnosenja,
-                     final boolean pregledano,
-                     final ZigEnum zig,
-                     final Institucija institucija,
-                     final List<Podnosilac> podnosioci,
-                     final Punomocnik punomocnik,
-                     final PodaciOZajednickomPredstavniku podaci_o_zajednickom_predstavniku,
-                     final Znak znak,
-                     final List<OdabraneKategorije> nicanska_klasifikacija,
-                     final PravoPrvenstva pravo_prvenstva,
-                     final PlaceneTakse placene_takse,
-                     final Prilozi prilozi
-    ) {
-        this.id = id;
-        this.broj_prijave = broj_prijave;
-        this.datum_podnosenja = datum_podnosenja;
-        this.pregledano = pregledano;
-        this.zig = zig;
-        this.institucija = institucija;
-        this.podnosioci = podnosioci;
-        this.punomocnik = punomocnik;
-        this.podaci_o_zajednickom_predstavniku = podaci_o_zajednickom_predstavniku;
-        this.znak = znak;
-        this.nicanska_klasifikacija = nicanska_klasifikacija;
-        this.pravo_prvenstva = pravo_prvenstva;
-        this.placene_takse = placene_takse;
-        this.prilozi = prilozi;
-    }
 
     @Override
     public String getId() {
@@ -219,14 +182,6 @@ public class ZahtevZig implements IdentifiableEntity {
 
     public void setPrilozi(Prilozi prilozi) {
         this.prilozi = prilozi;
-    }
-
-    public PopunjavaZavod getPopunjava_zavod() {
-        return popunjava_zavod;
-    }
-
-    public void setPopunjava_zavod(PopunjavaZavod popunjava_zavod) {
-        this.popunjava_zavod = popunjava_zavod;
     }
 
     public String getReferenca_na_resenje() {

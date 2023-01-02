@@ -13,6 +13,7 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
+import java.time.Year;
 
 import static com.example.xml.project.util.GeneratorId.generateId;
 
@@ -32,6 +33,7 @@ public class GenericRepository<T extends IdentifiableEntity> extends BasicXMLRep
         OutputStream os = new ByteArrayOutputStream();
         Collection col = null;
         XMLResource res = null;
+        int year = Year.now().getValue();
 
         try {
             System.out.println("[INFO] Retrieving the collection: " + collectionPath);
@@ -39,6 +41,7 @@ public class GenericRepository<T extends IdentifiableEntity> extends BasicXMLRep
 
             if (generateId) {
                 entity.setId(generateId(col.listResources()));
+                entity.setBroj_prijave(String.format("A-%s/%s", year, entity.getId()));
             }
 
             Marshaller marshaller = context.createMarshaller();

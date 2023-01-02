@@ -10,12 +10,14 @@ import { Adresa } from 'src/app/model/opste/adresa/xml/adresa';
 import { Kontakt } from 'src/app/model/opste/kontakt/xml/kontakt';
 import { FizickoLice } from 'src/app/model/opste/fizicko-lice';
 import { PunomocnikIPredstavnikZ } from 'src/app/model/patent/xml/punomocnik-p';
-import { Boja, Boje, NicanskaKlasifikacija, VrstaZnaka, Znak } from 'src/app/model/zig/xml/znak';
+import { Boja, Boje, Brojevi, NicanskaKlasifikacija, VrstaZnaka, Znak } from 'src/app/model/zig/xml/znak';
 import { PravoPrvenstva, PriloziZ, Roba, Robe } from 'src/app/model/zig/xml/prilozi-z';
 import { PlaceneTakse } from 'src/app/model/zig/xml/placene-takse';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { DatePipe } from '@angular/common';
+import { ZigService } from 'src/app/service/zig.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-zig-application',
@@ -87,7 +89,7 @@ export class TrademarkApplicationComponent implements OnInit {
     transliteracijaZnaka: new FormControl(''),
     prevod: new FormControl(''),
     opis: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-    nicanskaKlasifikacija: new FormControl('', [Validators.required]),
+    nicanskaKlasifikacija: new FormControl([], [Validators.required]),
     tipZig: new FormControl('', [Validators.required])
   });
 
@@ -95,11 +97,11 @@ export class TrademarkApplicationComponent implements OnInit {
     pravoPrvenstvaZatrazeno: new FormControl(false, [Validators.required]),
     pravoPrvenstvaOsnov: new FormControl('', []),
 
-    valuta: new FormControl('', [Validators.required, Validators.pattern("[A-Z]{3}")]),
-    osnovnaTaksa: new FormControl('', [Validators.required, Validators.pattern("[1-9]{1}[0-9]*")]),
-    taksaZaKlasu: new FormControl('', [Validators.required, Validators.pattern("[1-9]{1}[0-9]*")]),
-    taksaZaGrafickoResenje: new FormControl('', [Validators.required, Validators.pattern("[1-9]{1}[0-9]*")]),
-    ukupno: new FormControl('', [Validators.required, Validators.pattern("[1-9]{1}[0-9]*")]),
+    valuta: new FormControl('', [Validators.required]),
+    osnovnaTaksa: new FormControl('0'),
+    taksaZaKlasu: new FormControl('0'),
+    taksaZaGrafickoResenje: new FormControl('0'),
+    ukupno: new FormControl('0'),
 
     spisakRoba: new FormControl([], [Validators.required]),
     generalnoPunomocjeRanijePrilozeno: new FormControl(false, [Validators.required]),
@@ -111,7 +113,13 @@ export class TrademarkApplicationComponent implements OnInit {
     dokazOUplatiTaksePutanja: new FormControl('', [Validators.required]),
   });
 
-  constructor(private _formBuilder: FormBuilder,  private http: HttpClient, private _datePipe: DatePipe) { }
+  constructor(
+    private _formBuilder: FormBuilder,  
+    private http: HttpClient, 
+    private _datePipe: DatePipe,
+    private zigService: ZigService,
+    private _toast: ToastrService
+  ) { }
 
   ngOnInit(): void {
   }
@@ -395,11 +403,18 @@ export class TrademarkApplicationComponent implements OnInit {
     }
   }
 
-  getNicanskaKlasifikacija(): NicanskaKlasifikacija {
+  getNicanskaKlasifikacija(): Brojevi {
+    let nicanska: Brojevi = {
+      broj: []
+    };
 
-    return {
-      broj: this.znakFormGroup.get("nicanskaKlasifikacija").value
+    for (let i = 0; i < this.znakFormGroup.get("nicanskaKlasifikacija").value.length; i++) {
+      nicanska.broj.push({
+        "broj": this.znakFormGroup.get("nicanskaKlasifikacija").value.at(i),
+      })
     }
+
+    return nicanska;
   }
 
   getPlaceneTakse(): PlaceneTakse {
@@ -489,22 +504,15 @@ export class TrademarkApplicationComponent implements OnInit {
   }
 
   sendTrademark(){
-    console.log("fafsfaf");
-    let headers = new HttpHeaders({ "Content-Type": "application/xml"});
-    let trademark: Trademark = this.getTrademark();
-    console.log(trademark);
-    var o2x = require('object-to-xml');
-    console.log(o2x(trademark));
-    let queryParams = {};
-    queryParams = {
-      headers: headers,
-      observe: "response",
-      responseType: "text"
-    };
-    const api_url = environment.zigUrl;
-    this.http.post(`${api_url}/trademark`, o2x(trademark), queryParams).subscribe(response => {
-      console.log(response);
-    })
+    this.zigService.create(this.getTrademark()).subscribe(
+      {
+        next(response): void {
+          this._toast.success('Uspešno ste poslali zahtev za krerianje ziga', 'Uspešno slanje');
+        },
+        error(): void {
+          this._toast.error('Desila se greška prilikom slanja zahteva!', 'Greška');
+        },
+      });
   }
 
 }

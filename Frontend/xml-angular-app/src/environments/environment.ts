@@ -9,8 +9,13 @@ export const environment = {
   zigUrl: 'http://localhost:8083',
   korisniciUrl: 'http://localhost:8084',
   staticPodaciSlike: 'http://localhost:8081/images/',
-  staticPodaciHtml: 'http://localhost:8081/html/',
-  staticPodaciPdf: 'http://localhost:8081/pdf/'
+  staticPodaciSlikeZig: 'http://localhost:8083/images/',
+  staticPodaciHtmlA: 'http://localhost:8081/html/',
+  staticPodaciPdfA: 'http://localhost:8081/pdf/',
+  staticPodaciHtmlP: 'http://localhost:8082/html/',
+  staticPodaciPdfP: 'http://localhost:8082/pdf/',
+  staticPodaciHtmlZ: 'http://localhost:8083/html/',
+  staticPodaciPdfZ: 'http://localhost:8083/pdf/',
 };
 
 /*

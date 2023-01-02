@@ -5,6 +5,8 @@ import { TransformatorService } from 'src/app/service/transformator.service';
 import { environment } from 'src/environments/environment';
 import {ToastrService} from "ngx-toastr";
 import { UspesnaTransformacija } from 'src/app/model/opste/uspesna-transformacija';
+import { PatentApplicationService } from 'src/app/service/patent-application.service';
+import { ZigService } from 'src/app/service/zig.service';
 
 
 @Component({
@@ -15,12 +17,15 @@ import { UspesnaTransformacija } from 'src/app/model/opste/uspesna-transformacij
 export class DugmiciZaSkidanjeComponent implements OnInit, OnDestroy {
 
   @Input() zahtevId: string = '';
+  @Input() tipZahteva: string = '';
 
-  public urlHtml: string = environment.staticPodaciHtml;
-  public urlPdf: string = environment.staticPodaciPdf;
+  public urlHtml: string = '';
+  public urlPdf: string = '';
 
   constructor(
     private autorskaPravaService: AutorskaPravaService,
+    private patentService: PatentApplicationService,
+    private zigService: ZigService,
     private transformatorService: TransformatorService,
     private toast: ToastrService
   ) { }
@@ -32,29 +37,90 @@ export class DugmiciZaSkidanjeComponent implements OnInit, OnDestroy {
   }
 
   kreirajPDF() {
-    this.autorskaPravaService.kreirajPDF(this.zahtevId).subscribe(
-      res => {
-        if (res) {
-          this.transformatorService.downloadDocument(res.odgovor, `zahtev-${this.zahtevId}`, 'application/pdf')
+    if (this.tipZahteva === "a") {
+      this.autorskaPravaService.kreirajPDF(this.zahtevId).subscribe(
+        res => {
+          if (res) {
+            this.transformatorService.downloadDocument(res.odgovor, `zahtev-${this.zahtevId}`, 'application/pdf')
+          }
+        },
+        err => {
+          this.toast.error("Dokument nije moguce skinuti trenutno, pokusajte ponovo kasnije.", 'Greska')
         }
-      },
-      err => {
-        this.toast.error("Dokument nije moguce skinuti trenutno, pokusajte ponovo kasnije.", 'Greska')
-      }
-    );
+      );
+    } else if (this.tipZahteva === "p") {
+      this.patentService.kreirajPDF(this.zahtevId).subscribe(
+        res => {
+          if (res) {
+            this.transformatorService.downloadDocument(res.odgovor, `zahtev-${this.zahtevId}`, 'application/pdf')
+          }
+        },
+        err => {
+          this.toast.error("Dokument nije moguce skinuti trenutno, pokusajte ponovo kasnije.", 'Greska')
+        }
+      );
+    } else {
+      this.zigService.kreirajPDF(this.zahtevId).subscribe(
+        res => {
+          if (res) {
+            this.transformatorService.downloadDocument(res.odgovor, `zahtev-${this.zahtevId}`, 'application/pdf')
+          }
+        },
+        err => {
+          this.toast.error("Dokument nije moguce skinuti trenutno, pokusajte ponovo kasnije.", 'Greska')
+        }
+      );
+    }
+  }
+
+  getHtmlPdfUrls() {
+    if (this.tipZahteva === "a") {
+      this.urlHtml = environment.staticPodaciHtmlA;
+      this.urlPdf = environment.staticPodaciPdfA;
+    } else if (this.tipZahteva === "p") {
+      this.urlHtml = environment.staticPodaciHtmlP;
+      this.urlPdf = environment.staticPodaciPdfP;
+    } else {
+      this.urlHtml = environment.staticPodaciHtmlZ;
+      this.urlPdf = environment.staticPodaciPdfZ;
+    }
   }
 
   kreirajHTML() {
-    this.autorskaPravaService.kreirajHTML(this.zahtevId).subscribe(
-      res => {
-        if (res) {
-          this.transformatorService.downloadDocument(res.odgovor, `zahtev-${this.zahtevId}`, 'text/html')
+    if (this.tipZahteva === "a") {
+      this.autorskaPravaService.kreirajHTML(this.zahtevId).subscribe(
+        res => {
+          if (res) {
+            this.transformatorService.downloadDocument(res.odgovor, `zahtev-${this.zahtevId}`, 'text/html')
+          }
+        },
+        err => {
+          this.toast.error("Dokument nije moguce skinuti trenutno, pokusajte ponovo kasnije.", 'Greska')
         }
-      },
-      err => {
-        this.toast.error("Dokument nije moguce skinuti trenutno, pokusajte ponovo kasnije.", 'Greska')
-      }
-    );
+      );
+    } else if (this.tipZahteva === "p") {
+      this.patentService.kreirajHTML(this.zahtevId).subscribe(
+        res => {
+          if (res) {
+            this.transformatorService.downloadDocument(res.odgovor, `zahtev-${this.zahtevId}`, 'text/html')
+          }
+        },
+        err => {
+          this.toast.error("Dokument nije moguce skinuti trenutno, pokusajte ponovo kasnije.", 'Greska')
+        }
+      );
+    } else {
+      this.zigService.kreirajHTML(this.zahtevId).subscribe(
+        res => {
+          if (res) {
+            this.transformatorService.downloadDocument(res.odgovor, `zahtev-${this.zahtevId}`, 'text/html')
+          }
+        },
+        err => {
+          this.toast.error("Dokument nije moguce skinuti trenutno, pokusajte ponovo kasnije.", 'Greska')
+        }
+      );
+    }
   }
 
   ngOnDestroy(): void {

@@ -31,7 +31,7 @@
                         </xs:complexContent>
                     </xs:complexType>
                 </xs:element>
-                <xs:element name="popunjava_zavod" type="xs-z:popunjava_zavod"/>
+                <xs:element name="popunjava_zavod" type="xs-z:popunjava_zavod" minOccurs="0"/>
             </xs:sequence>
             <xs:attribute name="broj_prijave">
                 <xs:simpleType>
@@ -144,7 +144,7 @@
         </xs:sequence>
     </xs:complexType>
     <xs:complexType name="odabrane_kategorije">
-        <xs:sequence>
+        <xs:sequence maxOccurs="unbounded">
             <xs:element name="broj">
                 <xs:simpleType>
                     <xs:restriction base="xs-z:broj_klase_enum"/>

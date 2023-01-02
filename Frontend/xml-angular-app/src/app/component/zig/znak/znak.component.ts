@@ -15,8 +15,7 @@ export class ZnakComponent implements OnInit {
   ostalo: boolean = false;
   
   boje: string[] = [];
-  klasifikacije: string[] = ['1. Hemijski proizvodi', '2. Boje i lakovi', '3. Nemedicinska kozmetika',
-  '4. Industrija ulja i masti', '5. Farmaceutski proizvodi'];
+  brojevi: string[] = [];
 
   vrstaZnaka: string = '';
   tipZiga: string = '';
@@ -76,6 +75,18 @@ export class ZnakComponent implements OnInit {
     this.znakFormGroup.get('boje')?.setValue(this.boje);
   }
 
+  dodajNicansku(izabraniBroj: string) {
+    if (!this.brojevi.includes(izabraniBroj)){
+        this.brojevi.push(izabraniBroj)
+    } else {
+      this.brojevi = this.brojevi.filter((item) => {
+        return izabraniBroj !== item
+      });
+    }
+
+    this.znakFormGroup.get('nicanskaKlasifikacija')?.setValue(this.brojevi);
+  }
+
   changeVrstaZnaka(value: any) {
     this.vrstaZnaka = value;
     if (value !== 'Ostalo'){
@@ -93,16 +104,6 @@ export class ZnakComponent implements OnInit {
 
   changeTipZiga(value: any) {
     this.tipZiga = value;
-    if (value !== 'Ostalo'){
-      this.znakFormGroup?.controls['tipZig']?.setValue(value);
-    }
-    else {
-      this.znakFormGroup?.controls['tipZig']?.setValue('');
-    }
-  }
-
-  changeCustomTipZiga(value: string) {
-    this.tipZiga = 'Ostalo';
     this.znakFormGroup?.controls['tipZig']?.setValue(value);
   }
 

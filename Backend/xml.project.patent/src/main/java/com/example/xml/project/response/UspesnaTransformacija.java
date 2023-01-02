@@ -4,20 +4,20 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class UspesanOdgovor {
+public class UspesnaTransformacija {
 
     @XmlAttribute
-    private boolean odgovor;
+    private byte[] odgovor;
 
-    public UspesanOdgovor() {
+    public UspesnaTransformacija() {
 
     }
 
-    public UspesanOdgovor(final boolean odgovor) {
+    public UspesnaTransformacija(final byte[] odgovor) {
         this.odgovor = odgovor;
     }
 
-    public boolean isOdgovor() {
+    public byte[] isOdgovor() {
         return odgovor;
     }
 }

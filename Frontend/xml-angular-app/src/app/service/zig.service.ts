@@ -14,6 +14,8 @@ import {
 } from "../model/zig/obj/zahtev-zig-detaljne-informacije";
 import * as JsonToXML from "js2xmlparser";
 import { OsnovnaPretraga } from '../model/pretraga/osnovna-pretraga';
+import { Trademark } from '../model/zig/xml/trademark';
+import { napraviUspesnuTransformaciju, UspesnaTransformacija } from '../model/opste/uspesna-transformacija';
 
 @Injectable({
   providedIn: 'root'
@@ -22,29 +24,22 @@ export class ZigService {
   private _api_url:string = environment.zigUrl;
   constructor(private _http: HttpClient,private _toast: ToastrService) {}
 
-  // create(zahtevZaAutorskoPravo: ZahtevAutorskoPravoXml){
-  //   console.log("fafsfaf");
-  //   let headers = new HttpHeaders({ "Content-Type": "application/xml"});
-  //   console.log(zahtevZaAutorskoPravo);
-  //   var o2x = require('object-to-xml');
-  //   console.log(o2x(zahtevZaAutorskoPravo));
-  //   let queryParams = {};
-  //   queryParams = {
-  //     headers: headers,
-  //     observe: "response",
-  //     responseType: "text"
-  //   };
-  //   const toast: ToastrService = this._toast;
-  //   this._http.post(`${this._api_url}/autorska-prava`, o2x(zahtevZaAutorskoPravo), queryParams).subscribe(
-  //     {
-  //       next(response): void {
-  //         toast.success('Uspešno ste poslali zahtev za unosenje u evidenciju i deponovanje autorskih dela', 'Uspešno slanje');
-  //       },
-  //       error(): void {
-  //         toast.error('Desila se greška prilikom slanja zahteva!', 'Greška');
-  //       },
-  //     });
-  // }
+  create(zahtevZig: Trademark){
+    console.log("fafsfaf");
+    let headers = new HttpHeaders({ "Content-Type": "application/xml"});
+    console.log(zahtevZig);
+    var o2x = require('object-to-xml');
+    console.log(o2x(zahtevZig));
+    let queryParams = {};
+    queryParams = {
+      headers: headers,
+      observe: "response",
+      responseType: "text"
+    };
+    const toast: ToastrService = this._toast;
+    
+    return this._http.post(`${this._api_url}/zig`, o2x(zahtevZig), queryParams);
+  }
 
   uzmiNeobradjeneZahteve():Observable<ZahtevZigOsnovneInformacije[]> {
     return this._http.get(`${this._api_url}/zig/neobradjeni-zahtevi`, {
@@ -167,5 +162,44 @@ export class ZigService {
       return listaZahteva;
     }));
   }
+
+  kreirajHTML(zahtevId: string) {
+    return this._http.get(`${this._api_url}/zig/kreiraj-html/${zahtevId}`, {
+        headers: new HttpHeaders().set('Accept' , 'application/xml'),
+        responseType:"text"
+      }
+    ).pipe(map(result=>{
+      result = result.replaceAll('ns2:', '');
+      result = result.replaceAll('ns3:', '');
+      result = result.replaceAll('ns4:', '');
+      const parser = new xml2js.Parser({ strict: true, trim: true });
+      let zahtev: UspesnaTransformacija;
+      parser.parseString(result.toString(),(err, result) => {
+        console.log(result)
+        zahtev = napraviUspesnuTransformaciju(result.uspesnaTransformacija);
+      });
+      return zahtev;
+    }));
+  }
+
+  kreirajPDF(zahtevId: string): Observable<UspesnaTransformacija> {
+    return this._http.get(`${this._api_url}/zig/kreiraj-pdf/${zahtevId}`, {
+        headers: new HttpHeaders().set('Accept' , 'application/xml'),
+        responseType:"text"
+      }
+    ).pipe(map(result=>{
+      result = result.replaceAll('ns2:', '');
+      result = result.replaceAll('ns3:', '');
+      result = result.replaceAll('ns4:', '');
+      const parser = new xml2js.Parser({ strict: true, trim: true });
+      let zahtev: UspesnaTransformacija;
+      parser.parseString(result.toString(),(err, result) => {
+        console.log(result)
+        zahtev = napraviUspesnuTransformaciju(result.uspesnaTransformacija);
+      });
+      return zahtev;
+    }));
+  }
+
 }
 

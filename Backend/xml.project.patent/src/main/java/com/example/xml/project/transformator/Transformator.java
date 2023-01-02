@@ -6,6 +6,7 @@ import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
+import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Component;
 
 import javax.xml.bind.JAXBContext;
@@ -42,17 +43,18 @@ public class Transformator {
         transformerFactory = TransformerFactory.newInstance();
     }
 
-    public boolean generatePdf(String htmlPutanja, String pdfPutanja) throws IOException {
+    public byte[] generatePdf(String htmlPutanja, String pdfPutanja) throws IOException {
         PdfDocument pdfDocument = new PdfDocument(new PdfWriter(pdfPutanja));
         pdfDocument.setDefaultPageSize(new PageSize(780, 2000));
         HtmlConverter.convertToPdf(Files.newInputStream(Paths.get(htmlPutanja)), pdfDocument);
+        File fajl = new File(pdfPutanja);
 
-        return true;
+        return FileUtils.readFileToByteArray(fajl);
     }
 
-    public boolean generateHTML(final String htmlPutanja, final ZahtevPatent zahtev)
-            throws TransformationFailedException
-    {
+    public byte[] generateHTML(final String htmlPutanja, final ZahtevPatent zahtev)
+            throws TransformationFailedException, IOException {
+        File fajl;
         try {
             StreamSource transformSource = new StreamSource(new File(XSL_PUTANJA));
             Transformer transformer = transformerFactory.newTransformer(transformSource);
@@ -65,10 +67,12 @@ public class Transformator {
 
             transformer.transform(source, result);
 
+            fajl = new File(htmlPutanja);
+
         } catch (Exception e) {
             throw new TransformationFailedException("Creation of html failed. Try again late.");
         }
 
-        return true;
+        return FileUtils.readFileToByteArray(fajl);
     }
 }
