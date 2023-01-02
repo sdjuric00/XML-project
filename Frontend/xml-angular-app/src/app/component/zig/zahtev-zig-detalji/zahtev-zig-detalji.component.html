@@ -195,7 +195,7 @@
             </p>
             <p style="text-align:left; margin-bottom: 0.2rem;">
 
-                TREBA OVDE SLIKE SRKI
+                <img [src]="slikeUrl + zahtev.prilozi.primerak_znaka_putanja" />
             </p>
           </div>
         </div>
@@ -251,7 +251,8 @@
         <span style="font-size: 1.2rem; font-weight: bold; text-align: left">Prilozi</span>
       </p>
 
-      <span style="font-size: 1.2rem; margin-left: 0.5rem; margin-top: 2.3rem">1. Primerak znaka - {{zahtev.prilozi.primerak_znaka_putanja}}<br/></span>
+      <span style="font-size: 1.2rem; margin-left: 0.5rem; margin-top: 2.3rem">1. Primerak znaka - <a class="primerak-a" [href]="slikeUrl + zahtev.prilozi.primerak_znaka_putanja" target="_blank"
+        matTooltip="Primerak znaka">{{zahtev.prilozi.primerak_znaka_putanja}}</a><br/></span>
       <span style="font-size: 1.2rem; margin-left: 0.5rem; margin-top: 2.3rem">2. Spisak robe i usluga -
         <b *ngFor="let roba of zahtev.prilozi.spisak_roba_i_usluga; let i=index">
                     {{roba.naziv}}
@@ -259,7 +260,8 @@
         </b>
         <br/></span>
       <span *ngIf="zahtev.prilozi.punomocje_ce_biti_naknadno_dostavljeno" style="font-size: 1.2rem; margin-left: 0.5rem; margin-top: 2.3rem">3. Punomoćje - biće naknadno priloženo<br/></span>
-      <span *ngIf="!zahtev.prilozi.punomocje_ce_biti_naknadno_dostavljeno" style="font-size: 1.2rem; margin-left: 0.5rem; margin-top: 2.3rem">3. Punomoćje - {{zahtev.prilozi.punomocje_putanja}}<br/></span>
+      <span *ngIf="!zahtev.prilozi.punomocje_ce_biti_naknadno_dostavljeno" style="font-size: 1.2rem; margin-left: 0.5rem; margin-top: 2.3rem">3. Punomoćje - <a class="primerak-a" [href]="slikeUrl + zahtev.prilozi.punomocje_putanja" target="_blank"
+        matTooltip="Punomoćje">{{zahtev.prilozi.punomocje_putanja}}</a><br /></span>
 
       <span *ngIf="zahtev.prilozi.generalno_punomocje_ranije_prilozeno" style="font-size: 1.2rem; margin-left: 0.5rem; margin-top: 2.3rem">4. Generalno punomoćje ranije priloženo - DA<br/></span>
       <span *ngIf="!zahtev.prilozi.generalno_punomocje_ranije_prilozeno" style="font-size: 1.2rem; margin-left: 0.5rem; margin-top: 2.3rem">4. Generalno punomoćje ranije priloženo - NE<br/></span>
@@ -267,9 +269,12 @@
       <span *ngIf="zahtev.prilozi.punomocje_ce_biti_naknadno_dostavljeno" style="font-size: 1.2rem; margin-left: 0.5rem; margin-top: 2.3rem">5. Punomoćje će biti naknadno priloženo - DA<br/></span>
       <span *ngIf="!zahtev.prilozi.punomocje_ce_biti_naknadno_dostavljeno" style="font-size: 1.2rem; margin-left: 0.5rem; margin-top: 2.3rem">5. Punomoćje će biti naknadno priloženo - NE<br/></span>
 
-      <span style="font-size: 1.2rem; margin-left: 0.5rem; margin-top: 2.3rem">6. Opšti akt o kolektivnom žigu/žigu garancije - {{zahtev.prilozi.opsti_akt_o_kolektivnom_zigu_garancije_putanja}}<br/></span>
-      <span style="font-size: 1.2rem; margin-left: 0.5rem; margin-top: 2.3rem">7. Dokaz o uplati takse - {{zahtev.prilozi.dokaz_o_uplati_takse_putanja}}<br/></span>
-      <span *ngIf="zahtev.prilozi.dokaz_o_pravu_prvenstva_putanja" style="font-size: 1.2rem; margin-left: 0.5rem; margin-top: 2.3rem">8. Dokaz o pravu prvenstva - {{zahtev.prilozi.dokaz_o_pravu_prvenstva_putanja}}<br/></span>
+      <span style="font-size: 1.2rem; margin-left: 0.5rem; margin-top: 2.3rem">6. Opšti akt o kolektivnom žigu/žigu garancije - <a class="primerak-a" [href]="slikeUrl + zahtev.prilozi.opsti_akt_o_kolektivnom_zigu_garancije_putanja" target="_blank"
+        matTooltip="Opšti akt o kolektivnom zigu">{{zahtev.prilozi.opsti_akt_o_kolektivnom_zigu_garancije_putanja}}</a><br/></span>
+      <span style="font-size: 1.2rem; margin-left: 0.5rem; margin-top: 2.3rem">7. Dokaz o uplati takse - <a class="primerak-a" [href]="slikeUrl + zahtev.prilozi.dokaz_o_uplati_takse_putanja" target="_blank"
+        matTooltip="Dokaz o uplati takse">{{zahtev.prilozi.dokaz_o_uplati_takse_putanja}}</a><br /></span>
+      <span *ngIf="zahtev.prilozi.dokaz_o_pravu_prvenstva_putanja" style="font-size: 1.2rem; margin-left: 0.5rem; margin-top: 2.3rem">8. Dokaz o pravu prvenstva - <a class="primerak-a" [href]="slikeUrl + zahtev.prilozi.dokaz_o_pravu_prvenstva_putanja" target="_blank"
+        matTooltip="Dokaz o pravu prvenstva">{{zahtev.prilozi.dokaz_o_pravu_prvenstva_putanja}}</a><br /></span>
 
 
     </div>

@@ -8,8 +8,9 @@ import com.example.xml.project.exception.InvalidDocumentException;
 import com.example.xml.project.exception.XPathException;
 import com.example.xml.project.exception.TransformationFailedException;
 import com.example.xml.project.model.P1.ZahtevPatent;
-import com.example.xml.project.response.UspesanOdgovor;
+import com.example.xml.project.request.ZahtevPatentRequest;
 import com.example.xml.project.request.PretragaRequest;
+import com.example.xml.project.response.UspesnaTransformacija;
 import com.example.xml.project.service.PatentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,7 +21,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
-import java.util.List;
 import java.io.IOException;
 
 @RestController
@@ -56,6 +56,29 @@ public class PatentController {
         return patentService.get(documentId);
     }
 
+    @PostMapping(produces = "application/xml", consumes = "application/xml")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void saveNewRequest(@Valid @RequestBody ZahtevPatentRequest zahtev)
+            throws InvalidDocumentException, JAXBException
+    {
+
+        patentService.saveNewRequest(
+                zahtev.getId(),
+                zahtev.getBroj_prijave(),
+                zahtev.getDatum_prijema(),
+                zahtev.getPriznati_datum_podnosenja(),
+                zahtev.isDopunska_prijava(),
+                zahtev.isPregledano(),
+                zahtev.getInstitucija(),
+                zahtev.getPodaci_o_pronalasku(),
+                zahtev.getPodnosilac(),
+                zahtev.getPronalazac(),
+                zahtev.getPunomocnik(),
+                zahtev.getDostavljanje(),
+                zahtev.getZahtev_za_priznanje_prava_iz_ranijih_prijava()
+        );
+    }
+
     @GetMapping(path="/neobradjeni-zahtevi", produces = "application/xml")
     @ResponseStatus(HttpStatus.OK)
     public ZahteviPatentiDTO uzmiNeobradjeneZahteve() throws CannotUnmarshalException, XPathException {
@@ -85,18 +108,17 @@ public class PatentController {
         return patentService.pronadjiRezultateOsnovnePretrage(pretragaRequest.getParametriPretrage());
     }
 
-    @GetMapping(path = "/kreiraj-html/{id}", produces = "application/xml", consumes = "application/xml")
+    @GetMapping(path = "/kreiraj-html/{id}", produces = "application/xml")
     @ResponseStatus(HttpStatus.CREATED)
-    public UspesanOdgovor createHTML(@PathVariable @Valid @NotNull(message = "Poruka ne sme biti prazna.") final String id)
-            throws JAXBException, EntityNotFoundException, CannotUnmarshalException, TransformationFailedException
-    {
+    public UspesnaTransformacija createHTML(@PathVariable @Valid @NotNull(message = "Id ne sme biti prazan.") final String id)
+            throws JAXBException, EntityNotFoundException, TransformationFailedException, IOException {
 
         return patentService.dodajHtml(id);
     }
 
-    @GetMapping(path = "kreiraj-pdf/{id}", produces = "application/xml", consumes = "application/xml")
+    @GetMapping(path = "/kreiraj-pdf/{id}", produces = "application/xml")
     @ResponseStatus(HttpStatus.CREATED)
-    public UspesanOdgovor createPDF(@PathVariable @Valid @NotNull(message = "Poruka ne sme biti prazna.") final String id)
+    public UspesnaTransformacija createPDF(@PathVariable @Valid @NotNull(message = "Id ne sme biti prazan.") final String id)
             throws JAXBException, EntityNotFoundException, IOException, CannotUnmarshalException, TransformationFailedException
     {
 

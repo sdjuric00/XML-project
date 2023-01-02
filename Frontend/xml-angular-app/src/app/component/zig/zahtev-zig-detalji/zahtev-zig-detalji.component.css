@@ -49,6 +49,19 @@ table, tr, td, th{
   padding: 0.5rem !important;
 }
 
+.primerak-a:hover {
+  text-decoration: underline !important;
+  text-underline-position: under;
+}
+
+.primerak-a {
+  text-decoration: none;
+}
+
+img {
+  width: auto;
+  height: 12rem;
+}
 
 
 

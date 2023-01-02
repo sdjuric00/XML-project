@@ -3,9 +3,8 @@
 <zahtev_za_priznanje_ziga xmlns="http://www.zig/zig"
     xmlns:opste="http://ftn.ac.rs/opste"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.zig/zig file:/E:/Faks/cetvrta_godina/XML/Z-1.xsd"
     broj_prijave="Z-2022/1" datum_podnosenja="2022-11-06"
-    zig="individualni" pregledano="true" id="1">
+    zig="individualni" id="1" pregledano="true">
     
     <institucija>
         <opste:naziv>Zavod za intelektualnu svojinu</opste:naziv>

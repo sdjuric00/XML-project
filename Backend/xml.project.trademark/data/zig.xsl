@@ -197,7 +197,13 @@
                                 <th colspan="3" rowspan="15" style="text-align: left; vertical-align:top; font-weight: normal; font-size: 0.8rem; border: 1px solid black;">
                                     <b>v) izgled znaka</b>
                                     <br></br>
-                                    <span>sda</span>
+                                    <span style="text-align: center; align-items:center;">
+                                        <img style="height: 14rem; width: auto;">
+                                            <xsl:attribute name="src">
+                                                <xsl:value-of select="concat('http://localhost:8083/images/', //@primerak_znaka_putanja)"/>
+                                            </xsl:attribute>
+                                        </img>
+                                    </span>
                                 </th>
                             </tr>
 
@@ -372,10 +378,38 @@
                                                 <span style="border: 1px solid black; padding-left: 0.3rem; padding-right: 0.3rem; margin: 0;">1</span>
                                             </xsl:otherwise>
                                         </xsl:choose>
-                                        <span style="border: 1px solid black; padding-left: 0.3rem; padding-right: 0.3rem; margin: 0;">2</span>
-                                        <span style="border: 1px solid black; padding-left: 0.3rem; padding-right: 0.3rem; margin: 0;">3</span>
-                                        <span style="border: 1px solid black; padding-left: 0.3rem; padding-right: 0.3rem; margin: 0;">4</span>
-                                        <span style="border: 1px solid black; padding-left: 0.3rem; padding-right: 0.3rem; margin: 0;">5</span>
+                                        <xsl:choose>
+                                            <xsl:when test="//z:nicanska_klasifikacija/z:broj[text() = '2. Boje i lakovi']">
+                                                <span style="border: 1px solid black; border-style: solid; border-color: red; padding-left: 0.3rem; padding-right: 0.3rem; margin: 0;">1</span>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <span style="border: 1px solid black; padding-left: 0.3rem; padding-right: 0.3rem; margin: 0;">2</span>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                        <xsl:choose>
+                                            <xsl:when test="//z:nicanska_klasifikacija/z:broj[text() = '3. Nemedicinska kozmetika']">
+                                                <span style="border: 1px solid black; border-style: solid; border-color: red; padding-left: 0.3rem; padding-right: 0.3rem; margin: 0;">1</span>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <span style="border: 1px solid black; padding-left: 0.3rem; padding-right: 0.3rem; margin: 0;">3</span>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                        <xsl:choose>
+                                            <xsl:when test="//z:nicanska_klasifikacija/z:broj[text() = '4. Industrija ulja i masti']">
+                                                <span style="border: 1px solid black; border-style: solid; border-color: red; padding-left: 0.3rem; padding-right: 0.3rem; margin: 0;">1</span>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <span style="border: 1px solid black; padding-left: 0.3rem; padding-right: 0.3rem; margin: 0;">4</span>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                        <xsl:choose>
+                                            <xsl:when test="//z:nicanska_klasifikacija/z:broj[text() = '5. Farmaceutski proizvodi']">
+                                                <span style="border: 1px solid black; border-style: solid; border-color: red; padding-left: 0.3rem; padding-right: 0.3rem; margin: 0;">1</span>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <span style="border: 1px solid black; padding-left: 0.3rem; padding-right: 0.3rem; margin: 0;">5</span>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
                                     </div>
                                 </th>
                             </tr>
@@ -449,42 +483,74 @@
 
                             <tr style="height: 2rem">
                                 <th style="text-align: left; border: 1px solid black; font-size: 0.8rem;"><span>Primerak znaka</span></th>
-                                <th style="text-align: left; border: 1px solid black; width: 5rem; font-size: 0.8rem;"><span></span></th>
+                                <th style="text-align: left; border: 1px solid black; width: 5rem; font-size: 0.8rem;"><span>
+                                    <xsl:if test="//z:popunjava_zavod/z:primerak_znaka = 'true'">
+                                        X
+                                    </xsl:if>
+                                </span></th>
                             </tr>
 
                             <tr style="height: 2rem">
                                 <th style="text-align: left; border: 1px solid black; font-size: 0.8rem;"><span>Spisak robe i usluga**</span></th>
-                                <th style="text-align: left; border: 1px solid black; font-size: 0.8rem;"><span></span></th>
+                                <th style="text-align: left; border: 1px solid black; font-size: 0.8rem;"><span>
+                                    <xsl:if test="//z:popunjava_zavod/z:spisak_roba_i_usluga = 'true'">
+                                        X
+                                    </xsl:if>
+                                </span></th>
                             </tr>
 
                             <tr style="height: 2rem">
                                 <th style="text-align: left; border: 1px solid black; font-size: 0.8rem;">Punomocje</th>
-                                <th style="text-align: left; border: 1px solid black; font-size: 0.8rem;"><span></span></th>
+                                <th style="text-align: left; border: 1px solid black; font-size: 0.8rem;"><span>
+                                    <xsl:if test="//z:popunjava_zavod/z:punomocje = 'true'">
+                                        X
+                                    </xsl:if>
+                                </span></th>
                             </tr>
 
                             <tr style="height: 2rem">
                                 <th style="text-align: left; border: 1px solid black; font-size: 0.8rem;"><span>Generalno punomocje ranije prilozeno</span></th>
-                                <th style="text-align: left; border: 1px solid black; font-size: 0.8rem;"><span></span></th>
+                                <th style="text-align: left; border: 1px solid black; font-size: 0.8rem;"><span>
+                                    <xsl:if test="//z:popunjava_zavod/z:generalno_punomocje_ranije_prilozeno = 'true'">
+                                        X
+                                    </xsl:if>
+                                </span></th>
                             </tr>
 
                             <tr style="height: 2rem">
                                 <th style="text-align: left; border: 1px solid black; font-size: 0.8rem;"><span>Punomocje ce biti naknadno dostavljeno</span></th>
-                                <th style="text-align: left; border: 1px solid black; font-size: 0.8rem;"><span></span></th>
+                                <th style="text-align: left; border: 1px solid black; font-size: 0.8rem;"><span>
+                                    <xsl:if test="//z:popunjava_zavod/z:punomocje_ce_biti_naknadno_dostavljeno = 'true'">
+                                        X
+                                    </xsl:if>
+                                </span></th>
                             </tr>
 
                             <tr style="height: 2rem">
                                 <th style="text-align: left; border: 1px solid black; font-size: 0.8rem;"><span>Opsti akt o kolektivnom zigu/zigu garancije</span></th>
-                                <th style="text-align: left; border: 1px solid black; font-size: 0.8rem;"><span></span></th>
+                                <th style="text-align: left; border: 1px solid black; font-size: 0.8rem;"><span>
+                                    <xsl:if test="//z:popunjava_zavod/z:opsti_akt = 'true'">
+                                        X
+                                    </xsl:if>
+                                </span></th>
                             </tr>
 
                             <tr style="height: 2rem">
                                 <th style="text-align: left; border: 1px solid black; font-size: 0.8rem;"><span>Dokaz o pravu prvenstva</span></th>
-                                <th style="text-align: left; border: 1px solid black; font-size: 0.8rem;"><span></span></th>
+                                <th style="text-align: left; border: 1px solid black; font-size: 0.8rem;">
+                                    <xsl:if test="//z:popunjava_zavod/z:dokaz_o_pravu_prvenstva = 'true'">
+                                        X
+                                    </xsl:if>
+                                </th>
                             </tr>
 
                             <tr style="height: 2rem">
                                 <th style="text-align: left; border: 1px solid black; font-size: 0.8rem;"><span>Dokaz o uplati takse</span></th>
-                                <th style="text-align: left; border: 1px solid black; font-size: 0.8rem;"><span></span></th>
+                                <th style="text-align: left; border: 1px solid black; font-size: 0.8rem;"><span>
+                                    <xsl:if test="//z:popunjava_zavod/z:dokaz_o_uplati_takse = 'true'">
+                                        X
+                                    </xsl:if>
+                                </span></th>
                             </tr>
 
                         </table>

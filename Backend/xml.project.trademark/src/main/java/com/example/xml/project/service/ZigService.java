@@ -7,15 +7,19 @@ import com.example.xml.project.exception.EntityNotFoundException;
 import com.example.xml.project.exception.InvalidDocumentException;
 import com.example.xml.project.exception.XPathException;
 import com.example.xml.project.exception.TransformationFailedException;
-import com.example.xml.project.model.Z1.ZahtevZig;
+import com.example.xml.project.model.Institucija;
+import com.example.xml.project.model.Podnosilac;
+import com.example.xml.project.model.Punomocnik;
+import com.example.xml.project.model.Z1.*;
+import com.example.xml.project.model.Z1.enums.ZigEnum;
 import com.example.xml.project.repository.GenericRepository;
 import com.example.xml.project.repository.ZigRepository;
 import com.example.xml.project.request.ParametarPretrage;
+import com.example.xml.project.response.UspesnaTransformacija;
 import com.example.xml.project.transformator.Transformator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
-import com.example.xml.project.response.UspesanOdgovor;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
@@ -26,9 +30,11 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import java.io.*;
+import java.time.LocalDate;
 import java.util.List;
 
 import static com.example.xml.project.util.Constants.*;
+import static com.example.xml.project.util.SlikeTransformator.sacuvajSliku;
 
 @Service
 public class ZigService {
@@ -99,12 +105,12 @@ public class ZigService {
         return zigRepository.uzmiZahtev(id);
     }
 
-    public UspesanOdgovor dodajZigHtml(String id)
-            throws JAXBException, EntityNotFoundException, TransformationFailedException
+    public UspesnaTransformacija dodajHtml(String id)
+            throws JAXBException, EntityNotFoundException, TransformationFailedException, IOException
     {
         String htmlPutanja = HTML_PUTANJA + id + ".html";
 
-        return new UspesanOdgovor(this.transformator.generateHTML(htmlPutanja, get(id)));
+        return new UspesnaTransformacija(this.transformator.generateHTML(htmlPutanja, get(id)));
     }
 
     public ZahteviZigDTO pronadjiRezultateOsnovnePretrage(List<ParametarPretrage> parametriPretrage) throws Exception {
@@ -113,13 +119,70 @@ public class ZigService {
         return zahteviDTO;
     }
 
-    public UspesanOdgovor dodajPdf(String id) throws JAXBException, EntityNotFoundException,
+    public UspesnaTransformacija dodajPdf(String id) throws JAXBException, EntityNotFoundException,
             IOException, TransformationFailedException {
         String pdfPutanja = PDF_PUTANJA + id + ".pdf";
         String htmlPutanja = HTML_PUTANJA + id + ".html";
-        this.dodajZigHtml(id);  //prvo se pravi html za slucaj da ne postoji
+        this.dodajHtml(id);  //prvo se pravi html za slucaj da ne postoji
 
-        return new UspesanOdgovor(this.transformator.generatePdf(htmlPutanja, pdfPutanja));
+        return new UspesnaTransformacija(this.transformator.generatePdf(htmlPutanja, pdfPutanja));
+    }
+
+    public void saveNewRequest(
+            String id,
+            final String broj_prijave,
+            final LocalDate datum_podnosenja,
+            final boolean pregledano,
+            final ZigEnum zig,
+            final Institucija institucija,
+            final List<Podnosilac> podnosioci,
+            final Punomocnik punomocnik,
+            final PodaciOZajednickomPredstavniku podaci_o_zajednickom_predstavniku,
+            final Znak znak, List<OdabraneKategorije> nicanska_klasifikacija,
+            final PravoPrvenstva pravo_prvenstva,
+            PlaceneTakse placene_takse,
+            Prilozi prilozi
+    ) throws JAXBException, InvalidDocumentException, TransformationFailedException {
+        prilozi = sacuvajSlike(prilozi);
+        placene_takse = izracunajTakse(placene_takse, nicanska_klasifikacija.size());
+        if (id == null) {
+            id = "1";    //zbog check seme da validira, posle ce setovati dobar broj
+        }
+
+        ZahtevZig zahtev = new ZahtevZig(id, broj_prijave, datum_podnosenja, pregledano, zig, institucija, podnosioci,
+                punomocnik, podaci_o_zajednickom_predstavniku, znak, nicanska_klasifikacija, pravo_prvenstva, placene_takse, prilozi);
+        Marshaller marshaller = jaxbContext.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+        StringWriter sw = new StringWriter();
+        marshaller.marshal(zahtev, sw);
+
+        this.saveToDB(sw.toString());
+    }
+
+    private PlaceneTakse izracunajTakse(PlaceneTakse placeneTakse, int brojKlasa) {
+        placeneTakse.setValuta(EUR);
+        placeneTakse.setOsnovna_taksa(OSNOVNA_TAKSA);
+        placeneTakse.setTaksa_za_graficko_resenje(TAKSA_ZA_GRAFICKO_RESENJE);
+        placeneTakse.setTaksa_za_klasu(brojKlasa * TAKSA_PO_KLASI);
+        placeneTakse.setUkupno(OSNOVNA_TAKSA + TAKSA_ZA_GRAFICKO_RESENJE + placeneTakse.getTaksa_za_klasu());
+
+        return placeneTakse;
+    }
+
+    private Prilozi sacuvajSlike(Prilozi prilozi) throws TransformationFailedException {
+        if (!prilozi.getDokaz_o_pravu_prvenstva_putanja().equals("")) {
+            prilozi.setDokaz_o_pravu_prvenstva_putanja(sacuvajSliku(prilozi.getDokaz_o_pravu_prvenstva_putanja()));
+        } else if (!prilozi.getDokaz_o_uplati_takse_putanja().equals("")) {
+            prilozi.setDokaz_o_pravu_prvenstva_putanja(sacuvajSliku(prilozi.getDokaz_o_uplati_takse_putanja()));
+        } else if (!prilozi.getOpsti_akt_o_kolektivnom_zigu_garancije_putanja().equals("")) {
+            prilozi.setDokaz_o_pravu_prvenstva_putanja(sacuvajSliku(prilozi.getOpsti_akt_o_kolektivnom_zigu_garancije_putanja()));
+        } else if (!prilozi.getPunomocje_putanja().equals("")) {
+            prilozi.setDokaz_o_pravu_prvenstva_putanja(sacuvajSliku(prilozi.getPunomocje_putanja()));
+        } else if (!prilozi.getPrimerak_znaka_putanja().equals("")) {
+            prilozi.setDokaz_o_pravu_prvenstva_putanja(sacuvajSliku(prilozi.getPrimerak_znaka_putanja()));
+        }
+
+        return prilozi;
     }
 
     private ZahtevZig checkSchema(String document) throws InvalidDocumentException {

@@ -13,7 +13,6 @@
             </xs:sequence>
             <xs:attribute name="id" type="xs:positiveInteger" use="required"/>
             <xs:attribute name="referenca_na_zahtev" type="xs:string"/>
-            <xs:attribute name="broj_prijave" type="xs:string"/>
         </xs:complexType>
     </xs:element>
 </xs:schema>

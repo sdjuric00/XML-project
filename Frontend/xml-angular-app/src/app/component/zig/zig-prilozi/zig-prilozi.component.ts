@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ControlContainer, FormGroup, Validators } from '@angular/forms';
+import { Observable, ReplaySubject } from 'rxjs';
 
 @Component({
   selector: 'app-zig-prilozi',
@@ -79,38 +80,54 @@ export class ZigPriloziComponent implements OnInit {
   }
 
   primerakZnakaChanged(event: any): void {
-    this.primerakZnakaPutanja = event.target.files[0]?.name ?? null;
-    if (this.primerakZnakaPutanja) {
-      this.takseIPriloziFormGroup.get('primerakZnakaPutanja')?.setValue(this.primerakZnakaPutanja);
+    if (this.punomocjePutanja) {
+      this.convertFile(event.target.files[0]).subscribe(base64 => {
+        this.takseIPriloziFormGroup.get('primerakZnakaPutanja')?.setValue(base64);
+      });
     }
   }
 
   opstiAktOKolektivnoZiguChanged(event: any): void {
-    this.opstiAktOKolektivnoZiguPutanja = event.target.files[0]?.name ?? null;
-    if (this.opstiAktOKolektivnoZiguPutanja) {
-      this.takseIPriloziFormGroup.get('opstiAktOKolektivnoZiguPutanja')?.setValue(this.opstiAktOKolektivnoZiguPutanja);
+    if (this.punomocjePutanja) {
+      this.convertFile(event.target.files[0]).subscribe(base64 => {
+        this.takseIPriloziFormGroup.get('opstiAktOKolektivnoZiguPutanja')?.setValue(base64);
+      });
     }
   }
 
   dozakOPravuPrvenstvaChanged(event: any): void {
-    this.dozakOPravuPrvenstvaPutanja = event.target.files[0]?.name ?? null;
-    if (this.dozakOPravuPrvenstvaPutanja) {
-      this.takseIPriloziFormGroup.get('dozakOPravuPrvenstvaPutanja')?.setValue(this.dozakOPravuPrvenstvaPutanja);
+    this.punomocjePutanja = event.target.files[0]?.name ?? null;
+    if (this.punomocjePutanja) {
+      this.convertFile(event.target.files[0]).subscribe(base64 => {
+        this.takseIPriloziFormGroup.get('dozakOPravuPrvenstvaPutanja')?.setValue(base64);
+      });
     }
   }
 
   dokazOUplatiTakseChanged(event: any): void {
-    this.dokazOUplatiTaksePutanja = event.target.files[0]?.name ?? null;
-    if (this.dokazOUplatiTaksePutanja) {
-      this.takseIPriloziFormGroup.get('dokazOUplatiTaksePutanja')?.setValue(this.dokazOUplatiTaksePutanja);
+    this.punomocjePutanja = event.target.files[0]?.name ?? null;
+    if (this.punomocjePutanja) {
+      this.convertFile(event.target.files[0]).subscribe(base64 => {
+        this.takseIPriloziFormGroup.get('dokazOUplatiTaksePutanja')?.setValue(base64);
+      });
     }
   }
 
   punomocjeChanged(event: any): void {
     this.punomocjePutanja = event.target.files[0]?.name ?? null;
     if (this.punomocjePutanja) {
-      this.takseIPriloziFormGroup.get('punomocjePutanja')?.setValue(this.punomocjePutanja);
+      this.convertFile(event.target.files[0]).subscribe(base64 => {
+        this.takseIPriloziFormGroup.get('punomocjePutanja')?.setValue(base64);
+      });
     }
+  }
+
+  convertFile(file: File): Observable<string> {
+    const result = new ReplaySubject<string>(1);
+    const reader = new FileReader();
+    reader.readAsBinaryString(file);
+    reader.onload = event => result.next(btoa(event.target.result.toString()));
+    return result;
   }
 
 }
