@@ -16,4 +16,6 @@ public class Constants {
     public static final String PDF_PUTANJA = "src/main/webapp/pdf/";
     public static final String XSL_PUTANJA = "./data/a1.xsl";
     public static final String COLLECTION_ID_RESENJE_AUTORSKA_PRAVA_DB = "db/xml/autorska-prava/resenja";
+
+    public static final String NASLOV_EMAIL_PORUKE = "Rešenje potnetog zahteva broj ";
 }
