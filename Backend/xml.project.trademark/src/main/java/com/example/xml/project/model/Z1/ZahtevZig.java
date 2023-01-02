@@ -34,6 +34,9 @@ public class ZahtevZig implements IdentifiableEntity {
     @XmlAttribute(name = "pregledano", required = true)
     private boolean pregledano = false;
 
+    @XmlAttribute(name="prihvaceno")
+    private boolean prihvaceno = false;
+
     @XmlAttribute(name = "referenca_na_resenje")
     private String referenca_na_resenje = "-1";
 
@@ -235,5 +238,13 @@ public class ZahtevZig implements IdentifiableEntity {
 
     public void setReferenca_na_resenje(String referenca_na_resenje) {
         this.referenca_na_resenje = referenca_na_resenje;
+    }
+
+    public boolean isPrihvaceno() {
+        return prihvaceno;
+    }
+
+    public void setPrihvaceno(boolean prihvaceno) {
+        this.prihvaceno = prihvaceno;
     }
 }

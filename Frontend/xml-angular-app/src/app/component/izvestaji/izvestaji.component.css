@@ -1,0 +1,26 @@
+.example-form-field {
+  margin: 0 8px 16px 0;
+}
+
+#divChart {
+  float: right;
+  margin-right: 7rem;
+  display: block;
+  width: 60rem;
+  height: 33rem;
+}
+
+.levo {
+  width: 20%;
+  position: absolute;
+  left: 0px;
+  margin-left: 2rem;
+}
+
+.desno {
+  width: 80%;
+  position: absolute;
+  right: 0px;
+  margin-top: 4rem;
+}
+

@@ -22,6 +22,7 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import java.io.File;
 import java.io.StringReader;
+import java.time.LocalDate;
 
 import static com.example.xml.project.model.A1.resenje.Resenje.napraviResenjeZaOdbijanjeZahteva;
 import static com.example.xml.project.model.A1.resenje.Resenje.napraviResenjeZaPrihvatanjeZahteva;
@@ -36,14 +37,17 @@ public class ResenjeService {
     private final JAXBContext jaxbContext;
     private final Marshaller marshaller;
     private final AutorskaPravaService autorskaPravaService;
+    private final EmailService emailService;
 
     public ResenjeService(
         @Autowired final GenericRepository<Resenje> repository,
         @Autowired final ResenjeRepository resenjeRepository,
-        @Autowired final AutorskaPravaService autorskaPravaService
+        @Autowired final AutorskaPravaService autorskaPravaService,
+        @Autowired final EmailService emailService
     ) throws JAXBException {
         this.resenjeRepository = resenjeRepository;
         this.autorskaPravaService = autorskaPravaService;
+        this.emailService = emailService;
         this.jaxbContext = JAXBContext.newInstance(Resenje.class);
         this.repository = repository;
         this.repository.setGenericRepositoryProperties(
@@ -55,7 +59,6 @@ public class ResenjeService {
         this.marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
     }
 
-
     public void prihvatiZahtev(
         final String sifra_obradjenog_zahteva,
         final String ime_prezime_sluzbenika,
@@ -64,7 +67,9 @@ public class ResenjeService {
         final boolean dat_primer_autorskog_dela
     ) throws CannotUnmarshalException, XPathException, InvalidDocumentException {
         Resenje resenje = napraviResenjeZaPrihvatanjeZahteva(referenca_na_zahtev, ime_prezime_sluzbenika, sifra_obradjenog_zahteva);
-        popuniPotrebnaPoljaZahteva(referenca_na_zahtev, dat_opis_autorskog_dela, dat_primer_autorskog_dela, resenje);
+        ZahtevAutorskaDela zahtevAutorskaDela = popuniPotrebnaPoljaZahteva(referenca_na_zahtev, dat_opis_autorskog_dela, dat_primer_autorskog_dela, resenje, true);
+
+        emailService.posaljiResenjeOPrihvatanjuKorisniku(zahtevAutorskaDela);
     }
 
     public void odbijZahtev(
@@ -75,7 +80,9 @@ public class ResenjeService {
         final boolean dat_primer_autorskog_dela
     ) throws CannotUnmarshalException, XPathException, InvalidDocumentException {
         Resenje resenje = napraviResenjeZaOdbijanjeZahteva(referenca_na_zahtev, ime_prezime_sluzbenika, razlog_odbijanja);
-        popuniPotrebnaPoljaZahteva(referenca_na_zahtev, dat_opis_autorskog_dela, dat_primer_autorskog_dela, resenje);
+        ZahtevAutorskaDela zahtevAutorskaDela = popuniPotrebnaPoljaZahteva(referenca_na_zahtev, dat_opis_autorskog_dela, dat_primer_autorskog_dela, resenje, false);
+
+        emailService.posaljiResenjeOOdbijanjuKorisniku(zahtevAutorskaDela);
     }
 
     public ResenjeDTO uzmi(String id) throws CannotUnmarshalException, XPathException {
@@ -83,19 +90,23 @@ public class ResenjeService {
         return new ResenjeDTO(resenjeRepository.uzmi(id));
     }
 
-    private void popuniPotrebnaPoljaZahteva(
+    private ZahtevAutorskaDela popuniPotrebnaPoljaZahteva(
         final String referenca_na_zahtev,
         final boolean dat_opis_autorskog_dela,
         final boolean dat_primer_autorskog_dela,
-        final Resenje resenje
+        final Resenje resenje,
+        boolean prihvaceno
     ) throws CannotUnmarshalException, XPathException, InvalidDocumentException {
         repository.save(resenje, true);
         ZahtevAutorskaDela zahtevAutorskaDela = autorskaPravaService.uzmiZahtevBezDTO(referenca_na_zahtev);
         zahtevAutorskaDela.setPregledano(true);
+        zahtevAutorskaDela.setPrihvaceno(prihvaceno);
         zahtevAutorskaDela.setReferenca_na_resenje(resenje.getId());
         zahtevAutorskaDela.getPrilozi().setOpis_prilozen(dat_opis_autorskog_dela);
         zahtevAutorskaDela.getPrilozi().setPrimerak_prilozen(dat_primer_autorskog_dela);
         autorskaPravaService.saveToDBObj(zahtevAutorskaDela, false);
+
+        return zahtevAutorskaDela;
     }
 
     private Resenje checkSchema(String document) throws InvalidDocumentException {

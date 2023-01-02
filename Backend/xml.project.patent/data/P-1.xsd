@@ -25,6 +25,7 @@
         <xs:attribute name="priznati_datum_podnosenja" type="xs:date"/>
         <xs:attribute name="dopunska_prijava" type="xs:boolean"/>
         <xs:attribute name="pregledano" type="xs:boolean"/>
+        <xs:attribute name="prihvaceno" type="xs:boolean"/>
         <xs:attribute name="referenca_na_resenje" type="xs:string"/>
         <xs:attribute name="id" type="xs:positiveInteger" use="required"/>
     </xs:complexType>

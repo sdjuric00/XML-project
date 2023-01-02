@@ -42,6 +42,7 @@
             </xs:attribute>
             <xs:attribute name="datum_podnosenja" type="xs:date"/>
             <xs:attribute name="pregledano" type="xs:boolean"/>
+            <xs:attribute name="prihvaceno" type="xs:boolean"/>
             <xs:attribute name="referenca_na_resenje" type="xs:string"/>
             <xs:attribute name="zig" type="xs-z:zig"/>
             <xs:attribute name="id" type="xs:positiveInteger" use="required"/>

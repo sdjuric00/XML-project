@@ -1,6 +1,7 @@
 package com.example.xml.project.service;
 
 import com.example.xml.project.dto.PlaceneTakseDTO;
+import com.example.xml.project.dto.IzvestajDTO;
 import com.example.xml.project.dto.ZahtevZigDetaljneInformacijeDTO;
 import com.example.xml.project.dto.ZahteviZigDTO;
 import com.example.xml.project.exception.CannotUnmarshalException;
@@ -93,6 +94,11 @@ public class ZigService {
         PlaceneTakse ocekivanoPlacanje = this.izracunajTakse(zahtev.getPlacene_takse(), zahtev.getNicanska_klasifikacija().size());
 
         return new PlaceneTakseDTO(ocekivanoPlacanje);
+    }
+
+    public IzvestajDTO generisiIzvestaj(final LocalDate pocetniDatum, final LocalDate krajnjiDatum) throws CannotUnmarshalException, XPathException {
+
+        return zigRepository.generisiIzvestaj(pocetniDatum, krajnjiDatum);
     }
 
     public ZahteviZigDTO uzmiZahteve(boolean obradjene) throws CannotUnmarshalException, XPathException {
