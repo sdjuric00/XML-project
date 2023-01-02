@@ -63,6 +63,8 @@ import { PopunjavaPrilogeZahtevZigComponent } from './component/zig/popunjava-pr
 import { ZahtevZigDetaljiComponent } from './component/zig/zahtev-zig-detalji/zahtev-zig-detalji.component';
 import { HomePageComponent } from './component/home-page/home-page.component';
 import {OdbijZahtevComponent} from "./component/odbij-zahtev/odbij-zahtev.component";
+import { NaprednaPretragaComponent } from './component/napredna-pretraga/napredna-pretraga.component';
+import { NaprednaPretragaPoljaComponent } from './component/napredna-pretraga-polja/napredna-pretraga-polja.component';
 
 @NgModule({
   declarations: [
@@ -116,7 +118,9 @@ import {OdbijZahtevComponent} from "./component/odbij-zahtev/odbij-zahtev.compon
     PopunjavaPrilogeZahtevZigComponent,
     ZahtevZigDetaljiComponent,
     HomePageComponent,
-    OdbijZahtevComponent
+    OdbijZahtevComponent,
+    NaprednaPretragaComponent,
+    NaprednaPretragaPoljaComponent
   ],
   imports: [
     BrowserModule,

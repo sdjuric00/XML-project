@@ -18,10 +18,12 @@ import {PregledZahtevaZigovaComponent} from "./component/zig/pregled-zahteva-zig
 import {ObradiZahtevPatentComponent} from "./component/patent/obradi-zahtev-patent/obradi-zahtev-patent.component";
 import {ObradiZahtevZigComponent} from "./component/zig/obradi-zahtev-zig/obradi-zahtev-zig.component";
 import { HomePageComponent } from './component/home-page/home-page.component';
+import { NaprednaPretragaComponent } from './component/napredna-pretraga/napredna-pretraga.component';
 
 const routes: Routes = [
   { path: 'prijava', component: LoginComponent },
   {path: 'pocetna', component: HomePageComponent},
+  {path: 'napredna-pretraga', component: NaprednaPretragaComponent},
   { path: 'registracija', component: RegistracijaComponent },
   { path: 'autorska-prava', component: CopyrightApplicationComponent},
   { path: 'patent', component: PatentApplicationComponent},

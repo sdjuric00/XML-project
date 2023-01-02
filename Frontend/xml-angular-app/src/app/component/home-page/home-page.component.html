@@ -1,5 +1,7 @@
-<div style="text-align: center;margin-top:3rem;">
-    <mat-form-field class="example-chip-list" appearance="fill" style="width:40rem;">
+<div style="margin-top:3rem;">
+  <h2 style="text-align:center">PRETRAGA</h2><br>
+  <div style="float:left;margin-left:5rem;">
+    <mat-form-field class="example-chip-list" appearance="fill" style="width:30rem;">
         <mat-label>Pretraga</mat-label>
         <mat-chip-list #chipList aria-label="Fruit selection">
           <mat-chip *ngFor="let s of searchList" (removed)="remove(s)">
@@ -14,12 +16,14 @@
                  [matChipInputAddOnBlur]="addOnBlur"
                  (matChipInputTokenEnd)="add($event)">
         </mat-chip-list>
-      </mat-form-field>
+      </mat-form-field><br>
 
-      <button (click)="pretrazi()" mat-button style="background-color:var( --green); margin-left:3rem;">Pretrazi</button>
-
+      <button (click)="pretrazi()" mat-button style="background-color:var( --green); margin-left:3rem;margin-right:1rem;">Pretrazi</button>
+      <button mat-stroked-button target="_blank" style="color:var(--green);" (click)="naprednaPretraga()">Napredna pretraga</button>
+      </div>
+      <div style="float:right; margin-right:10rem;border: 1px lightgrey solid; padding:2rem; border-radius:1rem;" *ngIf="prikaziPatente || prikaziAutorskaPrava || prikaziZigove">
       <div *ngIf="prikaziPatente">
-        <p style="color:var(--green)">ZAHTEVI ZA PRIZNAVANJE PATENTA</p>
+        <p style="color:var(--green);text-align: center;">ZAHTEVI ZA PRIZNAVANJE PATENTA</p>
         <div *ngFor="let zahtev of listaZahtevaPatenti" class="form-container mat-elevation-z2">
           <app-red-patent [zahtev]="zahtev"></app-red-patent>
         </div><br>
@@ -29,7 +33,7 @@
 
       <div *ngIf="prikaziAutorskaPrava">
         <br>
-          <p style="color:var(--green)">ZAHTEVI ZA UNOSENJE U EVIDENCIJU I DEPONOVANJE AUTORSKIH DELA</p>
+          <p style="color:var(--green);text-align: center;">ZAHTEVI ZA UNOSENJE U EVIDENCIJU I DEPONOVANJE AUTORSKIH DELA</p>
           <div *ngFor="let zahtev of listaZahtevaAutorskaPrava" class="form-container mat-elevation-z2">
             <app-red-autorska-prava [zahtev]="zahtev"></app-red-autorska-prava>
           </div><br>
@@ -37,9 +41,10 @@
       </div>
       <div *ngIf="prikaziZigove">
         <br>
-        <p style="color:var(--green)">ZAHTEVI ZA PRIZNANJE ZIGA</p>
+        <p style="color:var(--green);text-align: center;">ZAHTEVI ZA PRIZNANJE ZIGA</p>
         <div *ngFor="let zahtev of listaZahtevaZigova" class="form-container mat-elevation-z2">
           <app-red-zig [zahtev]="zahtev"></app-red-zig>
         </div>
+      </div>
       </div>
 </div>

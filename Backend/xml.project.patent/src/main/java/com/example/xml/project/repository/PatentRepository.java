@@ -250,4 +250,5 @@ public class PatentRepository extends BasicXMLRepository {
         }
         return result;
     }
+
 }

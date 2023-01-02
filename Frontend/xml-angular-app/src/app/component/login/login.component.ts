@@ -63,6 +63,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             const prijavaOdgovor: PrijavaOdgovor = this.napraviPrijavaOdgovor(result.prijava);
             console.log(prijavaOdgovor);
             this.autentifikacijaService.setLocalStorage(prijavaOdgovor);
+            this.router.navigate(["/pocetna"])
           })
         },
         error =>  this.toast.error(error.error, 'Neuspešna prijava na sistem')

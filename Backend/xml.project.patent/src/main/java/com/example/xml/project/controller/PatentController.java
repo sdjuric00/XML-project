@@ -80,4 +80,9 @@ public class PatentController {
 
         return patentService.pronadjiRezultateOsnovnePretrage(pretragaRequest.getParametriPretrage());
     }
+
+    @PostMapping(path="/dokumenti-referenciraju/{documentId}")
+    public ZahteviPatentiDTO getDokumentiKojiReferenciraju(@PathVariable String documentId) throws Exception {
+        return patentService.pronadjiDokumenteKojiReferenciraju(documentId);
+    }
 }
