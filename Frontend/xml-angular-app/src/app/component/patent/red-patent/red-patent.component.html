@@ -1,9 +1,13 @@
-<div style="display: flex">
-  <h2>{{zahtev.broj_prijave}}</h2>
-  <h3 style="margin-left: 15rem">{{zahtev.datum_podnosenja | date: 'dd.MM.yyyy.'}}</h3>
-</div>
-<h3>Podnosilac: {{zahtev.podnosilac.ime}} {{zahtev.podnosilac.prezime}}</h3>
-<br/>
+<div class="form-container" style="padding: 1rem; margin-left: 2rem; width: 25rem;">
+  <p style="text-align:left; margin-bottom: 0.2rem">
+    <span style="font-size: 1.5rem; font-weight: bold">{{zahtev.broj_prijave}}</span>
+    <span style="float: right; font-size: 1.2rem;font-weight: bold">
+      {{zahtev.datum_podnosenja | date: 'dd.MM.yyyy.'}}
+    </span>
+  </p>
+  <h3>Podnosilac: {{zahtev.podnosilac.ime}} {{zahtev.podnosilac.prezime}}</h3>
+  <br />
+
 <button *ngIf="!zahtev.pregledano" style="float: right" class="next-button" mat-raised-button (click)="obradaZahteva()">Obradi zahtev</button>
 <button *ngIf="zahtev.pregledano" style="float: right" class="next-button" mat-raised-button (click)="detaljiZahteva()">Detalji</button>
 

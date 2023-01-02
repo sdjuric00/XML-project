@@ -1,5 +1,6 @@
 package com.example.xml.project.service;
 
+import com.example.xml.project.dto.PlaceneTakseDTO;
 import com.example.xml.project.dto.ZahtevZigDetaljneInformacijeDTO;
 import com.example.xml.project.dto.ZahteviZigDTO;
 import com.example.xml.project.exception.CannotUnmarshalException;
@@ -85,6 +86,13 @@ public class ZigService {
     public ZahtevZig get(String documentId) throws EntityNotFoundException, JAXBException {
 
         return repository.get(documentId);
+    }
+
+    public PlaceneTakseDTO dobaviOcekivanoPlacanje(String documentId) throws EntityNotFoundException, JAXBException {
+        ZahtevZig zahtev = this.get(documentId);
+        PlaceneTakse ocekivanoPlacanje = this.izracunajTakse(zahtev.getPlacene_takse(), zahtev.getNicanska_klasifikacija().size());
+
+        return new PlaceneTakseDTO(ocekivanoPlacanje);
     }
 
     public ZahteviZigDTO uzmiZahteve(boolean obradjene) throws CannotUnmarshalException, XPathException {

@@ -1,5 +1,6 @@
 package com.example.xml.project.controller;
 
+import com.example.xml.project.dto.PlaceneTakseDTO;
 import com.example.xml.project.dto.ZahtevZigDetaljneInformacijeDTO;
 import com.example.xml.project.dto.ZahteviZigDTO;
 import com.example.xml.project.exception.CannotUnmarshalException;
@@ -7,6 +8,7 @@ import com.example.xml.project.exception.EntityNotFoundException;
 import com.example.xml.project.exception.InvalidDocumentException;
 import com.example.xml.project.exception.XPathException;
 import com.example.xml.project.exception.TransformationFailedException;
+import com.example.xml.project.model.Z1.PlaceneTakse;
 import com.example.xml.project.model.Z1.ZahtevZig;
 import com.example.xml.project.request.PretragaRequest;
 import com.example.xml.project.request.ZigRequest;
@@ -79,6 +81,15 @@ public class ZigController {
     ) throws EntityNotFoundException, JAXBException {
 
         return zigService.get(documentId);
+    }
+
+    @GetMapping(path="/dobavi-ocekivano-placanje/{documentId}", produces = "application/xml")
+    @ResponseStatus(HttpStatus.OK)
+    public PlaceneTakseDTO dobaviOcekivanoPlacanje(@PathVariable @Valid @NotBlank(message = "Document id is required")
+                         final String documentId
+    ) throws EntityNotFoundException, JAXBException {
+
+        return zigService.dobaviOcekivanoPlacanje(documentId);
     }
 
     @GetMapping(path="/neobradjeni-zahtevi", produces = "application/xml")

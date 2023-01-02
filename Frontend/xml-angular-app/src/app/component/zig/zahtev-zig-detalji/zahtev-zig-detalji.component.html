@@ -211,10 +211,10 @@
           <span style="font-size: 1.2rem; font-weight: bold; text-align: left">Izabrane klase iz Ničanske klasifikacije</span>
         </p>
         <div *ngFor="let broj of brojevi">
-          <mat-radio-button disabled [checked]="daLiJeIzabranBroj(broj)"
+          <mat-checkbox disabled [checked]="daLiJeIzabranBroj(broj)"
                             style="margin-right: 1rem;">
             {{broj}}
-          </mat-radio-button>
+          </mat-checkbox>
         </div>
 
       </div>

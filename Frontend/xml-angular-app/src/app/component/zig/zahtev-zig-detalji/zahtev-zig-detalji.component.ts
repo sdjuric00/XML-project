@@ -14,7 +14,7 @@ export class ZahtevZigDetaljiComponent implements OnInit, OnDestroy {
   @Input() zahtevId: string;
   zahtev: ZahtevZigDetaljneInformacije;
   zigSubscription: Subscription;
-  brojevi: string[] = ['1. Hemijski proizvodi', '2. ', '3. ', '4. ', '5. '];
+  brojevi: string[] = ['1. Hemijski proizvodi', '2. Boje i lakovi', '3. Nemedicinska kozmetika', '4. Industrija ulja i masti', '5. Farmaceutski proizvodi'];
 
   public slikeUrl:string = environment.staticPodaciSlikeZig;
 

@@ -2,6 +2,10 @@
   Nema zahteva
 </h3>
 
-<div *ngFor="let zahtev of listaZahteva" class="form-container mat-elevation-z2">
-  <app-red-zig [zahtev]="zahtev"></app-red-zig>
+<div *ngFor="let zahtev of listaZahteva; let i = index">
+  <div *ngIf="i%3 == 0" style="display:flex; flex-direction: row;">
+    <app-red-zig [zahtev]="zahtev"></app-red-zig>
+    <app-red-zig *ngIf="i + 1 < listaZahteva.length" [zahtev]="listaZahteva.at(i+1)"></app-red-zig>
+    <app-red-zig *ngIf="i + 2 < listaZahteva.length" [zahtev]="listaZahteva.at(i+2)"></app-red-zig>
+  </div>
 </div>

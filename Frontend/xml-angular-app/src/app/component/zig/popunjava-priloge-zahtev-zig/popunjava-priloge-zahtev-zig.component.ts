@@ -10,6 +10,7 @@ import {ZigService} from "../../../service/zig.service";
 import {ZahtevZigDetaljneInformacije} from "../../../model/zig/obj/zahtev-zig-detaljne-informacije";
 import {ResenjeService} from "../../../service/resenje.service";
 import {Resenje} from "../../../model/resenje/resenje";
+import { PlaceneTakse } from 'src/app/model/zig/xml/placene-takse';
 
 @Component({
   selector: 'app-popunjava-priloge-zahtev-zig',
@@ -38,7 +39,10 @@ export class PopunjavaPrilogeZahtevZigComponent implements OnInit {
   zigSubscription: Subscription;
   autentifikacijaSubscription: Subscription;
   resenjeSubscription: Subscription;
+  ocekivanoPlacanjeSubscription: Subscription;
   razlog_odbijanja: string = '';
+
+  ocekivanoZaUplatiti: PlaceneTakse;
 
   constructor(
     private _zigService: ZigService,
@@ -72,6 +76,15 @@ export class PopunjavaPrilogeZahtevZigComponent implements OnInit {
 
             });
         });
+    }
+
+    if (this.nijePopunjeno) {
+      this.ocekivanoPlacanjeSubscription = this._zigService.dobaviOcekivanoPlacanje(this.zahtevId)
+          .subscribe(result => {
+            if (result) {
+              this.ocekivanoZaUplatiti = result;
+            }
+      });
     }
   }
 
@@ -178,6 +191,10 @@ export class PopunjavaPrilogeZahtevZigComponent implements OnInit {
 
     if (this.resenjeSubscription){
       this.resenjeSubscription.unsubscribe();
+    }
+
+    if (this.ocekivanoPlacanjeSubscription) {
+      this.ocekivanoPlacanjeSubscription.unsubscribe();
     }
   }
 

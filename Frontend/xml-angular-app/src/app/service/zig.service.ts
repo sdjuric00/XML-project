@@ -16,6 +16,8 @@ import * as JsonToXML from "js2xmlparser";
 import { OsnovnaPretraga } from '../model/pretraga/osnovna-pretraga';
 import { Trademark } from '../model/zig/xml/trademark';
 import { napraviUspesnuTransformaciju, UspesnaTransformacija } from '../model/opste/uspesna-transformacija';
+import { PlaceneTakse } from '../model/zig/xml/placene-takse';
+import { napraviPlacenuTaksu, TaksaObj } from '../model/zig/obj/taksa';
 
 @Injectable({
   providedIn: 'root'
@@ -197,6 +199,25 @@ export class ZigService {
         console.log(result)
         zahtev = napraviUspesnuTransformaciju(result.uspesnaTransformacija);
       });
+      return zahtev;
+    }));
+  }
+
+  dobaviOcekivanoPlacanje(zahtevId: string): Observable<TaksaObj> {
+    return this._http.get(`${this._api_url}/zig/dobavi-ocekivano-placanje/${zahtevId}`, {
+        headers: new HttpHeaders().set('Accept' , 'application/xml'),
+        responseType:"text"
+      }
+    ).pipe(map(result=>{
+      result = result.replaceAll('ns2:', '');
+      result = result.replaceAll('ns3:', '');
+      result = result.replaceAll('ns4:', '');
+      const parser = new xml2js.Parser({ strict: true, trim: true });
+      let zahtev: TaksaObj;
+      parser.parseString(result.toString(),(err, result) => {
+        zahtev = napraviPlacenuTaksu(result.TaksaObj);
+      });
+
       return zahtev;
     }));
   }

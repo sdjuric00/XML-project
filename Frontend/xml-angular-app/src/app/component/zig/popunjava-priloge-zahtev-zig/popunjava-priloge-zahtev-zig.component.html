@@ -41,6 +41,14 @@
       <button class="next-button" mat-raised-button (click)="prihvatanjeZahteva()">Prihvati</button>
     </div>
 
+    <div style=" margin-top: 2rem; margin-bottom: 1rem;">
+      <span style="display: block;">*Očekivana uplata taksi({{ocekivanoZaUplatiti?.valuta}}):</span>
+      <span style="display: block; margin-left: 1rem;">-Osnovna taksa: {{ocekivanoZaUplatiti?.osnovna_taksa}}</span>
+      <span style="display: block; margin-left: 1rem;">-Za odabrane klase: {{ocekivanoZaUplatiti?.taksa_za_klasu}}</span>
+      <span style="display: block; margin-left: 1rem;">-Za grafičko rešenje: {{ocekivanoZaUplatiti?.taksa_za_graficko_resenje}}</span>
+      <span style="display: block; margin-left: 1rem;">-Ukupno za uplatiti: {{ocekivanoZaUplatiti?.ukupno}}</span>
+    </div>
+
   </div>
 </div>
 

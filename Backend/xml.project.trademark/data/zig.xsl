@@ -73,10 +73,10 @@
                                         <xsl:for-each select="//z:podnosioci//z:podnosilac">
                                             <xsl:choose>
                                                 <xsl:when test="opste:fizicko_lice">
-                                                    <p style=" padding: 0; margin: 0; margin-bottom: 0.2rem;"><xsl:value-of select="opste:fizicko_lice/opste:ime"/>&#160;<xsl:value-of select="opste:fizicko_lice/opste:prezime"/>,&#160;<xsl:value-of select="opste:fizicko_lice/opste:adresa/opste:grad"/>&#160;<xsl:value-of select="opste:fizicko_lice/opste:adresa/opste:ulica"/>&#160;<xsl:value-of select="opste:fizicko_lice/opste:adresa/opste:broj"/>,&#160;<xsl:value-of select="opste:fizicko_lice/opste:adresa/opste:postanski_broj"/>, &#160;<xsl:value-of select="opste:fizicko_lice/opste:adresa/opste:drzava"/>&#xa;</p>
+                                                    <p style=" padding: 0; margin: 0; margin-bottom: 0.2rem; margin-left: 0.3rem;"><xsl:value-of select="position()" />. <xsl:value-of select="opste:fizicko_lice/opste:ime"/>&#160;<xsl:value-of select="opste:fizicko_lice/opste:prezime"/>,&#160;<xsl:value-of select="opste:fizicko_lice/opste:adresa/opste:grad"/>&#160;<xsl:value-of select="opste:fizicko_lice/opste:adresa/opste:ulica"/>&#160;<xsl:value-of select="opste:fizicko_lice/opste:adresa/opste:broj"/>,&#160;<xsl:value-of select="opste:fizicko_lice/opste:adresa/opste:postanski_broj"/>, &#160;<xsl:value-of select="opste:fizicko_lice/opste:adresa/opste:drzava"/>&#xa;</p>
                                                 </xsl:when>
                                                 <xsl:otherwise>
-                                                    <p style=" padding: 0; margin: 0; margin-bottom: 0.2rem;"><xsl:value-of select="opste:pravno_lice/opste:naziv"/>,&#160;PIB:<xsl:value-of select="opste:pravno_lice/opste:pib"/>,&#160;<xsl:value-of select="opste:pravno_lice/opste:adresa/opste:grad"/>&#160;<xsl:value-of select="opste:pravno_lice/opste:adresa/opste:ulica"/>&#160;<xsl:value-of select="opste:pravno_lice/opste:adresa/opste:broj"/>,&#160;<xsl:value-of select="opste:pravno_lice/opste:adresa/opste:postanski_broj"/>, &#160;<xsl:value-of select="opste:pravno_lice/opste:adresa/opste:drzava"/>&#xa;</p>
+                                                    <p style=" padding: 0; margin: 0; margin-bottom: 0.2rem; margin-left: 0.3rem;"><xsl:value-of select="position()" />. <xsl:value-of select="opste:pravno_lice/opste:naziv"/>,&#160;PIB:<xsl:value-of select="opste:pravno_lice/opste:pib"/>,&#160;<xsl:value-of select="opste:pravno_lice/opste:adresa/opste:grad"/>&#160;<xsl:value-of select="opste:pravno_lice/opste:adresa/opste:ulica"/>&#160;<xsl:value-of select="opste:pravno_lice/opste:adresa/opste:broj"/>,&#160;<xsl:value-of select="opste:pravno_lice/opste:adresa/opste:postanski_broj"/>, &#160;<xsl:value-of select="opste:pravno_lice/opste:adresa/opste:drzava"/>&#xa;</p>
                                                 </xsl:otherwise>
                                             </xsl:choose>
                                         </xsl:for-each>
@@ -114,16 +114,16 @@
                             <tr>
                                 <th colspan="6" style="min-width: 48rem; text-align: left; font-weight: normal;">
                                     <p style="min-height: 0.9rem">
-                                        <span style="font-weight: bold; font-size: 0.8rem;">
+                                        <div style="font-weight: normal;">
                                             <xsl:choose>
                                                 <xsl:when test="//z:punomocnik/opste:fizicko_lice">
-                                                    <p style=" padding: 0; margin: 0 0 0.3rem;"><xsl:value-of select="//z:punomocnik//opste:ime"/>&#160;<xsl:value-of select="//z:punomocnik//opste:prezime"/>,&#160;<xsl:value-of select="//z:punomocnik//opste:grad"/>&#160;<xsl:value-of select="//z:punomocnik//opste:ulica"/>&#160;<xsl:value-of select="//z:punomocnik//opste:broj"/>,&#160;<xsl:value-of select="//z:punomocnik//opste:postanski_broj"/>, &#160;<xsl:value-of select="//z:punomocnik//opste:drzava"/>&#xa;</p>
+                                                    <p style=" padding: 0; margin: 0 0 0.3rem; font-size: 1rem; margin-left: 0.3rem;"><xsl:value-of select="//z:punomocnik//opste:ime"/>&#160;<xsl:value-of select="//z:punomocnik//opste:prezime"/>,&#160;<xsl:value-of select="//z:punomocnik//opste:grad"/>&#160;<xsl:value-of select="//z:punomocnik//opste:ulica"/>&#160;<xsl:value-of select="//z:punomocnik//opste:broj"/>,&#160;<xsl:value-of select="//z:punomocnik//opste:postanski_broj"/>, &#160;<xsl:value-of select="//z:punomocnik//opste:drzava"/>&#xa;</p>
                                                 </xsl:when>
                                                 <xsl:otherwise>
-                                                    <p style=" padding: 0; margin: 0 0 0.3rem;"><xsl:value-of select="//z:punomocnik//opste:naziv"/>,&#160;PIB:<xsl:value-of select="//z:punomocnik//opste:pib"/>,&#160;<xsl:value-of select="//z:punomocnik//opste:grad"/>&#160;<xsl:value-of select="//z:punomocnik//opste:ulica"/>&#160;<xsl:value-of select="//z:punomocnik//opste:broj"/>,&#160;<xsl:value-of select="//z:punomocnik//opste:postanski_broj"/>, &#160;<xsl:value-of select="//z:punomocnik//opste:drzava"/>&#xa;</p>
+                                                    <p style=" padding: 0; margin: 0 0 0.3rem; font-size: 1rem; margin-left: 0.3rem;"><xsl:value-of select="//z:punomocnik//opste:naziv"/>,&#160;PIB:<xsl:value-of select="//z:punomocnik//opste:pib"/>,&#160;<xsl:value-of select="//z:punomocnik//opste:grad"/>&#160;<xsl:value-of select="//z:punomocnik//opste:ulica"/>&#160;<xsl:value-of select="//z:punomocnik//opste:broj"/>,&#160;<xsl:value-of select="//z:punomocnik//opste:postanski_broj"/>, &#160;<xsl:value-of select="//z:punomocnik//opste:drzava"/>&#xa;</p>
                                                 </xsl:otherwise>
                                             </xsl:choose>
-                                        </span>
+                                        </div>
                                     </p>
                                 </th>
                             </tr>
@@ -157,16 +157,16 @@
                             <tr>
                                 <th colspan="6" style="min-width: 48rem; text-align: left; font-weight: normal;">
                                     <p style="min-height: 0.9rem">
-                                        <span style="font-weight: bold; font-size: 0.8rem;">
+                                        <div style="font-weight: normal;">
                                             <xsl:choose>
                                                 <xsl:when test="//z:podaci_o_zajednickom_predstavniku/z:fizicko_lice">
-                                                    <p style=" padding: 0; margin: 0 0 0.3rem;"><xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:ime"/>&#160;<xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:prezime"/>,&#160;<xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:grad"/>&#160;<xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:ulica"/>&#160;<xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:broj"/>,&#160;<xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:postanski_broj"/>, &#160;<xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:drzava"/>&#xa;</p>
+                                                    <p style=" padding: 0; margin: 0 0 0.3rem; font-size: 1rem; margin-left: 0.3rem;"><xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:ime"/>&#160;<xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:prezime"/>,&#160;<xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:grad"/>&#160;<xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:ulica"/>&#160;<xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:broj"/>,&#160;<xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:postanski_broj"/>, &#160;<xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:drzava"/>&#xa;</p>
                                                 </xsl:when>
                                                 <xsl:otherwise>
-                                                    <p style=" padding: 0; margin: 0 0 0.3rem;"><xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:naziv"/>,&#160;PIB:<xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:pib"/>,&#160;<xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:grad"/>&#160;<xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:ulica"/>&#160;<xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:broj"/>,&#160;<xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:postanski_broj"/>, &#160;<xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:drzava"/>&#xa;</p>
+                                                    <p style=" padding: 0; margin: 0 0 0.3rem; font-size: 1rem; margin-left: 0.3rem;"><xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:naziv"/>,&#160;PIB:<xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:pib"/>,&#160;<xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:grad"/>&#160;<xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:ulica"/>&#160;<xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:broj"/>,&#160;<xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:postanski_broj"/>, &#160;<xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:drzava"/>&#xa;</p>
                                                 </xsl:otherwise>
                                             </xsl:choose>
-                                        </span>
+                                        </div>
                                     </p>
                                 </th>
                             </tr>
@@ -197,13 +197,13 @@
                                 <th colspan="3" rowspan="15" style="text-align: left; vertical-align:top; font-weight: normal; font-size: 0.8rem; border: 1px solid black;">
                                     <b>v) izgled znaka</b>
                                     <br></br>
-                                    <span style="text-align: center; align-items:center;">
+                                    <div style="text-align: center; align-items:center; justify-content: center">
                                         <img style="height: 14rem; width: auto;">
                                             <xsl:attribute name="src">
                                                 <xsl:value-of select="concat('http://localhost:8083/images/', //@primerak_znaka_putanja)"/>
                                             </xsl:attribute>
                                         </img>
-                                    </span>
+                                    </div>
                                 </th>
                             </tr>
 
@@ -483,7 +483,7 @@
 
                             <tr style="height: 2rem">
                                 <th style="text-align: left; border: 1px solid black; font-size: 0.8rem;"><span>Primerak znaka</span></th>
-                                <th style="text-align: left; border: 1px solid black; width: 5rem; font-size: 0.8rem;"><span>
+                                <th style="text-align: center; border: 1px solid black; width: 5rem; font-size: 0.8rem;"><span>
                                     <xsl:if test="//z:popunjava_zavod/z:primerak_znaka = 'true'">
                                         X
                                     </xsl:if>
@@ -492,7 +492,7 @@
 
                             <tr style="height: 2rem">
                                 <th style="text-align: left; border: 1px solid black; font-size: 0.8rem;"><span>Spisak robe i usluga**</span></th>
-                                <th style="text-align: left; border: 1px solid black; font-size: 0.8rem;"><span>
+                                <th style="text-align: center; border: 1px solid black; font-size: 0.8rem;"><span>
                                     <xsl:if test="//z:popunjava_zavod/z:spisak_roba_i_usluga = 'true'">
                                         X
                                     </xsl:if>
@@ -501,7 +501,7 @@
 
                             <tr style="height: 2rem">
                                 <th style="text-align: left; border: 1px solid black; font-size: 0.8rem;">Punomocje</th>
-                                <th style="text-align: left; border: 1px solid black; font-size: 0.8rem;"><span>
+                                <th style="text-align: center; border: 1px solid black; font-size: 0.8rem;"><span>
                                     <xsl:if test="//z:popunjava_zavod/z:punomocje = 'true'">
                                         X
                                     </xsl:if>
@@ -510,7 +510,7 @@
 
                             <tr style="height: 2rem">
                                 <th style="text-align: left; border: 1px solid black; font-size: 0.8rem;"><span>Generalno punomocje ranije prilozeno</span></th>
-                                <th style="text-align: left; border: 1px solid black; font-size: 0.8rem;"><span>
+                                <th style="text-align: center; border: 1px solid black; font-size: 0.8rem;"><span>
                                     <xsl:if test="//z:popunjava_zavod/z:generalno_punomocje_ranije_prilozeno = 'true'">
                                         X
                                     </xsl:if>
@@ -519,7 +519,7 @@
 
                             <tr style="height: 2rem">
                                 <th style="text-align: left; border: 1px solid black; font-size: 0.8rem;"><span>Punomocje ce biti naknadno dostavljeno</span></th>
-                                <th style="text-align: left; border: 1px solid black; font-size: 0.8rem;"><span>
+                                <th style="text-align: center; border: 1px solid black; font-size: 0.8rem;"><span>
                                     <xsl:if test="//z:popunjava_zavod/z:punomocje_ce_biti_naknadno_dostavljeno = 'true'">
                                         X
                                     </xsl:if>
@@ -528,7 +528,7 @@
 
                             <tr style="height: 2rem">
                                 <th style="text-align: left; border: 1px solid black; font-size: 0.8rem;"><span>Opsti akt o kolektivnom zigu/zigu garancije</span></th>
-                                <th style="text-align: left; border: 1px solid black; font-size: 0.8rem;"><span>
+                                <th style="text-align: center; border: 1px solid black; font-size: 0.8rem;"><span>
                                     <xsl:if test="//z:popunjava_zavod/z:opsti_akt = 'true'">
                                         X
                                     </xsl:if>
@@ -537,7 +537,7 @@
 
                             <tr style="height: 2rem">
                                 <th style="text-align: left; border: 1px solid black; font-size: 0.8rem;"><span>Dokaz o pravu prvenstva</span></th>
-                                <th style="text-align: left; border: 1px solid black; font-size: 0.8rem;">
+                                <th style="text-align: center; border: 1px solid black; font-size: 0.8rem;">
                                     <xsl:if test="//z:popunjava_zavod/z:dokaz_o_pravu_prvenstva = 'true'">
                                         X
                                     </xsl:if>
@@ -546,7 +546,7 @@
 
                             <tr style="height: 2rem">
                                 <th style="text-align: left; border: 1px solid black; font-size: 0.8rem;"><span>Dokaz o uplati takse</span></th>
-                                <th style="text-align: left; border: 1px solid black; font-size: 0.8rem;"><span>
+                                <th style="text-align: center; border: 1px solid black; font-size: 0.8rem;"><span>
                                     <xsl:if test="//z:popunjava_zavod/z:dokaz_o_uplati_takse = 'true'">
                                         X
                                     </xsl:if>

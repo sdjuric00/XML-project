@@ -1,6 +1,12 @@
 <h3 *ngIf="listaZahteva.length === 0">
   Nema zahteva
 </h3>
-<div *ngFor="let zahtev of listaZahteva" class="form-container mat-elevation-z2">
-  <app-red-patent [zahtev]="zahtev"></app-red-patent>
+<div *ngFor="let zahtev of listaZahteva; let i = index">
+  <div *ngIf="i%3 == 0" style="display:flex; flex-direction: row;">
+    <app-red-patent [zahtev]="zahtev"></app-red-patent>
+    <app-red-patent *ngIf="i + 1 < listaZahteva.length"
+      [zahtev]="listaZahteva.at(i+1)"></app-red-patent>
+    <app-red-patent *ngIf="i + 2 < listaZahteva.length"
+      [zahtev]="listaZahteva.at(i+2)"></app-red-patent>
+  </div>
 </div>

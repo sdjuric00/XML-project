@@ -190,7 +190,7 @@
                                 </th>
                                 <th colspan="1" style="border: 1px solid black;">
                                     <p style="margin: 0.4rem; text-align: left; font-weight: normal">
-                                        <span style="margin-left: 0.5rem;">Broj telefona:&#160;<xsl:value-of select="//p:podnosilac//opste:telefon" /></span>
+                                        <span style="margin-left: 0.5rem;">Broj telefona:<br />&#160;<xsl:value-of select="//p:podnosilac//opste:telefon" /></span>
                                     </p>
                                 </th>
 
@@ -200,7 +200,7 @@
 
                                 <th colspan="1" style="border: 1px solid black;">
                                     <p style="margin: 0.4rem; text-align: left; font-weight: normal">
-                                        <span style="margin-left: 0.5rem;">Broj faksa:&#160;<xsl:value-of select="//p:podnosilac//opste:fax" /></span>
+                                        <span style="margin-left: 0.5rem;">Broj faksa:<br />&#160;<xsl:value-of select="//p:podnosilac//opste:fax" /></span>
                                     </p>
                                 </th>
 
@@ -209,7 +209,7 @@
                             <tr>
                                 <th colspan="1" style="border: 1px solid black;">
                                     <p style="margin: 0.4rem; text-align: left; font-weight: normal; min-height: 1.5rem;">
-                                        <span style="margin-left: 0.5rem;">E-pošta:&#160;<xsl:value-of select="//p:podnosilac//opste:email" /></span>
+                                        <span style="margin-left: 0.5rem;">E-mail:<br />&#160;<xsl:value-of select="//p:podnosilac//opste:email" /></span>
                                     </p>
                                 </th>
                             </tr>
@@ -309,7 +309,7 @@
                                 </th>
                                 <th colspan="1" style="border: 1px solid black;">
                                     <p style="margin: 0.4rem; text-align: left; font-weight: normal">
-                                        <span style="margin-left: 0.5rem;">Broj telefona:&#160;
+                                        <span style="margin-left: 0.5rem;">Broj telefona:<br />&#160;
                                             <xsl:if test="//@autor = 'false'">
                                                 <xsl:value-of select="//p:podnosilac//opste:telefon" />
                                             </xsl:if>
@@ -323,7 +323,7 @@
 
                                 <th colspan="1" style="border: 1px solid black;">
                                     <p style="margin: 0.4rem; text-align: left; font-weight: normal">
-                                        <span style="margin-left: 0.5rem;">Broj faksa:&#160;
+                                        <span style="margin-left: 0.5rem;">Broj faksa:<br />&#160;
                                             <xsl:if test="//@autor = 'false'">
                                                 <xsl:value-of select="//p:podnosilac//opste:fax" />
                                             </xsl:if>
@@ -337,7 +337,7 @@
 
                                 <th colspan="1" style="border: 1px solid black;">
                                     <p style="margin: 0.4rem; text-align: left; font-weight: normal">
-                                        <span style="margin-left: 0.5rem;">E-mail:&#160;
+                                        <span style="margin-left: 0.5rem;">E-mail:<br />&#160;
                                             <xsl:if test="//@autor = 'false'">
                                                 <xsl:value-of select="//p:podnosilac//opste:email" />
                                             </xsl:if>
@@ -411,7 +411,7 @@
                                 </th>
                                 <th colspan="1" style="border: 1px solid black;">
                                     <p style="margin: 0.4rem; text-align: left; font-weight: normal">
-                                        <span style="margin-left: 0.5rem;">Broj telefona:&#160;<xsl:value-of select="//p:punomocnik//opste:telefon" /></span>
+                                        <span style="margin-left: 0.5rem;">Broj telefona:<br />&#160;<xsl:value-of select="//p:punomocnik//opste:telefon" /></span>
                                     </p>
                                 </th>
 
@@ -421,7 +421,7 @@
 
                                 <th colspan="1" style="border: 1px solid black;">
                                     <p style="margin: 0.4rem; text-align: left; font-weight: normal">
-                                        <span style="margin-left: 0.5rem;">Broj faksa:&#160;<xsl:value-of select="//p:punomocnik//opste:fax" /></span>
+                                        <span style="margin-left: 0.5rem;">Broj faksa:<br />&#160;<xsl:value-of select="//p:punomocnik//opste:fax" /></span>
                                     </p>
                                 </th>
 
@@ -431,7 +431,7 @@
 
                                 <th colspan="1" style="border: 1px solid black;">
                                     <p style="margin: 0.4rem; text-align: left; font-weight: normal">
-                                        <span style="margin-left: 0.5rem;">E-mail:&#160;<xsl:value-of select="//p:punomocnik//opste:email" /></span>
+                                        <span style="margin-left: 0.5rem;">E-mail:<br />&#160;<xsl:value-of select="//p:punomocnik//opste:email" /></span>
                                     </p>
                                 </th>
 
