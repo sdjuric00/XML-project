@@ -17,12 +17,13 @@ import { Router } from '@angular/router';
 })
 export class HomePageComponent implements OnInit {
 
-  constructor(private patentService: PatentApplicationService, private autorskaPravaService: AutorskaPravaService, private zigService: ZigService, private _router: Router ) { }
+  constructor(private router: Router, private patentService: PatentApplicationService, private autorskaPravaService: AutorskaPravaService, private zigService: ZigService, private _router: Router ) { }
 
   ngOnInit(): void {
   }
 
   listaZahtevaPatenti: ZahtevPatentOsnovneInformacije[];
+  refListaPatenti: Map<string,[{ref_prijava: string, ref_id: string}]> = new Map();
   listaZahtevaAutorskaPrava: ZahtevAutorskoPravoOsnovneInformacije[];
   listaZahtevaZigova: ZahtevZigOsnovneInformacije[];
   prikaziZigove = false;
@@ -35,12 +36,9 @@ export class HomePageComponent implements OnInit {
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
 
-    // Add our fruit
     if (value) {
       this.searchList.push(value);
     }
-
-    // Clear the input value
     event.chipInput!.clear();
   }
 
@@ -74,6 +72,7 @@ export class HomePageComponent implements OnInit {
       this.listaZahtevaPatenti = zahtevi;
       if(zahtevi.length > 0){
         this.prikaziPatente = true;
+        this.refZahteviPatenti(zahtevi);
       }
       else{
         this.prikaziPatente = false;
@@ -100,12 +99,27 @@ export class HomePageComponent implements OnInit {
       }
     })
 
-    
-
-    
-
-
 
   }
 
+  refZahteviPatenti(zahtevi: ZahtevPatentOsnovneInformacije[]){
+    zahtevi.forEach(zahtev => {
+      this.patentService.refencirajuDokumenti(zahtev.id).subscribe(refZahtevi => {
+        refZahtevi.forEach(refZahtev => {
+          if(this.refListaPatenti[zahtev.broj_prijave] === undefined){
+            this.refListaPatenti.set(zahtev.broj_prijave, [{ref_prijava: refZahtev.broj_prijave, ref_id: refZahtev.id}])
+          }
+          else{
+            this.refListaPatenti[zahtev.broj_prijave].push({ref_prijava: refZahtev.broj_prijave, ref_id: refZahtev.id})
+          }
+        })
+      })
+    })
+  }    
+
+  
+  idiNaPatentDetalje(id: string){
+    return `/zahtev-patent/detalji/${id}`;
+  }
+   
 }

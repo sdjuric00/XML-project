@@ -24,7 +24,7 @@ export class PatentApplicationService {
   private _api_url:string = environment.patentUrl;
   constructor(private _http: HttpClient,private _toast: ToastrService) { }
 
-  create(zahtevPatent: Patent) {
+  create(zahtevPatent: Patent, convert: boolean) {
     let headers = new HttpHeaders({ "Content-Type": "application/xml"});
     console.log(zahtevPatent);
     var o2x = require('object-to-xml');
@@ -35,7 +35,10 @@ export class PatentApplicationService {
       responseType: "text"
     };
     const toast: ToastrService = this._toast;
-    return this._http.post(`${this._api_url}/patent`, o2x(zahtevPatent), queryParams);
+    if(convert){
+      return this._http.post(`${this._api_url}/patent`, o2x(zahtevPatent), queryParams);
+    }
+    return this._http.post(`${this._api_url}/patent`, zahtevPatent, queryParams);
   }
 
   uzmiNeobradjeneZahteve():Observable<ZahtevPatentOsnovneInformacije[]> {
@@ -177,6 +180,29 @@ export class PatentApplicationService {
       });
       return zahtev;
     }));
+  }
+
+  refencirajuDokumenti(zahtevId: string){
+    return this._http.get(`${this._api_url}/patent/dokumenti-referenciraju/${zahtevId}`, {
+      headers: new HttpHeaders().set('Accept' , 'application/xml'),
+      responseType:"text"
+    }
+  ).pipe(map(result=>{
+    result = result.replaceAll('ns2:', '');
+    result = result.replaceAll('ns3:', '');
+    console.log(result);
+    const parser = new xml2js.Parser({ strict: true, trim: true });
+    let listaZahteva: ZahtevPatentOsnovneInformacije[] = [];
+    parser.parseString(result.toString(),(err, result) => {
+      console.log(result);
+      if (result?.zahtevi?.lista_zahteva_p[0]?.zahtev_za_priznavanje_patenta) {
+        result.zahtevi.lista_zahteva_p[0].zahtev_za_priznavanje_patenta.forEach(zahtev =>
+          listaZahteva.push(napraviZahtevPatentOsnovneInformacije(zahtev))
+        );
+      }
+    })
+    return listaZahteva;
+  }));
   }
 
   kreirajHTML(zahtevId: string) {

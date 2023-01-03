@@ -19,9 +19,11 @@ import {ObradiZahtevPatentComponent} from "./component/patent/obradi-zahtev-pate
 import {ObradiZahtevZigComponent} from "./component/zig/obradi-zahtev-zig/obradi-zahtev-zig.component";
 import { HomePageComponent } from './component/home-page/home-page.component';
 import { NaprednaPretragaComponent } from './component/napredna-pretraga/napredna-pretraga.component';
+import { RichEditKomponentaComponent } from './component/patent/rich-edit-komponenta/rich-edit-komponenta.component';
 
 const routes: Routes = [
   { path: 'prijava', component: LoginComponent },
+  {path: 'rich-edit', component:RichEditKomponentaComponent},
   {path: 'pocetna', component: HomePageComponent},
   {path: 'napredna-pretraga', component: NaprednaPretragaComponent},
   { path: 'registracija', component: RegistracijaComponent },

@@ -11,7 +11,7 @@ public class Naziv {
     @XmlAttribute(name="jezik", required = true)
     private String jezik;
     @XmlValue
-    private String naziv;
+    private String naziv_patenta;
 
     public String getJezik() {
         return jezik;
@@ -21,11 +21,11 @@ public class Naziv {
         this.jezik = jezik;
     }
 
-    public String getNaziv() {
-        return naziv;
+    public String getNaziv_patenta() {
+        return naziv_patenta;
     }
 
-    public void setNaziv(String naziv) {
-        this.naziv = naziv;
+    public void setNaziv_patenta(String naziv_patenta) {
+        this.naziv_patenta = naziv_patenta;
     }
 }

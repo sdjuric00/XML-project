@@ -1,8 +1,7 @@
-<div class="dugmici-content">
-    <button mat-raised-button (click)="kreirajHTML()">
-        Skini html <mat-icon>file_download</mat-icon>
-    </button>
-    <button mat-raised-button (click)="kreirajPDF()">
-        Skini pdf <mat-icon>file_download</mat-icon>
-    </button>
-</div>
+<button mat-button [matMenuTriggerFor]="preuzmiIzbor" style="margin-left:5rem;">Preuzmi <mat-icon>file_download</mat-icon></button>
+<mat-menu #preuzmiIzbor="matMenu">
+  <button mat-menu-item (click)="kreirajPDF()">Kao PDF</button>
+  <button mat-menu-item (click)="kreirajHTML()">Kao HTML</button>
+  <button mat-menu-item>Kao RDF</button>
+  <button mat-menu-item>Kao JSON</button>
+</mat-menu>

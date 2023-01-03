@@ -66,6 +66,7 @@ import { HomePageComponent } from './component/home-page/home-page.component';
 import {OdbijZahtevComponent} from "./component/odbij-zahtev/odbij-zahtev.component";
 import { NaprednaPretragaComponent } from './component/napredna-pretraga/napredna-pretraga.component';
 import { NaprednaPretragaPoljaComponent } from './component/napredna-pretraga-polja/napredna-pretraga-polja.component';
+import { RichEditKomponentaComponent } from './component/patent/rich-edit-komponenta/rich-edit-komponenta.component';
 
 @NgModule({
   declarations: [
@@ -122,7 +123,8 @@ import { NaprednaPretragaPoljaComponent } from './component/napredna-pretraga-po
     HomePageComponent,
     OdbijZahtevComponent,
     NaprednaPretragaComponent,
-    NaprednaPretragaPoljaComponent
+    NaprednaPretragaPoljaComponent,
+    RichEditKomponentaComponent
   ],
   imports: [
     BrowserModule,

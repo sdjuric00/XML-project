@@ -108,8 +108,9 @@ public class PatentController {
         return patentService.pronadjiRezultateOsnovnePretrage(pretragaRequest.getParametriPretrage());
     }
 
-    @PostMapping(path="/dokumenti-referenciraju/{documentId}")
+    @GetMapping(path="/dokumenti-referenciraju/{documentId}")
     public ZahteviPatentiDTO getDokumentiKojiReferenciraju(@PathVariable String documentId) throws Exception {
+        System.out.println(documentId);
         return patentService.pronadjiDokumenteKojiReferenciraju(documentId);
     }
     @GetMapping(path = "/kreiraj-html/{id}", produces = "application/xml")
