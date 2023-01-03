@@ -17,3 +17,11 @@ a {
     text-decoration: none;
     color: var(--deep-blue);
 }
+
+.mat-menu-item{
+    background-color: white;
+}
+
+.mat-menu-panel{
+    background: white;
+}

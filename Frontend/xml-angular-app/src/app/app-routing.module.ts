@@ -20,9 +20,11 @@ import {ObradiZahtevZigComponent} from "./component/zig/obradi-zahtev-zig/obradi
 import { HomePageComponent } from './component/home-page/home-page.component';
 import {IzvestajiComponent} from "./component/izvestaji/izvestaji.component";
 import { NaprednaPretragaComponent } from './component/napredna-pretraga/napredna-pretraga.component';
+import { RichEditKomponentaComponent } from './component/patent/rich-edit-komponenta/rich-edit-komponenta.component';
 
 const routes: Routes = [
   { path: 'prijava', component: LoginComponent },
+  {path: 'rich-edit', component:RichEditKomponentaComponent},
   {path: 'pocetna', component: HomePageComponent},
   {path: 'napredna-pretraga', component: NaprednaPretragaComponent},
   { path: 'registracija', component: RegistracijaComponent },

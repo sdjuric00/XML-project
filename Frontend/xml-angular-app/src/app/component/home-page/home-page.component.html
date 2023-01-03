@@ -26,6 +26,12 @@
         <p style="color:var(--green);text-align: center;">ZAHTEVI ZA PRIZNAVANJE PATENTA</p>
         <div *ngFor="let zahtev of listaZahtevaPatenti" class="form-container mat-elevation-z2">
           <app-red-patent [zahtev]="zahtev"></app-red-patent>
+          <div *ngIf="refListaPatenti.get(zahtev.broj_prijave)">
+            Dokumenti koji referenciraju ovaj dokument: 
+            <div *ngFor="let refZahtev of refListaPatenti.get(zahtev.broj_prijave)">
+            &nbsp;&nbsp; - <a [href]="idiNaPatentDetalje(refZahtev.ref_id)">{{refZahtev.ref_prijava}}</a>
+            </div>
+          </div>
         </div><br>
         <mat-divider></mat-divider>
       </div>

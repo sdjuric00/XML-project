@@ -10,7 +10,7 @@ import java.util.List;
 )
 public class PodaciOPronalasku {
     @XmlElementWrapper(name="nazivi", namespace = "http://ftn.ac.rs/a")
-    @XmlElement(name="naziv", namespace = "http://ftn.ac.rs/a")
+    @XmlElement(name="naziv_patenta", namespace = "http://ftn.ac.rs/a")
     private List<Naziv> nazivi = new ArrayList<>();
 
     public List<Naziv> getNazivi() {

@@ -119,11 +119,14 @@ public class PatentService {
     public ZahteviPatentiDTO pronadjiDokumenteKojiReferenciraju(final String documentId) throws Exception {
         List<ZahtevPatent> obradjeniZahtevi = patentRepository.uzmiZahteve(true);
         List<ZahtevPatent> neobradjeniZahtevi = patentRepository.uzmiZahteve(false);
+        System.out.println(obradjeniZahtevi.size() + " " + neobradjeniZahtevi.size());
 
         List<ZahtevPatent> dokumentiKojiReferenciraju = new ArrayList<>();
+        ZahtevPatent zahtevPatent = patentRepository.uzmiZahtev(documentId);
         for(ZahtevPatent zahtev : obradjeniZahtevi){
             for(Prijava prijava : zahtev.getZahtev_za_priznanje_prava_iz_ranijih_prijava()){
-                if(prijava.getBroj_ranije_prijave().equals(documentId)){
+                System.out.println(prijava.getBroj_ranije_prijave() + "  " + zahtevPatent.getBroj_prijave());
+                if(prijava.getBroj_ranije_prijave().equals(zahtevPatent.getBroj_prijave())){
                     dokumentiKojiReferenciraju.add(zahtev);
                 }
             }
@@ -131,7 +134,8 @@ public class PatentService {
 
         for(ZahtevPatent zahtev : neobradjeniZahtevi){
             for(Prijava prijava : zahtev.getZahtev_za_priznanje_prava_iz_ranijih_prijava()){
-                if(prijava.getBroj_ranije_prijave().equals(documentId)){
+                System.out.println(prijava.getBroj_ranije_prijave() + "  " + zahtevPatent.getBroj_prijave());
+                if(prijava.getBroj_ranije_prijave().equals(zahtevPatent.getBroj_prijave())){
                     dokumentiKojiReferenciraju.add(zahtev);
                 }
             }
@@ -179,6 +183,7 @@ public class PatentService {
         if (id == null) {
             id = "1";    //zbog check seme da validira, posle ce setovati dobar broj
         }
+        System.out.println("blaaa");
 
         ZahtevPatent zahtev = new ZahtevPatent(id, broj_prijave, datum_prijema, priznati_datum_podnosenja, dopunska_prijava,
                 pregledano, institucija, podaci_o_pronalasku, podnosilac, pronalazac, punomocnik, dostavljanje, zahtev_za_priznanje_prava_iz_ranijih_prijava);
@@ -192,6 +197,7 @@ public class PatentService {
 
     private ZahtevPatent checkSchema(String document) throws InvalidDocumentException {
         try {
+            System.out.println(document);
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 
             SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);

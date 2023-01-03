@@ -69,6 +69,7 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MAT_DATE_LOCALE, MatNativeDateModule} from "@angular/material/core";
 
 import { NaprednaPretragaComponent } from './component/napredna-pretraga/napredna-pretraga.component';
+import { RichEditKomponentaComponent } from './component/patent/rich-edit-komponenta/rich-edit-komponenta.component';
 
 @NgModule({
   declarations: [
@@ -126,6 +127,7 @@ import { NaprednaPretragaComponent } from './component/napredna-pretraga/napredn
     OdbijZahtevComponent,
     IzvestajiComponent,
     NaprednaPretragaComponent,
+    RichEditKomponentaComponent
   ],
   imports: [
     BrowserModule,

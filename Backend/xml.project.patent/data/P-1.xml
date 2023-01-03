@@ -14,8 +14,8 @@
         </opste:adresa>
     </institucija>
     <podaci_o_pronalasku>
-        <naziv jezik="srpski">Leteci automobil</naziv>
-        <naziv jezik="engleski">Flying car</naziv>
+        <naziv_patenta jezik="srpski">Leteci automobil</naziv_patenta>
+        <naziv_patenta jezik="engleski">Flying car</naziv_patenta>
     </podaci_o_pronalasku>
     <podnosilac autor="false">
         <opste:fizicko_lice>

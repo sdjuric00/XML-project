@@ -32,7 +32,7 @@
     </xs:element>
     <xs:complexType name="podaci_o_pronalasku">
         <xs:sequence maxOccurs="unbounded">
-            <xs:element name="naziv">
+            <xs:element name="naziv_patenta">
                 <xs:complexType>
                     <xs:simpleContent>
                         <xs:extension base="xs:string">

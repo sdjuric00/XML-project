@@ -1,5 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { TmplAstRecursiveVisitor } from '@angular/compiler';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -331,7 +332,7 @@ export class PatentApplicationComponent {
 
     let patent = this.getPatent();
     const _toast: ToastrService = this.toast;
-    this.patentService.create(patent).subscribe({
+    this.patentService.create(patent, true).subscribe({
       next(response) {
         _toast.success('Uspešno ste poslali zahtev za priznavanje patenta.', 'Uspešno slanje');
       },
