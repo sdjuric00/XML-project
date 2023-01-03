@@ -27,7 +27,7 @@ export class ZigService {
   constructor(private _http: HttpClient,private _toast: ToastrService) {}
 
   create(zahtevZig: Trademark){
-    console.log("fafsfaf");
+    console.log(zahtevZig);
     let headers = new HttpHeaders({ "Content-Type": "application/xml"});
     console.log(zahtevZig);
     var o2x = require('object-to-xml');

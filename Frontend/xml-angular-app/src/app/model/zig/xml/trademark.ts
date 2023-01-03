@@ -10,11 +10,11 @@ export interface Trademark {
     zahtev_za_priznanje_ziga: {
         "@": {},
         "institucija": Institucija,
-        "podnosioci": Podnosioci[],
+        "podnosioci": Podnosioci,
         "punomocnik": PunomocnikIPredstavnikZ,
-        "podaci_o_zajednickom_predstavniku": PunomocnikIPredstavnikZ,
+        "podaci_o_zajednickom_predstavniku"?: PunomocnikIPredstavnikZ,
         "znak": Znak,
-        "nicanska_klasifikacija": Brojevi,
+        "nicanska_klasifikacija": NicanskaKlasifikacija,
         "pravo_prvenstva": PravoPrvenstva,
         "placene_takse": PlaceneTakse,
         "prilozi": PriloziZ

@@ -26,10 +26,10 @@ export interface Boja {
 
 export interface Brojevi {
     "@"?: {},
-    "broj": NicanskaKlasifikacija[]
+    "broj": string[]
 }
 
 export interface NicanskaKlasifikacija {
-    "broj": string;
+    "broj": string[];
 }
 

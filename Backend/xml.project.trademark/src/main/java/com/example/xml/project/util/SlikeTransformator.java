@@ -32,11 +32,11 @@ public class SlikeTransformator {
         return TARGET_PHOTO_FILE_PATH + name;
     }
 
-    public static String generatePhotoName() {
+    public static String generatePhotoName(String imePrefiks) {
         LocalDateTime vreme = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy_HH-mm-ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy_HH-mm-ss-SS");
 
-        return String.format("a-%s.png", vreme.format(formatter));
+        return String.format("a-%s-%s.png", imePrefiks, vreme.format(formatter));
     }
 
     public static byte[] getPictureDataByName(final String name) throws IOException
@@ -68,8 +68,8 @@ public class SlikeTransformator {
         }
     }
 
-    public static String sacuvajSliku(final String base64Opt) throws TransformationFailedException {
-        String imeSlike = generatePhotoName();
+    public static String sacuvajSliku(final String base64Opt, final String imePrefiks) throws TransformationFailedException {
+        String imeSlike = generatePhotoName(imePrefiks);
         savePictureFromBase64(imeSlike, base64Opt);
 
         return imeSlike;

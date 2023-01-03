@@ -17,7 +17,7 @@ export class TaksePriloziComponent implements OnInit {
   }
 
   pravoPrvenstvaZatrazeno(): void {
-    if (this.takseIPriloziFormGroup.get('pravoPrvenstvaZatrazeno').value) {
+    if (!this.takseIPriloziFormGroup.get('pravoPrvenstvaZatrazeno').value) {
       this.takseIPriloziFormGroup.get('dozakOPravuPrvenstvaPutanja').setValidators([Validators.required]);
       this.takseIPriloziFormGroup.get('pravoPrvenstvaOsnov').setValidators([Validators.required]);
       this.takseIPriloziFormGroup.get('dozakOPravuPrvenstvaPutanja').setValue('');

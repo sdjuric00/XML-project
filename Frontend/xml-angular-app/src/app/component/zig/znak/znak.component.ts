@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ControlContainer, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -7,6 +7,7 @@ import { ControlContainer, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./znak.component.css']
 })
 export class ZnakComponent implements OnInit {
+  @ViewChild('customVrsta') input: ElementRef
 
   @Input() znakFormGroup: FormGroup;
 
@@ -88,18 +89,21 @@ export class ZnakComponent implements OnInit {
   }
 
   changeVrstaZnaka(value: any) {
-    this.vrstaZnaka = value;
     if (value !== 'Ostalo'){
       this.znakFormGroup?.controls['vrstaZnaka']?.setValue(value);
+      this.input.nativeElement.value = '';
     }
-    else {
+    else if (value === 'Ostalo' && this.vrstaZnaka !== 'Ostalo') {
       this.znakFormGroup?.controls['vrstaZnaka']?.setValue('');
     }
+    this.vrstaZnaka = value;
   }
 
   changeCustomVrstaZnaka(value: string) {
     this.vrstaZnaka = 'Ostalo';
-    this.znakFormGroup?.controls['vrstaZnaka']?.setValue(value);
+    if (value != "") {
+      this.znakFormGroup?.controls['vrstaZnaka']?.setValue(value);
+    }
   }
 
   changeTipZiga(value: any) {

@@ -30,6 +30,13 @@ export class ZigPriloziComponent implements OnInit {
     this.takseIPriloziFormGroup = <FormGroup>this.controlContainer.control;
     this.punomocjeRanijePrilozeno = this.takseIPriloziFormGroup.get('generalnoPunomocjeRanijePrilozeno')?.value;
     this.punomocjeNaknadnoDostavljeno = this.takseIPriloziFormGroup.get('punomocjeNaknadnoDostavljeno')?.value;
+    if (this.takseIPriloziFormGroup.get('pravoPrvenstvaZatrazeno')?.value) {
+      this.takseIPriloziFormGroup.get('dozakOPravuPrvenstvaPutanja').setValidators([Validators.required]);
+      this.takseIPriloziFormGroup.get('pravoPrvenstvaOsnov').setValidators([Validators.required]);
+    } else {
+      this.takseIPriloziFormGroup.get('dozakOPravuPrvenstvaPutanja').setValidators([]);
+      this.takseIPriloziFormGroup.get('pravoPrvenstvaOsnov').setValidators([]);
+    }
   }
 
   changeToRanijePrilozeno(): void {
@@ -37,11 +44,11 @@ export class ZigPriloziComponent implements OnInit {
     this.punomocjeRanijePrilozeno = !this.takseIPriloziFormGroup.get('generalnoPunomocjeRanijePrilozeno')?.value;
     this.punomocjeNaknadnoDostavljeno = false;
     if (!this.punomocjeRanijePrilozeno) {
-      this.takseIPriloziFormGroup.get('punomocjePutanja').setValidators([]);
+      this.takseIPriloziFormGroup.get('punomocjePutanja').setValidators([Validators.required]);
       this.takseIPriloziFormGroup.get('punomocjePutanja').setValue('');
       this.punomocjePutanja = '';
     } else {
-      this.takseIPriloziFormGroup.get('punomocjePutanja').setValidators([Validators.required]);
+      this.takseIPriloziFormGroup.get('punomocjePutanja').setValidators([]);
     }
   }
 
@@ -50,11 +57,11 @@ export class ZigPriloziComponent implements OnInit {
     this.punomocjeRanijePrilozeno = false;
     this.punomocjeNaknadnoDostavljeno = !this.takseIPriloziFormGroup.get('punomocjeNaknadnoDostavljeno')?.value;
     if (!this.punomocjeNaknadnoDostavljeno) {
-      this.takseIPriloziFormGroup.get('punomocjePutanja').setValidators([]);
+      this.takseIPriloziFormGroup.get('punomocjePutanja').setValidators([Validators.required]);
       this.takseIPriloziFormGroup.get('punomocjePutanja').setValue('');
       this.punomocjePutanja = '';
     } else {
-      this.takseIPriloziFormGroup.get('punomocjePutanja').setValidators([Validators.required]);
+      this.takseIPriloziFormGroup.get('punomocjePutanja').setValidators([]);
     }
   }
 
@@ -80,7 +87,8 @@ export class ZigPriloziComponent implements OnInit {
   }
 
   primerakZnakaChanged(event: any): void {
-    if (this.punomocjePutanja) {
+    this.primerakZnakaPutanja = event.target.files[0]?.name ?? null;
+    if (this.primerakZnakaPutanja) {
       this.convertFile(event.target.files[0]).subscribe(base64 => {
         this.takseIPriloziFormGroup.get('primerakZnakaPutanja')?.setValue(base64);
       });
@@ -88,7 +96,8 @@ export class ZigPriloziComponent implements OnInit {
   }
 
   opstiAktOKolektivnoZiguChanged(event: any): void {
-    if (this.punomocjePutanja) {
+    this.opstiAktOKolektivnoZiguPutanja = event.target.files[0]?.name ?? null;
+    if (this.opstiAktOKolektivnoZiguPutanja) {
       this.convertFile(event.target.files[0]).subscribe(base64 => {
         this.takseIPriloziFormGroup.get('opstiAktOKolektivnoZiguPutanja')?.setValue(base64);
       });
@@ -96,8 +105,8 @@ export class ZigPriloziComponent implements OnInit {
   }
 
   dozakOPravuPrvenstvaChanged(event: any): void {
-    this.punomocjePutanja = event.target.files[0]?.name ?? null;
-    if (this.punomocjePutanja) {
+    this.dozakOPravuPrvenstvaPutanja = event.target.files[0]?.name ?? null;
+    if (this.dozakOPravuPrvenstvaPutanja) {
       this.convertFile(event.target.files[0]).subscribe(base64 => {
         this.takseIPriloziFormGroup.get('dozakOPravuPrvenstvaPutanja')?.setValue(base64);
       });
@@ -105,8 +114,8 @@ export class ZigPriloziComponent implements OnInit {
   }
 
   dokazOUplatiTakseChanged(event: any): void {
-    this.punomocjePutanja = event.target.files[0]?.name ?? null;
-    if (this.punomocjePutanja) {
+    this.dokazOUplatiTaksePutanja = event.target.files[0]?.name ?? null;
+    if (this.dokazOUplatiTakseChanged) {
       this.convertFile(event.target.files[0]).subscribe(base64 => {
         this.takseIPriloziFormGroup.get('dokazOUplatiTaksePutanja')?.setValue(base64);
       });

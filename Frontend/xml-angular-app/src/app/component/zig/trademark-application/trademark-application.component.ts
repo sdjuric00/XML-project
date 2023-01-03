@@ -46,7 +46,7 @@ export class TrademarkApplicationComponent implements OnInit {
     podnosioci: new FormControl([], [Validators.required]),
     tipPodnosioca: new FormControl('Fizičko lice'),
     podnosilacAutor: new FormControl(false),
-    podaciOZajednickomPredstavniku: new FormControl({}, Validators.required),
+    podaciOZajednickomPredstavniku: new FormControl({}),
     email: new FormControl('', [Validators.required, Validators.email]),
     telefon: new FormControl('', [Validators.required, Validators.pattern("[0-9]{8,12}")]),
     fax: new FormControl('', [Validators.required, Validators.pattern("[0][0-9]{8,9}")]),
@@ -95,22 +95,22 @@ export class TrademarkApplicationComponent implements OnInit {
 
   takseIPriloziFormGroup = this._formBuilder.group({
     pravoPrvenstvaZatrazeno: new FormControl(false, [Validators.required]),
-    pravoPrvenstvaOsnov: new FormControl('', []),
-
-    valuta: new FormControl('', [Validators.required]),
+    pravoPrvenstvaOsnov: new FormControl(''),
+    dozakOPravuPrvenstvaPutanja: new FormControl(''),
+    
+    generalnoPunomocjeRanijePrilozeno: new FormControl(false, [Validators.required]),
+    punomocjeNaknadnoDostavljeno: new FormControl(false, [Validators.required]),
+    spisakRoba: new FormControl([], [Validators.required]),
+    primerakZnakaPutanja: new FormControl('', [Validators.required]),
+    punomocjePutanja: new FormControl('', [Validators.required]),
+    opstiAktOKolektivnoZiguPutanja: new FormControl('', [Validators.required]),
+    dokazOUplatiTaksePutanja: new FormControl('', [Validators.required]),
+    
+    valuta: new FormControl('EUR'),
     osnovnaTaksa: new FormControl('0'),
     taksaZaKlasu: new FormControl('0'),
     taksaZaGrafickoResenje: new FormControl('0'),
     ukupno: new FormControl('0'),
-
-    spisakRoba: new FormControl([], [Validators.required]),
-    generalnoPunomocjeRanijePrilozeno: new FormControl(false, [Validators.required]),
-    punomocjeNaknadnoDostavljeno: new FormControl(false, [Validators.required]),
-    primerakZnakaPutanja: new FormControl('', [Validators.required]),
-    punomocjePutanja: new FormControl('', []),
-    opstiAktOKolektivnoZiguPutanja: new FormControl('', [Validators.required]),
-    dozakOPravuPrvenstvaPutanja: new FormControl('', []),
-    dokazOUplatiTaksePutanja: new FormControl('', [Validators.required]),
   });
 
   constructor(
@@ -138,57 +138,81 @@ export class TrademarkApplicationComponent implements OnInit {
       }
     }
 
-    let zig: Trademark = {
-      zahtev_za_priznanje_ziga: {
-        "@": {
-          "xmlns": "http://www.zig/zig",
-          "xmlns:opste": "http://ftn.ac.rs/opste",
-          "xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
-          "xsi:schemaLocation": "http://www.zig/zig",
-          broj_prijave:"Z-2022/1",
-          datum_podnosenja: this._datePipe.transform(new Date(), 'yyyy-MM-dd'),
-          zig: this.znakFormGroup.get("tipZig").value,
-          pregledano:'false'
-        },
-        institucija: institucija,
-        podnosioci: this.getPodaciOPodnosiocima(),
-        punomocnik: this.getPunomocnik(),
-        podaci_o_zajednickom_predstavniku: this.getZajednickogPredstavnika(),
-        znak: this.getZnak(),
-        nicanska_klasifikacija: this.getNicanskaKlasifikacija(),
-        pravo_prvenstva: this.getPravoPrvenstva(),
-        placene_takse: this.getPlaceneTakse(),
-        prilozi: this.getPrilozi()
+    let zig: Trademark;
+    let zajednickiPredstvnik: PodnosilacUniversal = this.podnosilacFormGroup.get("podaciOZajednickomPredstavniku")?.value as PodnosilacUniversal;
+    if (zajednickiPredstvnik) {
+      zig = {
+        zahtev_za_priznanje_ziga: {
+          "@": {
+            "xmlns": "http://www.zig/zig",
+            "xmlns:opste": "http://ftn.ac.rs/opste",
+            "xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
+            "xsi:schemaLocation": "http://www.zig/zig",
+            broj_prijave:"Z-2022/1",
+            datum_podnosenja: this._datePipe.transform(new Date(), 'yyyy-MM-dd'),
+            zig: this.znakFormGroup.get("tipZig").value,
+            pregledano:'false'
+          },
+          institucija: institucija,
+          podnosioci: this.getPodaciOPodnosiocima(),
+          punomocnik: this.getPunomocnik(),
+          podaci_o_zajednickom_predstavniku: this.getZajednickogPredstavnika(),
+          znak: this.getZnak(),
+          nicanska_klasifikacija: this.getNicanskaKlasifikacija(),
+          pravo_prvenstva: this.getPravoPrvenstva(),
+          placene_takse: this.getPlaceneTakse(),
+          prilozi: this.getPrilozi()
+        }
+      }
+    } else {
+      zig = {
+        zahtev_za_priznanje_ziga: {
+          "@": {
+            "xmlns": "http://www.zig/zig",
+            "xmlns:opste": "http://ftn.ac.rs/opste",
+            "xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
+            "xsi:schemaLocation": "http://www.zig/zig",
+            broj_prijave:"Z-2022/1",
+            datum_podnosenja: this._datePipe.transform(new Date(), 'yyyy-MM-dd'),
+            zig: this.znakFormGroup.get("tipZig").value,
+            pregledano:'false'
+          },
+          institucija: institucija,
+          podnosioci: this.getPodaciOPodnosiocima(),
+          punomocnik: this.getPunomocnik(),
+          znak: this.getZnak(),
+          nicanska_klasifikacija: this.getNicanskaKlasifikacija(),
+          pravo_prvenstva: this.getPravoPrvenstva(),
+          placene_takse: this.getPlaceneTakse(),
+          prilozi: this.getPrilozi()
+        }
       }
     }
 
     return zig;
   }
 
-  getPodaciOPodnosiocima(): Podnosioci[] {
-    let returnList: Podnosioci[] = [];
+  getPodaciOPodnosiocima(): Podnosioci {
+    let returnList: Podnosioci = {podnosilac: []};
     const podnosioci:PodnosilacUniversal[] = this.podnosilacFormGroup.get('podnosioci')?.value as PodnosilacUniversal[];
 
     for (let i = 0; i < podnosioci.length; i++) {
       let podnosilac: PodnosilacUniversal = podnosioci.at(i);
 
       if (podnosilac.isPravnoLice) {
-        returnList.push({
-          podnosilac: {
+        returnList.podnosilac.push({
             "@": {
               "autor": this.podnosilacFormGroup.get('podnosilacAutor')?.value,
             },
             "opste:pravno_lice": this.getPravnoLice(podnosilac),
           }
-        });
+        );
       } else  {
-        returnList.push({
-          podnosilac: {
+        returnList.podnosilac.push({
             "@": {
               autor: this.podnosilacFormGroup.get('podnosilacAutor')?.value,
             },
           "opste:fizicko_lice": this.getFizickoLice(podnosilac),
-          }
         });
       }
     }
@@ -367,7 +391,9 @@ export class TrademarkApplicationComponent implements OnInit {
         },
         "vrsta_znaka": vrstaZnaka,
         "boje": boje,
-        "opis": this.znakFormGroup.get("opis").value
+        "opis": this.znakFormGroup.get("opis").value,
+        "transliteracija_znaka": this.znakFormGroup.get("transliteracijaZnaka").value,
+        "prevod": this.znakFormGroup.get("prevod").value,
       }
     } else {
       return {
@@ -403,18 +429,13 @@ export class TrademarkApplicationComponent implements OnInit {
     }
   }
 
-  getNicanskaKlasifikacija(): Brojevi {
-    let nicanska: Brojevi = {
-      broj: []
-    };
-
+  getNicanskaKlasifikacija(): NicanskaKlasifikacija {
+    let nicanskaList: NicanskaKlasifikacija = {broj: []};
     for (let i = 0; i < this.znakFormGroup.get("nicanskaKlasifikacija").value.length; i++) {
-      nicanska.broj.push({
-        "broj": this.znakFormGroup.get("nicanskaKlasifikacija").value.at(i),
-      })
+      nicanskaList.broj.push( this.znakFormGroup.get("nicanskaKlasifikacija").value.at(i))
     }
 
-    return nicanska;
+    return nicanskaList;
   }
 
   getPlaceneTakse(): PlaceneTakse {
@@ -439,68 +460,26 @@ export class TrademarkApplicationComponent implements OnInit {
       });
     }
 
-    if (this.takseIPriloziFormGroup.get("pravoPrvenstvaZatrazeno").value) {
-      if (!(this.takseIPriloziFormGroup.get("generalnoPunomocjeRanijePrilozeno").value || this.takseIPriloziFormGroup.get("punomocjeNaknadnoDostavljeno").value)) {
-
-        return {
-          "@": {
-            primerak_znaka_putanja: this.takseIPriloziFormGroup.get("primerakZnakaPutanja").value,
-            punomocje_putanja: this.takseIPriloziFormGroup.get("punomocjePutanja").value,
-            opsti_akt_o_kolektivnom_zigu_garancije_putanja: this.takseIPriloziFormGroup.get("opstiAktOKolektivnoZiguPutanja").value,
-            dokaz_o_pravu_prvenstva_putanja: this.takseIPriloziFormGroup.get("dozakOPravuPrvenstvaPutanja").value,
-            dokaz_o_uplati_takse_putanja: this.takseIPriloziFormGroup.get("dokazOUplatiTaksePutanja").value,
-          },
-          spisak_roba_i_usluga: robe,
-          generalno_punomocje_ranije_prilozeno: false,
-          punomocje_ce_biti_naknadno_dostavljeno: false
-        }
-      } else {
-
-        return {
-          "@": {
-            primerak_znaka_putanja: this.takseIPriloziFormGroup.get("primerakZnakaPutanja").value,
-            punomocje_putanja: '',
-            opsti_akt_o_kolektivnom_zigu_garancije_putanja: this.takseIPriloziFormGroup.get("opstiAktOKolektivnoZiguPutanja").value,
-            dokaz_o_pravu_prvenstva_putanja: this.takseIPriloziFormGroup.get("dozakOPravuPrvenstvaPutanja").value,
-            dokaz_o_uplati_takse_putanja: this.takseIPriloziFormGroup.get("dokazOUplatiTaksePutanja").value,
-          },
-          spisak_roba_i_usluga: robe,
-          generalno_punomocje_ranije_prilozeno: this.takseIPriloziFormGroup.get("generalnoPunomocjeRanijePrilozeno").value,
-          punomocje_ce_biti_naknadno_dostavljeno: this.takseIPriloziFormGroup.get("punomocjeNaknadnoDostavljeno").value
-        }
-      }
-    } else {
-      if (!(this.takseIPriloziFormGroup.get("generalnoPunomocjeRanijePrilozeno").value || this.takseIPriloziFormGroup.get("punomocjeNaknadnoDostavljeno").value)) {
-
-        return {
-          "@": {
-            primerak_znaka_putanja: this.takseIPriloziFormGroup.get("primerakZnakaPutanja").value,
-            punomocje_putanja: this.takseIPriloziFormGroup.get("punomocjePutanja").value,
-            opsti_akt_o_kolektivnom_zigu_garancije_putanja: this.takseIPriloziFormGroup.get("opstiAktOKolektivnoZiguPutanja").value,
-            dokaz_o_pravu_prvenstva_putanja: '',
-            dokaz_o_uplati_takse_putanja: this.takseIPriloziFormGroup.get("dokazOUplatiTaksePutanja").value,
-          },
-          spisak_roba_i_usluga: robe,
-          generalno_punomocje_ranije_prilozeno: false,
-          punomocje_ce_biti_naknadno_dostavljeno: false
-        }
-      } else {
-
-        return {
-          "@": {
-            primerak_znaka_putanja: this.takseIPriloziFormGroup.get("primerakZnakaPutanja").value,
-            punomocje_putanja: '',
-            opsti_akt_o_kolektivnom_zigu_garancije_putanja: this.takseIPriloziFormGroup.get("opstiAktOKolektivnoZiguPutanja").value,
-            dokaz_o_pravu_prvenstva_putanja: '',
-            dokaz_o_uplati_takse_putanja: this.takseIPriloziFormGroup.get("dokazOUplatiTaksePutanja").value,
-          },
-          spisak_roba_i_usluga: robe,
-          generalno_punomocje_ranije_prilozeno: this.takseIPriloziFormGroup.get("generalnoPunomocjeRanijePrilozeno").value,
-          punomocje_ce_biti_naknadno_dostavljeno: this.takseIPriloziFormGroup.get("punomocjeNaknadnoDostavljeno").value
-        }
-      }
+    return {
+      "@": {
+        primerak_znaka_putanja: this.takseIPriloziFormGroup.get("primerakZnakaPutanja").value,
+        punomocje_putanja: this.takseIPriloziFormGroup.get("punomocjePutanja").value,
+        opsti_akt_o_kolektivnom_zigu_garancije_putanja: this.takseIPriloziFormGroup.get("opstiAktOKolektivnoZiguPutanja").value,
+        dokaz_o_pravu_prvenstva_putanja: this.takseIPriloziFormGroup.get("dozakOPravuPrvenstvaPutanja").value,
+        dokaz_o_uplati_takse_putanja: this.takseIPriloziFormGroup.get("dokazOUplatiTaksePutanja").value,
+      },
+      spisak_roba_i_usluga: robe,
+      generalno_punomocje_ranije_prilozeno: this.takseIPriloziFormGroup.get("generalnoPunomocjeRanijePrilozeno").value,
+      punomocje_ce_biti_naknadno_dostavljeno: this.takseIPriloziFormGroup.get("punomocjeNaknadnoDostavljeno").value
     }
+  }
 
+  prikaz() {
+    console.log("kraj");
+    console.log(this.podnosilacFormGroup);
+    console.log(this.punomocnikFormGroup);
+    console.log(this.znakFormGroup);
+    console.log(this.takseIPriloziFormGroup);
   }
 
   sendTrademark(){
@@ -516,3 +495,5 @@ export class TrademarkApplicationComponent implements OnInit {
   }
 
 }
+
+

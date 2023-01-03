@@ -8,5 +8,5 @@ export interface Podnosilac{
 }
 
 export interface Podnosioci {
-    "podnosilac": Podnosilac
+    "podnosilac": Podnosilac[]
 }

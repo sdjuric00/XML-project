@@ -27,6 +27,10 @@ export class PodnosilacComponent implements OnInit {
 
     this.podnosilacFormGroup.updateValueAndValidity();
     this.podnosilacFormGroup.reset();
+    if (this.isTrademark) {
+      this.podnosilacFormGroup.get('podnosioci').setValidators([Validators.required]);
+      this.podnosilacFormGroup.get('podnosioci').setValue([]);
+    }
     this.podnosilacFormGroup.get('podnosilacAutor').setValue(false);
   }
 
@@ -45,9 +49,67 @@ export class PodnosilacComponent implements OnInit {
   }
 
   dodajPodnosioca(podnosilac: PodnosilacUniversal): void {
-    this.podnosioci.push(podnosilac);
+    this.podnosilacFormGroup.clearValidators();
+    if (this.tipPodnosioca === 'Fizičko lice'){
+
+      this.podnosilacFormGroup.get('ime')?.setValidators([Validators.required, Validators.maxLength(50)]);
+      this.podnosilacFormGroup.get('ime')?.updateValueAndValidity();
+
+      this.podnosilacFormGroup.get('prezime')?.setValidators([Validators.required, Validators.maxLength(50)]);
+      this.podnosilacFormGroup.get('prezime')?.updateValueAndValidity();
+
+      this.podnosilacFormGroup.get('jmbg')?.setValidators([Validators.required, Validators.pattern("[0-9]{13}")]);
+      this.podnosilacFormGroup.get('jmbg')?.updateValueAndValidity();
+
+      this.podnosilacFormGroup.get('naziv')?.setValidators([]);
+      this.podnosilacFormGroup.get('naziv')?.updateValueAndValidity();
+
+      this.podnosilacFormGroup.get('pib')?.setValidators([]);
+      this.podnosilacFormGroup.get('pib')?.updateValueAndValidity();
+
+      this.podnosilacFormGroup.get('registarskiBroj')?.setValidators([]);
+      this.podnosilacFormGroup.get('registarskiBroj')?.updateValueAndValidity();
+
+    } else {
+      this.podnosilacFormGroup.get('naziv')?.setValidators([Validators.required]);
+      this.podnosilacFormGroup.get('naziv')?.updateValueAndValidity();
+
+      this.podnosilacFormGroup.get('pib')?.setValidators([Validators.required, Validators.pattern("[0-9]{9}")]);
+      this.podnosilacFormGroup.get('pib')?.updateValueAndValidity();
+
+      this.podnosilacFormGroup.get('registarskiBroj')?.setValidators([Validators.required, Validators.pattern("([0-9]{8}|([A-Za-z]{2}[0-9]{6}))")]);
+      this.podnosilacFormGroup.get('registarskiBroj')?.updateValueAndValidity();
+
+      this.podnosilacFormGroup.get('ime')?.setValidators([]);
+      this.podnosilacFormGroup.get('ime')?.updateValueAndValidity();
+
+      this.podnosilacFormGroup.get('prezime')?.setValidators([]);
+      this.podnosilacFormGroup.get('prezime')?.updateValueAndValidity();
+
+      this.podnosilacFormGroup.get('jmbg')?.setValidators([]);
+      this.podnosilacFormGroup.get('jmbg')?.updateValueAndValidity();
+    }
+
     this.podnosilacFormGroup.get('podnosioci').setValidators([Validators.required]);
-    this.podnosilacFormGroup.get('podaciOZajednickomPredstavniku').setValidators([Validators.required]);
+    this.podnosilacFormGroup.markAsPristine();
+    this.podnosilacFormGroup.markAsUntouched();
+    this.podnosioci.push(podnosilac);
+
+    if (this.podnosioci.length > 1) {
+      this.podnosilacFormGroup.get('podaciOZajednickomPredstavniku').setValidators([Validators.required]);
+    }
+  }
+
+  proveriPodnosioce() {
+    if (this.podnosioci.length > 1) {
+      this.podnosilacFormGroup.get('podaciOZajednickomPredstavniku').setValidators([Validators.required]);
+    }
+    
+    return this.podnosioci.length > 0;
+  }
+
+  dodajSvePodnosioce() {
+    this.podnosilacFormGroup.get("podnosioci").setValue(this.podnosioci);
   }
 
 }

@@ -184,16 +184,20 @@ public class ZigService {
     }
 
     private Prilozi sacuvajSlike(Prilozi prilozi) throws TransformationFailedException {
-        if (!prilozi.getDokaz_o_pravu_prvenstva_putanja().equals("")) {
-            prilozi.setDokaz_o_pravu_prvenstva_putanja(sacuvajSliku(prilozi.getDokaz_o_pravu_prvenstva_putanja()));
-        } else if (!prilozi.getDokaz_o_uplati_takse_putanja().equals("")) {
-            prilozi.setDokaz_o_pravu_prvenstva_putanja(sacuvajSliku(prilozi.getDokaz_o_uplati_takse_putanja()));
-        } else if (!prilozi.getOpsti_akt_o_kolektivnom_zigu_garancije_putanja().equals("")) {
-            prilozi.setDokaz_o_pravu_prvenstva_putanja(sacuvajSliku(prilozi.getOpsti_akt_o_kolektivnom_zigu_garancije_putanja()));
-        } else if (!prilozi.getPunomocje_putanja().equals("")) {
-            prilozi.setDokaz_o_pravu_prvenstva_putanja(sacuvajSliku(prilozi.getPunomocje_putanja()));
-        } else if (!prilozi.getPrimerak_znaka_putanja().equals("")) {
-            prilozi.setDokaz_o_pravu_prvenstva_putanja(sacuvajSliku(prilozi.getPrimerak_znaka_putanja()));
+        if (prilozi.getDokaz_o_pravu_prvenstva_putanja() != null) {
+            prilozi.setDokaz_o_pravu_prvenstva_putanja(sacuvajSliku(prilozi.getDokaz_o_pravu_prvenstva_putanja(), "prvenstvo"));
+        }
+        if (prilozi.getDokaz_o_uplati_takse_putanja() != null) {
+            prilozi.setDokaz_o_uplati_takse_putanja(sacuvajSliku(prilozi.getDokaz_o_uplati_takse_putanja(), "uplata"));
+        }
+        if (prilozi.getOpsti_akt_o_kolektivnom_zigu_garancije_putanja() != null) {
+            prilozi.setOpsti_akt_o_kolektivnom_zigu_garancije_putanja(sacuvajSliku(prilozi.getOpsti_akt_o_kolektivnom_zigu_garancije_putanja(), "akt"));
+        }
+        if (prilozi.getPunomocje_putanja() != null) {
+            prilozi.setPunomocje_putanja(sacuvajSliku(prilozi.getPunomocje_putanja(), "punomocje"));
+        }
+        if (prilozi.getPrimerak_znaka_putanja() != null) {
+            prilozi.setPrimerak_znaka_putanja(sacuvajSliku(prilozi.getPrimerak_znaka_putanja(), "primerak"));
         }
 
         return prilozi;

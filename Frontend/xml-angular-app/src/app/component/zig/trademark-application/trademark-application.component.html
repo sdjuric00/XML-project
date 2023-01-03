@@ -25,17 +25,16 @@
 
             <mat-step [stepControl]="takseIPriloziFormGroup">
                 <form [formGroup]="takseIPriloziFormGroup">
-                    <ng-template matStepLabel>Takse & Prilozi</ng-template>
+                    <ng-template matStepLabel>Prilozi</ng-template>
                     <app-takse-prilozi></app-takse-prilozi>
                 </form>
             </mat-step>
 
             <mat-step>
-                <ng-template matStepLabel>Done</ng-template>
-                <p>Uspešno ste kreirali zahtev za unošenje u evidenciju i deponovanje autorskih dela.</p>
+                <ng-template matStepLabel>Kraj</ng-template>
+                <p>Uspešno ste popunili formu za kreiranje zahteva za izdavanje ziga.</p>
                 <div style="display: flex">
-                    <!-- <button style="margin-left:40.7rem" class="previous-button" mat-raised-button
-                        matStepperPrevious>Nazad</button> -->
+                    <button style="margin-left:40.7rem" class="previous-button" (click)="prikaz()" mat-raised-button matStepperPrevious>Nazad</button>
                     <button style="margin-left:1rem" class="next-button" mat-raised-button (click)="sendTrademark()">Kreiraj</button>
                 </div>
             </mat-step>

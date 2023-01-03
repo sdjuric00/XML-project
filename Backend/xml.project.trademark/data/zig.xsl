@@ -36,7 +36,7 @@
                         margin-block-end: 0;
                     }
                 </style>
-                <title>Zig (XSLT)</title>
+                <title>Zig</title>
             </head>
             <body class="background-body">
                 <div class="content">
@@ -159,11 +159,18 @@
                                     <p style="min-height: 0.9rem">
                                         <div style="font-weight: normal;">
                                             <xsl:choose>
-                                                <xsl:when test="//z:podaci_o_zajednickom_predstavniku/z:fizicko_lice">
-                                                    <p style=" padding: 0; margin: 0 0 0.3rem; font-size: 1rem; margin-left: 0.3rem;"><xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:ime"/>&#160;<xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:prezime"/>,&#160;<xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:grad"/>&#160;<xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:ulica"/>&#160;<xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:broj"/>,&#160;<xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:postanski_broj"/>, &#160;<xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:drzava"/>&#xa;</p>
+                                                <xsl:when test="//z:podaci_o_zajednickom_predstavniku">
+                                                    <xsl:choose>
+                                                        <xsl:when test="//z:podaci_o_zajednickom_predstavniku/z:fizicko_lice">
+                                                            <p style=" padding: 0; margin: 0 0 0.3rem; font-size: 1rem; margin-left: 0.3rem;"><xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:ime"/>&#160;<xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:prezime"/>,&#160;<xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:grad"/>&#160;<xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:ulica"/>&#160;<xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:broj"/>,&#160;<xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:postanski_broj"/>, &#160;<xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:drzava"/>&#xa;</p>
+                                                        </xsl:when>
+                                                        <xsl:otherwise>
+                                                            <p style=" padding: 0; margin: 0 0 0.3rem; font-size: 1rem; margin-left: 0.3rem;"><xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:naziv"/>,&#160;PIB:<xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:pib"/>,&#160;<xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:grad"/>&#160;<xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:ulica"/>&#160;<xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:broj"/>,&#160;<xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:postanski_broj"/>, &#160;<xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:drzava"/>&#xa;</p>
+                                                        </xsl:otherwise>
+                                                    </xsl:choose>
                                                 </xsl:when>
                                                 <xsl:otherwise>
-                                                    <p style=" padding: 0; margin: 0 0 0.3rem; font-size: 1rem; margin-left: 0.3rem;"><xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:naziv"/>,&#160;PIB:<xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:pib"/>,&#160;<xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:grad"/>&#160;<xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:ulica"/>&#160;<xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:broj"/>,&#160;<xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:postanski_broj"/>, &#160;<xsl:value-of select="//z:podaci_o_zajednickom_predstavniku//opste:drzava"/>&#xa;</p>
+                                                    <p style=" padding: 0; margin: 0 0 0.3rem; font-size: 1rem; margin-left: 0.3rem;">Nema zajednickog predstavnika&#xa;</p>
                                                 </xsl:otherwise>
                                             </xsl:choose>
                                         </div>
@@ -380,7 +387,7 @@
                                         </xsl:choose>
                                         <xsl:choose>
                                             <xsl:when test="//z:nicanska_klasifikacija/z:broj[text() = '2. Boje i lakovi']">
-                                                <span style="border: 1px solid black; border-style: solid; border-color: red; padding-left: 0.3rem; padding-right: 0.3rem; margin: 0;">1</span>
+                                                <span style="border: 1px solid black; border-style: solid; border-color: red; padding-left: 0.3rem; padding-right: 0.3rem; margin: 0;">2</span>
                                             </xsl:when>
                                             <xsl:otherwise>
                                                 <span style="border: 1px solid black; padding-left: 0.3rem; padding-right: 0.3rem; margin: 0;">2</span>
@@ -388,7 +395,7 @@
                                         </xsl:choose>
                                         <xsl:choose>
                                             <xsl:when test="//z:nicanska_klasifikacija/z:broj[text() = '3. Nemedicinska kozmetika']">
-                                                <span style="border: 1px solid black; border-style: solid; border-color: red; padding-left: 0.3rem; padding-right: 0.3rem; margin: 0;">1</span>
+                                                <span style="border: 1px solid black; border-style: solid; border-color: red; padding-left: 0.3rem; padding-right: 0.3rem; margin: 0;">3</span>
                                             </xsl:when>
                                             <xsl:otherwise>
                                                 <span style="border: 1px solid black; padding-left: 0.3rem; padding-right: 0.3rem; margin: 0;">3</span>
@@ -396,7 +403,7 @@
                                         </xsl:choose>
                                         <xsl:choose>
                                             <xsl:when test="//z:nicanska_klasifikacija/z:broj[text() = '4. Industrija ulja i masti']">
-                                                <span style="border: 1px solid black; border-style: solid; border-color: red; padding-left: 0.3rem; padding-right: 0.3rem; margin: 0;">1</span>
+                                                <span style="border: 1px solid black; border-style: solid; border-color: red; padding-left: 0.3rem; padding-right: 0.3rem; margin: 0;">4</span>
                                             </xsl:when>
                                             <xsl:otherwise>
                                                 <span style="border: 1px solid black; padding-left: 0.3rem; padding-right: 0.3rem; margin: 0;">4</span>
@@ -404,7 +411,7 @@
                                         </xsl:choose>
                                         <xsl:choose>
                                             <xsl:when test="//z:nicanska_klasifikacija/z:broj[text() = '5. Farmaceutski proizvodi']">
-                                                <span style="border: 1px solid black; border-style: solid; border-color: red; padding-left: 0.3rem; padding-right: 0.3rem; margin: 0;">1</span>
+                                                <span style="border: 1px solid black; border-style: solid; border-color: red; padding-left: 0.3rem; padding-right: 0.3rem; margin: 0;">5</span>
                                             </xsl:when>
                                             <xsl:otherwise>
                                                 <span style="border: 1px solid black; padding-left: 0.3rem; padding-right: 0.3rem; margin: 0;">5</span>
