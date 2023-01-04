@@ -6,7 +6,7 @@ import com.example.xml.project.model.Adresa;
 import com.example.xml.project.model.Kontakt;
 import com.example.xml.project.model.Korisnici.Korisnik;
 import com.example.xml.project.model.Korisnici.TipNaloga;
-import com.example.xml.project.model.izvestaji.Izvestaj;
+import com.example.xml.project.request.izvestaji.IzvestajRequest;
 import com.example.xml.project.repository.GenericRepository;
 import com.example.xml.project.repository.KorisniciRepository;
 import com.example.xml.project.response.UspesnaTransformacija;
@@ -127,14 +127,14 @@ public class KorisnikService {
         return new KorisnikDTO(korisnik);
     }
 
-    public UspesnaTransformacija dodajHtml(final Izvestaj izvestaj)
+    public UspesnaTransformacija dodajHtml(final IzvestajRequest izvestaj)
             throws JAXBException, EntityNotFoundException, TransformationFailedException, IOException {
         String htmlPutanja = HTML_PUTANJA + "izvestaj" + ".html";
 
         return new UspesnaTransformacija(this.transformator.generateHTML(htmlPutanja, izvestaj));
     }
 
-    public UspesnaTransformacija dodajPDF(final Izvestaj izvestaj)
+    public UspesnaTransformacija dodajPDF(final IzvestajRequest izvestaj)
             throws IOException, TransformationFailedException, JAXBException, EntityNotFoundException
     {
         String pdfPutanja = PDF_PUTANJA + "izvestaj" + ".pdf";

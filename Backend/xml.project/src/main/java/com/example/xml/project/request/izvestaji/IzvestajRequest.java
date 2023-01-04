@@ -1,4 +1,4 @@
-package com.example.xml.project.model.izvestaji;
+package com.example.xml.project.request.izvestaji;
 
 import javax.xml.bind.annotation.*;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 @XmlRootElement(name="izvestaj")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name="izvestaj", propOrder={"izvestaji", "pocetni_datum", "krajnji_datum"})
-public class Izvestaj {
+public class IzvestajRequest {
 
     @XmlElementWrapper(name="izvestaji")
     @XmlElement(name="izvestaj_podaci")
@@ -18,11 +18,11 @@ public class Izvestaj {
     @XmlElement(name="krajnji_datum")
     private String krajnji_datum;
 
-    public Izvestaj() {
+    public IzvestajRequest() {
 
     }
 
-    public Izvestaj(
+    public IzvestajRequest(
             final List<IzvestajPodaci> izvestaji,
             final String pocetni_datum,
             final String krajnji_datum

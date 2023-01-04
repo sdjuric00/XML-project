@@ -48,34 +48,34 @@
             <body class="background-body">
                 <div class="content">
                     <br></br>
-                    <h1 style="text-align: center; margin-bottom: 0;">Izveštaj za period od <xsl:value-of select="//pocetni_datum" /> do <xsl:value-of select="//krajnji_datum" /></h1>
+                    <h1 style="text-align: center; margin-bottom: 0;">Izveštaj za period<br /> od <xsl:value-of select="//pocetni_datum" /> do <xsl:value-of select="//krajnji_datum" /></h1>
                     <br />
                     <br />
-                    <p>
+                    <p style="margin-left: 2rem;">
                         <xsl:for-each select="//izvestaji/izvestaj_podaci">
                             <xsl:if test="@tip_izvestaja = 'autorsko_pravo'">
-                                <span style="display: block;">Statistika zahteva za izdavanje autorskih prava:</span>
-                                <br />
-                                <span style="display: block;">Broj nepregledanih:&#160;<xsl:value-of select="broj_nepregledanih" /></span>
-                                <span style="display: block;">Broj odbijenih:&#160;<xsl:value-of select="broj_odbijenih" /></span>
-                                <span style="display: block;">Broj prihvacenih:&#160;<xsl:value-of select="broj_prihvacenih" /></span>
-                                <span style="display: block;">UKUPNO:&#160;<xsl:value-of select="ukupan_broj" /></span>
+                                <span style="display: block; font-size: 1.4rem;">Statistika zahteva za izdavanje autorskih prava:</span>
+                                <span style="display: block; margin-left: 3.5rem;">-Broj nepregledanih:&#160;<b><xsl:value-of select="broj_nepregledanih" /></b></span>
+                                <span style="display: block; margin-left: 3.5rem;">-Broj odbijenih:&#160;<b><xsl:value-of select="broj_odbijenih" /></b></span>
+                                <span style="display: block; margin-left: 3.5rem;">-Broj prihvacenih:&#160;<b><xsl:value-of select="broj_prihvacenih" /></b></span>
+                                <span style="display: block; margin-left: 3.5rem;"><b>-UKUPNO:&#160;</b><b><xsl:value-of select="ukupan_broj" /></b></span>
+                                <br/>
                             </xsl:if>
                             <xsl:if test="@tip_izvestaja = 'patent'">
-                                <span style="display: block;">Statistika zahteva za izdavanje patenta:</span>
+                                <span style="display: block; font-size: 1.4rem;">Statistika zahteva za izdavanje patenta:</span>
+                                <span style="display: block; margin-left: 3.5rem;">-Broj nepregledanih:&#160;<b><xsl:value-of select="broj_nepregledanih" /></b></span>
+                                <span style="display: block; margin-left: 3.5rem;">-Broj odbijenih:&#160;<b><xsl:value-of select="broj_odbijenih" /></b></span>
+                                <span style="display: block; margin-left: 3.5rem;">-Broj prihvacenih:&#160;<b><xsl:value-of select="broj_prihvacenih" /></b></span>
+                                <span style="display: block; margin-left: 3.5rem;"><b>-UKUPNO:&#160;</b><b><xsl:value-of select="ukupan_broj" /></b></span>
                                 <br />
-                                <span style="display: block;">Broj nepregledanih:&#160;<xsl:value-of select="broj_nepregledanih" /></span>
-                                <span style="display: block;">Broj odbijenih:&#160;<xsl:value-of select="broj_odbijenih" /></span>
-                                <span style="display: block;">Broj prihvacenih:&#160;<xsl:value-of select="broj_prihvacenih" /></span>
-                                <span style="display: block;">UKUPNO:&#160;<xsl:value-of select="ukupan_broj" /></span>
                             </xsl:if>
                             <xsl:if test="@tip_izvestaja = 'zig'">
-                                <span style="display: block;">Statistika zahteva za izdavanje zigova:</span>
+                                <span style="display: block; font-size: 1.4rem;">Statistika zahteva za izdavanje zigova:</span>
+                                <span style="display: block; margin-left: 3.5rem;">-Broj nepregledanih:&#160;<b><xsl:value-of select="broj_nepregledanih" /></b></span>
+                                <span style="display: block; margin-left: 3.5rem;">-Broj odbijenih:&#160;<b><xsl:value-of select="broj_odbijenih" /></b></span>
+                                <span style="display: block; margin-left: 3.5rem;">-Broj prihvacenih:&#160;<b><xsl:value-of select="broj_prihvacenih" /></b></span>
+                                <span style="display: block; margin-left: 3.5rem;"><b>-UKUPNO:</b>&#160;<b><xsl:value-of select="ukupan_broj" /></b></span>
                                 <br />
-                                <span style="display: block;">Broj nepregledanih:&#160;<xsl:value-of select="broj_nepregledanih" /></span>
-                                <span style="display: block;">Broj odbijenih:&#160;<xsl:value-of select="broj_odbijenih" /></span>
-                                <span style="display: block;">Broj prihvacenih:&#160;<xsl:value-of select="broj_prihvacenih" /></span>
-                                <span style="display: block;">UKUPNO:&#160;<xsl:value-of select="ukupan_broj" /></span>
                             </xsl:if>
                         </xsl:for-each>
                     </p>

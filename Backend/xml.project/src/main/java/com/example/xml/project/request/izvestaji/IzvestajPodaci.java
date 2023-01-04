@@ -1,4 +1,4 @@
-package com.example.xml.project.model.izvestaji;
+package com.example.xml.project.request.izvestaji;
 
 import javax.xml.bind.annotation.*;
 

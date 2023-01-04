@@ -1,7 +1,7 @@
 package com.example.xml.project.transformator;
 
 import com.example.xml.project.exception.TransformationFailedException;
-import com.example.xml.project.model.izvestaji.Izvestaj;
+import com.example.xml.project.request.izvestaji.IzvestajRequest;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -39,7 +39,7 @@ public class Transformator {
         documentFactory.setNamespaceAware(true);
         documentFactory.setIgnoringComments(true);
         documentFactory.setIgnoringElementContentWhitespace(true);
-        this.jaxbContext = JAXBContext.newInstance(Izvestaj.class);
+        this.jaxbContext = JAXBContext.newInstance(IzvestajRequest.class);
         transformerFactory = TransformerFactory.newInstance();
     }
 
@@ -52,7 +52,7 @@ public class Transformator {
         return FileUtils.readFileToByteArray(fajl);
     }
 
-    public byte[] generateHTML(final String htmlPutanja, final Izvestaj izvestaj)
+    public byte[] generateHTML(final String htmlPutanja, final IzvestajRequest izvestaj)
             throws TransformationFailedException, IOException {
         File fajl;
         try {
@@ -60,7 +60,7 @@ public class Transformator {
             Transformer transformer = transformerFactory.newTransformer(transformSource);
 
             //JAXBContext context = JAXBContext.newInstance(ZahtevZig.class);
-            JAXBContext jc = JAXBContext.newInstance(Izvestaj.class);
+            JAXBContext jc = JAXBContext.newInstance(IzvestajRequest.class);
             JAXBSource source = new JAXBSource(jc, izvestaj);
             System.out.println("Source" + source);
             StreamResult result = new StreamResult(new FileOutputStream(htmlPutanja));

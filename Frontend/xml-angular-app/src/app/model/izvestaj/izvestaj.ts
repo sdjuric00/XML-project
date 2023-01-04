@@ -22,10 +22,7 @@ export interface IzvestajLista {
 }
 
 export interface IzvestajZaPDF {
-  izvestaj: {
-    "@"?: {},
-    "izvestaji": IzvestajLista,
-    "pocetni_datum": string,
-    "krajnji_datum": string
-  }
+  "izvestaji": IzvestajLista,
+  "pocetni_datum": string,
+  "krajnji_datum": string
 }

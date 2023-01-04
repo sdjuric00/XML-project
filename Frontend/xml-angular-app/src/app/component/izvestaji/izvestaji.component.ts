@@ -99,42 +99,14 @@ export class IzvestajiComponent implements OnInit, OnDestroy {
     let izvestajLista: IzvestajLista = {
       izvestaj_podaci: []
     }
-    
-    let izvestajAutorskoPravo: Izvestaj = {
-      "@": "patent",
-      "broj_nepregledanih": this.izvestajAutorskaPrava.broj_nepregledanih,
-      "broj_odbijenih": this.izvestajAutorskaPrava.broj_odbijenih,
-      "broj_prihvacenih": this.izvestajAutorskaPrava.broj_prihvacenih,
-      "ukupan_broj": this.izvestajAutorskaPrava.ukupan_broj
-    }
-
-    let izvestajPatent: Izvestaj = {
-      "@": "patent",
-      "broj_nepregledanih": this.izvestajPatenti.broj_nepregledanih,
-      "broj_odbijenih": this.izvestajPatenti.broj_odbijenih,
-      "broj_prihvacenih": this.izvestajPatenti.broj_prihvacenih,
-      "ukupan_broj": this.izvestajPatenti.ukupan_broj
-    }
-
-    let izvestajZig: Izvestaj = {
-      "@": "zig",
-      "broj_nepregledanih": this.izvestajZigovi.broj_nepregledanih,
-      "broj_odbijenih": this.izvestajZigovi.broj_odbijenih,
-      "broj_prihvacenih": this.izvestajZigovi.broj_prihvacenih,
-      "ukupan_broj": this.izvestajZigovi.ukupan_broj
-    }
-
-    izvestajLista.izvestaj_podaci.push(izvestajAutorskoPravo);
-    izvestajLista.izvestaj_podaci.push(izvestajPatent);
-    izvestajLista.izvestaj_podaci.push(izvestajZig);
+    izvestajLista.izvestaj_podaci.push(this.izvestajAutorskaPrava);
+    izvestajLista.izvestaj_podaci.push(this.izvestajPatenti);
+    izvestajLista.izvestaj_podaci.push(this.izvestajZigovi);
 
     let izvestaj: IzvestajZaPDF = {
-      izvestaj: {
-        "@": {"xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance"},
-        izvestaji: izvestajLista,
-        pocetni_datum: this.pocetniDatum,
-        krajnji_datum: this.krajnjiDatum
-      }
+      izvestaji: izvestajLista,
+      pocetni_datum: this.pocetniDatum,
+      krajnji_datum: this.krajnjiDatum
     }
 
     this._izvestajService.kreirajPDF(izvestaj).subscribe(
