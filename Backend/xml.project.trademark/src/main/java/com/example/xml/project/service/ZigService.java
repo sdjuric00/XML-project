@@ -123,8 +123,9 @@ public class ZigService {
             throws JAXBException, EntityNotFoundException, TransformationFailedException, IOException
     {
         String htmlPutanja = HTML_PUTANJA + id + ".html";
+        String qrCodeUrl = QR_PUTANJA + id + ".pdf";
 
-        return new UspesnaTransformacija(this.transformator.generateHTML(htmlPutanja, get(id)));
+        return new UspesnaTransformacija(this.transformator.generateHTML(htmlPutanja, get(id), qrCodeUrl));
     }
 
     public ZahteviZigDTO pronadjiRezultateOsnovnePretrage(List<ParametarPretrage> parametriPretrage) throws Exception {

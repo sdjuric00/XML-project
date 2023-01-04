@@ -2,6 +2,11 @@ package com.example.xml.project.transformator;
 
 import com.example.xml.project.exception.TransformationFailedException;
 import com.example.xml.project.model.Z1.ZahtevZig;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -17,13 +22,11 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.*;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.StringReader;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import static com.example.xml.project.util.Constants.TARGET_QR_CODE_FILE_PATH;
 import static com.example.xml.project.util.Constants.XSL_PUTANJA;
 
 @Component
@@ -35,6 +38,9 @@ public class Transformator {
 
     private final javax.xml.bind.JAXBContext jaxbContext;
 
+    public static final int H = 120;
+    public static final int W = 120;
+
     public Transformator() throws JAXBException {
         documentFactory = DocumentBuilderFactory.newInstance();
         documentFactory.setNamespaceAware(true);
@@ -44,7 +50,14 @@ public class Transformator {
         transformerFactory = TransformerFactory.newInstance();
     }
 
-    public byte[] generatePdf(String htmlPutanja, String pdfPutanja) throws IOException {
+    public void createQrCode(final String qrUrl, final String id) throws WriterException, IOException {
+        QRCodeWriter qrCodeWriter = new QRCodeWriter();
+        BitMatrix bitMatrix = qrCodeWriter.encode(qrUrl, BarcodeFormat.QR_CODE, W, H);
+        FileOutputStream outputStream = new FileOutputStream(TARGET_QR_CODE_FILE_PATH + id + ".png");
+        MatrixToImageWriter.writeToStream(bitMatrix,"png", outputStream);
+    }
+
+    public byte[] generatePdf(final String htmlPutanja, final String pdfPutanja) throws IOException {
         PdfDocument pdfDocument = new PdfDocument(new PdfWriter(pdfPutanja));
         pdfDocument.setDefaultPageSize(new PageSize(780, 2000));
         HtmlConverter.convertToPdf(Files.newInputStream(Paths.get(htmlPutanja)), pdfDocument);
@@ -53,10 +66,15 @@ public class Transformator {
         return FileUtils.readFileToByteArray(fajl);
     }
 
-    public byte[] generateHTML(final String htmlPutanja, final ZahtevZig zahtev)
+    public byte[] generateHTML(
+            final String htmlPutanja,
+            final ZahtevZig zahtev,
+            final String qrUrl
+    )
             throws TransformationFailedException, IOException {
         File fajl;
         try {
+            createQrCode(qrUrl, zahtev.getId());
             StreamSource transformSource = new StreamSource(new File(XSL_PUTANJA));
             Transformer transformer = transformerFactory.newTransformer(transformSource);
 
