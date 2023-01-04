@@ -4,7 +4,9 @@ import Chart from 'chart.js/auto';
 import {DatePipe} from "@angular/common";
 import {IzvestajService} from "../../service/izvestaj.service";
 import {Subscription} from "rxjs";
-import {Izvestaj} from "../../model/izvestaj/izvestaj";
+import {Izvestaj, IzvestajLista, IzvestajZaPDF} from "../../model/izvestaj/izvestaj";
+import { TransformatorService } from 'src/app/service/transformator.service';
+import { ToastrService } from 'ngx-toastr';
 
 const today = new Date();
 const month = today.getMonth();
@@ -27,7 +29,16 @@ export class IzvestajiComponent implements OnInit, OnDestroy {
   izvestajPatenti: Izvestaj = null;
   izvestajZigovi: Izvestaj = null;
   grafik: Chart;
-  constructor(private _izvestajService: IzvestajService, private _datum: DatePipe) { }
+
+  pocetniDatum: string;
+  krajnjiDatum: string;
+
+  constructor(
+    private _izvestajService: IzvestajService, 
+    private _datum: DatePipe,
+    private transformatorService: TransformatorService,
+    private toast: ToastrService
+    ) { }
 
   ngOnInit(): void {
     this.generisiIzvestaj();
@@ -82,13 +93,71 @@ export class IzvestajiComponent implements OnInit, OnDestroy {
     });
   }
 
+  generisiPDF() {
+    this.generisiIzvestaj();
+    
+    let izvestajLista: IzvestajLista = {
+      izvestaj_podaci: []
+    }
+    
+    let izvestajAutorskoPravo: Izvestaj = {
+      "@": "patent",
+      "broj_nepregledanih": this.izvestajAutorskaPrava.broj_nepregledanih,
+      "broj_odbijenih": this.izvestajAutorskaPrava.broj_odbijenih,
+      "broj_prihvacenih": this.izvestajAutorskaPrava.broj_prihvacenih,
+      "ukupan_broj": this.izvestajAutorskaPrava.ukupan_broj
+    }
+
+    let izvestajPatent: Izvestaj = {
+      "@": "patent",
+      "broj_nepregledanih": this.izvestajPatenti.broj_nepregledanih,
+      "broj_odbijenih": this.izvestajPatenti.broj_odbijenih,
+      "broj_prihvacenih": this.izvestajPatenti.broj_prihvacenih,
+      "ukupan_broj": this.izvestajPatenti.ukupan_broj
+    }
+
+    let izvestajZig: Izvestaj = {
+      "@": "zig",
+      "broj_nepregledanih": this.izvestajZigovi.broj_nepregledanih,
+      "broj_odbijenih": this.izvestajZigovi.broj_odbijenih,
+      "broj_prihvacenih": this.izvestajZigovi.broj_prihvacenih,
+      "ukupan_broj": this.izvestajZigovi.ukupan_broj
+    }
+
+    izvestajLista.izvestaj_podaci.push(izvestajAutorskoPravo);
+    izvestajLista.izvestaj_podaci.push(izvestajPatent);
+    izvestajLista.izvestaj_podaci.push(izvestajZig);
+
+    let izvestaj: IzvestajZaPDF = {
+      izvestaj: {
+        "@": {"xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance"},
+        izvestaji: izvestajLista,
+        pocetni_datum: this.pocetniDatum,
+        krajnji_datum: this.krajnjiDatum
+      }
+    }
+
+    this._izvestajService.kreirajPDF(izvestaj).subscribe(
+        res => {
+          if (res) {
+            this.transformatorService.downloadDocument(res.odgovor, `Izvestaj`, 'application/pdf')
+          }
+        },
+        err => {
+          this.toast.error("Dokument nije moguce skinuti trenutno, pokusajte ponovo kasnije.", 'Greska')
+        }
+      );
+
+  }
+
   generisiIzvestaj() {
-    const pocetniDatum = this._datum.transform(this.datumi.get('pocetni').value,'yyyy-MM-dd');
-    const krajnjiDatum = this._datum.transform(this.datumi.get('krajnji').value,'yyyy-MM-dd')
+    this.pocetniDatum = this._datum.transform(this.datumi.get('pocetni').value,'yyyy-MM-dd');
+    this.krajnjiDatum = this._datum.transform(this.datumi.get('krajnji').value,'yyyy-MM-dd')
     this.izvestajSubscription = this._izvestajService.uzmiIzvestajAutorskaPrava(
-      {pocetni_datum: pocetniDatum, krajnji_datum: krajnjiDatum}).subscribe(izvestaj => {
+      {pocetni_datum: this.pocetniDatum, krajnji_datum: this.krajnjiDatum}).subscribe(izvestaj => {
         console.log(izvestaj);
         this.izvestajAutorskaPrava = izvestaj;
+        this.izvestajAutorskaPrava['@'] = {tip_izvestaja: "autorsko_pravo"}
         this.grafik.data.datasets[0].data[0] = izvestaj.ukupan_broj;
         this.grafik.data.datasets[1].data[0] = izvestaj.broj_prihvacenih;
         this.grafik.data.datasets[2].data[0] = izvestaj.broj_odbijenih;
@@ -97,9 +166,10 @@ export class IzvestajiComponent implements OnInit, OnDestroy {
     });
 
     this.izvestajSubscription = this._izvestajService.uzmiIzvestajPatenti(
-      {pocetni_datum: pocetniDatum, krajnji_datum: krajnjiDatum}).subscribe(izvestaj => {
+      {pocetni_datum: this.pocetniDatum, krajnji_datum: this.krajnjiDatum}).subscribe(izvestaj => {
       console.log(izvestaj);
       this.izvestajPatenti = izvestaj;
+      this.izvestajPatenti['@'] = {tip_izvestaja: "patent"}
       this.grafik.data.datasets[0].data[1] = izvestaj.ukupan_broj;
       this.grafik.data.datasets[1].data[1] = izvestaj.broj_prihvacenih;
       this.grafik.data.datasets[2].data[1] = izvestaj.broj_odbijenih;
@@ -108,9 +178,10 @@ export class IzvestajiComponent implements OnInit, OnDestroy {
     });
 
     this.izvestajSubscription = this._izvestajService.uzmiIzvestajZigovi(
-      {pocetni_datum: pocetniDatum, krajnji_datum: krajnjiDatum}).subscribe(izvestaj => {
+      {pocetni_datum: this.pocetniDatum, krajnji_datum: this.krajnjiDatum}).subscribe(izvestaj => {
       console.log(izvestaj);
       this.izvestajZigovi = izvestaj;
+      this.izvestajZigovi['@'] = {tip_izvestaja: "zig"}
       this.grafik.data.datasets[0].data[2] = izvestaj.ukupan_broj;
       this.grafik.data.datasets[1].data[2] = izvestaj.broj_prihvacenih;
       this.grafik.data.datasets[2].data[2] = izvestaj.broj_odbijenih;

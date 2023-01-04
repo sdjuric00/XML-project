@@ -5,8 +5,10 @@ import com.example.xml.project.dto.KorisnikDTO;
 import com.example.xml.project.dto.PrijavaDTO;
 import com.example.xml.project.exception.*;
 import com.example.xml.project.model.Korisnici.Korisnik;
+import com.example.xml.project.model.izvestaji.Izvestaj;
 import com.example.xml.project.request.KorisnikRequest;
 import com.example.xml.project.request.PrijavaRequest;
+import com.example.xml.project.response.UspesnaTransformacija;
 import com.example.xml.project.service.KorisnikService;
 import com.example.xml.project.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +18,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/korisnici")
@@ -89,6 +93,14 @@ public class KorisniciController {
         JwtPrijava jwtLogin = new JwtPrijava(email, lozinka);
 
         return tokenService.prijava(jwtLogin);
+    }
+
+    @PostMapping(path = "/izvestaj-pdf", consumes = "application/xml", produces = "application/json")
+    @ResponseStatus(HttpStatus.CREATED)
+    public UspesnaTransformacija kreirajPDF(@RequestBody @Valid final Izvestaj izvestaj)
+            throws JAXBException, EntityNotFoundException, TransformationFailedException, IOException {
+
+        return korisniciService.dodajPDF(izvestaj);
     }
 
 }

@@ -85,7 +85,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler({ TransformationFailedException.class})
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
-    public final String handleAccessDeniedException(TransformationFailedException ex) {
+    public final String handleTransformationFailedException(TransformationFailedException ex) {
 
         return ex.getMessage();
     }

@@ -1,16 +1,16 @@
 package com.example.xml.project.service;
 
-import com.example.xml.project.dto.JwtPrijava;
 import com.example.xml.project.dto.KorisnikDTO;
-import com.example.xml.project.dto.PrijavaDTO;
 import com.example.xml.project.exception.*;
 import com.example.xml.project.model.Adresa;
 import com.example.xml.project.model.Kontakt;
 import com.example.xml.project.model.Korisnici.Korisnik;
 import com.example.xml.project.model.Korisnici.TipNaloga;
+import com.example.xml.project.model.izvestaji.Izvestaj;
 import com.example.xml.project.repository.GenericRepository;
 import com.example.xml.project.repository.KorisniciRepository;
-import com.example.xml.project.request.KorisnikRequest;
+import com.example.xml.project.response.UspesnaTransformacija;
+import com.example.xml.project.transformator.Transformator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
@@ -36,12 +36,15 @@ public class KorisnikService {
     private final KorisniciRepository korisniciRepository;
     private final JAXBContext jaxbContext;
     private final Marshaller marshaller;
+    private final Transformator transformator;
 
     public KorisnikService(
         @Autowired final GenericRepository<Korisnik> repository,
-        @Autowired final KorisniciRepository korisniciRepository
+        @Autowired final KorisniciRepository korisniciRepository,
+        @Autowired final Transformator transformator
     ) throws JAXBException
     {
+        this.transformator = transformator;
         this.jaxbContext = JAXBContext.newInstance(Korisnik.class);
         this.repository = repository;
         this.repository.setGenericRepositoryProperties(
@@ -122,6 +125,23 @@ public class KorisnikService {
         repository.save(korisnik, true);
 
         return new KorisnikDTO(korisnik);
+    }
+
+    public UspesnaTransformacija dodajHtml(final Izvestaj izvestaj)
+            throws JAXBException, EntityNotFoundException, TransformationFailedException, IOException {
+        String htmlPutanja = HTML_PUTANJA + "izvestaj" + ".html";
+
+        return new UspesnaTransformacija(this.transformator.generateHTML(htmlPutanja, izvestaj));
+    }
+
+    public UspesnaTransformacija dodajPDF(final Izvestaj izvestaj)
+            throws IOException, TransformationFailedException, JAXBException, EntityNotFoundException
+    {
+        String pdfPutanja = PDF_PUTANJA + "izvestaj" + ".pdf";
+        String htmlPutanja = HTML_PUTANJA + "izvestaj" + ".html";
+        this.dodajHtml(izvestaj);  //prvo se pravi html za slucaj da ne postoji
+
+        return new UspesnaTransformacija(this.transformator.generatePdf(htmlPutanja, pdfPutanja));
     }
 
     private boolean korisnikVecPostoji(String email) throws EntityNotFoundException {

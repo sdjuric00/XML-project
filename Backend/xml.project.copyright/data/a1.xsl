@@ -45,7 +45,7 @@
                     }
 
                 </style>
-                <title>Autorsko pravo (XSLT)</title>
+                <title>Autorsko pravo</title>
             </head>
             <body class="background-body">
                 <div class="content">

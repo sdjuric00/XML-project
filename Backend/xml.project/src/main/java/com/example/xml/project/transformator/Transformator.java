@@ -1,8 +1,7 @@
 package com.example.xml.project.transformator;
 
 import com.example.xml.project.exception.TransformationFailedException;
-import com.example.xml.project.model.A1.ZahtevAutorskaDela;
-import com.example.xml.project.model.A1.resenje.Resenje;
+import com.example.xml.project.model.izvestaji.Izvestaj;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -25,7 +24,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import static com.example.xml.project.util.Constants.XSL_PUTANJA;
-import static com.example.xml.project.util.Constants.XSL_RESENJE_PUTANJA;
 
 @Component
 public class Transformator {
@@ -41,7 +39,7 @@ public class Transformator {
         documentFactory.setNamespaceAware(true);
         documentFactory.setIgnoringComments(true);
         documentFactory.setIgnoringElementContentWhitespace(true);
-        this.jaxbContext = JAXBContext.newInstance(ZahtevAutorskaDela.class);
+        this.jaxbContext = JAXBContext.newInstance(Izvestaj.class);
         transformerFactory = TransformerFactory.newInstance();
     }
 
@@ -54,7 +52,7 @@ public class Transformator {
         return FileUtils.readFileToByteArray(fajl);
     }
 
-    public byte[] generateHTML(final String htmlPutanja, final ZahtevAutorskaDela zahtev)
+    public byte[] generateHTML(final String htmlPutanja, final Izvestaj izvestaj)
             throws TransformationFailedException, IOException {
         File fajl;
         try {
@@ -62,31 +60,8 @@ public class Transformator {
             Transformer transformer = transformerFactory.newTransformer(transformSource);
 
             //JAXBContext context = JAXBContext.newInstance(ZahtevZig.class);
-            JAXBContext jc = JAXBContext.newInstance(ZahtevAutorskaDela.class);
-            JAXBSource source = new JAXBSource(jc, zahtev);
-            System.out.println("Source" + source);
-            StreamResult result = new StreamResult(new FileOutputStream(htmlPutanja));
-
-            transformer.transform(source, result);
-
-            fajl = new File(htmlPutanja);
-
-        } catch (Exception e) {
-            throw new TransformationFailedException("Creation of html failed. Try again late.");
-        }
-
-        return FileUtils.readFileToByteArray(fajl);
-    }
-
-    public byte[] generisiResenjeHTML(final String htmlPutanja, final Resenje zahtev)
-            throws TransformationFailedException, IOException {
-        File fajl;
-        try {
-            StreamSource transformSource = new StreamSource(new File(XSL_RESENJE_PUTANJA));
-            Transformer transformer = transformerFactory.newTransformer(transformSource);
-
-            JAXBContext jc = JAXBContext.newInstance(Resenje.class);
-            JAXBSource source = new JAXBSource(jc, zahtev);
+            JAXBContext jc = JAXBContext.newInstance(Izvestaj.class);
+            JAXBSource source = new JAXBSource(jc, izvestaj);
             System.out.println("Source" + source);
             StreamResult result = new StreamResult(new FileOutputStream(htmlPutanja));
 

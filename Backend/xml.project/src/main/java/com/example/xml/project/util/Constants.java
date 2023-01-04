@@ -15,4 +15,8 @@ public class Constants {
     public static final String ISPRAVAN_BROJ_TELEFONA_REG = "^(?!\\s*$)[0-9\\s]{8,12}$";
     public static final String ISPRAVAN_FAX_REG = "^[0][0-9]{8,9}";
 
+    public static final String HTML_PUTANJA = "src/main/webapp/html/";
+    public static final String PDF_PUTANJA = "src/main/webapp/pdf/";
+    public static final String XSL_PUTANJA = "./data/izvestaj.xsl";
+
 }

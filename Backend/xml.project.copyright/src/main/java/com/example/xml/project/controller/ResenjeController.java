@@ -3,6 +3,7 @@ package com.example.xml.project.controller;
 import com.example.xml.project.dto.ResenjeDTO;
 import com.example.xml.project.exception.CannotUnmarshalException;
 import com.example.xml.project.exception.InvalidDocumentException;
+import com.example.xml.project.exception.TransformationFailedException;
 import com.example.xml.project.exception.XPathException;
 import com.example.xml.project.request.ResenjeOdbijanjeRequest;
 import com.example.xml.project.request.ResenjePrihvatanjeRequest;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/autorska-prava/resenje")
@@ -26,7 +28,9 @@ public class ResenjeController {
 
     @PostMapping(path = "/prihvatanje", produces = "application/xml", consumes = "application/xml")
     @ResponseStatus(HttpStatus.CREATED)
-    public void prihvatiZahtev(@RequestBody final ResenjePrihvatanjeRequest resenjeRequest) throws InvalidDocumentException, CannotUnmarshalException, XPathException {
+    public void prihvatiZahtev(@RequestBody final ResenjePrihvatanjeRequest resenjeRequest)
+            throws InvalidDocumentException, CannotUnmarshalException, XPathException, TransformationFailedException, IOException
+    {
 
         resenjeService.prihvatiZahtev(
             resenjeRequest.getSifra_obradjenog_zahteva(),
@@ -39,7 +43,9 @@ public class ResenjeController {
 
     @PostMapping(path = "/odbijanje", produces = "application/xml", consumes = "application/xml")
     @ResponseStatus(HttpStatus.CREATED)
-    public void odbijZahtev(@RequestBody final ResenjeOdbijanjeRequest resenjeRequest) throws InvalidDocumentException, CannotUnmarshalException, XPathException {
+    public void odbijZahtev(@RequestBody final ResenjeOdbijanjeRequest resenjeRequest)
+            throws InvalidDocumentException, CannotUnmarshalException, XPathException, TransformationFailedException, IOException
+    {
 
         resenjeService.odbijZahtev(
             resenjeRequest.getRazlog_odbijanja(),

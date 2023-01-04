@@ -13,10 +13,11 @@
       <mat-date-range-picker #picker></mat-date-range-picker>
     </mat-form-field>
     <br/>
-    <button style="margin-top: 1.5rem; margin-left:10rem" mat-raised-button (click)="generisiIzvestaj()">Generiši</button>
+    <button style="margin-left:10rem; margin-top: 1.5rem;" mat-raised-button (click)="generisiIzvestaj()">Generiši</button>
   </div>
 
   <div class="desno">
+    <button style="float: right; margin-bottom: 1rem; margin-right: 10rem;" mat-raised-button (click)="generisiPDF()">Preuzmi pdf</button>
     <div id="divChart">
       <canvas id="grafik">
 
