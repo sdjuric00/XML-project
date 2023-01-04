@@ -4,6 +4,12 @@ import com.example.xml.project.exception.CannotUnmarshalException;
 import com.example.xml.project.exception.XPathException;
 import com.example.xml.project.model.A1.ZahtevAutorskaDela;
 import com.example.xml.project.request.ParametarPretrage;
+import com.example.xml.project.util.SparqlUtil;
+import org.apache.jena.query.QueryExecution;
+import org.apache.jena.query.QueryExecutionFactory;
+import org.apache.jena.query.ResultSet;
+import org.apache.jena.query.ResultSetFormatter;
+import org.apache.jena.rdf.model.Model;
 import org.exist.xmldb.EXistResource;
 import org.springframework.stereotype.Component;
 import org.xmldb.api.DatabaseManager;
@@ -16,9 +22,13 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.stream.StreamSource;
+import java.io.ByteArrayOutputStream;
 import java.io.StringReader;
+import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
 import java.util.List;
+
+import static com.example.xml.project.rdf.RdfConstants.*;
 import static com.example.xml.project.util.Constants.*;
 import com.example.xml.project.util.AuthenticationUtilities;
 import com.example.xml.project.util.XMLParser;
@@ -252,5 +262,37 @@ public class AutorskaPravaRepository extends BasicXMLRepository {
             cleanUp(col, resXml);
         }
         return zahtevAutorskaDela;
+    }
+
+    public String generisiJson(String id, AuthenticationUtilities.ConnectionPropertiesFuseki connectionPropertiesFuseki) throws IOException {
+        String sparqlCondition = "VALUES ?subject { <" + AUTORSKO_DELO_NAMESPACE + id + "> }" +
+                " ?subject ?predicate ?object .";
+        String sparqlQuery = SparqlUtil.selectData(connectionPropertiesFuseki.dataEndpoint + AUTORSKO_DELO_NAMED_GRAPH_URI, sparqlCondition);
+
+        // Create a QueryExecution that will access a SPARQL service over HTTP
+        QueryExecution query = QueryExecutionFactory.sparqlService(connectionPropertiesFuseki.queryEndpoint, sparqlQuery);
+        ResultSet results = query.execSelect();
+
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        ResultSetFormatter.outputAsJSON(byteArrayOutputStream, results);
+        String json = new String(byteArrayOutputStream.toByteArray(), StandardCharsets.UTF_8);
+        int indexOfSubStr = json.indexOf("bindings");
+        String newJson  = String.format("{\n  %s", json.substring(indexOfSubStr - 1)); // creating substring from results to end
+        byteArrayOutputStream.close();
+        query.close();
+        return newJson;
+    }
+
+    public String generisiRdf(String id, AuthenticationUtilities.ConnectionPropertiesFuseki connectionPropertiesFuseki) {
+        String sparqlCondition = " <" + AUTORSKO_DELO_NAMESPACE + id + "> ?predicate ?object .";
+        String sparqlQuery = SparqlUtil.constructData(connectionPropertiesFuseki.dataEndpoint + AUTORSKO_DELO_NAMED_GRAPH_URI, sparqlCondition);
+        System.out.println(sparqlQuery);
+        QueryExecution query = QueryExecutionFactory.sparqlService(connectionPropertiesFuseki.queryEndpoint, sparqlQuery);
+        Model model = query.execConstruct();
+
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        model.write(out, "N-Triples");
+
+        return out.toString();
     }
 }

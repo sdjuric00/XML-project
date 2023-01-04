@@ -17,7 +17,7 @@ import java.util.List;
 @XmlRootElement(name="zahtev_za_priznanje_ziga", namespace = "http://www.zig/zig")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name="zahtev_za_priznanje_ziga",
-        propOrder={"institucija", "podnosioci", "punomocnik", "podaci_o_zajednickom_predstavniku", "znak", "nicanska_klasifikacija", "pravo_prvenstva", "placene_takse", "prilozi", "popunjava_zavod"},
+        propOrder={"institucija", "podnosioci", "punomocnik", "podaci_o_zajednickom_predstavniku", "znak", "nicanska_klasifikacija", "pravo_prvenstva", "placene_takse", "prilozi"},
         namespace = "http://www.zig/zig"
 )
 public class ZigRequest implements IdentifiableEntity {

@@ -24,7 +24,8 @@
             </xs:attribute>
             <xs:attribute name="datum_podnosenja" type="xs:date"/>
             <xs:attribute name="pregledano" type="xs:boolean"/>
-            <xs:attribute name="id" type="xs:positiveInteger" use="required"/>
+            <xs:attribute name="id" type="xs:string"/>
+            <xs:attribute name="referenca_na_resenje" type="xs:string"/>
         </xs:complexType>
     </xs:element>
     <xs:simpleType name="vrsta_autorskog_dela_enum">

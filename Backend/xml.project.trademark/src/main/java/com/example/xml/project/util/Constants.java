@@ -14,6 +14,9 @@ public class Constants {
 
     public static final String HTML_PUTANJA = "src/main/webapp/html/";
     public static final String PDF_PUTANJA = "src/main/webapp/pdf/";
+
+    public static final String JSON_PUTANJA = "src/main/webapp/json/";
+    public static final String RDF_PUTANJA = "src/main/webapp/rdf/";
     public static final String PHOTOS_FILE_PATH = "src/main/webapp/images/";
     public static final String TARGET_PHOTO_FILE_PATH = "./src/main/webapp/images/";
     public static final String XSL_PUTANJA = "./data/zig.xsl";

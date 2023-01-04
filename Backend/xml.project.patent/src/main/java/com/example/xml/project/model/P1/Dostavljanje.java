@@ -15,7 +15,7 @@ public class Dostavljanje {
     private boolean elektronski;
     @XmlAttribute(name="pismeno", required = true)
     private boolean pismeno;
-    @XmlElement(name="adresa", required = true, namespace = "http://ftn.ac.rs/opste")
+    @XmlElement(name="adresa", required = true, namespace = "http://www.patent/patent")
     private Adresa adresa;
 
     public boolean isElektronski() {

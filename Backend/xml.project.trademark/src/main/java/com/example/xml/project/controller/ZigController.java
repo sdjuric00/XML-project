@@ -8,6 +8,7 @@ import com.example.xml.project.exception.InvalidDocumentException;
 import com.example.xml.project.exception.XPathException;
 import com.example.xml.project.exception.TransformationFailedException;
 import com.example.xml.project.model.Z1.ZahtevZig;
+import com.example.xml.project.request.NaprednaPretragaRequest;
 import com.example.xml.project.request.PretragaRequest;
 import com.example.xml.project.request.ZigRequest;
 import com.example.xml.project.response.UspesnaTransformacija;
@@ -52,7 +53,7 @@ public class ZigController {
     @PostMapping(produces = "application/xml", consumes = "application/xml")
     @ResponseStatus(HttpStatus.CREATED)
     public void saveNewRequest(@Valid @RequestBody ZigRequest zahtev)
-            throws InvalidDocumentException, JAXBException, TransformationFailedException {
+            throws InvalidDocumentException, JAXBException, TransformationFailedException, IOException {
 
         zigService.saveNewRequest(
                 zahtev.getId(),
@@ -126,4 +127,23 @@ public class ZigController {
         return zigService.dodajPdf(id);
     }
 
+
+    @GetMapping(path = "/kreiraj-json/{id}", produces = "application/xml")
+    @ResponseStatus(HttpStatus.CREATED)
+    public UspesnaTransformacija createJSON(@PathVariable @Valid @NotNull(message = "Id ne sme biti prazan.") final String id) throws IOException {
+
+        return zigService.generisiJson(id);
+    }
+
+    @GetMapping(path = "/kreiraj-rdf/{id}", produces = "application/xml")
+    @ResponseStatus(HttpStatus.CREATED)
+    public UspesnaTransformacija createRDF(@PathVariable @Valid @NotNull(message = "Id ne sme biti prazan.") final String id) throws IOException {
+
+        return zigService.generisiRdf(id);
+    }
+
+//    @PostMapping(path="/napredna-pretraga")
+//    public ZahteviZigDTO naprednaPretraga(@RequestBody NaprednaPretragaRequest pretragaRequest) throws Exception {
+//        return zigService.pronadjiRezultateOsnovnePretrage(pretragaRequest.getParametriPretrage());
+//    }
 }
