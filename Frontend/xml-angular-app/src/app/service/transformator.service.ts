@@ -1,4 +1,6 @@
+import { JsonPipe } from '@angular/common';
 import { Injectable } from '@angular/core';
+import { saveAs } from 'file-saver';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +19,20 @@ export class TransformatorService {
     downloadLink.target = '_self';
     downloadLink.download = ime;
     downloadLink.click(); 
+  }
+
+  public downloadJsonRdf(podaci: any, ime: string, tip: string): void {
+
+    console.log(podaci);
+    const linkSource = `data:${tip};base64,${podaci}`;
+    var downloadLink = document.createElement('a');
+    document.body.appendChild(downloadLink);
+
+    this.openDocumentOnly(podaci, tip)
+    downloadLink.href = linkSource;
+    downloadLink.target = '_self';
+    downloadLink.download = ime;
+    downloadLink.click();
   }
 
   public openDocumentOnly(podaci: any, tip: string): void {

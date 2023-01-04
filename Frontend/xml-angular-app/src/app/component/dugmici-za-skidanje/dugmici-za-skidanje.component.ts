@@ -123,6 +123,80 @@ export class DugmiciZaSkidanjeComponent implements OnInit, OnDestroy {
     }
   }
 
+  kreirajJson(){
+    if (this.tipZahteva === "a") {
+      this.autorskaPravaService.kreirajJson(this.zahtevId).subscribe(
+        res => {
+          if (res) {
+            this.transformatorService.downloadDocument(res.odgovor, `zahtev-autorsko-delo-${this.zahtevId}`, 'application/json')
+          }
+        },
+        err => {
+          this.toast.error("Dokument nije moguce skinuti trenutno, pokusajte ponovo kasnije.", 'Greska')
+        }
+      );
+    } else if (this.tipZahteva === "p") {
+      this.patentService.kreirajJson(this.zahtevId).subscribe(
+        res => {
+          if (res) {
+            this.transformatorService.downloadDocument(res.odgovor, `zahtev-patent-${this.zahtevId}`, 'application/json')
+          }
+        },
+        err => {
+          this.toast.error("Dokument nije moguce skinuti trenutno, pokusajte ponovo kasnije.", 'Greska')
+        }
+      );
+    } else {
+      this.zigService.kreirajJson(this.zahtevId).subscribe(
+        res => {
+          if (res) {
+            this.transformatorService.downloadJsonRdf(res.odgovor, `zahtev-zig-${this.zahtevId}`, 'application/json')
+          }
+        },
+        err => {
+          this.toast.error("Dokument nije moguce skinuti trenutno, pokusajte ponovo kasnije.", 'Greska')
+        }
+      );
+    }
+  }
+
+  kreirajRdf(){
+    if (this.tipZahteva === "a") {
+      this.autorskaPravaService.kreirajRdf(this.zahtevId).subscribe(
+        res => {
+          if (res) {
+            this.transformatorService.downloadJsonRdf(res.odgovor, `zahtev-autorsko-delo${this.zahtevId}`, 'application/rdf')
+          }
+        },
+        err => {
+          this.toast.error("Dokument nije moguce skinuti trenutno, pokusajte ponovo kasnije.", 'Greska')
+        }
+      );
+    } else if (this.tipZahteva === "p") {
+      this.patentService.kreirajRdf(this.zahtevId).subscribe(
+        res => {
+          if (res) {
+            this.transformatorService.downloadJsonRdf(res.odgovor, `zahtev-patent-${this.zahtevId}`, 'application/rdf')
+          }
+        },
+        err => {
+          this.toast.error("Dokument nije moguce skinuti trenutno, pokusajte ponovo kasnije.", 'Greska')
+        }
+      );
+    } else {
+      this.zigService.kreirajRdf(this.zahtevId).subscribe(
+        res => {
+          if (res) {
+            this.transformatorService.downloadJsonRdf(res.odgovor, `zahtev-zig-${this.zahtevId}`, 'application/rdf')
+          }
+        },
+        err => {
+          this.toast.error("Dokument nije moguce skinuti trenutno, pokusajte ponovo kasnije.", 'Greska')
+        }
+      );
+    }
+  }
+
   ngOnDestroy(): void {
     if (this.pdfSubscription) {
       this.pdfSubscription.unsubscribe();

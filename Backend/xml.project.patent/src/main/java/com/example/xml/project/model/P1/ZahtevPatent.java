@@ -49,7 +49,7 @@ public class ZahtevPatent implements IdentifiableEntity {
     private Institucija institucija;
 
     @XmlElementWrapper(name="podaci_o_pronalasku", namespace = "http://www.patent/patent")
-    @XmlElement(name="naziv", namespace = "http://www.patent/patent")
+    @XmlElement(name="naziv_patenta", namespace = "http://www.patent/patent")
     private List<Naziv> podaci_o_pronalasku;
 
     @XmlElement(name="podnosilac", required = true, namespace = "http://www.patent/patent")

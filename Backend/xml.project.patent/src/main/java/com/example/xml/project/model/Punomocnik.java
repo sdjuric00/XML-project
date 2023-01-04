@@ -8,9 +8,9 @@ public class Punomocnik {
 
     @XmlElements(value = {
         @XmlElement(name="fizicko_lice",
-            type=FizickoLice.class, namespace = "http://ftn.ac.rs/opste"),
+            type=FizickoLice.class, namespace = "http://www.patent/patent"),
         @XmlElement(name="pravno_lice",
-            type=PravnoLice.class, namespace = "http://ftn.ac.rs/opste")
+            type=PravnoLice.class, namespace = "http://www.patent/patent")
     })
     private Object osoba;
 

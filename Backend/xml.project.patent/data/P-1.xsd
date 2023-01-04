@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
-    targetNamespace="http://www.patent/patent" xmlns:xs-opste="http://ftn.ac.rs/opste"
-    xmlns:xs-p="http://www.patent/patent">
+           targetNamespace="http://www.patent/patent" xmlns:xs-opste="http://ftn.ac.rs/opste"
+           xmlns:xs-p="http://www.patent/patent">
     <xs:import namespace="http://ftn.ac.rs/opste" schemaLocation="Opste.xsd"/>
     <xs:element name="zahtev_za_priznavanje_patenta">
     <xs:complexType>

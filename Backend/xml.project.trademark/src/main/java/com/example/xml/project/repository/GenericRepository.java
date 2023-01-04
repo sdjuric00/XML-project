@@ -41,7 +41,7 @@ public class GenericRepository<T extends IdentifiableEntity> extends BasicXMLRep
 
             if (generateId) {
                 entity.setId(generateId(col.listResources()));
-                entity.setBroj_prijave(String.format("A-%s/%s", year, entity.getId()));
+                entity.setBroj_prijave(String.format("Z-%s/%s", year, entity.getId()));
             }
 
             Marshaller marshaller = context.createMarshaller();

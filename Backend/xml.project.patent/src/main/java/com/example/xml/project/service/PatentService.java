@@ -13,11 +13,15 @@ import com.example.xml.project.model.P1.*;
 import com.example.xml.project.model.Podnosilac;
 import com.example.xml.project.model.P1.Prijava;
 import com.example.xml.project.model.P1.ZahtevPatent;
+import com.example.xml.project.rdf.PatentExtractMetadata;
 import com.example.xml.project.repository.GenericRepository;
 import com.example.xml.project.repository.PatentRepository;
 import com.example.xml.project.response.UspesnaTransformacija;
 import com.example.xml.project.transformator.Transformator;
 import com.example.xml.project.request.ParametarPretrage;
+import com.example.xml.project.util.AuthenticationUtilities;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
@@ -36,6 +40,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.xml.project.util.Constants.*;
+import static com.example.xml.project.utils.Constants.JSON_PUTANJA;
+import static com.example.xml.project.utils.Constants.RDF_PUTANJA;
 
 @Service
 public class PatentService {
@@ -46,10 +52,13 @@ public class PatentService {
     private final Marshaller marshaller;
     private final Transformator transformator;
 
+    private final PatentExtractMetadata patentExtractMetadata;
+
     public PatentService(
         @Autowired final GenericRepository<ZahtevPatent> repository,
         @Autowired final PatentRepository patentRepository,
-        @Autowired final Transformator transformator
+        @Autowired final Transformator transformator,
+        @Autowired final PatentExtractMetadata patentExtractMetadata
     ) throws JAXBException
     {
         this.transformator = transformator;
@@ -63,6 +72,7 @@ public class PatentService {
 
         this.marshaller = jaxbContext.createMarshaller();
         this.marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+        this.patentExtractMetadata = patentExtractMetadata;
     }
 
 
@@ -73,9 +83,10 @@ public class PatentService {
         marshaller.marshal(zahtevPatent, os);
     }
 
-    public void saveToDB(String zahtev) throws InvalidDocumentException {
+    public ZahtevPatent saveToDB(String zahtev) throws InvalidDocumentException {
         ZahtevPatent zahtevPatent = checkSchema(zahtev);
         repository.save(zahtevPatent, true);
+        return zahtevPatent;
     }
 
     public void saveToDBObj(ZahtevPatent zahtevPatent, boolean generisiId) throws InvalidDocumentException {
@@ -179,7 +190,7 @@ public class PatentService {
             final PunomocnikP punomocnik,
             final Dostavljanje dostavljanje,
             final List<Prijava> zahtev_za_priznanje_prava_iz_ranijih_prijava
-    ) throws InvalidDocumentException, JAXBException {
+    ) throws InvalidDocumentException, JAXBException, IOException {
         if (id == null) {
             id = "1";    //zbog check seme da validira, posle ce setovati dobar broj
         }
@@ -191,8 +202,28 @@ public class PatentService {
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         StringWriter sw = new StringWriter();
         marshaller.marshal(zahtev, sw);
+        ZahtevPatent validirano = this.saveToDB(sw.toString());
+        this.patentExtractMetadata.extract(validirano);
+    }
 
-        this.saveToDB(sw.toString());
+    public UspesnaTransformacija generisiJson(String id) throws IOException {
+        AuthenticationUtilities.ConnectionPropertiesFuseki connectionPropertiesFuseki = AuthenticationUtilities.setUpPropertiesFuseki();
+        ObjectMapper mapper = new ObjectMapper();
+        File file = new File(JSON_PUTANJA + id + ".json");
+        Object json = mapper.readValue(patentRepository.generisiJson(id, connectionPropertiesFuseki), Object.class);
+        String prettyFormat = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json);
+        System.out.println(prettyFormat);
+        mapper.writeValue(file, prettyFormat);
+        return new UspesnaTransformacija(FileUtils.readFileToByteArray(file));
+    }
+
+    public UspesnaTransformacija generisiRdf(String id) throws IOException {
+        AuthenticationUtilities.ConnectionPropertiesFuseki connectionPropertiesFuseki = AuthenticationUtilities.setUpPropertiesFuseki();
+        ObjectMapper mapper = new ObjectMapper();
+        File file = new File(RDF_PUTANJA + id + ".rdf");
+
+        mapper.writeValue(file, patentRepository.generisiRdf(id, connectionPropertiesFuseki));
+        return new UspesnaTransformacija(FileUtils.readFileToByteArray(file));
     }
 
     private ZahtevPatent checkSchema(String document) throws InvalidDocumentException {

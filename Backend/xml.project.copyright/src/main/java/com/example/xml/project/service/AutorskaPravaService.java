@@ -15,10 +15,14 @@ import com.example.xml.project.model.Institucija;
 import com.example.xml.project.model.Podnosilac;
 import com.example.xml.project.model.Prilozi;
 import com.example.xml.project.model.Punomocnik;
+import com.example.xml.project.rdf.AutorskoDeloExtractMetadata;
 import com.example.xml.project.repository.AutorskaPravaRepository;
 import com.example.xml.project.repository.GenericRepository;
 import com.example.xml.project.response.UspesnaTransformacija;
 import com.example.xml.project.request.ParametarPretrage;
+import com.example.xml.project.util.AuthenticationUtilities;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
@@ -38,6 +42,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.xml.project.util.Constants.*;
+import static com.example.xml.project.util.Constants.JSON_PUTANJA;
 import static com.example.xml.project.util.SlikeTransformator.sacuvajSliku;
 
 @Service
@@ -48,11 +53,13 @@ public class AutorskaPravaService {
     private final JAXBContext jaxbContext;
     private final Marshaller marshaller;
     private final Transformator transformator;
+    private final AutorskoDeloExtractMetadata autorskoDeloExtractMetadata;
 
     public AutorskaPravaService(
         @Autowired final GenericRepository<ZahtevAutorskaDela> repository,
         @Autowired final AutorskaPravaRepository autorskaPravaRepository,
-        @Autowired final Transformator transformator
+        @Autowired final Transformator transformator,
+        @Autowired final AutorskoDeloExtractMetadata autorskoDeloExtractMetadata
     ) throws JAXBException
     {
         this.transformator = transformator;
@@ -66,6 +73,7 @@ public class AutorskaPravaService {
 
         this.marshaller = jaxbContext.createMarshaller();
         this.marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+        this.autorskoDeloExtractMetadata = autorskoDeloExtractMetadata;
     }
 
     public UspesnaTransformacija dodajHtml(String id)
@@ -92,9 +100,10 @@ public class AutorskaPravaService {
         marshaller.marshal(zahtevAutorskaDela, os);
     }
 
-    public void saveToDB(String zahtev) throws InvalidDocumentException {
+    public ZahtevAutorskaDela saveToDB(String zahtev) throws InvalidDocumentException {
         ZahtevAutorskaDela zahtevAutorskaDela = checkSchema(zahtev);
         repository.save(zahtevAutorskaDela, true);
+        return zahtevAutorskaDela;
     }
 
     public void saveNewRequest(
@@ -109,10 +118,10 @@ public class AutorskaPravaService {
             final List<Autor> autori,
             final Prilozi prilozi
     )
-            throws JAXBException, FileNotFoundException, InvalidDocumentException, TransformationFailedException
+            throws JAXBException, IOException, InvalidDocumentException, TransformationFailedException
     {
-        String imeSlike = sacuvajSliku(prilozi.getPrimerak());
-        prilozi.setPrimerak(imeSlike);
+//        String imeSlike = sacuvajSliku(prilozi.getPrimerak());
+//        prilozi.setPrimerak(imeSlike);
         if (id == null) {
             id = "1";    //zbog check seme da validira, posle ce setovati dobar broj
         }
@@ -134,7 +143,9 @@ public class AutorskaPravaService {
         StringWriter sw = new StringWriter();
         marshaller.marshal(zahtev, sw);
 
-        this.saveToDB(sw.toString());
+        ZahtevAutorskaDela validirano = this.saveToDB(sw.toString());
+        autorskoDeloExtractMetadata.extract(validirano);
+
     }
 
     public void saveToDBObj(ZahtevAutorskaDela zahtevAutorskaDela, boolean generisiId) throws InvalidDocumentException {
@@ -170,6 +181,28 @@ public class AutorskaPravaService {
         zahteviDTO.fromZahtevi(autorskaPravaRepository.pronadjiRezultateOsnovnePretrage(parametriPretrage));
         return zahteviDTO;
     }
+
+    public UspesnaTransformacija generisiJson(String id) throws IOException {
+        AuthenticationUtilities.ConnectionPropertiesFuseki connectionPropertiesFuseki = AuthenticationUtilities.setUpPropertiesFuseki();
+        ObjectMapper mapper = new ObjectMapper();
+        File file = new File(JSON_PUTANJA + id + ".json");
+        Object json = mapper.readValue(autorskaPravaRepository.generisiJson(id, connectionPropertiesFuseki), Object.class);
+        String prettyFormat = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json);
+        System.out.println(prettyFormat);
+        mapper.writeValue(file, prettyFormat);
+        return new UspesnaTransformacija(FileUtils.readFileToByteArray(file));
+    }
+
+    public UspesnaTransformacija generisiRdf(String id) throws IOException {
+        AuthenticationUtilities.ConnectionPropertiesFuseki connectionPropertiesFuseki = AuthenticationUtilities.setUpPropertiesFuseki();
+        ObjectMapper mapper = new ObjectMapper();
+        File file = new File(RDF_PUTANJA + id + ".rdf");
+
+        mapper.writeValue(file, autorskaPravaRepository.generisiRdf(id, connectionPropertiesFuseki));
+        return new UspesnaTransformacija(FileUtils.readFileToByteArray(file));
+    }
+
+
 
     private ZahtevAutorskaDela checkSchema(String document) throws InvalidDocumentException {
         try {

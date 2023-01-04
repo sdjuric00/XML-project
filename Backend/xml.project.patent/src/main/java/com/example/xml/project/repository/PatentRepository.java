@@ -4,9 +4,16 @@ import com.example.xml.project.dto.IzvestajDTO;
 import com.example.xml.project.exception.CannotUnmarshalException;
 import com.example.xml.project.exception.XPathException;
 import com.example.xml.project.model.P1.ZahtevPatent;
+import com.example.xml.project.rdf.RdfConstants;
 import com.example.xml.project.request.ParametarPretrage;
 import com.example.xml.project.util.AuthenticationUtilities;
 import com.example.xml.project.util.XMLParser;
+import com.example.xml.project.utils.SparqlUtil;
+import org.apache.jena.query.QueryExecution;
+import org.apache.jena.query.QueryExecutionFactory;
+import org.apache.jena.query.ResultSet;
+import org.apache.jena.query.ResultSetFormatter;
+import org.apache.jena.rdf.model.Model;
 import org.exist.xmldb.EXistResource;
 import org.springframework.stereotype.Component;
 import org.xmldb.api.DatabaseManager;
@@ -19,14 +26,17 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.stream.StreamSource;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.StringReader;
 import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
 import java.util.List;
 
+import static com.example.xml.project.rdf.RdfConstants.*;
 import static com.example.xml.project.util.Constants.*;
 
 @Component
@@ -344,6 +354,36 @@ public class PatentRepository extends BasicXMLRepository {
     private boolean daLiJeOdbijenZahtev(ZahtevPatent zahtevPatent) {
 
         return zahtevPatent.isPregledano() && !zahtevPatent.isPrihvaceno();
+    }
+    public String generisiJson(String id, AuthenticationUtilities.ConnectionPropertiesFuseki connectionPropertiesFuseki) throws IOException {
+        String sparqlCondition = "VALUES ?subject { <" + RdfConstants.PATENT_NAMESPACE_PATH + id + "> }" +
+                " ?subject ?predicate ?object .";
+        String sparqlQuery = SparqlUtil.selectData(connectionPropertiesFuseki.dataEndpoint + PATENT_NAMED_GRAPH_URI, sparqlCondition);
+
+        QueryExecution query = QueryExecutionFactory.sparqlService(connectionPropertiesFuseki.queryEndpoint, sparqlQuery);
+        ResultSet results = query.execSelect();
+
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        ResultSetFormatter.outputAsJSON(byteArrayOutputStream, results);
+        String json = new String(byteArrayOutputStream.toByteArray(), StandardCharsets.UTF_8);
+        int indexOfSubStr = json.indexOf("bindings");
+        String newJson  = String.format("{\n  %s", json.substring(indexOfSubStr - 1)); // creating substring from results to end
+        byteArrayOutputStream.close();
+        query.close();
+        return newJson;
+    }
+
+    public String generisiRdf(String id, AuthenticationUtilities.ConnectionPropertiesFuseki connectionPropertiesFuseki) {
+        String sparqlCondition = " <" + PATENT_NAMESPACE_PATH + id + "> ?predicate ?object .";
+        String sparqlQuery = SparqlUtil.constructData(connectionPropertiesFuseki.dataEndpoint + PATENT_NAMED_GRAPH_URI, sparqlCondition);
+        System.out.println(sparqlQuery);
+        QueryExecution query = QueryExecutionFactory.sparqlService(connectionPropertiesFuseki.queryEndpoint, sparqlQuery);
+        Model model = query.execConstruct();
+
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        model.write(out, "N-Triples");
+
+        return out.toString();
     }
 
 }

@@ -6,7 +6,9 @@ import com.example.xml.project.exception.XPathException;
 import com.example.xml.project.model.Z1.ZahtevZig;
 import com.example.xml.project.request.ParametarPretrage;
 import com.example.xml.project.util.AuthenticationUtilities;
+import com.example.xml.project.util.SparqlUtil;
 import com.example.xml.project.util.XMLParser;
+import org.apache.jena.rdf.model.Model;
 import org.exist.xmldb.EXistResource;
 import org.springframework.stereotype.Component;
 import org.xmldb.api.DatabaseManager;
@@ -25,7 +27,11 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
+import org.apache.jena.query.*;
+import java.io.ByteArrayOutputStream;
+import java.nio.charset.StandardCharsets;
 
+import static com.example.xml.project.rdf.RdfConstants.*;
 import static com.example.xml.project.util.Constants.*;
 
 @Component
@@ -344,5 +350,36 @@ public class ZigRepository extends BasicXMLRepository {
     private boolean daLiJeOdbijenZahtev(ZahtevZig zahtevZig) {
 
         return zahtevZig.isPregledano() && !zahtevZig.isPrihvaceno();
+    }
+    public String generisiJson(String id, AuthenticationUtilities.ConnectionPropertiesFuseki connectionPropertiesFuseki) throws IOException {
+        String sparqlCondition = "VALUES ?subject { <" + ZIG_NAMESPACE_PATH + id + "> }" +
+                " ?subject ?predicate ?object .";
+        String sparqlQuery = SparqlUtil.selectData(connectionPropertiesFuseki.dataEndpoint + ZIG_NAMED_GRAPH_URI, sparqlCondition);
+
+        // Create a QueryExecution that will access a SPARQL service over HTTP
+        QueryExecution query = QueryExecutionFactory.sparqlService(connectionPropertiesFuseki.queryEndpoint, sparqlQuery);
+        ResultSet results = query.execSelect();
+
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        ResultSetFormatter.outputAsJSON(byteArrayOutputStream, results);
+        String json = new String(byteArrayOutputStream.toByteArray(), StandardCharsets.UTF_8);
+        int indexOfSubStr = json.indexOf("bindings");
+        String newJson  = String.format("{\n  %s", json.substring(indexOfSubStr - 1)); // creating substring from results to end
+        byteArrayOutputStream.close();
+        query.close();
+        return newJson;
+    }
+
+    public String generisiRdf(String id, AuthenticationUtilities.ConnectionPropertiesFuseki connectionPropertiesFuseki) {
+        String sparqlCondition = " <" + ZIG_NAMESPACE_PATH + id + "> ?predicate ?object .";
+        String sparqlQuery = SparqlUtil.constructData(connectionPropertiesFuseki.dataEndpoint + ZIG_NAMED_GRAPH_URI, sparqlCondition);
+        System.out.println(sparqlQuery);
+        QueryExecution query = QueryExecutionFactory.sparqlService(connectionPropertiesFuseki.queryEndpoint, sparqlQuery);
+        Model model = query.execConstruct();
+
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        model.write(out, "N-Triples");
+
+        return out.toString();
     }
 }

@@ -56,7 +56,7 @@ public class AutorskaPravaController {
     @PostMapping(produces = "application/xml", consumes = "application/xml")
     @ResponseStatus(HttpStatus.CREATED)
     public void saveNewRequest(@Valid @RequestBody ZahtevAutorskaDelaRequest zahtev)
-            throws InvalidDocumentException, JAXBException, FileNotFoundException, TransformationFailedException
+            throws InvalidDocumentException, JAXBException, IOException, TransformationFailedException
     {
 
         autorskaPravaService.saveNewRequest(
@@ -136,5 +136,19 @@ public class AutorskaPravaController {
     {
 
         return autorskaPravaService.dodajPdf(id);
+    }
+
+    @GetMapping(path = "/kreiraj-json/{id}", produces = "application/xml")
+    @ResponseStatus(HttpStatus.CREATED)
+    public UspesnaTransformacija createJSON(@PathVariable @Valid @NotNull(message = "Id ne sme biti prazan.") final String id) throws IOException {
+
+        return autorskaPravaService.generisiJson(id);
+    }
+
+    @GetMapping(path = "/kreiraj-rdf/{id}", produces = "application/xml")
+    @ResponseStatus(HttpStatus.CREATED)
+    public UspesnaTransformacija createRDF(@PathVariable @Valid @NotNull(message = "Id ne sme biti prazan.") final String id) throws IOException {
+
+        return autorskaPravaService.generisiRdf(id);
     }
 }

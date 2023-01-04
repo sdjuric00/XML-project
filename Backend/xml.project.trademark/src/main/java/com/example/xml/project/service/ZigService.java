@@ -14,11 +14,15 @@ import com.example.xml.project.model.Podnosilac;
 import com.example.xml.project.model.Punomocnik;
 import com.example.xml.project.model.Z1.*;
 import com.example.xml.project.model.Z1.enums.ZigEnum;
+import com.example.xml.project.rdf.ZigExtractMetadata;
 import com.example.xml.project.repository.GenericRepository;
 import com.example.xml.project.repository.ZigRepository;
 import com.example.xml.project.request.ParametarPretrage;
 import com.example.xml.project.response.UspesnaTransformacija;
 import com.example.xml.project.transformator.Transformator;
+import com.example.xml.project.util.AuthenticationUtilities;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
@@ -47,10 +51,13 @@ public class ZigService {
     private final Marshaller marshaller;
     private final Transformator transformator;
 
+    private final ZigExtractMetadata zigExtractMetadata;
+
     public ZigService (
         @Autowired final GenericRepository<ZahtevZig> repository,
         @Autowired final ZigRepository zigRepository,
-        @Autowired final Transformator transformator
+        @Autowired final Transformator transformator,
+        @Autowired final ZigExtractMetadata zigExtractMetadata
     ) throws JAXBException
     {
         this.transformator = transformator;
@@ -61,6 +68,7 @@ public class ZigService {
             COLLECTION_ID_ZIG_DB
         );
         this.zigRepository = zigRepository;
+        this.zigExtractMetadata = zigExtractMetadata;
 
         this.marshaller = jaxbContext.createMarshaller();
         this.marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
@@ -74,9 +82,10 @@ public class ZigService {
         marshaller.marshal(zahtevAutorskaDela, os);
     }
 
-    public void saveToDB(String zahtev) throws InvalidDocumentException {
+    public ZahtevZig saveToDB(String zahtev) throws InvalidDocumentException {
         ZahtevZig zahtevZig = checkSchema(zahtev);
         repository.save(zahtevZig, true);
+        return zahtevZig;
     }
 
     public void saveToDBObj(ZahtevZig zahtevZig, boolean generisiId) throws InvalidDocumentException {
@@ -143,6 +152,26 @@ public class ZigService {
         return new UspesnaTransformacija(this.transformator.generatePdf(htmlPutanja, pdfPutanja));
     }
 
+    public UspesnaTransformacija generisiJson(String id) throws IOException {
+        AuthenticationUtilities.ConnectionPropertiesFuseki connectionPropertiesFuseki = AuthenticationUtilities.setUpPropertiesFuseki();
+        ObjectMapper mapper = new ObjectMapper();
+        File file = new File(JSON_PUTANJA + id + ".json");
+        Object json = mapper.readValue(zigRepository.generisiJson(id, connectionPropertiesFuseki), Object.class);
+        String prettyFormat = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json);
+        System.out.println(prettyFormat);
+        mapper.writeValue(file, prettyFormat);
+        return new UspesnaTransformacija(FileUtils.readFileToByteArray(file));
+    }
+
+    public UspesnaTransformacija generisiRdf(String id) throws IOException {
+        AuthenticationUtilities.ConnectionPropertiesFuseki connectionPropertiesFuseki = AuthenticationUtilities.setUpPropertiesFuseki();
+        ObjectMapper mapper = new ObjectMapper();
+        File file = new File(RDF_PUTANJA + id + ".rdf");
+
+        mapper.writeValue(file, zigRepository.generisiRdf(id, connectionPropertiesFuseki));
+        return new UspesnaTransformacija(FileUtils.readFileToByteArray(file));
+    }
+
     public void saveNewRequest(
             String id,
             final String broj_prijave,
@@ -157,7 +186,7 @@ public class ZigService {
             final PravoPrvenstva pravo_prvenstva,
             PlaceneTakse placene_takse,
             Prilozi prilozi
-    ) throws JAXBException, InvalidDocumentException, TransformationFailedException {
+    ) throws JAXBException, InvalidDocumentException, TransformationFailedException, IOException {
         prilozi = sacuvajSlike(prilozi);
         placene_takse = izracunajTakse(placene_takse, nicanska_klasifikacija.size());
         if (id == null) {
@@ -171,7 +200,8 @@ public class ZigService {
         StringWriter sw = new StringWriter();
         marshaller.marshal(zahtev, sw);
 
-        this.saveToDB(sw.toString());
+        ZahtevZig validirano = this.saveToDB(sw.toString());
+        this.zigExtractMetadata.extract(validirano);
     }
 
     private PlaceneTakse izracunajTakse(PlaceneTakse placeneTakse, int brojKlasa) {
@@ -220,5 +250,6 @@ public class ZigService {
             throw new InvalidDocumentException();
         }
     }
+
 
 }

@@ -224,5 +224,43 @@ export class PatentApplicationService {
     }));
   }
 
+  kreirajJson(zahtevId: string){
+    return this._http.get(`${this._api_url}/patent/kreiraj-json/${zahtevId}`, {
+      headers: new HttpHeaders().set('Accept' , 'application/xml'),
+      responseType:"text"
+    }
+  ).pipe(map(result=>{
+    result = result.replaceAll('ns2:', '');
+    result = result.replaceAll('ns3:', '');
+    result = result.replaceAll('ns4:', '');
+    const parser = new xml2js.Parser({ strict: true, trim: true });
+    let zahtev: UspesnaTransformacija;
+    parser.parseString(result.toString(),(err, result) => {
+      console.log(result)
+      zahtev = napraviUspesnuTransformaciju(result.uspesnaTransformacija);
+    });
+    return zahtev;
+  }));
+  }
+
+  kreirajRdf(zahtevId: string){
+    return this._http.get(`${this._api_url}/patent/kreiraj-rdf/${zahtevId}`, {
+      headers: new HttpHeaders().set('Accept' , 'application/xml'),
+      responseType:"text"
+    }
+  ).pipe(map(result=>{
+    result = result.replaceAll('ns2:', '');
+    result = result.replaceAll('ns3:', '');
+    result = result.replaceAll('ns4:', '');
+    const parser = new xml2js.Parser({ strict: true, trim: true });
+    let zahtev: UspesnaTransformacija;
+    parser.parseString(result.toString(),(err, result) => {
+      console.log(result)
+      zahtev = napraviUspesnuTransformaciju(result.uspesnaTransformacija);
+    });
+    return zahtev;
+  }));
+  }
+
 
 }
