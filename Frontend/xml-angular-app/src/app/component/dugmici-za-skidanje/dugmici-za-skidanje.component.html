@@ -1,7 +1,7 @@
 <button mat-button [matMenuTriggerFor]="preuzmiIzbor" style="margin-left:5rem;">Preuzmi <mat-icon>file_download</mat-icon></button>
-<mat-menu #preuzmiIzbor="matMenu">
-  <button mat-menu-item (click)="kreirajPDF()">Kao PDF</button>
-  <button mat-menu-item (click)="kreirajHTML()">Kao HTML</button>
-  <button mat-menu-item (click)="kreirajRdf()">Kao RDF</button>
-  <button mat-menu-item (click)="kreirajJson()">Kao JSON</button>
+<mat-menu #preuzmiIzbor="matMenu" class="mat-menu-panel">
+  <button mat-menu-item class="btn-panel" (click)="kreirajPDF()">Kao PDF</button>
+  <button mat-menu-item class="btn-panel" (click)="kreirajHTML()">Kao HTML</button>
+  <button mat-menu-item class="btn-panel" (click)="kreirajRdf()">Kao RDF</button>
+  <button mat-menu-item class="btn-panel" (click)="kreirajJson()">Kao JSON</button>
 </mat-menu>

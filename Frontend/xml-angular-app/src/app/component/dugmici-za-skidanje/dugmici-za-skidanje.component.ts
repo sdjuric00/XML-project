@@ -12,7 +12,7 @@ import { ZigService } from 'src/app/service/zig.service';
 @Component({
   selector: 'app-dugmici-za-skidanje',
   templateUrl: './dugmici-za-skidanje.component.html',
-  styleUrls: ['./dugmici-za-skidanje.component.css']
+  styleUrls: ['./dugmici-za-skidanje.component.scss']
 })
 export class DugmiciZaSkidanjeComponent implements OnInit, OnDestroy {
 
