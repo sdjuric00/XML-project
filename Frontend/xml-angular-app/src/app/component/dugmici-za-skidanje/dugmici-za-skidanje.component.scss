@@ -6,11 +6,25 @@
     justify-content: center;
 }
 
+::ng-deep {
+    .mat-menu-panel.mat-menu-panel {
+        width: 12rem;
+    }
+}
+
 button {
     margin: 2rem 1rem 2rem;
     background-color: var(--green);
     color: var(--deep-blue);
     font-weight: bold;
+}
+
+.btn-panel {
+    width: 10rem;
+}
+
+.btn-panel:hover {
+    background-color: white;
 }
 
 a {
