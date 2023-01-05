@@ -23,6 +23,10 @@ button {
     width: 10rem;
 }
 
+.btn-panel:hover {
+    background-color: white;
+}
+
 a {
     text-decoration: none;
     color: var(--deep-blue);
