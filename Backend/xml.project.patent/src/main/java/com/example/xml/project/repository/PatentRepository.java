@@ -5,15 +5,14 @@ import com.example.xml.project.exception.CannotUnmarshalException;
 import com.example.xml.project.exception.XPathException;
 import com.example.xml.project.model.P1.ZahtevPatent;
 import com.example.xml.project.rdf.RdfConstants;
+import com.example.xml.project.request.ParNaprednaPretraga;
 import com.example.xml.project.request.ParametarPretrage;
 import com.example.xml.project.util.AuthenticationUtilities;
 import com.example.xml.project.util.XMLParser;
 import com.example.xml.project.utils.SparqlUtil;
-import org.apache.jena.query.QueryExecution;
-import org.apache.jena.query.QueryExecutionFactory;
-import org.apache.jena.query.ResultSet;
-import org.apache.jena.query.ResultSetFormatter;
+import org.apache.jena.query.*;
 import org.apache.jena.rdf.model.Model;
+import org.apache.jena.rdf.model.RDFNode;
 import org.exist.xmldb.EXistResource;
 import org.springframework.stereotype.Component;
 import org.xmldb.api.DatabaseManager;
@@ -33,6 +32,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -385,5 +386,78 @@ public class PatentRepository extends BasicXMLRepository {
 
         return out.toString();
     }
+
+    public List<ZahtevPatent> pronadjiRezultateNaprednePretrage(List<ParNaprednaPretraga> parametri) throws CannotUnmarshalException, XPathException {
+        AuthenticationUtilities.ConnectionPropertiesFuseki conn = AuthenticationUtilities.setUpPropertiesFuseki();
+
+        StringBuilder sparqlQuery = new StringBuilder("SELECT * FROM <http://localhost:3030/PatentDataset/data/patent/metadata> WHERE {");
+        for(ParNaprednaPretraga par : parametri){
+            String naziv = par.getNaziv_elementa();
+            sparqlQuery.append(String.format("?patent <http://www.patent.com/predicate/%s> ?%s . ", naziv, naziv));
+        }
+        sparqlQuery.append("FILTER(");
+        for(int i=0;i<parametri.size();i++) {
+            String naziv = parametri.get(i).getNaziv_elementa();
+            String vrednost = parametri.get(i).getVrednost();
+            String operator = getOperator(parametri.get(i).getOperator());
+
+            if(operator.equals("!")){
+                sparqlQuery.append(String.format("!CONTAINS(?%s,'%s')", naziv, vrednost));
+            }
+            else if(i == parametri.size() - 1){
+                sparqlQuery.append(String.format("CONTAINS(?%s,'%s')", naziv, vrednost));
+            }
+            else{
+                sparqlQuery.append(String.format("CONTAINS(?%s,'%s') %s ", naziv, vrednost, operator));
+            }
+        }
+        sparqlQuery.append(")}");
+        System.out.println(sparqlQuery);
+        QueryExecution query = QueryExecutionFactory.sparqlService(conn.queryEndpoint, sparqlQuery.toString());
+        ResultSet results = query.execSelect();
+        String varName;
+        RDFNode varValue;
+        List<ZahtevPatent> zahtevi = new ArrayList<>();
+        while(results.hasNext()) {
+            // A single answer from a SELECT sparqlQuery
+            QuerySolution querySolution = results.next();
+
+            Iterator<String> variableBindings = querySolution.varNames();
+            // Retrieve variable bindings
+            while (variableBindings.hasNext()) {
+                varName = variableBindings.next();
+                varValue = querySolution.get(varName);
+                System.out.println(varName);
+                if(varName.equals("patent")){
+                    varValue = querySolution.get(varName);
+                    String[] splitted = varValue.toString().split(".com/");
+                    String idZahteva = splitted[1];
+                    ZahtevPatent zahtev = uzmiZahtev(idZahteva);
+                    zahtevi.add(zahtev);
+                }
+            }
+        }
+
+        return zahtevi;
+    }
+
+    private String getOperator(String operator){
+        System.out.println(operator);
+        String operatorZnak = "";
+        switch (operator) {
+            case "I":
+                operatorZnak = "&&";
+                break;
+            case "ILI":
+                operatorZnak = "||";
+                break;
+            case "NE":
+                operatorZnak = "!";
+                break;
+        }
+        System.out.println(operatorZnak);
+        return operatorZnak;
+    }
+
 
 }

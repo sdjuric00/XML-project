@@ -19,6 +19,8 @@ import { napraviUspesnuTransformaciju, UspesnaTransformacija } from '../model/op
 import { PlaceneTakse } from '../model/zig/xml/placene-takse';
 import { napraviPlacenuTaksu, TaksaObj } from '../model/zig/obj/taksa';
 
+import { NaprednaPretraga } from '../model/pretraga/napredna-pretraga';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -258,6 +260,36 @@ export class ZigService {
     return zahtev;
   }));
   }
+
+  naprednaPretraga(napredna_pretraga: NaprednaPretraga){
+    const headers = new HttpHeaders({ "Content-Type": "application/xml"}).set("Accept", "application/xml");
+    let queryParams = {};
+    queryParams = {
+      headers: headers,
+      responseType: "text"
+    };
+    var o2x = require('object-to-xml');
+    return this._http.post(
+      `${this._api_url}/zig/napredna-pretraga`,
+      o2x(napredna_pretraga),
+      queryParams
+    ).pipe(map((result:string)=>{
+      console.log(result);
+      result = result.replaceAll('ns2:','')
+      result = result.replaceAll('ns3:', '');
+      const parser = new xml2js.Parser({ strict: true, trim: true });
+      let listaZahteva: ZahtevZigOsnovneInformacije[] = [];
+      parser.parseString(result.toString(),(err, result) => {
+        console.log(result);
+        if (result?.zahtevi?.lista_zahteva_z[0]?.zahtev_za_priznanje_ziga){
+          result.zahtevi.lista_zahteva_z[0].zahtev_za_priznanje_ziga.forEach(zahtev =>
+            listaZahteva.push(napraviZahtevZigOsnovneInformacije(zahtev))
+          );
+        }
+      })
+      return listaZahteva;
+  }))}
+
 
 }
 

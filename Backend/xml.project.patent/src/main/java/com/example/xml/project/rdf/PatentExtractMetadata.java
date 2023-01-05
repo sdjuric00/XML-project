@@ -40,11 +40,11 @@ public class PatentExtractMetadata extends ExtractMetadata {
         Literal broj_prijave_lit = model.createLiteral(zahtevPatent.getBroj_prijave());
         model.add(model.createStatement(resource, broj_prijave, broj_prijave_lit));
 
-        Property naziv_srpski = model.createProperty(PREDICATE_NAMESPACE, "naziv_srpski");
+        Property naziv_srpski = model.createProperty(PREDICATE_NAMESPACE, "naziv_patenta_srpski");
         Literal naziv_srpski_lit = model.createLiteral(zahtevPatent.getPodaci_o_pronalasku().get(0).getNaziv_patenta());
         model.add(model.createStatement(resource, naziv_srpski, naziv_srpski_lit));
 
-        Property naziv_engleski = model.createProperty(PREDICATE_NAMESPACE, "naziv_engleski");
+        Property naziv_engleski = model.createProperty(PREDICATE_NAMESPACE, "naziv_patenta_engleski");
         Literal naziv_engleski_lit = model.createLiteral(zahtevPatent.getPodaci_o_pronalasku().get(0).getNaziv_patenta());
         model.add(model.createStatement(resource, naziv_engleski, naziv_engleski_lit));
 
@@ -67,8 +67,7 @@ public class PatentExtractMetadata extends ExtractMetadata {
         List<Prijava> ranije_prijave = zahtevPatent.getZahtev_za_priznanje_prava_iz_ranijih_prijava();
         if (ranije_prijave.size() != 0) {
             for (int i = 0; i < ranije_prijave.size(); i++) {
-                String str = "ranija_prijava" + i;
-                Property broj_ranije_prijave = model.createProperty(PREDICATE_NAMESPACE, str);
+                Property broj_ranije_prijave = model.createProperty(PREDICATE_NAMESPACE, "broj_ranije_prijave");
                 Literal broj_ranije_prijave_lit = model.createLiteral(ranije_prijave.get(i).getBroj_ranije_prijave());
                 model.add(model.createStatement(resource, broj_ranije_prijave, broj_ranije_prijave_lit));
             }

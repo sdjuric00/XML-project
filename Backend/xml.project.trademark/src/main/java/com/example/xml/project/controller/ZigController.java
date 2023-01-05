@@ -10,6 +10,7 @@ import com.example.xml.project.exception.InvalidDocumentException;
 import com.example.xml.project.exception.XPathException;
 import com.example.xml.project.exception.TransformationFailedException;
 import com.example.xml.project.model.Z1.ZahtevZig;
+import com.example.xml.project.request.NaprednaPretragaRequest;
 import com.example.xml.project.request.OpsegDatumaRequest;
 import com.example.xml.project.request.PretragaRequest;
 import com.example.xml.project.request.ZigRequest;
@@ -164,8 +165,8 @@ public class ZigController {
         return zigService.generisiRdf(id);
     }
 
-//    @PostMapping(path="/napredna-pretraga")
-//    public ZahteviZigDTO naprednaPretraga(@RequestBody NaprednaPretragaRequest pretragaRequest) throws Exception {
-//        return zigService.pronadjiRezultateOsnovnePretrage(pretragaRequest.getParametriPretrage());
-//    }
+    @PostMapping(path="/napredna-pretraga")
+    public ZahteviZigDTO naprednaPretraga(@RequestBody NaprednaPretragaRequest pretragaRequest) throws Exception {
+        return zigService.pronadjiRezultateNaprednePretrage(pretragaRequest.getParametriPretrage());
+    }
 }

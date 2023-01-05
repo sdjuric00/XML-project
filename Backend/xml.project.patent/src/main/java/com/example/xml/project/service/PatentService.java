@@ -16,6 +16,7 @@ import com.example.xml.project.model.P1.ZahtevPatent;
 import com.example.xml.project.rdf.PatentExtractMetadata;
 import com.example.xml.project.repository.GenericRepository;
 import com.example.xml.project.repository.PatentRepository;
+import com.example.xml.project.request.ParNaprednaPretraga;
 import com.example.xml.project.response.UspesnaTransformacija;
 import com.example.xml.project.transformator.Transformator;
 import com.example.xml.project.request.ParametarPretrage;
@@ -224,6 +225,12 @@ public class PatentService {
 
         mapper.writeValue(file, patentRepository.generisiRdf(id, connectionPropertiesFuseki));
         return new UspesnaTransformacija(FileUtils.readFileToByteArray(file));
+    }
+
+    public ZahteviPatentiDTO pronadjiRezultateNaprednePretrage(List<ParNaprednaPretraga> parametriPretrage) throws Exception {
+        ZahteviPatentiDTO zahteviDTO = new ZahteviPatentiDTO();
+        zahteviDTO.fromZahtevi(patentRepository.pronadjiRezultateNaprednePretrage(parametriPretrage));
+        return zahteviDTO;
     }
 
     private ZahtevPatent checkSchema(String document) throws InvalidDocumentException {

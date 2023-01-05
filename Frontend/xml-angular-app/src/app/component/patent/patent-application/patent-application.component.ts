@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { TmplAstRecursiveVisitor } from '@angular/compiler';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Adresa } from 'src/app/model/opste/adresa/xml/adresa';
 import { FizickoLice } from 'src/app/model/opste/fizicko-lice';
@@ -28,7 +29,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./patent-application.component.css']
 })
 export class PatentApplicationComponent {
-  constructor(private formBuilder: FormBuilder, private patentService: PatentApplicationService, private datePipe: DatePipe, private toast: ToastrService) {}
+  constructor(private formBuilder: FormBuilder, private patentService: PatentApplicationService, private datePipe: DatePipe, private toast: ToastrService, private router: Router) {}
 
   nazivFormGroup = this.formBuilder.group({
     nazivSrpskiCtrl: new FormControl('', [Validators.required]),
@@ -326,6 +327,10 @@ export class PatentApplicationComponent {
       prijave.prijava.push(prijava)
     })
     return prijave;
+  }
+
+  richEditKomponenta(){
+    this.router.navigate(['rich-edit']);
   }
 
   kreirajZahtevPatent(){

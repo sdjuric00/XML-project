@@ -1,26 +1,32 @@
 <form [formGroup]="naprednaPretragaForm">
-<div>
-    <h2 style="text-align:center">Pretraga po metapodacima</h2>
-    <div style="display: flex; flex-direction: row; margin-top:3rem; float:left; margin-left:2rem;">
-        <div style="margin-right:3rem;">
-            <mat-form-field class="example-form-field" appearance="fill">
-                <mat-label>Element</mat-label>
-                <input matInput type="text" placeholder="Unesite naziv elementa" formControlName="naziv">
-            </mat-form-field><br><br>
-            <button mat-raised-button style=" width:12rem;" (click)="dodajNovuVrednost()">Dodaj novu vrednost</button><br><br>
-            <button mat-raised-button style=" width:12rem;" (click)="pretrazi()">Pretrazi</button>
-        </div>
+  <h2 style="text-align:center">Pretraga po metapodacima</h2>
+<div style="margin-top:3rem; float:left; margin-left:2rem">
+  <div style="display: flex; flex-direction: row; margin-left:8rem;">
+    <button mat-raised-button style=" width:15rem;" (click)="dodajNovuVrednost()">Dodaj novi metapodatak</button><br><br>
+    <button mat-raised-button style=" width:15rem;margin-left:2rem;" (click)="pretrazi()">Pretrazi</button>
+    </div><br><br>
+    <div style="display: flex; flex-direction: row;">
+  
         <div  formArrayName="vrednosti">
             <div *ngFor="let vred of vrednosti;let i =index;">
                 <div [formGroupName]="i" style="display: flex; flex-direction: row; ">
+                  <mat-form-field class="example-form-field" appearance="fill" style="margin-right:1rem; width:20rem;">
+                    <mat-label>Naziv elementa</mat-label>
+                    <input matInput type="text" placeholder="Izaberite naziv elementa" formControlName="naziv" [matAutocomplete]="auto">
+                    <mat-autocomplete #auto="matAutocomplete">
+                        <mat-option *ngFor="let naziv of nazivi" [value]="naziv">
+                          {{naziv}}
+                        </mat-option>
+                      </mat-autocomplete>
+                </mat-form-field>
                     <mat-form-field class="example-form-field" appearance="fill" style="margin-right:1rem;">
                         <mat-label>Vrednost</mat-label>
                         <input matInput type="text" placeholder="Unesite vrednost elementa" formControlName="vrednost">
                     </mat-form-field>
                     <mat-form-field class="example-form-field" appearance="fill">
                         <mat-label>Operator</mat-label>
-                        <input matInput type="text" placeholder="Izaberite operator" formControlName="operator" [matAutocomplete]="auto">
-                        <mat-autocomplete #auto="matAutocomplete">
+                        <input matInput type="text" placeholder="Izaberite operator" formControlName="operator" [matAutocomplete]="auto1">
+                        <mat-autocomplete #auto1="matAutocomplete">
                             <mat-option *ngFor="let opcija of operatori" [value]="opcija">
                               {{opcija}}
                             </mat-option>
@@ -29,9 +35,12 @@
                 </div>
             </div>
         </div>
+       
     </div>
+  
+       </div>  
 
-    <div style="float:right; margin-right:10rem;border: 1px lightgrey solid; padding:2rem; border-radius:1rem;" *ngIf="prikaziPatente || prikaziAutorskaPrava || prikaziZigove">
+    <div style="float:right; margin-top: 7rem;margin-right:10rem;border: 1px lightgrey solid; padding:2rem; border-radius:1rem;" *ngIf="prikaziPatente || prikaziAutorskaPrava || prikaziZigove">
         <div *ngIf="prikaziPatente">
           <p style="color:var(--green);text-align: center;">ZAHTEVI ZA PRIZNAVANJE PATENTA</p>
           <div *ngFor="let zahtev of listaZahtevaPatenti" class="form-container mat-elevation-z2">
@@ -57,5 +66,4 @@
           </div>
         </div>
         </div>
-</div>
 </form>

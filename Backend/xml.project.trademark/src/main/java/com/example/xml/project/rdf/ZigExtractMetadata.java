@@ -52,8 +52,7 @@ public class ZigExtractMetadata extends ExtractMetadata {
 
         List<Podnosilac> podnosioci = zahtevZig.getPodnosioci();
         for(int i=0;i<podnosioci.size();i++){
-            String str = "podnosilac_email_"+i;
-            Property podnosilac_email = model.createProperty(PREDICATE_NAMESPACE, str);
+            Property podnosilac_email = model.createProperty(PREDICATE_NAMESPACE, "podnosilac_email");
             Osoba podnosilac = (Osoba) podnosioci.get(i).getOsoba();
             Literal podnosilac_email_lit = model.createLiteral(podnosilac.getKontakt().getEmail());
             model.add(model.createStatement(resource, podnosilac_email, podnosilac_email_lit));

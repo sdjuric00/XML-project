@@ -12,6 +12,7 @@ import com.example.xml.project.exception.TransformationFailedException;
 
 import com.example.xml.project.model.A1.ZahtevAutorskaDela;
 import com.example.xml.project.request.OpsegDatumaRequest;
+import com.example.xml.project.request.NaprednaPretragaRequest;
 import com.example.xml.project.request.ZahtevAutorskaDelaRequest;
 import com.example.xml.project.request.PretragaRequest;
 import com.example.xml.project.service.AutorskaPravaService;
@@ -150,5 +151,10 @@ public class AutorskaPravaController {
     public UspesnaTransformacija createRDF(@PathVariable @Valid @NotNull(message = "Id ne sme biti prazan.") final String id) throws IOException {
 
         return autorskaPravaService.generisiRdf(id);
+    }
+
+    @PostMapping(path="/napredna-pretraga")
+    public ZahteviAutorskaDelaDTO naprednaPretraga(@RequestBody NaprednaPretragaRequest pretragaRequest) throws Exception {
+        return autorskaPravaService.pronadjiRezultateNaprednePretrage(pretragaRequest.getParametriPretrage());
     }
 }
