@@ -15,6 +15,7 @@ import com.example.xml.project.model.Z1.enums.ZigEnum;
 import com.example.xml.project.rdf.ZigExtractMetadata;
 import com.example.xml.project.repository.GenericRepository;
 import com.example.xml.project.repository.ZigRepository;
+import com.example.xml.project.request.ParNaprednaPretraga;
 import com.example.xml.project.request.ParametarPretrage;
 import com.example.xml.project.response.UspesnaTransformacija;
 import com.example.xml.project.transformator.Transformator;
@@ -128,6 +129,12 @@ public class ZigService {
         return zahteviDTO;
     }
 
+    public ZahteviZigDTO pronadjiRezultateNaprednePretrage(List<ParNaprednaPretraga> parametriPretrage) throws Exception {
+        ZahteviZigDTO zahteviDTO = new ZahteviZigDTO();
+        zahteviDTO.fromZahtevi(zigRepository.pronadjiRezultateNaprednePretrage(parametriPretrage));
+        return zahteviDTO;
+    }
+
     public UspesnaTransformacija dodajPdf(String id) throws JAXBException, EntityNotFoundException,
             IOException, TransformationFailedException {
         String pdfPutanja = PDF_PUTANJA + id + ".pdf";
@@ -172,7 +179,7 @@ public class ZigService {
             PlaceneTakse placene_takse,
             Prilozi prilozi
     ) throws JAXBException, InvalidDocumentException, TransformationFailedException, IOException {
-        prilozi = sacuvajSlike(prilozi);
+//        prilozi = sacuvajSlike(prilozi);
         placene_takse = izracunajTakse(placene_takse, nicanska_klasifikacija.size());
         if (id == null) {
             id = "1";    //zbog check seme da validira, posle ce setovati dobar broj

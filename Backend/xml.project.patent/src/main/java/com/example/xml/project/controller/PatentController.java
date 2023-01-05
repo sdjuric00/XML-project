@@ -9,6 +9,7 @@ import com.example.xml.project.exception.XPathException;
 import com.example.xml.project.exception.TransformationFailedException;
 import com.example.xml.project.model.P1.ZahtevPatent;
 import com.example.xml.project.rdf.MetadataExtractor;
+import com.example.xml.project.request.NaprednaPretragaRequest;
 import com.example.xml.project.request.ZahtevPatentRequest;
 import com.example.xml.project.request.PretragaRequest;
 import com.example.xml.project.response.UspesnaTransformacija;
@@ -163,5 +164,10 @@ public class PatentController {
     public UspesnaTransformacija createRDF(@PathVariable @Valid @NotNull(message = "Id ne sme biti prazan.") final String id) throws IOException {
 
         return patentService.generisiRdf(id);
+    }
+
+    @PostMapping(path="/napredna-pretraga")
+    public ZahteviPatentiDTO naprednaPretraga(@RequestBody NaprednaPretragaRequest pretragaRequest) throws Exception {
+        return patentService.pronadjiRezultateNaprednePretrage(pretragaRequest.getParametriPretrage());
     }
 }

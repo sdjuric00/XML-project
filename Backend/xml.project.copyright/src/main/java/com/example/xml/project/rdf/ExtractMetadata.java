@@ -19,11 +19,12 @@ import org.apache.jena.update.UpdateRequest;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+import static com.example.xml.project.rdf.RdfConstants.PREDICATE_NAMESPACE;
+
 
 public abstract class ExtractMetadata {
 
     protected AuthenticationUtilities.ConnectionPropertiesFuseki connectionProperties;
-    static final String PREDICATE_NAMESPACE = "http://www.patent.com/predicate/";
 
     public ExtractMetadata(AuthenticationUtilities.ConnectionPropertiesFuseki connectionProperties){
         this.connectionProperties = connectionProperties;

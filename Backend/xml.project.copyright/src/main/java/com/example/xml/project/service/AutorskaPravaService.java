@@ -17,6 +17,7 @@ import com.example.xml.project.model.Punomocnik;
 import com.example.xml.project.rdf.AutorskoDeloExtractMetadata;
 import com.example.xml.project.repository.AutorskaPravaRepository;
 import com.example.xml.project.repository.GenericRepository;
+import com.example.xml.project.request.ParNaprednaPretraga;
 import com.example.xml.project.response.UspesnaTransformacija;
 import com.example.xml.project.request.ParametarPretrage;
 import com.example.xml.project.util.AuthenticationUtilities;
@@ -189,6 +190,12 @@ public class AutorskaPravaService {
 
         mapper.writeValue(file, autorskaPravaRepository.generisiRdf(id, connectionPropertiesFuseki));
         return new UspesnaTransformacija(FileUtils.readFileToByteArray(file));
+    }
+
+    public ZahteviAutorskaDelaDTO pronadjiRezultateNaprednePretrage(List<ParNaprednaPretraga> parametriPretrage) throws Exception {
+        ZahteviAutorskaDelaDTO zahteviDTO = new ZahteviAutorskaDelaDTO();
+        zahteviDTO.fromZahtevi(autorskaPravaRepository.pronadjiRezultateNaprednePretrage(parametriPretrage));
+        return zahteviDTO;
     }
 
 

@@ -16,6 +16,7 @@ import { OsnovnaPretraga } from '../model/pretraga/osnovna-pretraga';
 import * as JsonToXML from "js2xmlparser";
 import { ToastrService } from 'ngx-toastr';
 import { napraviUspesnuTransformaciju, UspesnaTransformacija } from '../model/opste/uspesna-transformacija';
+import { NaprednaPretraga } from '../model/pretraga/napredna-pretraga';
 
 @Injectable({
   providedIn: 'root'
@@ -261,6 +262,36 @@ export class PatentApplicationService {
     return zahtev;
   }));
   }
+
+  naprednaPretraga(napredna_pretraga: NaprednaPretraga){
+    const headers = new HttpHeaders({ "Content-Type": "application/xml"}).set("Accept", "application/xml");
+    let queryParams = {};
+    queryParams = {
+      headers: headers,
+      responseType: "text"
+    };
+    var o2x = require('object-to-xml');
+    console.log(o2x(napredna_pretraga));
+    return this._http.post(
+      `${this._api_url}/patent/napredna-pretraga`,
+      o2x(napredna_pretraga),
+      queryParams
+    ).pipe(map((result:string)=>{
+      console.log(result);
+      result = result.replaceAll('ns2:','')
+      result = result.replaceAll('ns3:', '');
+      const parser = new xml2js.Parser({ strict: true, trim: true });
+      let listaZahteva: ZahtevPatentOsnovneInformacije[] = [];
+      parser.parseString(result.toString(),(err, result) => {
+        console.log(result);
+        if (result?.zahtevi?.lista_zahteva_p[0]?.zahtev_za_priznavanje_patenta) {
+          result.zahtevi.lista_zahteva_p[0].zahtev_za_priznavanje_patenta.forEach(zahtev =>
+            listaZahteva.push(napraviZahtevPatentOsnovneInformacije(zahtev))
+          );
+        }
+      })
+      return listaZahteva;
+  }))}
 
 
 }

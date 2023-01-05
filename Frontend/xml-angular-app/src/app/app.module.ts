@@ -65,7 +65,6 @@ import { DugmiciZaSkidanjeComponent } from './component/dugmici-za-skidanje/dugm
 import { HomePageComponent } from './component/home-page/home-page.component';
 import {OdbijZahtevComponent} from "./component/odbij-zahtev/odbij-zahtev.component";
 import { NaprednaPretragaComponent } from './component/napredna-pretraga/napredna-pretraga.component';
-import { NaprednaPretragaPoljaComponent } from './component/napredna-pretraga-polja/napredna-pretraga-polja.component';
 import { RichEditKomponentaComponent } from './component/patent/rich-edit-komponenta/rich-edit-komponenta.component';
 
 @NgModule({
@@ -123,7 +122,6 @@ import { RichEditKomponentaComponent } from './component/patent/rich-edit-kompon
     HomePageComponent,
     OdbijZahtevComponent,
     NaprednaPretragaComponent,
-    NaprednaPretragaPoljaComponent,
     RichEditKomponentaComponent
   ],
   imports: [

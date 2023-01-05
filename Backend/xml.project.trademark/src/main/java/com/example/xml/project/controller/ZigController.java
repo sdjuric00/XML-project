@@ -142,8 +142,8 @@ public class ZigController {
         return zigService.generisiRdf(id);
     }
 
-//    @PostMapping(path="/napredna-pretraga")
-//    public ZahteviZigDTO naprednaPretraga(@RequestBody NaprednaPretragaRequest pretragaRequest) throws Exception {
-//        return zigService.pronadjiRezultateOsnovnePretrage(pretragaRequest.getParametriPretrage());
-//    }
+    @PostMapping(path="/napredna-pretraga")
+    public ZahteviZigDTO naprednaPretraga(@RequestBody NaprednaPretragaRequest pretragaRequest) throws Exception {
+        return zigService.pronadjiRezultateNaprednePretrage(pretragaRequest.getParametriPretrage());
+    }
 }
