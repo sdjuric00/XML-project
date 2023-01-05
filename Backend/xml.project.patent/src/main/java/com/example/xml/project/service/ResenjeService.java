@@ -3,11 +3,15 @@ package com.example.xml.project.service;
 import com.example.xml.project.dto.ResenjeDTO;
 import com.example.xml.project.exception.CannotUnmarshalException;
 import com.example.xml.project.exception.InvalidDocumentException;
+import com.example.xml.project.exception.TransformationFailedException;
 import com.example.xml.project.exception.XPathException;
 import com.example.xml.project.model.P1.ZahtevPatent;
 import com.example.xml.project.model.resenje.Resenje;
 import com.example.xml.project.repository.GenericRepository;
 import com.example.xml.project.repository.ResenjeRepository;
+import com.example.xml.project.response.UspesnaTransformacija;
+import com.example.xml.project.transformator.Transformator;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
@@ -21,13 +25,13 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import java.io.File;
+import java.io.IOException;
 import java.io.StringReader;
 import java.time.LocalDate;
 
 import static com.example.xml.project.model.resenje.Resenje.napraviResenjeZaOdbijanjeZahteva;
 import static com.example.xml.project.model.resenje.Resenje.napraviResenjeZaPrihvatanjeZahteva;
-import static com.example.xml.project.util.Constants.COLLECTION_ID_RESENJE_PATENTI_DB;
-import static com.example.xml.project.util.Constants.RESENJE_SCHEMA;
+import static com.example.xml.project.util.Constants.*;
 
 @Service
 public class ResenjeService {
@@ -37,12 +41,15 @@ public class ResenjeService {
     private final JAXBContext jaxbContext;
     private final Marshaller marshaller;
     private final PatentService patentService;
+    private final Transformator transformator;
 
     public ResenjeService(
         @Autowired final GenericRepository<Resenje> repository,
         @Autowired final ResenjeRepository resenjeRepository,
-        @Autowired final PatentService patentService
+        @Autowired final PatentService patentService,
+        @Autowired final Transformator transformator
     ) throws JAXBException {
+        this.transformator = transformator;
         this.resenjeRepository = resenjeRepository;
         this.patentService = patentService;
         this.jaxbContext = JAXBContext.newInstance(Resenje.class);
@@ -94,6 +101,39 @@ public class ResenjeService {
     public ResenjeDTO uzmi(String id) throws CannotUnmarshalException, XPathException {
 
         return new ResenjeDTO(resenjeRepository.uzmi(id));
+    }
+
+    public Resenje uzmiResenjeModel(String id) throws CannotUnmarshalException, XPathException {
+
+        return resenjeRepository.uzmi(id);
+    }
+
+    public UspesnaTransformacija dodajResenjeHtml(String id)
+            throws TransformationFailedException, IOException, CannotUnmarshalException, XPathException
+    {
+        String htmlPutanja = HTML_PUTANJA + "resenje-" + id + ".html";
+
+        return new UspesnaTransformacija(this.transformator.generisiResenjeHTML(htmlPutanja, uzmiResenjeModel(id)));
+    }
+
+    public UspesnaTransformacija procitajPdf(final String id)
+            throws CannotUnmarshalException, TransformationFailedException, XPathException, IOException
+    {
+        String putanja = this.dodajResenjePdf(id);
+        File fajl = new File(putanja);
+
+        return new UspesnaTransformacija(FileUtils.readFileToByteArray(fajl));
+    }
+
+    public String dodajResenjePdf(final String id)
+            throws IOException, CannotUnmarshalException, TransformationFailedException, XPathException
+    {
+        String pdfPutanja = PDF_PUTANJA + "resenje-" + id + ".pdf";
+        String htmlPutanja = HTML_PUTANJA + "resenje-" + id + ".html";
+        this.dodajResenjeHtml(id);
+        this.transformator.generatePdf(htmlPutanja, pdfPutanja);
+
+        return pdfPutanja;
     }
 
     private Resenje checkSchema(String document) throws InvalidDocumentException {

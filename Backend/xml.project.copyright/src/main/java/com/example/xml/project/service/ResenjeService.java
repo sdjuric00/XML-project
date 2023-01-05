@@ -9,6 +9,7 @@ import com.example.xml.project.repository.GenericRepository;
 import com.example.xml.project.repository.ResenjeRepository;
 import com.example.xml.project.response.UspesnaTransformacija;
 import com.example.xml.project.transformator.Transformator;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
@@ -112,7 +113,16 @@ public class ResenjeService {
         return new UspesnaTransformacija(this.transformator.generisiResenjeHTML(htmlPutanja, uzmiResenjeModel(id)));
     }
 
-    public String dodajResenjePdf(String id)
+    public UspesnaTransformacija procitajPdf(final String id)
+            throws CannotUnmarshalException, TransformationFailedException, XPathException, IOException
+    {
+        String putanja = this.dodajResenjePdf(id);
+        File fajl = new File(putanja);
+
+        return new UspesnaTransformacija(FileUtils.readFileToByteArray(fajl));
+    }
+
+    public String dodajResenjePdf(final String id)
             throws IOException, CannotUnmarshalException, TransformationFailedException, XPathException
     {
         String pdfPutanja = PDF_PUTANJA + "resenje-" + id + ".pdf";

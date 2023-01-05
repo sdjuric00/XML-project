@@ -1,12 +1,10 @@
 package com.example.xml.project.controller;
 
 import com.example.xml.project.dto.ResenjeDTO;
-import com.example.xml.project.exception.CannotUnmarshalException;
-import com.example.xml.project.exception.InvalidDocumentException;
-import com.example.xml.project.exception.TransformationFailedException;
-import com.example.xml.project.exception.XPathException;
+import com.example.xml.project.exception.*;
 import com.example.xml.project.request.ResenjeOdbijanjeRequest;
 import com.example.xml.project.request.ResenjePrihvatanjeRequest;
+import com.example.xml.project.response.UspesnaTransformacija;
 import com.example.xml.project.service.ResenjeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.xml.bind.JAXBException;
 import java.io.IOException;
 
 @RestController
@@ -63,6 +63,22 @@ public class ResenjeController {
     ) throws CannotUnmarshalException, XPathException {
 
         return resenjeService.uzmi(id);
+    }
+
+    @GetMapping(path = "/kreiraj-html/{id}", produces = "application/xml")
+    @ResponseStatus(HttpStatus.CREATED)
+    public UspesnaTransformacija createHTML(@PathVariable @Valid @NotNull(message = "Id ne sme biti prazan.") final String id)
+            throws TransformationFailedException, IOException, CannotUnmarshalException, XPathException {
+
+        return resenjeService.dodajResenjeHtml(id);
+    }
+
+    @GetMapping(path = "/kreiraj-pdf/{id}", produces = "application/xml")
+    @ResponseStatus(HttpStatus.CREATED)
+    public UspesnaTransformacija createPDF(@PathVariable @Valid @NotNull(message = "Id ne sme biti prazan.") final String id)
+            throws IOException, CannotUnmarshalException, TransformationFailedException, XPathException {
+
+        return resenjeService.procitajPdf(id);
     }
 }
 

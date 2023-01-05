@@ -2,6 +2,7 @@ package com.example.xml.project.transformator;
 
 import com.example.xml.project.exception.TransformationFailedException;
 import com.example.xml.project.model.Z1.ZahtevZig;
+import com.example.xml.project.model.Z1.resenje.Resenje;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
@@ -26,8 +27,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import static com.example.xml.project.util.Constants.TARGET_QR_CODE_FILE_PATH;
-import static com.example.xml.project.util.Constants.XSL_PUTANJA;
+import static com.example.xml.project.util.Constants.*;
 
 @Component
 public class Transformator {
@@ -50,10 +50,11 @@ public class Transformator {
         transformerFactory = TransformerFactory.newInstance();
     }
 
-    public void createQrCode(final String qrUrl, final String id) throws WriterException, IOException {
+    public void createQrCode(final String qrUrl, final String id, final boolean jeResenje) throws WriterException, IOException {
+        String putanja = jeResenje ? TARGET_QR_CODE_RESENJE_PATH : TARGET_QR_CODE_FILE_PATH;
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
         BitMatrix bitMatrix = qrCodeWriter.encode(qrUrl, BarcodeFormat.QR_CODE, W, H);
-        FileOutputStream outputStream = new FileOutputStream(TARGET_QR_CODE_FILE_PATH + id + ".png");
+        FileOutputStream outputStream = new FileOutputStream(putanja + id + ".png");
         MatrixToImageWriter.writeToStream(bitMatrix,"png", outputStream);
     }
 
@@ -74,12 +75,36 @@ public class Transformator {
             throws TransformationFailedException, IOException {
         File fajl;
         try {
-            createQrCode(qrUrl, zahtev.getId());
+            createQrCode(qrUrl, zahtev.getId(), false);
             StreamSource transformSource = new StreamSource(new File(XSL_PUTANJA));
             Transformer transformer = transformerFactory.newTransformer(transformSource);
 
             //JAXBContext context = JAXBContext.newInstance(ZahtevZig.class);
             JAXBContext jc = JAXBContext.newInstance(ZahtevZig.class);
+            JAXBSource source = new JAXBSource(jc, zahtev);
+            System.out.println("Source" + source);
+            StreamResult result = new StreamResult(new FileOutputStream(htmlPutanja));
+
+            transformer.transform(source, result);
+
+            fajl = new File(htmlPutanja);
+
+        } catch (Exception e) {
+            throw new TransformationFailedException("Creation of html failed. Try again late.");
+        }
+
+        return FileUtils.readFileToByteArray(fajl);
+    }
+
+    public byte[] generisiResenjeHTML(final String htmlPutanja, final Resenje zahtev, String qrUrl)
+            throws TransformationFailedException, IOException {
+        File fajl;
+        try {
+            createQrCode(qrUrl, zahtev.getId(), true);
+            StreamSource transformSource = new StreamSource(new File(XSL_RESENJE_PUTANJA));
+            Transformer transformer = transformerFactory.newTransformer(transformSource);
+
+            JAXBContext jc = JAXBContext.newInstance(Resenje.class);
             JAXBSource source = new JAXBSource(jc, zahtev);
             System.out.println("Source" + source);
             StreamResult result = new StreamResult(new FileOutputStream(htmlPutanja));

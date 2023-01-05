@@ -15,6 +15,7 @@ public class Constants {
     public static final String PDF_PUTANJA = "src/main/webapp/pdf/";
     public static final String PHOTOS_FILE_PATH = "src/main/webapp/images/";
     public static final String TARGET_PHOTO_FILE_PATH = "./src/main/webapp/images/";
+    public static final String XSL_RESENJE_PUTANJA = "./data/resenje.xsl";
 
     public static final String XSL_PUTANJA = "./data/p1.xsl";
     public static final String COLLECTION_ID_RESENJE_PATENTI_DB = "db/xml/patenti/resenja";
