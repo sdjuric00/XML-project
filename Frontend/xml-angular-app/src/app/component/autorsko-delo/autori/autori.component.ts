@@ -14,7 +14,6 @@ export class AutoriComponent implements OnInit {
   constructor(private controlContainer: ControlContainer) {
     this.autoriFormGroup = <FormGroup>this.controlContainer.control;
   }
-  autori: Autor[] = [];
 
   ngOnInit(): void {
     this.autoriFormGroup = <FormGroup>this.controlContainer.control;
@@ -57,26 +56,26 @@ export class AutoriComponent implements OnInit {
   }
 
   izbrisiAutora(autor: any) {
-    const autori:Autor[] = this.autoriFormGroup.get('autori')?.value as Autor[];
-    const index = autori?.indexOf(autor);
+    let autori:Autor[] = this.autoriFormGroup.get('autori')?.value;
+    const index = autori.indexOf(autor);
 
     if (index >= 0) {
       autori.splice(index, 1);
-      this.autori = autori;
     }
+
+    this.autoriFormGroup.get('autori')?.setValue(autori);
   }
 
-  addAutor(autor: Autor) {
-    this.autori.push(autor);
-  }
+  // addAutor(autor: Autor) {
+  //   this.autori.push(autor);
+  // }
 
   dodajAnonimnogAutora() {
     const autor: Autor = {
       ime: ''
     }
-    const autori:Autor[] = this.autoriFormGroup.get('autori')?.value as Autor[];
+    let autori:Autor[] = this.autoriFormGroup.get('autori')?.value;
     autori.push(autor);
     this.autoriFormGroup.get('autori')?.setValue(autori);
-    this.autori.push(autor);
   }
 }

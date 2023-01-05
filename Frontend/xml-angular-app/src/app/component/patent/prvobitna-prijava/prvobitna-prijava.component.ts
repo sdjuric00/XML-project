@@ -25,8 +25,7 @@ export class PrvobitnaPrijavaComponent {
       broj_ranije_prijave: this.prijaveFormGroup.get('brojPrijave').value,
       dvoslovna_oznaka_drzave: this.prijaveFormGroup.get('oznakaDrzave').value
     }
-    const prijave: Prijava[] = this.prijaveFormGroup.get('prijave').value;
-    this.dodataPrijava.emit(prijava);
+    let prijave: Prijava[] = this.prijaveFormGroup.get('prijave').value;
     prijave.push(prijava);
     this.prijaveFormGroup.get('prijave').setValue(prijave);
     this.prijaveFormGroup.get('datumPrijave').setValue('');

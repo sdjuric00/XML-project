@@ -8,10 +8,10 @@ import {
 } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Observable, Subscription } from 'rxjs';
-import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import {AutentifikacijaService} from "../../service/autentifikacija.service";
 import {KorisnikXML} from "../../model/korisnik/xml/KorisnikXML";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-registracija',
@@ -116,7 +116,8 @@ export class RegistracijaComponent implements OnInit, OnDestroy {
           lozinka: obj.lozinka,
           potvrdna_lozinka: obj.ponovljenaLozinka,
           tip_naloga: obj.tipNalogaFormControl,
-        }}
+        } 
+      }
 
       this.registrationSubscription = this.autentifikacijaService
         .registracija(korisnikXML)
@@ -131,6 +132,8 @@ export class RegistracijaComponent implements OnInit, OnDestroy {
           error => this.toast.error(error.error, 'Neuspešna registracija')
         );
 
+    } else {
+      this.toast.error("Popunite formu ispravnim podacima.", 'Neuspešna registracija')
     }
   }
 

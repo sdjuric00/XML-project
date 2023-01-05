@@ -22,6 +22,10 @@ export class PronalazacComponent implements OnInit{
   }
   changeRadioButton(lice: string):void {
     this.pronalazac = lice;
+    if (lice === 'Anoniman') {
+      this.pronalazacFormGroup.get('ime')?.setValue(null);
+      this.pronalazacFormGroup.get('naziv')?.setValue(null);
+    }
     console.log(this.pronalazac);
     
   }

@@ -1,6 +1,7 @@
 package com.example.xml.project.service;
 
 import com.example.xml.project.dto.IzvestajDTO;
+import com.example.xml.project.dto.ResenjeDTO;
 import com.example.xml.project.dto.ZahtevPatentDetaljneInformacijeDTO;
 import com.example.xml.project.dto.ZahteviPatentiDTO;
 import com.example.xml.project.exception.CannotUnmarshalException;
@@ -177,7 +178,7 @@ public class PatentService {
 
     }
 
-    public void saveNewRequest(
+    public String saveNewRequest(
             String id,
             final String broj_prijave,
             final LocalDate datum_prijema,
@@ -205,6 +206,8 @@ public class PatentService {
         marshaller.marshal(zahtev, sw);
         ZahtevPatent validirano = this.saveToDB(sw.toString());
         this.patentExtractMetadata.extract(validirano);
+
+        return validirano.getId();
     }
 
     public UspesnaTransformacija generisiJson(String id) throws IOException {
@@ -233,6 +236,13 @@ public class PatentService {
         return zahteviDTO;
     }
 
+    public String uzmiIdPoBrojuPrijave(final String brojPrijave)
+            throws CannotUnmarshalException, XPathException
+    {
+
+        return patentRepository.uzmiIdPoBrojuPrijave(brojPrijave);
+    }
+
     private ZahtevPatent checkSchema(String document) throws InvalidDocumentException {
         try {
             System.out.println(document);
@@ -250,4 +260,5 @@ public class PatentService {
             throw new InvalidDocumentException();
         }
     }
+
 }

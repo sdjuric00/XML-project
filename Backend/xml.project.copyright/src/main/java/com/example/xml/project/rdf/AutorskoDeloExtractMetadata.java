@@ -72,7 +72,7 @@ public class AutorskoDeloExtractMetadata extends ExtractMetadata {
         Literal vrsta_dela_lit = model.createLiteral(zahtevAutorskaDela.getAutorsko_delo().getVrsta_autorskog_dela().getVrsta().toString());
         model.add(model.createStatement(resource, vrsta_dela, vrsta_dela_lit));
 
-        if (!zahtevAutorskaDela.getAutorsko_delo().getPodaci_o_naslovu_prerada().getNaslov().equals((""))) {
+        if (zahtevAutorskaDela.getAutorsko_delo().getPodaci_o_naslovu_prerada() != null && !zahtevAutorskaDela.getAutorsko_delo().getPodaci_o_naslovu_prerada().getNaslov().equals((""))) {
             Property naslov_prerada = model.createProperty(PREDICATE_NAMESPACE, "autorsko_delo_naslov_prerada");
             Literal naslov_prerada_lit = model.createLiteral(zahtevAutorskaDela.getAutorsko_delo().getPodaci_o_naslovu_prerada().getNaslov());
             model.add(model.createStatement(resource, naslov_prerada, naslov_prerada_lit));

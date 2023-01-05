@@ -56,10 +56,10 @@ public class ZigController {
 
     @PostMapping(produces = "application/xml", consumes = "application/xml")
     @ResponseStatus(HttpStatus.CREATED)
-    public void saveNewRequest(@Valid @RequestBody ZigRequest zahtev)
+    public String saveNewRequest(@Valid @RequestBody ZigRequest zahtev)
             throws InvalidDocumentException, JAXBException, TransformationFailedException, IOException {
 
-        zigService.saveNewRequest(
+        return zigService.saveNewRequest(
                 zahtev.getId(),
                 zahtev.getBroj_prijave(),
                 zahtev.getDatum_podnosenja(),

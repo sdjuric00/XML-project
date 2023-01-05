@@ -27,7 +27,11 @@ export interface ZahtevZigDetaljneInformacije {
 }
 
 export function napraviZahtevZigDetaljneInformacije(zahtevJson): ZahtevZigDetaljneInformacije{
-
+  let podaciOZajednickomPredstavniku: PunomocnikObj = null;
+  if (zahtevJson.podaci_o_zajednickom_predstavniku) {
+    podaciOZajednickomPredstavniku = napraviPunomocnika(zahtevJson.podaci_o_zajednickom_predstavniku[0]);
+  }
+  
   return {
     id: zahtevJson.id[0],
     referenca_na_resenje: zahtevJson.referenca_na_resenje[0],
@@ -36,7 +40,7 @@ export function napraviZahtevZigDetaljneInformacije(zahtevJson): ZahtevZigDetalj
     institucija: napraviInstituciju(zahtevJson.institucija[0]),
     nicanska_klasifikacija: napraviListuNicanskihKlasifikacija(zahtevJson.nicanska_klasifikacija),
     placene_takse: napraviPlacenuTaksu(zahtevJson.placene_takse[0]),
-    podaci_o_zajednickom_predstavniku: napraviPunomocnika(zahtevJson.podaci_o_zajednickom_predstavniku[0]),
+    podaci_o_zajednickom_predstavniku: podaciOZajednickomPredstavniku,
     podnosioci: napraviListuPodnosilaca(zahtevJson.podnosioci),
     pravo_prvenstva: napraviPravoPrvenstva(zahtevJson.pravo_prvenstva[0]),
     pregledano: zahtevJson.pregledano[0] === 'true',

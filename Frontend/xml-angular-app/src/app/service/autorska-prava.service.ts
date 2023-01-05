@@ -17,13 +17,18 @@ import { napraviUspesnuTransformaciju, UspesnaTransformacija } from '../model/op
 import { OsnovnaPretraga } from '../model/pretraga/osnovna-pretraga';
 import * as JsonToXML from "js2xmlparser";
 import { NaprednaPretraga } from '../model/pretraga/napredna-pretraga';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AutorskaPravaService {
   private _api_url:string = environment.autorskaPravaUrl;
-  constructor(private _http: HttpClient,private _toast: ToastrService) { }
+  constructor(
+    private _http: HttpClient,
+    private _toast: ToastrService,
+    private _router: Router
+    ) { }
 
   create(zahtevZaAutorskoPravo: ZahtevAutorskoPravoXml){
     console.log("fafsfaf");
@@ -37,14 +42,15 @@ export class AutorskaPravaService {
       observe: "response",
       responseType: "text"
     };
-    const toast: ToastrService = this._toast;
+    const that = this;
     this._http.post(`${this._api_url}/autorska-prava`, o2x(zahtevZaAutorskoPravo), queryParams).subscribe(
       {
         next(response): void {
-          toast.success('Uspešno ste poslali zahtev za unosenje u evidenciju i deponovanje autorskih dela', 'Uspešno slanje');
+          that._toast.success('Uspešno ste poslali zahtev za unosenje u evidenciju i deponovanje autorskih dela', 'Uspešno slanje');
+          that._router.navigate([`/zahtev-autorsko-pravo/obrada/${response["body"]}`]);
         },
         error(): void {
-          toast.error('Desila se greška prilikom slanja zahteva!', 'Greška');
+          that._toast.error('Desila se greška prilikom slanja zahteva!', 'Greška');
         },
       });
   }

@@ -25,6 +25,14 @@ export class PatentApplicationService {
   private _api_url:string = environment.patentUrl;
   constructor(private _http: HttpClient,private _toast: ToastrService) { }
 
+  dobaviIdPoBrojuPrijave(brojPrijave: string) {
+    console.log(brojPrijave)
+    return this._http.get(`${this._api_url}/patent/broj-prijave/${brojPrijave}`, {
+      headers: new HttpHeaders(),
+      responseType:"text"
+    }
+  )}
+
   create(zahtevPatent: Patent, convert: boolean) {
     let headers = new HttpHeaders({ "Content-Type": "application/xml"});
     console.log(zahtevPatent);
@@ -39,6 +47,7 @@ export class PatentApplicationService {
     if(convert){
       return this._http.post(`${this._api_url}/patent`, o2x(zahtevPatent), queryParams);
     }
+    
     return this._http.post(`${this._api_url}/patent`, zahtevPatent, queryParams);
   }
 
@@ -291,7 +300,7 @@ export class PatentApplicationService {
         }
       })
       return listaZahteva;
-  }))}
-
+  }))
+  }
 
 }

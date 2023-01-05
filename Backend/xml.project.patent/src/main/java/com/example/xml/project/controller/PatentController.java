@@ -1,6 +1,7 @@
 package com.example.xml.project.controller;
 
 import com.example.xml.project.dto.IzvestajDTO;
+import com.example.xml.project.dto.ResenjeDTO;
 import com.example.xml.project.dto.ZahtevPatentDetaljneInformacijeDTO;
 import com.example.xml.project.dto.ZahteviPatentiDTO;
 import com.example.xml.project.exception.CannotUnmarshalException;
@@ -60,12 +61,22 @@ public class PatentController {
         return patentService.get(documentId);
     }
 
+    @GetMapping(path="/broj-prijave/{brojPrijave}/{idPrijave}", produces = "application/xml")
+    @ResponseStatus(HttpStatus.OK)
+    public String uzmiPoBrojuPrijave(
+            @PathVariable @Valid @NotBlank(message = "Broj prijave je neophodan.") final String brojPrijave,
+            @PathVariable @Valid @NotBlank(message = "Id prijave je neophodan.") final String idPrijave
+    ) throws CannotUnmarshalException, XPathException {
+
+        return patentService.uzmiIdPoBrojuPrijave(brojPrijave + "/" + idPrijave);
+    }
+
     @PostMapping(produces = "application/xml", consumes = "application/xml")
     @ResponseStatus(HttpStatus.CREATED)
-    public void saveNewRequest(@Valid @RequestBody ZahtevPatentRequest zahtev)
+    public String saveNewRequest(@Valid @RequestBody ZahtevPatentRequest zahtev)
             throws InvalidDocumentException, JAXBException, IOException {
 
-        patentService.saveNewRequest(
+        return patentService.saveNewRequest(
                 zahtev.getId(),
                 zahtev.getBroj_prijave(),
                 zahtev.getDatum_prijema(),

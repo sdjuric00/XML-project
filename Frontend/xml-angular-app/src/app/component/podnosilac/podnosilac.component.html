@@ -36,10 +36,10 @@
 <div style="display: flex; margin-right:0.2rem; margin-top:0.5rem; margin-bottom: 0.5rem" *ngIf="btnNazad">
   <button style="margin-left:84%" class="previous-button" mat-raised-button matStepperPrevious>Nazad</button>
 <!--    [disabled]="autori.length === 0"-->
-  <button style="margin-left:1rem" class="next-button" mat-raised-button matStepperNext [disabled]="podnosilacFormGroup.invalid">Dalje</button>
+  <button *ngIf="!isTrademark" style="margin-left:1rem" class="next-button" mat-raised-button matStepperNext [disabled]="podnosilacFormGroup.invalid">Dalje</button>
 </div>
 <div *ngIf="!btnNazad && isTrademark">
-    <button style="margin-left:84%" class="next-button" [disabled]="(podnosilacFormGroup.invalid && !proveriPodnosioce())" (click)="dodajSvePodnosioce()" mat-raised-button matStepperNext>Dalje</button>
+    <button style="margin-left:84%" class="next-button" [disabled]="podnosioci.length < 1" mat-raised-button matStepperNext>Dalje</button>
   </div>
 <div *ngIf="!btnNazad && !isTrademark">
   <button style="margin-left:84%" class="next-button" [disabled]="podnosilacFormGroup.invalid" mat-raised-button matStepperNext>Dalje</button>

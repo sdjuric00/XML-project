@@ -186,7 +186,7 @@
           <tr *ngFor="let prijava of zahtev.zahtev_za_priznanje_prava_iz_ranijih_prijava; let i=index">
             <td><b>{{i + 1}}.</b></td>
             <td>{{prijava.datum_podnosenja_prijave | date: 'dd.MM.yyyy.'}}</td>
-            <td><a [href]="idiNaRefZahtev(zahtev.broj_prijave)"> {{prijava.broj_ranije_prijave}}</a></td>
+            <td><a class="link" (click)="idiNaRefZahtev(prijava.broj_ranije_prijave)"> {{prijava.broj_ranije_prijave}}</a></td>
             <td>{{prijava.dvoslovna_oznaka_drzave.toUpperCase()}}</td>
           </tr>
         </table>
