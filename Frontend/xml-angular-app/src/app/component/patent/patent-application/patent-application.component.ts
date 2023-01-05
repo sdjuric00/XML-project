@@ -29,7 +29,13 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./patent-application.component.css']
 })
 export class PatentApplicationComponent {
-  constructor(private formBuilder: FormBuilder, private patentService: PatentApplicationService, private datePipe: DatePipe, private toast: ToastrService, private router: Router) {}
+  constructor(
+    private formBuilder: FormBuilder, 
+    private patentService: PatentApplicationService, 
+    private datePipe: DatePipe, 
+    private toast: ToastrService, 
+    private router: Router
+    ) {}
 
   nazivFormGroup = this.formBuilder.group({
     nazivSrpskiCtrl: new FormControl('', [Validators.required]),
@@ -119,15 +125,12 @@ export class PatentApplicationComponent {
 
   getPodaciOPronalasku(): PodaciOPronalasku{
 
-    let podaci: PodaciOPronalasku = {naziv: []};
-    let nazivi: Naziv[] = [];
+    let podaci: PodaciOPronalasku = {naziv_patenta: []};
 
     let nazivSrpski:Naziv = {
         "@": {jezik: "srpski"},
         "#": this.nazivFormGroup.get('nazivSrpskiCtrl').value
     };
-
-    nazivi.push(nazivSrpski);
 
     let nazivEngleski:Naziv = {
 
@@ -136,9 +139,8 @@ export class PatentApplicationComponent {
 
     };
 
-    nazivi.push(nazivEngleski);
-    podaci.naziv = nazivi;
-
+    podaci.naziv_patenta.push(nazivSrpski);
+    podaci.naziv_patenta.push(nazivEngleski)
 
     return podaci;
 
@@ -336,13 +338,14 @@ export class PatentApplicationComponent {
   kreirajZahtevPatent(){
 
     let patent = this.getPatent();
-    const _toast: ToastrService = this.toast;
+    const that = this;
     this.patentService.create(patent, true).subscribe({
       next(response) {
-        _toast.success('Uspešno ste poslali zahtev za priznavanje patenta.', 'Uspešno slanje');
+        that.toast.success('Uspešno ste poslali zahtev za priznavanje patenta.', 'Uspešno slanje');
+        that.router.navigate([`/zahtev-patent/obrada/${response["body"]}`]);
       },
       error(): void {
-        _toast.error('Desila se greška prilikom slanja zahteva!', 'Greška');
+       that.toast.error('Desila se greška prilikom slanja zahteva!', 'Greška');
       },
     });
 

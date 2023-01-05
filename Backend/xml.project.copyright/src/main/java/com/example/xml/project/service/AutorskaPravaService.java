@@ -107,7 +107,7 @@ public class AutorskaPravaService {
         return zahtevAutorskaDela;
     }
 
-    public void saveNewRequest(
+    public String saveNewRequest(
             String id,
             final String broj_prijave,
             final LocalDate datum_podnosenja,
@@ -121,8 +121,8 @@ public class AutorskaPravaService {
     )
             throws JAXBException, IOException, InvalidDocumentException, TransformationFailedException
     {
-//        String imeSlike = sacuvajSliku(prilozi.getPrimerak());
-//        prilozi.setPrimerak(imeSlike);
+        String imeSlike = sacuvajSliku(prilozi.getPrimerak());
+        prilozi.setPrimerak(imeSlike);
         if (id == null) {
             id = "1";    //zbog check seme da validira, posle ce setovati dobar broj
         }
@@ -147,6 +147,7 @@ public class AutorskaPravaService {
         ZahtevAutorskaDela validirano = this.saveToDB(sw.toString());
         autorskoDeloExtractMetadata.extract(validirano);
 
+        return validirano.getId();
     }
 
     public void saveToDBObj(ZahtevAutorskaDela zahtevAutorskaDela, boolean generisiId) throws InvalidDocumentException {

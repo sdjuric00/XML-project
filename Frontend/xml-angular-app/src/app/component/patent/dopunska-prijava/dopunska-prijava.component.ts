@@ -14,7 +14,6 @@ export class DopunskaPrijavaComponent implements OnInit{
   constructor(private controlContainer: ControlContainer) {
     this.prijaveFormGroup = <FormGroup>this.controlContainer.control;
   }
-  prijave: Prijava[] = [];
 
   ngOnInit(): void {
     this.prijaveFormGroup = <FormGroup>this.controlContainer.control;
@@ -29,14 +28,11 @@ export class DopunskaPrijavaComponent implements OnInit{
     }
   }
 
-  dodajPrijavu(prijava: Prijava){
-    this.prijave.push(prijava);
-    console.log(this.prijave);
-  }
+  izbrisiPrijavu(prijava: Prijava){    
+    let prijave: Prijava[] = this.prijaveFormGroup.get('prijave').value;
+    prijave.splice(prijave.indexOf(prijava),1);
 
-  izbrisiPrijavu(prijava: Prijava){
-    this.prijave.splice(this.prijave.indexOf(prijava),1);
-    console.log(this.prijave);
+    this.prijaveFormGroup.get('prijave').setValue(prijave);
   }
 
   kreirajZahtev(){

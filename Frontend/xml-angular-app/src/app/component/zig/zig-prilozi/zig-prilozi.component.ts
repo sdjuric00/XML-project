@@ -48,8 +48,10 @@ export class ZigPriloziComponent implements OnInit {
       this.takseIPriloziFormGroup.get('punomocjePutanja').setValue('');
       this.punomocjePutanja = '';
     } else {
-      this.takseIPriloziFormGroup.get('punomocjePutanja').setValidators([]);
+      this.takseIPriloziFormGroup.get('punomocjePutanja').setErrors(null);
+      this.takseIPriloziFormGroup.get('punomocjePutanja').setValidators(null);
     }
+    this.takseIPriloziFormGroup.get('punomocjePutanja').updateValueAndValidity();
   }
 
   changeToNaknadnoDostavljeno(): void {
@@ -61,8 +63,10 @@ export class ZigPriloziComponent implements OnInit {
       this.takseIPriloziFormGroup.get('punomocjePutanja').setValue('');
       this.punomocjePutanja = '';
     } else {
-      this.takseIPriloziFormGroup.get('punomocjePutanja').setValidators([]);
+      this.takseIPriloziFormGroup.get('punomocjePutanja').setErrors(null);
+      this.takseIPriloziFormGroup.get('punomocjePutanja').setValidators(null);
     }
+    this.takseIPriloziFormGroup.get('punomocjePutanja').updateValueAndValidity();
   }
 
   getPravoPrvenstva(): boolean {

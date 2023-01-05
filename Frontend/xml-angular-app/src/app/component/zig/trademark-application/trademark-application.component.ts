@@ -18,6 +18,7 @@ import { environment } from 'src/environments/environment';
 import { DatePipe } from '@angular/common';
 import { ZigService } from 'src/app/service/zig.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-zig-application',
@@ -118,7 +119,8 @@ export class TrademarkApplicationComponent implements OnInit {
     private http: HttpClient, 
     private _datePipe: DatePipe,
     private zigService: ZigService,
-    private _toast: ToastrService
+    private _toast: ToastrService,
+    private _router: Router
   ) { }
 
   ngOnInit(): void {
@@ -267,7 +269,7 @@ export class TrademarkApplicationComponent implements OnInit {
   }
 
   getPunomocnik(): PunomocnikIPredstavnikZ {
-    if(this.punomocnikFormGroup.get('ime')?.value !== ""){
+    if(this.punomocnikFormGroup.get('ime')?.value !== "" && this.punomocnikFormGroup.get('ime')?.value !== null){
 
       return {
         "opste:fizicko_lice": {
@@ -483,13 +485,15 @@ export class TrademarkApplicationComponent implements OnInit {
   }
 
   sendTrademark(){
+    const that = this;
     this.zigService.create(this.getTrademark()).subscribe(
       {
         next(response): void {
-          this._toast.success('Uspešno ste poslali zahtev za krerianje ziga', 'Uspešno slanje');
+          that._toast.success('Uspešno ste poslali zahtev za krerianje ziga', 'Uspešno slanje');
+          that._router.navigate([`/zahtev-zig/obrada/${response["body"]}`]);
         },
         error(): void {
-          this._toast.error('Desila se greška prilikom slanja zahteva!', 'Greška');
+          that._toast.error('Desila se greška prilikom slanja zahteva!', 'Greška');
         },
       });
   }

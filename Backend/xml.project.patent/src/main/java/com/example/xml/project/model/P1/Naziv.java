@@ -3,7 +3,7 @@ package com.example.xml.project.model.P1;
 import javax.xml.bind.annotation.*;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name="nazivi",
+@XmlType(name="naziv_patenta",
         namespace = "http://www.patent/patent"
 )
 public class Naziv {

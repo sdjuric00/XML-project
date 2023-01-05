@@ -1,7 +1,7 @@
 <div style="padding:2rem">
   <app-zaglavlje obrazac="P-1"></app-zaglavlje><br>
   <button mat-stroked-button target="_blank" style="color:var(--green);" (click)="richEditKomponenta()">Kreiraj zahtev rich edit komponentom</button>
-  <mat-stepper labelPosition="bottom" #stepper style="margin-top: 2rem;">
+  <mat-stepper labelPosition="bottom" #stepper style="margin-top: 2rem;" linear="true">
     <mat-step [stepControl]="nazivFormGroup">
       <form [formGroup]="nazivFormGroup" class="stepper-container">
         <ng-template matStepLabel>Podaci o pronalasku</ng-template>

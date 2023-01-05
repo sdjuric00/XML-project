@@ -1,5 +1,5 @@
 import { Naziv } from "./naziv";
 
 export interface PodaciOPronalasku{
-   naziv: Naziv[];
+   naziv_patenta: Naziv[];
 }

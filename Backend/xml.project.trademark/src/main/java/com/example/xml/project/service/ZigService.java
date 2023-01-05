@@ -179,7 +179,7 @@ public class ZigService {
         return new UspesnaTransformacija(FileUtils.readFileToByteArray(file));
     }
 
-    public void saveNewRequest(
+    public String saveNewRequest(
             String id,
             final String broj_prijave,
             final LocalDate datum_podnosenja,
@@ -194,7 +194,7 @@ public class ZigService {
             PlaceneTakse placene_takse,
             Prilozi prilozi
     ) throws JAXBException, InvalidDocumentException, TransformationFailedException, IOException {
-//        prilozi = sacuvajSlike(prilozi);
+        prilozi = sacuvajSlike(prilozi);
         placene_takse = izracunajTakse(placene_takse, nicanska_klasifikacija.size());
         if (id == null) {
             id = "1";    //zbog check seme da validira, posle ce setovati dobar broj
@@ -209,6 +209,8 @@ public class ZigService {
 
         ZahtevZig validirano = this.saveToDB(sw.toString());
         this.zigExtractMetadata.extract(validirano);
+
+        return validirano.getId();
     }
 
     private PlaceneTakse izracunajTakse(PlaceneTakse placeneTakse, int brojKlasa) {

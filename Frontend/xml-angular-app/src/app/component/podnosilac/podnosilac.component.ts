@@ -94,6 +94,7 @@ export class PodnosilacComponent implements OnInit {
     this.podnosilacFormGroup.markAsPristine();
     this.podnosilacFormGroup.markAsUntouched();
     this.podnosioci.push(podnosilac);
+    this.podnosilacFormGroup.get("podnosioci").setValue(this.podnosioci);
 
     if (this.podnosioci.length > 1) {
       this.podnosilacFormGroup.get('podaciOZajednickomPredstavniku').setValidators([Validators.required]);
@@ -101,15 +102,12 @@ export class PodnosilacComponent implements OnInit {
   }
 
   proveriPodnosioce() {
+    console.log(this.podnosioci)
     if (this.podnosioci.length > 1) {
       this.podnosilacFormGroup.get('podaciOZajednickomPredstavniku').setValidators([Validators.required]);
     }
     
     return this.podnosioci.length > 0;
-  }
-
-  dodajSvePodnosioce() {
-    this.podnosilacFormGroup.get("podnosioci").setValue(this.podnosioci);
   }
 
 }

@@ -56,11 +56,11 @@ public class AutorskaPravaController {
 
     @PostMapping(produces = "application/xml", consumes = "application/xml")
     @ResponseStatus(HttpStatus.CREATED)
-    public void saveNewRequest(@Valid @RequestBody ZahtevAutorskaDelaRequest zahtev)
+    public String saveNewRequest(@Valid @RequestBody ZahtevAutorskaDelaRequest zahtev)
             throws InvalidDocumentException, JAXBException, IOException, TransformationFailedException
     {
 
-        autorskaPravaService.saveNewRequest(
+        return autorskaPravaService.saveNewRequest(
                 zahtev.getId(),
                 zahtev.getBroj_prijave(),
                 zahtev.getDatum_podnosenja(),

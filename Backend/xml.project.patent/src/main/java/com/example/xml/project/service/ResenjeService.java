@@ -151,5 +151,6 @@ public class ResenjeService {
             throw new InvalidDocumentException();
         }
     }
+
 }
 

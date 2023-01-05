@@ -46,7 +46,8 @@ export class ImenovaniAutorComponent implements OnInit {
       kontakt: kontakt
     }
     const autori:Autor[] = this.formGroup.get('autori')?.value as Autor[];
-    this.dodatAutor.emit(autor);
+    console.log(autori)
+    // this.dodatAutor.emit(autor);
     autori.push(autor);
     this.formGroup.get('autori')?.setValue(autori);
 

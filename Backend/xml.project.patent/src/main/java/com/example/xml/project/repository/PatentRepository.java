@@ -42,6 +42,7 @@ import static com.example.xml.project.util.Constants.*;
 
 @Component
 public class PatentRepository extends BasicXMLRepository {
+
     public List<ZahtevPatent> uzmiZahteve(boolean obradjene) throws XPathException, CannotUnmarshalException {
         Collection col = null;
         XMLResource resXml = null;
@@ -439,6 +440,74 @@ public class PatentRepository extends BasicXMLRepository {
         }
 
         return zahtevi;
+    }
+
+    public String uzmiIdPoBrojuPrijave(String brojPrijave) throws XPathException, CannotUnmarshalException {
+        Collection col = null;
+        XMLResource resXml = null;
+        String zahtevId = null;
+
+        try {
+            // get the collection
+            System.out.println("[INFO] Retrieving the collection: " + COLLECTION_ID_PATENTI_ZAHTEV_DB);
+            col = DatabaseManager.getCollection(connectionProp.uri + COLLECTION_ID_PATENTI_ZAHTEV_DB);
+            if (col == null) {
+                col = getOrCreateCollection(COLLECTION_ID_PATENTI_ZAHTEV_DB);
+            }
+            col.setProperty(OutputKeys.INDENT, "yes");
+
+
+            // get an instance of xpath query service
+            XPathQueryService xpathService = (XPathQueryService) col.getService("XPathQueryService", "1.0");
+            xpathService.setProperty("indent", "yes");
+
+            // make the service aware of namespaces, using the default one
+            xpathService.setNamespace("", PATENT_NAMESPACE);
+            xpathService.setNamespace("opste", OPSTE_NAMESPACE);
+
+            String xpathExp = "declare variable $data as document-node()* := collection('/" + COLLECTION_ID_PATENTI_ZAHTEV_DB + "');\n" +
+                    "\n" +
+                    "for $v in $data\n" +
+                    "where $v//zahtev_za_priznavanje_patenta[@broj_prijave='" + brojPrijave + "']\n" +
+                    "return $v\n";
+
+            System.out.println("[INFO] Invoking XPath query service for: " + xpathExp);
+            ResourceSet result = xpathService.query(xpathExp);
+
+            ResourceIterator i = result.getIterator();
+            Resource res = null;
+            if (i.hasMoreResources()) {
+                try {
+                    res = i.nextResource();
+                    String response = (String) res.getContent();
+
+                    JAXBContext context = JAXBContext.newInstance(ZahtevPatent.class);
+
+                    Unmarshaller unmarshaller = context.createUnmarshaller();
+
+                    //noinspection unchecked
+                    zahtevId = ((ZahtevPatent) unmarshaller.unmarshal(new StreamSource(new StringReader(response)))).getId();
+                } catch (XMLDBException e) {
+                    throw new XPathException();
+                } catch (JAXBException e) {
+                    throw new CannotUnmarshalException();
+                } finally {
+                    try {
+                        if (res != null)
+                            ((EXistResource) res).freeResources();
+                    } catch (XMLDBException xe) {
+                        xe.printStackTrace();
+                    }
+                }
+            }
+        } catch (XMLDBException | XPathException e) {
+            throw new XPathException();
+        } catch (CannotUnmarshalException e) {
+            throw new CannotUnmarshalException();
+        } finally {
+            cleanUp(col, resXml);
+        }
+        return zahtevId;
     }
 
     private String getOperator(String operator){

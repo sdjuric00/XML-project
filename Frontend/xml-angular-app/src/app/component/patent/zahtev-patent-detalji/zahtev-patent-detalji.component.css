@@ -39,3 +39,7 @@ table, tr, td, th{
   padding: 0.5rem !important;
 }
 
+.link {
+  color: var(--deep-blue);
+  text-decoration: underline 1px solid var(--deep-blue);
+}

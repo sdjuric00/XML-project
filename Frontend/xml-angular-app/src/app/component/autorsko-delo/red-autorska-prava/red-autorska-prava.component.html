@@ -5,7 +5,8 @@
       {{zahtev.datum_podnosenja | date: 'dd.MM.yyyy.'}}
     </span>
   </p>
-  <h3>Podnosilac: {{zahtev.podnosilac.ime}} {{zahtev.podnosilac.prezime}}</h3>
+  <h3 *ngIf="zahtev.podnosilac.ime">Podnosilac: {{zahtev.podnosilac.ime}} {{zahtev.podnosilac.prezime}}</h3>
+  <h3 *ngIf="zahtev.podnosilac.naziv">Ime organizacije: {{zahtev.podnosilac.naziv}}</h3>
   <br/>
   
   <button *ngIf="!zahtev.pregledano" style="float: right" class="next-button" mat-raised-button (click)="obradaZahteva()">Obradi zahtev</button>
