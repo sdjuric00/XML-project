@@ -167,8 +167,9 @@ export class ZigService {
     }));
   }
 
-  kreirajHTML(zahtevId: string) {
-    return this._http.get(`${this._api_url}/zig/kreiraj-html/${zahtevId}`, {
+  kreirajHTML(zahtevId: string, jeResenje) {
+    let putanja: string = jeResenje ? '/zig/resenje/' : '/zig/';
+    return this._http.get(`${this._api_url}${putanja}kreiraj-html/${zahtevId}`, {
         headers: new HttpHeaders().set('Accept' , 'application/xml'),
         responseType:"text"
       }
@@ -205,8 +206,9 @@ export class ZigService {
   }));
   }
 
-  kreirajPDF(zahtevId: string): Observable<UspesnaTransformacija> {
-    return this._http.get(`${this._api_url}/zig/kreiraj-pdf/${zahtevId}`, {
+  kreirajPDF(zahtevId: string, resenje: boolean): Observable<UspesnaTransformacija> {
+    let putanja: string = resenje ? '/zig/resenje/' : '/zig/';
+    return this._http.get(`${this._api_url}${putanja}kreiraj-pdf/${zahtevId}`, {
         headers: new HttpHeaders().set('Accept' , 'application/xml'),
         responseType:"text"
       }
