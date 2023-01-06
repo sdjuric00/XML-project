@@ -1,5 +1,5 @@
 <form [formGroup]="naprednaPretragaForm">
-  <h2 style="text-align:center">Pretraga po metapodacima</h2>
+  <h2 style="margin-left: 5rem;">PRETRAGA PO METAPODACIMA</h2>
 <div style="margin-top:3rem; float:left; margin-left:2rem">
   <div style="display: flex; flex-direction: row; margin-left:8rem;">
     <button mat-raised-button style=" width:15rem;" (click)="dodajNovuVrednost()">Dodaj novi metapodatak</button><br><br>
@@ -43,7 +43,7 @@
     <div style="float:right; margin-top: 7rem;margin-right:10rem;border: 1px lightgrey solid; padding:2rem; border-radius:1rem;" *ngIf="prikaziPatente || prikaziAutorskaPrava || prikaziZigove">
         <div *ngIf="prikaziPatente">
           <p style="color:var(--green);text-align: center;">ZAHTEVI ZA PRIZNAVANJE PATENTA</p>
-          <div *ngFor="let zahtev of listaZahtevaPatenti" class="form-container mat-elevation-z2">
+          <div *ngFor="let zahtev of listaZahtevaPatenti">
             <app-red-patent [zahtev]="zahtev"></app-red-patent>
           </div><br>
           <mat-divider></mat-divider>
@@ -53,7 +53,7 @@
         <div *ngIf="prikaziAutorskaPrava">
           <br>
             <p style="color:var(--green);text-align: center;">ZAHTEVI ZA UNOSENJE U EVIDENCIJU I DEPONOVANJE AUTORSKIH DELA</p>
-            <div *ngFor="let zahtev of listaZahtevaAutorskaPrava" class="form-container mat-elevation-z2">
+            <div *ngFor="let zahtev of listaZahtevaAutorskaPrava">
               <app-red-autorska-prava [zahtev]="zahtev"></app-red-autorska-prava>
             </div><br>
             <mat-divider></mat-divider>
@@ -61,7 +61,7 @@
         <div *ngIf="prikaziZigove">
           <br>
           <p style="color:var(--green);text-align: center;">ZAHTEVI ZA PRIZNANJE ZIGA</p>
-          <div *ngFor="let zahtev of listaZahtevaZigova" class="form-container mat-elevation-z2">
+          <div *ngFor="let zahtev of listaZahtevaZigova">
             <app-red-zig [zahtev]="zahtev"></app-red-zig>
           </div>
         </div>

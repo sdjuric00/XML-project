@@ -1,7 +1,6 @@
 package com.example.xml.project.controller;
 
 import com.example.xml.project.dto.IzvestajDTO;
-import com.example.xml.project.dto.ResenjeDTO;
 import com.example.xml.project.dto.ZahtevPatentDetaljneInformacijeDTO;
 import com.example.xml.project.dto.ZahteviPatentiDTO;
 import com.example.xml.project.exception.CannotUnmarshalException;
@@ -11,23 +10,19 @@ import com.example.xml.project.exception.XPathException;
 import com.example.xml.project.exception.TransformationFailedException;
 import com.example.xml.project.model.P1.ZahtevPatent;
 import com.example.xml.project.request.OpsegDatumaRequest;
-import com.example.xml.project.rdf.MetadataExtractor;
 import com.example.xml.project.request.NaprednaPretragaRequest;
 import com.example.xml.project.request.ZahtevPatentRequest;
 import com.example.xml.project.request.PretragaRequest;
 import com.example.xml.project.response.UspesnaTransformacija;
-import com.example.xml.project.service.PatentService;
+import com.example.xml.project.service.implementation.PatentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.xml.sax.SAXException;
-import java.io.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.JAXBException;
-import javax.xml.transform.TransformerException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -105,23 +100,6 @@ public class PatentController {
                 LocalDate.parse(opsegDatumaRequest.getPocetni_datum()),
                 LocalDate.parse(opsegDatumaRequest.getKrajnji_datum())
         );
-    }
-    @PostMapping(path="/rdf")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void saveToRdf() throws IOException, SAXException, TransformerException {
-
-        String xmlFilePath = "data/P-1.xml";
-
-        String rdfFilePath = "data/P-1.rdf";
-
-        // Automatic extraction of RDF triples from XML file
-        MetadataExtractor metadataExtractor = new MetadataExtractor();
-
-        System.out.println("[INFO] Extracting metadata from RDFa attributes...");
-        metadataExtractor.extractMetadata(
-                new FileInputStream(new File(xmlFilePath)),
-                new FileOutputStream(new File(rdfFilePath)));
-
     }
 
     @GetMapping(path="/neobradjeni-zahtevi", produces = "application/xml")

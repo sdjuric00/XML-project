@@ -1,4 +1,4 @@
-package com.example.xml.project.service;
+package com.example.xml.project.service.implementation;
 
 import com.example.xml.project.dto.ResenjeDTO;
 import com.example.xml.project.exception.CannotUnmarshalException;
@@ -10,9 +10,12 @@ import com.example.xml.project.model.resenje.Resenje;
 import com.example.xml.project.repository.GenericRepository;
 import com.example.xml.project.repository.ResenjeRepository;
 import com.example.xml.project.response.UspesnaTransformacija;
+import com.example.xml.project.service.implementation.PatentService;
+import com.example.xml.project.service.interfaces.IResenjeService;
 import com.example.xml.project.transformator.Transformator;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
 
@@ -33,8 +36,8 @@ import static com.example.xml.project.model.resenje.Resenje.napraviResenjeZaOdbi
 import static com.example.xml.project.model.resenje.Resenje.napraviResenjeZaPrihvatanjeZahteva;
 import static com.example.xml.project.util.Constants.*;
 
-@Service
-public class ResenjeService {
+@Component
+public class ResenjeService implements IResenjeService {
 
     private final GenericRepository<Resenje> repository;
     private final ResenjeRepository resenjeRepository;

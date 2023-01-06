@@ -15,7 +15,7 @@ import com.example.xml.project.request.OpsegDatumaRequest;
 import com.example.xml.project.request.PretragaRequest;
 import com.example.xml.project.request.ZigRequest;
 import com.example.xml.project.response.UspesnaTransformacija;
-import com.example.xml.project.service.ZigService;
+import com.example.xml.project.service.implementation.ZigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +26,6 @@ import javax.validation.constraints.NotNull;
 import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
-import java.util.List;
 import java.io.IOException;
 
 

@@ -1,4 +1,4 @@
-package com.example.xml.project.service;
+package com.example.xml.project.service.implementation;
 
 import com.example.xml.project.model.A1.ZahtevAutorskaDela;
 import org.springframework.context.ApplicationContext;

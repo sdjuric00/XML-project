@@ -19,7 +19,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
         </property>
 
     </bean>
-    <bean id="htmlMail" class="com.example.xml.project.service.HTMLEmailService">
+    <bean id="htmlMail" class="com.example.xml.project.service.implementation.HTMLEmailService">
         <property name="mailSender" ref="mailSender" />
     </bean>
 

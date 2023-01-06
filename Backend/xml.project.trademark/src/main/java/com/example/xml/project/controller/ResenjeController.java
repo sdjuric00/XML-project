@@ -8,7 +8,7 @@ import com.example.xml.project.exception.XPathException;
 import com.example.xml.project.request.ResenjeOdbijanjeRequest;
 import com.example.xml.project.request.ResenjePrihvatanjeRequest;
 import com.example.xml.project.response.UspesnaTransformacija;
-import com.example.xml.project.service.ResenjeService;
+import com.example.xml.project.service.implementation.ResenjeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

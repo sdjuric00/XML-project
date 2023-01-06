@@ -99,6 +99,10 @@ export class HomePageComponent implements OnInit {
       }
     })
 
+    if(!this.prikaziZigove && !this.prikaziAutorskaPrava && !this.prikaziZigove){
+      console.log("talta");
+    }
+
 
   }
 

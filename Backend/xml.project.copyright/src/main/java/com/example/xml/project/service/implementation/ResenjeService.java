@@ -1,4 +1,4 @@
-package com.example.xml.project.service;
+package com.example.xml.project.service.implementation;
 
 import com.example.xml.project.dto.KreiranoResenjeSaZahtevomDTO;
 import com.example.xml.project.dto.ResenjeDTO;
@@ -8,9 +8,11 @@ import com.example.xml.project.model.A1.resenje.Resenje;
 import com.example.xml.project.repository.GenericRepository;
 import com.example.xml.project.repository.ResenjeRepository;
 import com.example.xml.project.response.UspesnaTransformacija;
+import com.example.xml.project.service.interfaces.IResenjeService;
 import com.example.xml.project.transformator.Transformator;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
 
@@ -25,15 +27,14 @@ import javax.xml.validation.SchemaFactory;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
-import java.time.LocalDate;
 
 import static com.example.xml.project.model.A1.resenje.Resenje.napraviResenjeZaOdbijanjeZahteva;
 import static com.example.xml.project.model.A1.resenje.Resenje.napraviResenjeZaPrihvatanjeZahteva;
 import static com.example.xml.project.util.Constants.*;
 import static com.example.xml.project.util.Constants.HTML_PUTANJA;
 
-@Service
-public class ResenjeService {
+@Component
+public class ResenjeService implements IResenjeService {
 
     private final GenericRepository<Resenje> repository;
     private final ResenjeRepository resenjeRepository;

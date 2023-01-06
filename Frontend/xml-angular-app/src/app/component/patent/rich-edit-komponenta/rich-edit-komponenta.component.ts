@@ -53,14 +53,85 @@ export class RichEditKomponentaComponent implements OnInit, AfterViewInit{
     //  text = `<zahtev_za_priznavanje_patenta dopunska_prijava='false' broj_prijave='P-2022/2' datum_prijema='2022-11-30' priznati_datum_podnosenja='2022-11-30' id='1' pregledano='false' xmlns:xs='http://www.w3.org/2001/XMLSchema' xmlns='http://www.patent/patent' xmlns:opste='http://ftn.ac.rs/opste'><institucija><opste:naziv>Zavod za intelektulanu svojinu</opste:naziv><opste:adresa><opste:grad >Beoopste:grad</opste:grad><opste:ulica >Kneginje Ljubice</opste:ulica><opste:broj >5</opste:broj><opste:postanski_broj>11000</opste:postanski_broj><opste:drzava >Republika Srbija</opste:drzava></opste:adresa></institucija><podaci_o_pronalasku><naziv jezik='engleski' >pera</naziv><naziv jezik='srpski' >hdhas</naziv></podaci_o_pronalasku><podnosilac autor='false'><opste:fizicko_lice><opste:ime >pera</opste:ime><opste:prezime>peric</opste:prezime><opste:jmbg >1202001785023</opste:jmbg><opste:kontakt><opste:email >ana@gmail.com</opste:email><opste:telefon >0692742947</opste:telefon><opste:fax >036376448</opste:fax></opste:kontakt><opste:adresa><opste:grad >Kraljevo</opste:grad><opste:ulica >Bozidara Milunovica</opste:ulica><opste:broj >7</opste:broj><opste:postanski_broj >36000</opste:postanski_broj><opste:drzava >Srbija</opste:drzava></opste:adresa></opste:fizicko_lice></podnosilac><pronalazac anonimno='true'><anonimni_pronalazac/></pronalazac><punomocnik za_prijem_pismeno='false' za_zastupanje='false'><pravno_lice><opste:naziv >fdf</opste:naziv><opste:pib >123456789</opste:pib><opste:registarski_broj >12345678</opste:registarski_broj><opste:kontakt><opste:email >ana@gmail.com</opste:email><opste:telefon >0692742947</opste:telefon><opste:fax >036376448</opste:fax></opste:kontakt><opste:adresa><opste:grad >Kraljevo</opste:grad><opste:ulica >Bozidara Milunovica</opste:ulica><opste:broj >7</opste:broj><opste:postanski_broj>36000</opste:postanski_broj><opste:drzava >Srbija</opste:drzava></opste:adresa></pravno_lice></punomocnik><dostavljanje elektronski='false' pismeno='true'><opste:adresa><opste:grad >Kraljevo</opste:grad><opste:ulica >Bozidara Milunovica</opste:ulica><opste:broj >7</opste:broj><opste:postanski_broj >36000</opste:postanski_broj><opste:drzava >Srbija</opste:drzava></opste:adresa></dostavljanje><zahtev_za_priznanje_prava_iz_ranijih_prijava/></zahtev_za_priznavanje_patenta>`;
      
     console.log(text);
+    text = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<zahtev_za_priznavanje_patenta id="1" referenca_na_resenje="-1" broj_prijave="P-2022/2" datum_prijema="2022-11-30" priznati_datum_podnosenja="2022-11-30" dopunska_prijava="false" pregledano="false" prihvaceno="false" xmlns="http://www.patent/patent" xmlns:opste="http://ftn.ac.rs/opste" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <institucija>
+        <opste:naziv>Zavod za intelektulanu svojinu</opste:naziv>
+        <opste:adresa>
+            <opste:grad>Beograd</opste:grad>
+            <opste:ulica>Kneginje Ljubice</opste:ulica>
+            <opste:broj>5</opste:broj>
+            <opste:postanski_broj>11000</opste:postanski_broj>
+            <opste:drzava>Republika Srbija</opste:drzava>
+        </opste:adresa>
+    </institucija>
+    <podaci_o_pronalasku>
+        <naziv_patenta jezik="srpski">pera</naziv_patenta>
+        <naziv_patenta jezik="srpski">pera</naziv_patenta>
+    </podaci_o_pronalasku>
+    <podnosilac autor="false">
+        <opste:fizicko_lice>
+            <opste:kontakt>
+                <opste:email>ana@gmail.com</opste:email>
+                <opste:telefon>069624328</opste:telefon>
+                <opste:fax>036376448</opste:fax>
+            </opste:kontakt>
+            <opste:adresa>
+                <opste:grad>Kraljevo</opste:grad>
+                <opste:ulica>bozidara m</opste:ulica>
+                <opste:broj>7</opste:broj>
+                <opste:postanski_broj>36000</opste:postanski_broj>
+                <opste:drzava>srbija</opste:drzava>
+            </opste:adresa>
+            <opste:ime>ana</opste:ime>
+            <opste:prezime>anic</opste:prezime>
+            <opste:jmbg>1202001785023</opste:jmbg>
+        </opste:fizicko_lice>
+    </podnosilac>
+    <pronalazac anonimno="true">
+        <anonimni_pronalazac></anonimni_pronalazac>
+    </pronalazac>
+    <punomocnik za_zastupanje="false" za_prijem_pismeno="false">
+        <fizicko_lice>
+            <opste:kontakt>
+                <opste:email>pera@gmail.com</opste:email>
+                <opste:telefon>069624328</opste:telefon>
+                <opste:fax>036376448</opste:fax>
+            </opste:kontakt>
+            <opste:adresa>
+                <opste:grad>kraljevo</opste:grad>
+                <opste:ulica>bozidara m</opste:ulica>
+                <opste:broj>7</opste:broj>
+                <opste:postanski_broj>36000</opste:postanski_broj>
+                <opste:drzava>srbija</opste:drzava>
+            </opste:adresa>
+            <opste:ime>ana</opste:ime>
+            <opste:prezime>anic</opste:prezime>
+            <opste:jmbg>1202001785023</opste:jmbg>
+        </fizicko_lice>
+    </punomocnik>
+    <dostavljanje elektronski="false" pismeno="true">
+        <adresa>
+            <opste:grad>kraljevo</opste:grad>
+            <opste:ulica>bozidara m</opste:ulica>
+            <opste:broj>7</opste:broj>
+            <opste:postanski_broj>36000</opste:postanski_broj>
+            <opste:drzava>srbija</opste:drzava>
+        </adresa>
+    </dostavljanje>
+    <zahtev_za_priznanje_prava_iz_ranijih_prijava/>
+</zahtev_za_priznavanje_patenta>`
     const _toast: ToastrService = this.toast;
-    this.patentService.create(text as Patent, false).subscribe({
-      next(response) {
-                _toast.success('Uspešno ste poslali zahtev za priznavanje patenta.', 'Uspešno slanje'); },
-      error(): void {
-        _toast.error('Desila se greška prilikom slanja zahteva!', 'Greška');
-      },
+    this.patentService.create(text as Patent, false).subscribe(result =>{
+      console.log(result);
+    
     });
+    //   result) {
+    //             _toast.success('Uspešno ste poslali zahtev za priznavanje patenta.', 'Uspešno slanje'); },
+    //   error(): void {
+    //     _toast.error('Desila se greška prilikom slanja zahteva!', 'Greška');
+    //   },
+    // });
   }
 
 }
