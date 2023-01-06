@@ -102,6 +102,7 @@ export class PatentApplicationService {
         responseType:"text"
       }
     ).pipe(map(result=>{
+      console.log(result);
       result = result.replaceAll('ns2:', '');
       result = result.replaceAll('ns3:', '');
       result = result.replaceAll('ns4:', '');

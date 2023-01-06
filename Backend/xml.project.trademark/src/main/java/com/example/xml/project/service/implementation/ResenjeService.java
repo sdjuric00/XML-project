@@ -1,4 +1,4 @@
-package com.example.xml.project.service;
+package com.example.xml.project.service.implementation;
 
 import com.example.xml.project.dto.ResenjeDTO;
 import com.example.xml.project.exception.CannotUnmarshalException;
@@ -11,10 +11,11 @@ import com.example.xml.project.model.Z1.resenje.Resenje;
 import com.example.xml.project.repository.GenericRepository;
 import com.example.xml.project.repository.ResenjeRepository;
 import com.example.xml.project.response.UspesnaTransformacija;
+import com.example.xml.project.service.interfaces.IResenjeService;
 import com.example.xml.project.transformator.Transformator;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.xml.sax.SAXException;
 
 import javax.xml.XMLConstants;
@@ -33,8 +34,8 @@ import static com.example.xml.project.model.Z1.resenje.Resenje.napraviResenjeZaO
 import static com.example.xml.project.model.Z1.resenje.Resenje.napraviResenjeZaPrihvatanjeZahteva;
 import static com.example.xml.project.util.Constants.*;
 
-@Service
-public class ResenjeService {
+@Component
+public class ResenjeService implements IResenjeService {
 
     private final GenericRepository<Resenje> repository;
     private final ResenjeRepository resenjeRepository;
@@ -44,10 +45,10 @@ public class ResenjeService {
     private final Transformator transformator;
 
     public ResenjeService(
-        @Autowired final GenericRepository<Resenje> repository,
-        @Autowired final ResenjeRepository resenjeRepository,
-        @Autowired final ZigService zigService,
-        @Autowired final Transformator transformator
+            @Autowired final GenericRepository<Resenje> repository,
+            @Autowired final ResenjeRepository resenjeRepository,
+            @Autowired final ZigService zigService,
+            @Autowired final Transformator transformator
     ) throws JAXBException {
         this.transformator = transformator;
         this.resenjeRepository = resenjeRepository;
@@ -55,8 +56,8 @@ public class ResenjeService {
         this.jaxbContext = JAXBContext.newInstance(Resenje.class);
         this.repository = repository;
         this.repository.setGenericRepositoryProperties(
-            JAXBContext.newInstance(Resenje.class),
-            COLLECTION_ID_RESENJE_ZIG_DB
+                JAXBContext.newInstance(Resenje.class),
+                COLLECTION_ID_RESENJE_ZIG_DB
         );
 
         this.marshaller = jaxbContext.createMarshaller();
@@ -64,74 +65,74 @@ public class ResenjeService {
     }
 
     public void prihvatiZahtev(
-        final String sifra_obradjenog_zahteva,
-        final String ime_prezime_sluzbenika,
-        final String referenca_na_zahtev,
-        final boolean primerak_znaka_dat,
-        final boolean spisak_robe_dat,
-        final boolean punomocje_dato,
-        final boolean generalno_punomocje_ranije_prilozeno,
-        final boolean punomocje_ce_biti_naknadno_dostavljeno,
-        final boolean opsti_akt,
-        final boolean dokaz_o_pravu_prvenstva,
-        final boolean dokaz_o_uplati_takse
+            final String sifra_obradjenog_zahteva,
+            final String ime_prezime_sluzbenika,
+            final String referenca_na_zahtev,
+            final boolean primerak_znaka_dat,
+            final boolean spisak_robe_dat,
+            final boolean punomocje_dato,
+            final boolean generalno_punomocje_ranije_prilozeno,
+            final boolean punomocje_ce_biti_naknadno_dostavljeno,
+            final boolean opsti_akt,
+            final boolean dokaz_o_pravu_prvenstva,
+            final boolean dokaz_o_uplati_takse
     ) throws CannotUnmarshalException, XPathException, InvalidDocumentException {
         Resenje resenje = napraviResenjeZaPrihvatanjeZahteva(referenca_na_zahtev, ime_prezime_sluzbenika, sifra_obradjenog_zahteva);
         popuniPotrebnaPoljaZahteva(
-            referenca_na_zahtev,
-            primerak_znaka_dat,
-            spisak_robe_dat,
-            punomocje_dato,
-            generalno_punomocje_ranije_prilozeno,
-            punomocje_ce_biti_naknadno_dostavljeno,
-            opsti_akt,
-            dokaz_o_pravu_prvenstva,
-            dokaz_o_uplati_takse,
-            resenje,
-            true
+                referenca_na_zahtev,
+                primerak_znaka_dat,
+                spisak_robe_dat,
+                punomocje_dato,
+                generalno_punomocje_ranije_prilozeno,
+                punomocje_ce_biti_naknadno_dostavljeno,
+                opsti_akt,
+                dokaz_o_pravu_prvenstva,
+                dokaz_o_uplati_takse,
+                resenje,
+                true
         );
     }
 
     public void odbijZahtev(
-        final String razlog_odbijanja,
-        final String ime_prezime_sluzbenika,
-        final String referenca_na_zahtev,
-        final boolean primerak_znaka_dat,
-        final boolean spisak_robe_dat,
-        final boolean punomocje_dato,
-        final boolean generalno_punomocje_ranije_prilozeno,
-        final boolean punomocje_ce_biti_naknadno_dostavljeno,
-        final boolean opsti_akt,
-        final boolean dokaz_o_pravu_prvenstva,
-        final boolean dokaz_o_uplati_takse
+            final String razlog_odbijanja,
+            final String ime_prezime_sluzbenika,
+            final String referenca_na_zahtev,
+            final boolean primerak_znaka_dat,
+            final boolean spisak_robe_dat,
+            final boolean punomocje_dato,
+            final boolean generalno_punomocje_ranije_prilozeno,
+            final boolean punomocje_ce_biti_naknadno_dostavljeno,
+            final boolean opsti_akt,
+            final boolean dokaz_o_pravu_prvenstva,
+            final boolean dokaz_o_uplati_takse
     ) throws CannotUnmarshalException, XPathException, InvalidDocumentException {
         Resenje resenje = napraviResenjeZaOdbijanjeZahteva(referenca_na_zahtev, ime_prezime_sluzbenika, razlog_odbijanja);
         popuniPotrebnaPoljaZahteva(
-            referenca_na_zahtev,
-            primerak_znaka_dat,
-            spisak_robe_dat,
-            punomocje_dato,
-            generalno_punomocje_ranije_prilozeno,
-            punomocje_ce_biti_naknadno_dostavljeno,
-            opsti_akt, dokaz_o_pravu_prvenstva,
-            dokaz_o_uplati_takse,
-            resenje,
-            false
+                referenca_na_zahtev,
+                primerak_znaka_dat,
+                spisak_robe_dat,
+                punomocje_dato,
+                generalno_punomocje_ranije_prilozeno,
+                punomocje_ce_biti_naknadno_dostavljeno,
+                opsti_akt, dokaz_o_pravu_prvenstva,
+                dokaz_o_uplati_takse,
+                resenje,
+                false
         );
     }
 
     private void popuniPotrebnaPoljaZahteva(
-        final String referenca_na_zahtev,
-        final boolean primerak_znaka_dat,
-        final boolean spisak_robe_dat,
-        final boolean punomocje_dato,
-        final boolean generalno_punomocje_ranije_prilozeno,
-        final boolean punomocje_ce_biti_naknadno_dostavljeno,
-        final boolean opsti_akt,
-        final boolean dokaz_o_pravu_prvenstva,
-        final boolean dokaz_o_uplati_takse,
-        final Resenje resenje,
-        final boolean prihvaceno
+            final String referenca_na_zahtev,
+            final boolean primerak_znaka_dat,
+            final boolean spisak_robe_dat,
+            final boolean punomocje_dato,
+            final boolean generalno_punomocje_ranije_prilozeno,
+            final boolean punomocje_ce_biti_naknadno_dostavljeno,
+            final boolean opsti_akt,
+            final boolean dokaz_o_pravu_prvenstva,
+            final boolean dokaz_o_uplati_takse,
+            final Resenje resenje,
+            final boolean prihvaceno
     ) throws CannotUnmarshalException, XPathException, InvalidDocumentException {
         repository.save(resenje, true);
         ZahtevZig zahtevZig = zigService.uzmiZahtevBezDTO(referenca_na_zahtev);
@@ -156,8 +157,7 @@ public class ResenjeService {
     }
 
     public UspesnaTransformacija dodajResenjeHtml(String id)
-            throws TransformationFailedException, IOException, CannotUnmarshalException, XPathException
-    {
+            throws TransformationFailedException, IOException, CannotUnmarshalException, XPathException {
         String htmlPutanja = HTML_PUTANJA + "resenje-" + id + ".html";
         String qrCodeUrl = QR_RESENJE_PUTANJA + id + ".pdf";
 
@@ -165,8 +165,7 @@ public class ResenjeService {
     }
 
     public UspesnaTransformacija procitajPdf(final String id)
-            throws CannotUnmarshalException, TransformationFailedException, XPathException, IOException
-    {
+            throws CannotUnmarshalException, TransformationFailedException, XPathException, IOException {
         String putanja = this.dodajResenjePdf(id);
         File fajl = new File(putanja);
 
@@ -174,8 +173,7 @@ public class ResenjeService {
     }
 
     public String dodajResenjePdf(final String id)
-            throws IOException, CannotUnmarshalException, TransformationFailedException, XPathException
-    {
+            throws IOException, CannotUnmarshalException, TransformationFailedException, XPathException {
         String pdfPutanja = PDF_PUTANJA + "resenje-" + id + ".pdf";
         String htmlPutanja = HTML_PUTANJA + "resenje-" + id + ".html";
         this.dodajResenjeHtml(id);
@@ -214,9 +212,9 @@ public class ResenjeService {
             SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
             Schema schema = schemaFactory.newSchema(new File(RESENJE_SCHEMA));
             unmarshaller.setSchema(schema);
-            document.replace("\n","");
+            document.replace("\n", "");
             Resenje resenje = (Resenje) unmarshaller.unmarshal
-                (new StreamSource( new StringReader(document)));
+                    (new StreamSource(new StringReader(document)));
 
             return resenje;
         } catch (JAXBException | SAXException e) {

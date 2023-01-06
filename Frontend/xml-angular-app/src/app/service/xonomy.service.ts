@@ -92,9 +92,6 @@ export class XonomyService {
         caption: 'Dodaj <naziv_patenta>',
         action: Xonomy.newElementChild,
         actionParameter: "<naziv_patenta></naziv_patenta>",
-        hideIf: function (jsElement) {
-          return jsElement.hasChildElement("naziv_patenta");
-        }
       }]
     },
     naziv_patenta:{
@@ -198,7 +195,7 @@ fizicko_lice:{
     action: Xonomy.newElementChild,
     actionParameter: '<ime></ime>',
     hideIf: function (jsElement) {
-      return jsElement.hasAttribute("ime");
+      return jsElement.hasChildElement("ime");
     }
   },
   {
@@ -206,7 +203,7 @@ fizicko_lice:{
     action: Xonomy.newElementChild,
     actionParameter: '<prezime></prezime>',
     hideIf: function (jsElement) {
-      return jsElement.hasAttribute("prezime");
+      return jsElement.hasChildElement("prezime");
     }
   },
   {
@@ -214,7 +211,7 @@ fizicko_lice:{
     action: Xonomy.newElementChild,
     actionParameter: '<jmbg></jmbg>',
     hideIf: function (jsElement) {
-      return jsElement.hasAttribute("jmbg");
+      return jsElement.hasChildElement("jmbg");
     }
   },
   {
@@ -222,7 +219,7 @@ fizicko_lice:{
     action: Xonomy.newElementChild,
     actionParameter: '<kontakt></kontakt>',
     hideIf: function (jsElement) {
-      return jsElement.hasAttribute("kontakt");
+      return jsElement.hasChildElement("kontakt");
     }
   },
   {
@@ -230,17 +227,19 @@ fizicko_lice:{
     action: Xonomy.newElementChild,
     actionParameter: '<adresa></adresa>',
     hideIf: function (jsElement) {
-      return jsElement.hasAttribute("adresa");
+      return jsElement.hasChildElement("adresa");
     }
   }
 ]
 },
 pib:{
+  mustBeBefore:["registarski_broj"],
   hasText: true,
   oneliner: true,
   asker: Xonomy.askString,
 },
 naziv:{
+  mustBeBefore:["pib", "registarski_broj"],
   hasText: true,
   oneliner: true,
   asker: Xonomy.askString,
@@ -251,11 +250,13 @@ registarski_broj:{
   asker: Xonomy.askString,
 },
 ime:{
+  mustBeBefore:["prezime", "jmbg"],
   hasText: true,
   oneliner: true,
   asker: Xonomy.askString,
 },
 prezime:{
+  mustBeBefore:["jmbg"],
   hasText: true,
   oneliner: true,
   asker: Xonomy.askString,
@@ -266,13 +267,14 @@ jmbg:{
   asker: Xonomy.askString,
 },
 kontakt:{
+  mustBeBefore:["adresa", "ime", "prezime", "jmbg", "naziv", "pib", "registarski_broj"],
   menu:[
     {
       caption: 'Dodaj email',
       action: Xonomy.newElementChild,
       actionParameter: '<email></email>',
       hideIf: function (jsElement) {
-        return jsElement.hasAttribute("email");
+        return jsElement.hasChildElement("email");
       }
     },
     {
@@ -280,7 +282,7 @@ kontakt:{
       action: Xonomy.newElementChild,
       actionParameter: '<telefon></telefon>',
       hideIf: function (jsElement) {
-        return jsElement.hasAttribute("telefon");
+        return jsElement.hasChildElement("telefon");
       }
     },
     {
@@ -288,19 +290,20 @@ kontakt:{
       action: Xonomy.newElementChild,
       actionParameter: '<fax></fax>',
       hideIf: function (jsElement) {
-        return jsElement.hasAttribute("fax");
+        return jsElement.hasChildElement("fax");
       }
     },
   ]
 },
 adresa:{
+  mustBeBefore:["ime", "prezime", "jmbg", "naziv", "pib", "registarski_broj"],
   menu:[
     {
       caption: 'Dodaj grad',
       action: Xonomy.newElementChild,
       actionParameter: '<grad></grad>',
       hideIf: function (jsElement) {
-        return jsElement.hasAttribute("grad");
+        return jsElement.hasChildElement("grad");
       }
     },
     {
@@ -308,7 +311,7 @@ adresa:{
       action: Xonomy.newElementChild,
       actionParameter: '<ulica></ulica>',
       hideIf: function (jsElement) {
-        return jsElement.hasAttribute("ulica");
+        return jsElement.hasChildElement("ulica");
       }
     },
     {
@@ -316,7 +319,7 @@ adresa:{
       action: Xonomy.newElementChild,
       actionParameter: '<broj></broj>',
       hideIf: function (jsElement) {
-        return jsElement.hasAttribute("broj");
+        return jsElement.hasChildElement("broj");
       }
     },
     {
@@ -324,7 +327,7 @@ adresa:{
       action: Xonomy.newElementChild,
       actionParameter: '<postanski_broj></postanski_broj>',
       hideIf: function (jsElement) {
-        return jsElement.hasAttribute("postanski_broj");
+        return jsElement.hasChildElement("postanski_broj");
       }
     },
     {
@@ -332,50 +335,80 @@ adresa:{
       action: Xonomy.newElementChild,
       actionParameter: '<drzava></drzava>',
       hideIf: function (jsElement) {
-        return jsElement.hasAttribute("drzava");
+        return jsElement.hasChildElement("drzava");
       }
     },
   ]
 },
 email:{
+  mustBeBefore:["telefon", "fax"],
   hasText: true,
   oneliner: true,
   asker: Xonomy.askString,
+  hideIf: function (jsElement) {
+    return jsElement.hasAttribute("email");
+  }
 },
 telefon:{
+  mustBeBefore:["fax"],
   hasText: true,
   oneliner: true,
   asker: Xonomy.askString,
+  hideIf: function (jsElement) {
+    return jsElement.hasAttribute("telefon");
+  }
 },
 fax:{
   hasText: true,
   oneliner: true,
   asker: Xonomy.askString,
+  hideIf: function (jsElement) {
+    return jsElement.hasAttribute("fax");
+  }
 },
 ulica:{
+  mustBeBefore:["broj", "postanski_broj", "drzava"],
   hasText: true,
   oneliner: true,
   asker: Xonomy.askString,
+  hideIf: function (jsElement) {
+    return jsElement.hasAttribute("ulica");
+  }
 },
 broj:{
+  mustBeBefore:["postanski_broj", "drzava"],
   hasText: true,
   oneliner: true,
   asker: Xonomy.askString,
+  hideIf: function (jsElement) {
+    return jsElement.hasAttribute("broj");
+  }
 },
 grad:{
+  mustBeBefore:["ulica", "broj", "postanski_broj", "drzava"],
   hasText: true,
   oneliner: true,
   asker: Xonomy.askString,
+  hideIf: function (jsElement) {
+    return jsElement.hasAttribute("grad");
+  }
 },
 drzava:{
   hasText: true,
   oneliner: true,
   asker: Xonomy.askString,
+  hideIf: function (jsElement) {
+    return jsElement.hasAttribute("drzava");
+  }
 },
 postanski_broj:{
+  mustBeBefore: ["drzava"],
   hasText: true,
   oneliner: true,
   asker: Xonomy.askString,
+  hideIf: function (jsElement) {
+    return jsElement.hasAttribute("za_zastupanje");
+  }
 },
 pronalazac:{
   mustBeBefore:['punomocnik', 'dostavljanje', 'zahtev_za_priznanje_prava_iz_ranijih_prijava' ],

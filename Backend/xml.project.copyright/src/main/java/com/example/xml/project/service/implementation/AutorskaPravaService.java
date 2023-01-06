@@ -1,4 +1,4 @@
-package com.example.xml.project.service;
+package com.example.xml.project.service.implementation;
 
 import com.example.xml.project.dto.IzvestajDTO;
 import com.example.xml.project.dto.ZahtevAutorskaDelaDetaljneInformacijeDTO;
@@ -21,10 +21,12 @@ import com.example.xml.project.repository.GenericRepository;
 import com.example.xml.project.request.ParNaprednaPretraga;
 import com.example.xml.project.response.UspesnaTransformacija;
 import com.example.xml.project.request.ParametarPretrage;
+import com.example.xml.project.service.interfaces.IAutorskaPravaService;
 import com.example.xml.project.util.AuthenticationUtilities;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
 
@@ -46,8 +48,8 @@ import static com.example.xml.project.util.Constants.*;
 import static com.example.xml.project.util.Constants.JSON_PUTANJA;
 import static com.example.xml.project.util.SlikeTransformator.sacuvajSliku;
 
-@Service
-public class AutorskaPravaService {
+@Component
+public class AutorskaPravaService implements IAutorskaPravaService {
 
     private final GenericRepository<ZahtevAutorskaDela> repository;
     private final AutorskaPravaRepository autorskaPravaRepository;

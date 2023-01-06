@@ -5,7 +5,7 @@ import com.example.xml.project.exception.*;
 import com.example.xml.project.request.ResenjeOdbijanjeRequest;
 import com.example.xml.project.request.ResenjePrihvatanjeRequest;
 import com.example.xml.project.response.UspesnaTransformacija;
-import com.example.xml.project.service.ResenjeService;
+import com.example.xml.project.service.implementation.ResenjeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.xml.bind.JAXBException;
 import java.io.IOException;
 
 @RestController

@@ -1,4 +1,4 @@
-package com.example.xml.project.service;
+package com.example.xml.project.service.implementation;
 
 import com.example.xml.project.dto.IzvestajDTO;
 import com.example.xml.project.dto.ResenjeDTO;
@@ -19,12 +19,14 @@ import com.example.xml.project.repository.GenericRepository;
 import com.example.xml.project.repository.PatentRepository;
 import com.example.xml.project.request.ParNaprednaPretraga;
 import com.example.xml.project.response.UspesnaTransformacija;
+import com.example.xml.project.service.interfaces.IPatentService;
 import com.example.xml.project.transformator.Transformator;
 import com.example.xml.project.request.ParametarPretrage;
 import com.example.xml.project.util.AuthenticationUtilities;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
 
@@ -45,8 +47,8 @@ import static com.example.xml.project.util.Constants.*;
 import static com.example.xml.project.utils.Constants.JSON_PUTANJA;
 import static com.example.xml.project.utils.Constants.RDF_PUTANJA;
 
-@Service
-public class PatentService {
+@Component
+public class PatentService implements IPatentService {
 
     private final GenericRepository<ZahtevPatent> repository;
     private final PatentRepository patentRepository;

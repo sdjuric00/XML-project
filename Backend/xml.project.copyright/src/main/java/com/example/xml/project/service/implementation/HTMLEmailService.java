@@ -1,15 +1,15 @@
-package com.example.xml.project.service;
+package com.example.xml.project.service.implementation;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.File;
 import java.util.Properties;
-
 public class HTMLEmailService {
     private JavaMailSender mailSender;
 

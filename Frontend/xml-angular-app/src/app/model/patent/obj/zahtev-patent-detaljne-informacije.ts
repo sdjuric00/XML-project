@@ -24,7 +24,7 @@ export interface ZahtevPatentDetaljneInformacije {
 }
 
 export function napraviZahtevPatentDetaljneInformacije(zahtevJson): ZahtevPatentDetaljneInformacije{
-
+  console.log(zahtevJson);
   return {
     broj_prijave: zahtevJson.broj_prijave[0],
     referenca_na_resenje: zahtevJson.referenca_na_resenje[0],

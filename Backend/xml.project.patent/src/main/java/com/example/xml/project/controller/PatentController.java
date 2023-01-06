@@ -1,7 +1,6 @@
 package com.example.xml.project.controller;
 
 import com.example.xml.project.dto.IzvestajDTO;
-import com.example.xml.project.dto.ResenjeDTO;
 import com.example.xml.project.dto.ZahtevPatentDetaljneInformacijeDTO;
 import com.example.xml.project.dto.ZahteviPatentiDTO;
 import com.example.xml.project.exception.CannotUnmarshalException;
@@ -15,7 +14,7 @@ import com.example.xml.project.request.NaprednaPretragaRequest;
 import com.example.xml.project.request.ZahtevPatentRequest;
 import com.example.xml.project.request.PretragaRequest;
 import com.example.xml.project.response.UspesnaTransformacija;
-import com.example.xml.project.service.PatentService;
+import com.example.xml.project.service.implementation.PatentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

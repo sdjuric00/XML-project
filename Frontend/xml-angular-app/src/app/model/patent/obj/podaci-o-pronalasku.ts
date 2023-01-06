@@ -11,6 +11,7 @@ export function napraviPodatak(podatakJSON): PodatakOPronalaskuObj {
 }
 
 export function napraviListuPodataka(podaciJSON): PodatakOPronalaskuObj[] {
+  console.log(podaciJSON);
   let listaPodataka: PodatakOPronalaskuObj[] = [];
   podaciJSON.forEach(podatak => {
     listaPodataka.push(napraviPodatak(podatak));
