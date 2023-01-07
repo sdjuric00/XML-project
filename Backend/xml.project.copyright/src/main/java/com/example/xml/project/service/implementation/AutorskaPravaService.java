@@ -79,11 +79,11 @@ public class AutorskaPravaService implements IAutorskaPravaService {
         this.autorskoDeloExtractMetadata = autorskoDeloExtractMetadata;
     }
 
-    public UspesnaTransformacija dodajHtml(String id)
+    public UspesnaTransformacija dodajHtml(final String id, boolean jeGenerisanjePdf)
             throws JAXBException, EntityNotFoundException, TransformationFailedException, IOException {
         String htmlPutanja = HTML_PUTANJA + id + ".html";
 
-        return new UspesnaTransformacija(this.transformator.generateHTML(htmlPutanja, get(id)));
+        return new UspesnaTransformacija(this.transformator.generateHTML(htmlPutanja, get(id), jeGenerisanjePdf));
     }
 
     public UspesnaTransformacija dodajPdf(String id) throws JAXBException, EntityNotFoundException,
@@ -91,7 +91,7 @@ public class AutorskaPravaService implements IAutorskaPravaService {
     {
         String pdfPutanja = PDF_PUTANJA + id + ".pdf";
         String htmlPutanja = HTML_PUTANJA + id + ".html";
-        this.dodajHtml(id);  //prvo se pravi html za slucaj da ne postoji
+        this.dodajHtml(id, true);  //prvo se pravi html za slucaj da ne postoji
 
         return new UspesnaTransformacija(this.transformator.generatePdf(htmlPutanja, pdfPutanja));
     }

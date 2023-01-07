@@ -30,7 +30,7 @@ public interface IPatentService  {
     ZahteviPatentiDTO pronadjiRezultateOsnovnePretrage(final List<ParametarPretrage> parametriPretrage) throws Exception;
     ZahtevPatent uzmiZahtevBezDTO(final String id) throws CannotUnmarshalException, XPathException;
     ZahteviPatentiDTO pronadjiDokumenteKojiReferenciraju(final String documentId) throws Exception;
-    UspesnaTransformacija dodajHtml(String id) throws JAXBException, EntityNotFoundException, TransformationFailedException, IOException;
+    UspesnaTransformacija dodajHtml(final String id, final boolean jeGenerisanjePdf) throws JAXBException, EntityNotFoundException, TransformationFailedException, IOException;
     UspesnaTransformacija dodajPdf(String id) throws JAXBException, EntityNotFoundException,
             IOException, CannotUnmarshalException, TransformationFailedException;
     String saveNewRequest(

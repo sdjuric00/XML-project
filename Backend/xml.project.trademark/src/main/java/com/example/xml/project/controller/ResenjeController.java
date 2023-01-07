@@ -80,7 +80,7 @@ public class ResenjeController {
     public UspesnaTransformacija createHTML(@PathVariable @Valid @NotNull(message = "Id ne sme biti prazan.") final String id)
             throws TransformationFailedException, IOException, CannotUnmarshalException, XPathException {
 
-        return resenjeService.dodajResenjeHtml(id);
+        return resenjeService.dodajResenjeHtml(id, false);
     }
 
     @GetMapping(path = "/kreiraj-pdf/{id}", produces = "application/xml")

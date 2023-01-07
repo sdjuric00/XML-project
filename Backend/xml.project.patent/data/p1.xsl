@@ -559,12 +559,12 @@
 
                             </tr>
 
-                            <tr>
-                                <xsl:if test="count(//p:zahtev_za_priznanje_prava_iz_ranijih_prijava//p:prijava) > 0">
-                                    <xsl:for-each select="//p:zahtev_za_priznanje_prava_iz_ranijih_prijava//p:prijava">
+                            <xsl:if test="count(//p:zahtev_za_priznanje_prava_iz_ranijih_prijava//p:prijava) > 0">
+                                <xsl:for-each select="//p:zahtev_za_priznanje_prava_iz_ranijih_prijava//p:prijava">
+                                    <tr>
                                         <th colspan="1" width="10%" style="border: 1px solid black">
                                             <p style="margin: 0.4rem; text-align: center; font-weight: normal">
-                                                <span><b>1.</b></span>
+                                                <span><b><xsl:value-of select="position()" />.</b></span>
                                             </p>
                                         </th>
 
@@ -585,17 +585,19 @@
                                                 <span><xsl:value-of select="p:dvoslovna_oznaka_drzave" /></span>
                                             </p>
                                         </th>
-                                    </xsl:for-each>
+                                    </tr>
+                                </xsl:for-each>
 
-                                </xsl:if>
-                                <xsl:if test="count(//p:zahtev_za_priznanje_prava_iz_ranijih_prijava//p:prijava) = 0">
+                            </xsl:if>
+                            <xsl:if test="count(//p:zahtev_za_priznanje_prava_iz_ranijih_prijava//p:prijava) = 0">
+                                <tr>
                                     <th colspan="5" style="border: 1px solid black">
                                         <p style="margin: 0.4rem; text-align: left; font-weight: normal">
                                             <span>Nema ranijih prijava</span>
                                         </p>
                                     </th>
-                                </xsl:if>
-                            </tr>
+                                </tr>
+                            </xsl:if>
 
                         </table>
                     </div>

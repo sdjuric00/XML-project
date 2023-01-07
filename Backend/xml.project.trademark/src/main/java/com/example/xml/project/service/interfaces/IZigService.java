@@ -32,7 +32,7 @@ public interface IZigService {
     ZahteviZigDTO uzmiZahteve(boolean obradjene) throws CannotUnmarshalException, XPathException;
     ZahtevZigDetaljneInformacijeDTO uzmiZahtev(String id) throws CannotUnmarshalException, XPathException;
     ZahtevZig uzmiZahtevBezDTO(final String id) throws CannotUnmarshalException, XPathException;
-    UspesnaTransformacija dodajHtml(String id)
+    UspesnaTransformacija dodajHtml(final String id, final boolean jeGenerisanjePdf)
             throws JAXBException, EntityNotFoundException, TransformationFailedException, IOException;
     ZahteviZigDTO pronadjiRezultateOsnovnePretrage(List<ParametarPretrage> parametriPretrage) throws Exception;
     ZahteviZigDTO pronadjiRezultateNaprednePretrage(List<ParNaprednaPretraga> parametriPretrage) throws Exception;

@@ -7,6 +7,9 @@ import {ToastrService} from "ngx-toastr";
 import { UspesnaTransformacija } from 'src/app/model/opste/uspesna-transformacija';
 import { PatentApplicationService } from 'src/app/service/patent-application.service';
 import { ZigService } from 'src/app/service/zig.service';
+import { ZahtevPatentDetaljneInformacije } from 'src/app/model/patent/obj/zahtev-patent-detaljne-informacije';
+import { ZahtevZigDetaljneInformacije } from 'src/app/model/zig/obj/zahtev-zig-detaljne-informacije';
+import { ZahtevAutorskoPravoDetaljneInformacije } from 'src/app/model/autorsko-pravo/obj/zahtev-autorsko-pravo-detaljne-informacije';
 
 
 @Component({
@@ -22,26 +25,58 @@ export class DugmiciZaSkidanjeComponent implements OnInit, OnDestroy {
   public urlHtml: string = '';
   public urlPdf: string = '';
 
+  patentSubscription: Subscription;
+  zigSubscription: Subscription;
+  autorskaPravaSubscription: Subscription;
+  zahtevAutorskoPravo: ZahtevAutorskoPravoDetaljneInformacije;
+  zahtevPatent: ZahtevPatentDetaljneInformacije;
+  zahtevZig: ZahtevZigDetaljneInformacije;
+
+  reseno: boolean = false;
+
   constructor(
     private autorskaPravaService: AutorskaPravaService,
     private patentService: PatentApplicationService,
     private zigService: ZigService,
     private transformatorService: TransformatorService,
-    private toast: ToastrService
+    private toast: ToastrService,
+    private _patentService: PatentApplicationService,
+    private _zigService: ZigService,
+    private _autorskaPravaService: AutorskaPravaService
   ) { }
 
   pdfSubscription: Subscription;
   htmlSubscription: Subscription;
 
   ngOnInit(): void {
+    if (this.tipZahteva === 'p') {
+      this.patentSubscription = this._patentService.uzmiZahtevPoId(this.zahtevId)
+          .subscribe(result=> {
+            this.zahtevPatent = result;
+            this.reseno = this.zahtevPatent.pregledano
+          });
+    } else if (this.tipZahteva === 'a') {
+      this.autorskaPravaSubscription = this._autorskaPravaService.uzmiZahtevPoId(this.zahtevId)
+        .subscribe(result=> {
+          this.zahtevAutorskoPravo = result;
+          this.reseno = this.zahtevAutorskoPravo.pregledano
+        });
+    } else if (this.tipZahteva === 'z') {
+      this.zigSubscription = this._zigService.uzmiZahtevPoId(this.zahtevId)
+        .subscribe(result=> {
+          this.zahtevZig = result;
+          this.reseno = this.zahtevZig.pregledano;
+        });
+    }
   }
 
-  kreirajPDF() {
+  kreirajPDF(jeResenje: boolean) {
+    let putanja: string = jeResenje ? 'resenje-' : 'zahtev-';
     if (this.tipZahteva === "a") {
-      this.autorskaPravaService.kreirajPDF(this.zahtevId).subscribe(
+      this.autorskaPravaService.kreirajPDF(this.zahtevId, jeResenje).subscribe(
         res => {
           if (res) {
-            this.transformatorService.downloadDocument(res.odgovor, `zahtev-${this.zahtevId}`, 'application/pdf')
+            this.transformatorService.downloadDocument(res.odgovor, `${putanja}${this.zahtevId}`, 'application/pdf')
           }
         },
         err => {
@@ -49,10 +84,10 @@ export class DugmiciZaSkidanjeComponent implements OnInit, OnDestroy {
         }
       );
     } else if (this.tipZahteva === "p") {
-      this.patentService.kreirajPDF(this.zahtevId).subscribe(
+      this.patentService.kreirajPDF(this.zahtevId, jeResenje).subscribe(
         res => {
           if (res) {
-            this.transformatorService.downloadDocument(res.odgovor, `zahtev-${this.zahtevId}`, 'application/pdf')
+            this.transformatorService.downloadDocument(res.odgovor, `${putanja}${this.zahtevId}`, 'application/pdf')
           }
         },
         err => {
@@ -60,10 +95,10 @@ export class DugmiciZaSkidanjeComponent implements OnInit, OnDestroy {
         }
       );
     } else {
-      this.zigService.kreirajPDF(this.zahtevId).subscribe(
+      this.zigService.kreirajPDF(this.zahtevId, jeResenje).subscribe(
         res => {
           if (res) {
-            this.transformatorService.downloadDocument(res.odgovor, `zahtev-${this.zahtevId}`, 'application/pdf')
+            this.transformatorService.downloadDocument(res.odgovor, `${putanja}${this.zahtevId}`, 'application/pdf')
           }
         },
         err => {
@@ -86,12 +121,13 @@ export class DugmiciZaSkidanjeComponent implements OnInit, OnDestroy {
     }
   }
 
-  kreirajHTML() {
+  kreirajHTML(jeResenje: boolean) {
+    let putanja: string = jeResenje ? 'resenje-' : 'zahtev-';
     if (this.tipZahteva === "a") {
-      this.autorskaPravaService.kreirajHTML(this.zahtevId).subscribe(
+      this.autorskaPravaService.kreirajHTML(this.zahtevId, jeResenje).subscribe(
         res => {
           if (res) {
-            this.transformatorService.downloadDocument(res.odgovor, `zahtev-${this.zahtevId}`, 'text/html')
+            this.transformatorService.downloadDocument(res.odgovor, `${jeResenje}${this.zahtevId}`, 'text/html')
           }
         },
         err => {
@@ -99,10 +135,10 @@ export class DugmiciZaSkidanjeComponent implements OnInit, OnDestroy {
         }
       );
     } else if (this.tipZahteva === "p") {
-      this.patentService.kreirajHTML(this.zahtevId).subscribe(
+      this.patentService.kreirajHTML(this.zahtevId, jeResenje).subscribe(
         res => {
           if (res) {
-            this.transformatorService.downloadDocument(res.odgovor, `zahtev-${this.zahtevId}`, 'text/html')
+            this.transformatorService.downloadDocument(res.odgovor, `${jeResenje}${this.zahtevId}`, 'text/html')
           }
         },
         err => {
@@ -110,10 +146,10 @@ export class DugmiciZaSkidanjeComponent implements OnInit, OnDestroy {
         }
       );
     } else {
-      this.zigService.kreirajHTML(this.zahtevId).subscribe(
+      this.zigService.kreirajHTML(this.zahtevId, jeResenje).subscribe(
         res => {
           if (res) {
-            this.transformatorService.downloadDocument(res.odgovor, `zahtev-${this.zahtevId}`, 'text/html')
+            this.transformatorService.downloadDocument(res.odgovor, `${jeResenje}${this.zahtevId}`, 'text/html')
           }
         },
         err => {
@@ -204,6 +240,18 @@ export class DugmiciZaSkidanjeComponent implements OnInit, OnDestroy {
 
     if (this.htmlSubscription) {
       this.htmlSubscription.unsubscribe();
+    }
+
+    if (this.patentSubscription) {
+      this.patentSubscription.unsubscribe();
+    }
+
+    if (this.zigSubscription) {
+      this.zigSubscription.unsubscribe();
+    }
+
+    if (this.autorskaPravaSubscription) {
+      this.autorskaPravaSubscription.unsubscribe();
     }
   }
 

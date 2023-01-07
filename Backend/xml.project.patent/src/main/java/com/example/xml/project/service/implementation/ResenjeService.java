@@ -111,32 +111,29 @@ public class ResenjeService implements IResenjeService {
         return resenjeRepository.uzmi(id);
     }
 
-    public UspesnaTransformacija dodajResenjeHtml(String id)
+    public UspesnaTransformacija dodajResenjeHtml(final String id, final boolean jeGenerisanjePdf)
             throws TransformationFailedException, IOException, CannotUnmarshalException, XPathException
     {
         String htmlPutanja = HTML_PUTANJA + "resenje-" + id + ".html";
 
-        return new UspesnaTransformacija(this.transformator.generisiResenjeHTML(htmlPutanja, uzmiResenjeModel(id)));
+        return new UspesnaTransformacija(this.transformator.generisiResenjeHTML(htmlPutanja, uzmiResenjeModel(id), jeGenerisanjePdf));
     }
 
     public UspesnaTransformacija procitajPdf(final String id)
             throws CannotUnmarshalException, TransformationFailedException, XPathException, IOException
     {
-        String putanja = this.dodajResenjePdf(id);
-        File fajl = new File(putanja);
 
-        return new UspesnaTransformacija(FileUtils.readFileToByteArray(fajl));
+        return new UspesnaTransformacija(this.dodajResenjePdf(id));
     }
 
-    public String dodajResenjePdf(final String id)
+    public byte[] dodajResenjePdf(final String id)
             throws IOException, CannotUnmarshalException, TransformationFailedException, XPathException
     {
         String pdfPutanja = PDF_PUTANJA + "resenje-" + id + ".pdf";
         String htmlPutanja = HTML_PUTANJA + "resenje-" + id + ".html";
-        this.dodajResenjeHtml(id);
-        this.transformator.generatePdf(htmlPutanja, pdfPutanja);
+        this.dodajResenjeHtml(id, true);
 
-        return pdfPutanja;
+        return this.transformator.generatePdf(htmlPutanja, pdfPutanja);
     }
 
     private Resenje checkSchema(String document) throws InvalidDocumentException {

@@ -23,7 +23,7 @@ import java.util.List;
 
 @Service
 public interface IAutorskaPravaService {
-    UspesnaTransformacija dodajHtml(String id)
+    UspesnaTransformacija dodajHtml(final String id, final boolean jeGenerisanjePdf)
             throws JAXBException, EntityNotFoundException, TransformationFailedException, IOException;
     UspesnaTransformacija dodajPdf(String id) throws JAXBException, EntityNotFoundException,
             IOException, CannotUnmarshalException, TransformationFailedException;

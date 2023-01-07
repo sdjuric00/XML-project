@@ -1,7 +1,17 @@
-<button mat-button [matMenuTriggerFor]="preuzmiIzbor" style="margin-left:5rem;">Preuzmi <mat-icon>file_download</mat-icon></button>
-<mat-menu #preuzmiIzbor="matMenu" class="mat-menu-panel">
-  <button mat-menu-item class="btn-panel" (click)="kreirajPDF()">Kao PDF</button>
-  <button mat-menu-item class="btn-panel" (click)="kreirajHTML()">Kao HTML</button>
-  <button mat-menu-item class="btn-panel" (click)="kreirajRdf()">Kao RDF</button>
-  <button mat-menu-item class="btn-panel" (click)="kreirajJson()">Kao JSON</button>
-</mat-menu>
+<div style="display:flex">
+  <button mat-button [matMenuTriggerFor]="preuzmiIzbor">Zahtev <mat-icon>file_download</mat-icon></button>
+  <mat-menu #preuzmiIzbor="matMenu" class="mat-menu-panel">
+    <button mat-menu-item class="btn-panel" (click)="kreirajPDF(false)">Kao PDF</button>
+    <button mat-menu-item class="btn-panel" (click)="kreirajHTML(false)">Kao HTML</button>
+    <button mat-menu-item class="btn-panel" (click)="kreirajRdf()">Kao RDF</button>
+    <button mat-menu-item class="btn-panel" (click)="kreirajJson()">Kao JSON</button>
+  </mat-menu>
+  <div *ngIf="reseno">
+    <button mat-button [matMenuTriggerFor]="preuzmiResenje" style="margin-left:2rem;">Rešenje
+      <mat-icon>file_download</mat-icon></button>
+    <mat-menu #preuzmiResenje="matMenu" class="mat-menu-panel">
+      <button mat-menu-item class="btn-panel" (click)="kreirajPDF(true)">Kao PDF</button>
+      <button mat-menu-item class="btn-panel" (click)="kreirajHTML(true)">Kao HTML</button>
+    </mat-menu>
+  </div>
+</div>

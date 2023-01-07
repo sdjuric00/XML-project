@@ -127,11 +127,11 @@ public class KorisnikService {
         return new KorisnikDTO(korisnik);
     }
 
-    public UspesnaTransformacija dodajHtml(final IzvestajRequest izvestaj)
+    public UspesnaTransformacija dodajHtml(final IzvestajRequest izvestaj, final boolean jeGenerisanjePdf)
             throws JAXBException, EntityNotFoundException, TransformationFailedException, IOException {
         String htmlPutanja = HTML_PUTANJA + "izvestaj" + ".html";
 
-        return new UspesnaTransformacija(this.transformator.generateHTML(htmlPutanja, izvestaj));
+        return new UspesnaTransformacija(this.transformator.generateHTML(htmlPutanja, izvestaj, jeGenerisanjePdf));
     }
 
     public UspesnaTransformacija dodajPDF(final IzvestajRequest izvestaj)
@@ -139,7 +139,7 @@ public class KorisnikService {
     {
         String pdfPutanja = PDF_PUTANJA + "izvestaj" + ".pdf";
         String htmlPutanja = HTML_PUTANJA + "izvestaj" + ".html";
-        this.dodajHtml(izvestaj);  //prvo se pravi html za slucaj da ne postoji
+        this.dodajHtml(izvestaj, true);  //prvo se pravi html za slucaj da ne postoji
 
         return new UspesnaTransformacija(this.transformator.generatePdf(htmlPutanja, pdfPutanja));
     }

@@ -126,7 +126,7 @@ public class AutorskaPravaController {
     public UspesnaTransformacija createHTML(@PathVariable @Valid @NotNull(message = "Id ne sme biti prazan.") final String id)
             throws JAXBException, EntityNotFoundException, TransformationFailedException, IOException {
 
-        return autorskaPravaService.dodajHtml(id);
+        return autorskaPravaService.dodajHtml(id, false);
     }
 
     @GetMapping(path = "/kreiraj-pdf/{id}", produces = "application/xml")

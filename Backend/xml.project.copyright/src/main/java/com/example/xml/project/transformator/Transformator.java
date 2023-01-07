@@ -50,13 +50,21 @@ public class Transformator {
         pdfDocument.setDefaultPageSize(new PageSize(780, 2000));
         HtmlConverter.convertToPdf(Files.newInputStream(Paths.get(htmlPutanja)), pdfDocument);
         File fajl = new File(pdfPutanja);
+        byte[] povratnaVrednost = FileUtils.readFileToByteArray(fajl);
+        fajl.delete();
+        fajl = new File(htmlPutanja);
+        fajl.delete();
 
-        return FileUtils.readFileToByteArray(fajl);
+        return povratnaVrednost;
     }
 
-    public byte[] generateHTML(final String htmlPutanja, final ZahtevAutorskaDela zahtev)
-            throws TransformationFailedException, IOException {
+    public byte[] generateHTML(
+            final String htmlPutanja,
+            final ZahtevAutorskaDela zahtev,
+            final boolean jeGenerisanjePdf
+    ) throws TransformationFailedException, IOException {
         File fajl;
+        byte[] povratnaVrednost;
         try {
             StreamSource transformSource = new StreamSource(new File(XSL_PUTANJA));
             Transformer transformer = transformerFactory.newTransformer(transformSource);
@@ -65,22 +73,31 @@ public class Transformator {
             JAXBContext jc = JAXBContext.newInstance(ZahtevAutorskaDela.class);
             JAXBSource source = new JAXBSource(jc, zahtev);
             System.out.println("Source" + source);
-            StreamResult result = new StreamResult(new FileOutputStream(htmlPutanja));
-
+            FileOutputStream fo = new FileOutputStream(htmlPutanja);
+            StreamResult result = new StreamResult(fo);
             transformer.transform(source, result);
+            fo.close();
 
             fajl = new File(htmlPutanja);
+            povratnaVrednost = FileUtils.readFileToByteArray(fajl);
+            if (!jeGenerisanjePdf) {
+                fajl.delete();
+            }
 
         } catch (Exception e) {
             throw new TransformationFailedException("Creation of html failed. Try again late.");
         }
 
-        return FileUtils.readFileToByteArray(fajl);
+        return povratnaVrednost;
     }
 
-    public byte[] generisiResenjeHTML(final String htmlPutanja, final Resenje zahtev)
-            throws TransformationFailedException, IOException {
+    public byte[] generisiResenjeHTML(
+            final String htmlPutanja,
+            final Resenje zahtev,
+            final boolean jeGenerisanjePdf
+    ) throws TransformationFailedException, IOException {
         File fajl;
+        byte[] povratnaVrednost;
         try {
             StreamSource transformSource = new StreamSource(new File(XSL_RESENJE_PUTANJA));
             Transformer transformer = transformerFactory.newTransformer(transformSource);
@@ -88,16 +105,21 @@ public class Transformator {
             JAXBContext jc = JAXBContext.newInstance(Resenje.class);
             JAXBSource source = new JAXBSource(jc, zahtev);
             System.out.println("Source" + source);
-            StreamResult result = new StreamResult(new FileOutputStream(htmlPutanja));
-
+            FileOutputStream fo = new FileOutputStream(htmlPutanja);
+            StreamResult result = new StreamResult(fo);
             transformer.transform(source, result);
+            fo.close();
 
             fajl = new File(htmlPutanja);
+            povratnaVrednost = FileUtils.readFileToByteArray(fajl);
+            if (!jeGenerisanjePdf) {
+                fajl.delete();
+            }
 
         } catch (Exception e) {
             throw new TransformationFailedException("Creation of html failed. Try again late.");
         }
 
-        return FileUtils.readFileToByteArray(fajl);
+        return povratnaVrednost;
     }
 }

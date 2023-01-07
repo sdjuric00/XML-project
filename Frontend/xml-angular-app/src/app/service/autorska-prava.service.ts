@@ -116,8 +116,9 @@ export class AutorskaPravaService {
     }));
   }
 
-  kreirajPDF(zahtevId: string): Observable<UspesnaTransformacija> {
-    return this._http.get(`${this._api_url}/autorska-prava/kreiraj-pdf/${zahtevId}`, {
+  kreirajPDF(zahtevId: string, jeResenje: boolean): Observable<UspesnaTransformacija> {
+    let putanja: string = jeResenje ? '/autorska-prava/resenje/' : '/autorska-prava/';
+    return this._http.get(`${this._api_url}${putanja}kreiraj-pdf/${zahtevId}`, {
         headers: new HttpHeaders().set('Accept' , 'application/xml'),
         responseType:"text"
       }
@@ -135,8 +136,9 @@ export class AutorskaPravaService {
     }));
   }
 
-  kreirajHTML(zahtevId: string) {
-    return this._http.get(`${this._api_url}/autorska-prava/kreiraj-html/${zahtevId}`, {
+  kreirajHTML(zahtevId: string, jeResenje: boolean) {
+    let putanja: string = jeResenje ? '/autorska-prava/resenje/' : '/autorska-prava/';
+    return this._http.get(`${this._api_url}${putanja}kreiraj-html/${zahtevId}`, {
         headers: new HttpHeaders().set('Accept' , 'application/xml'),
         responseType:"text"
       }
@@ -276,7 +278,5 @@ export class AutorskaPravaService {
       })
       return listaZahteva;
   }))}
-
-  
 
 }

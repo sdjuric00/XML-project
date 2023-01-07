@@ -10,10 +10,8 @@ import com.example.xml.project.repository.ResenjeRepository;
 import com.example.xml.project.response.UspesnaTransformacija;
 import com.example.xml.project.service.interfaces.IResenjeService;
 import com.example.xml.project.transformator.Transformator;
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
 
 import javax.xml.XMLConstants;
@@ -76,9 +74,9 @@ public class ResenjeService implements IResenjeService {
     {
         Resenje resenje = napraviResenjeZaPrihvatanjeZahteva(referenca_na_zahtev, ime_prezime_sluzbenika, sifra_obradjenog_zahteva);
         KreiranoResenjeSaZahtevomDTO zahtevDTO = popuniPotrebnaPoljaZahteva(referenca_na_zahtev, dat_opis_autorskog_dela, dat_primer_autorskog_dela, resenje, true);
-        String pdfPutanja = this.dodajResenjePdf(zahtevDTO.getResenjeId());
+        byte[] pdfFajl = this.dodajResenjePdf(zahtevDTO.getResenjeId());
 
-        emailService.posaljiResenjeOPrihvatanjuKorisniku(zahtevDTO.getZahtevAutorskaDela(), pdfPutanja);
+        emailService.posaljiResenjeOPrihvatanjuKorisniku(zahtevDTO.getZahtevAutorskaDela(), pdfFajl);
     }
 
     public void odbijZahtev(
@@ -91,9 +89,9 @@ public class ResenjeService implements IResenjeService {
     {
         Resenje resenje = napraviResenjeZaOdbijanjeZahteva(referenca_na_zahtev, ime_prezime_sluzbenika, razlog_odbijanja);
         KreiranoResenjeSaZahtevomDTO zahtevDTO = popuniPotrebnaPoljaZahteva(referenca_na_zahtev, dat_opis_autorskog_dela, dat_primer_autorskog_dela, resenje, false);
-        String pdfPutanja = this.dodajResenjePdf(zahtevDTO.getResenjeId());
+        byte[] pdfFajl = this.dodajResenjePdf(zahtevDTO.getResenjeId());
 
-        emailService.posaljiResenjeOOdbijanjuKorisniku(zahtevDTO.getZahtevAutorskaDela(), pdfPutanja);
+        emailService.posaljiResenjeOOdbijanjuKorisniku(zahtevDTO.getZahtevAutorskaDela(), pdfFajl);
     }
 
     public ResenjeDTO uzmi(String id) throws CannotUnmarshalException, XPathException {
@@ -106,32 +104,29 @@ public class ResenjeService implements IResenjeService {
         return resenjeRepository.uzmi(id);
     }
 
-    public UspesnaTransformacija dodajResenjeHtml(String id)
+    public UspesnaTransformacija dodajResenjeHtml(final String id, final boolean jeGenerisanjePdf)
             throws TransformationFailedException, IOException, CannotUnmarshalException, XPathException
     {
         String htmlPutanja = HTML_PUTANJA + "resenje-" + id + ".html";
 
-        return new UspesnaTransformacija(this.transformator.generisiResenjeHTML(htmlPutanja, uzmiResenjeModel(id)));
+        return new UspesnaTransformacija(this.transformator.generisiResenjeHTML(htmlPutanja, uzmiResenjeModel(id), jeGenerisanjePdf));
     }
 
     public UspesnaTransformacija procitajPdf(final String id)
             throws CannotUnmarshalException, TransformationFailedException, XPathException, IOException
     {
-        String putanja = this.dodajResenjePdf(id);
-        File fajl = new File(putanja);
 
-        return new UspesnaTransformacija(FileUtils.readFileToByteArray(fajl));
+        return new UspesnaTransformacija(this.dodajResenjePdf(id));
     }
 
-    public String dodajResenjePdf(final String id)
+    public byte[] dodajResenjePdf(final String id)
             throws IOException, CannotUnmarshalException, TransformationFailedException, XPathException
     {
         String pdfPutanja = PDF_PUTANJA + "resenje-" + id + ".pdf";
         String htmlPutanja = HTML_PUTANJA + "resenje-" + id + ".html";
-        this.dodajResenjeHtml(id);
-        this.transformator.generatePdf(htmlPutanja, pdfPutanja);
+        this.dodajResenjeHtml(id, true);
 
-        return pdfPutanja;
+        return this.transformator.generatePdf(htmlPutanja, pdfPutanja);
     }
 
     private KreiranoResenjeSaZahtevomDTO popuniPotrebnaPoljaZahteva(
