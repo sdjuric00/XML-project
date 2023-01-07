@@ -29,6 +29,7 @@ export class HomePageComponent implements OnInit {
   prikaziZigove = false;
   prikaziPatente = false;
   prikaziAutorskaPrava = false;
+  rezultati = true;
   addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   searchList: string[] = [];
@@ -70,12 +71,15 @@ export class HomePageComponent implements OnInit {
     let osnovnaPretraga: OsnovnaPretraga = {pretraga: {parametriPretrage: pretragaPodaci}};
     this.patentService.osnovnaPretraga(osnovnaPretraga).subscribe(zahtevi=>{
       this.listaZahtevaPatenti = zahtevi;
+      console.log("blaa");
       if(zahtevi.length > 0){
         this.prikaziPatente = true;
         this.refZahteviPatenti(zahtevi);
+        this.rezultati = true;
       }
       else{
         this.prikaziPatente = false;
+        this.rezultati = false;
       }
     });
 
@@ -83,9 +87,11 @@ export class HomePageComponent implements OnInit {
       this.listaZahtevaAutorskaPrava = zahtevi;
       if(zahtevi.length > 0){
         this.prikaziAutorskaPrava = true;
+        this.rezultati = true;
       }
       else{
         this.prikaziAutorskaPrava = false;
+        this.rezultati = false;
       }
     })
 
@@ -93,18 +99,18 @@ export class HomePageComponent implements OnInit {
       this.listaZahtevaZigova = zahtevi;
       if(zahtevi.length > 0){
         this.prikaziZigove = true;
+        this.rezultati = true;
       }
       else{
         this.prikaziZigove = false;
+        this.rezultati = false;
       }
+
     })
 
-    if(!this.prikaziZigove && !this.prikaziAutorskaPrava && !this.prikaziZigove){
-      console.log("talta");
-    }
-
-
   }
+
+  
 
   refZahteviPatenti(zahtevi: ZahtevPatentOsnovneInformacije[]){
     zahtevi.forEach(zahtev => {

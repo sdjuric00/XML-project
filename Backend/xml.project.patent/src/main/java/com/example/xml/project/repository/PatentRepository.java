@@ -17,6 +17,7 @@ import org.exist.xmldb.EXistResource;
 import org.springframework.stereotype.Component;
 import org.xmldb.api.DatabaseManager;
 import org.xmldb.api.base.*;
+import org.xmldb.api.base.Collection;
 import org.xmldb.api.modules.XMLResource;
 import org.xmldb.api.modules.XPathQueryService;
 
@@ -32,10 +33,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 import static com.example.xml.project.rdf.RdfConstants.*;
 import static com.example.xml.project.util.Constants.*;
@@ -184,6 +182,7 @@ public class PatentRepository extends BasicXMLRepository {
     public List<ZahtevPatent> pronadjiRezultateOsnovnePretrage(List<ParametarPretrage> parameters) throws Exception {
         String xPathIzraz = "/zahtev_za_priznavanje_patenta";
         List<ZahtevPatent> listaRez = new LinkedList<>();
+        List<XMLResource> listaXMLRez = new LinkedList<>();
         try {
             ResourceSet rs = izvrsiXPathIzraz(COLLECTION_ID_PATENTI_ZAHTEV_DB, xPathIzraz, PATENT_NAMESPACE);
 
@@ -193,23 +192,51 @@ public class PatentRepository extends BasicXMLRepository {
             ResourceIterator i = rs.getIterator();
             XMLResource res = null;
 
-
             while (i.hasMoreResources()) {
                 res = (XMLResource) i.nextResource();
 
                 String xml = res.getContent().toString();
-                System.out.println("tralala");
-                System.out.println(xml);
-                for (ParametarPretrage parameter : parameters) {
-                    if (xml.contains(parameter.getParametar())) {
-                        System.out.println("blabla");
-                        ZahtevPatent zahtevPatent = (ZahtevPatent) XMLParser.unmarshal("", "", false, true, res);
-                        if (!listaRez.contains(zahtevPatent)) {
-                            System.out.println("listaa");
-                            listaRez.add(zahtevPatent);
-                        }
+                int j = 0;
+                boolean postoji = true;
+                while(j < parameters.size()){
+                    if(!xml.contains(parameters.get(j).getParametar())){
+                        postoji = false;
                     }
+                    j += 1;
                 }
+                if(postoji) {
+                    ZahtevPatent zahtevPatent = (ZahtevPatent) XMLParser.unmarshal("", "", false, true, res);
+                    listaRez.add(zahtevPatent);
+                }
+//                for (int j=0;j<parameters.size();j++) {
+//                    if (xml.contains(parameters.get(j).getParametar())) {
+//                        if (j == 0) {
+////                            ZahtevPatent zahtevPatent = (ZahtevPatent) XMLParser.unmarshal("", "", false, true, res);
+//                            listaXMLRez.add(res);
+//                        } else {
+////                            ZahtevPatent zahtevPatent = (ZahtevPatent) XMLParser.unmarshal("", "", false, true, res);
+//                            if (listaXMLRez.contains(res)) {
+//                                listaXMLRez.add(res);
+//                            }
+//                        }
+//                    }
+//                }
+
+//                    if (xml.contains(parameter.getParametar())) {
+//                        ZahtevPatent zahtevPatent = (ZahtevPatent) XMLParser.unmarshal("", "", false, true, res);
+////                        if (!listaRez.contains(zahtevPatent)) {
+////                            listaRez.add(zahtevPatent);
+////                        }
+//
+//                    }
+//                for(String str : listaXMLRez){
+//                    int frequency = Collections.frequency(listaXMLRez, str);
+//                    if(frequency == parameters.size()){
+//                        listaXMLRez.remove(str);
+//                        ZahtevPatent zahtevPatent = (ZahtevPatent) XMLParser.unmarshal("", "", false, true, res);
+//                        listaRez.add(zahtevPatent);
+//                    }
+//                }
 
             }
             if (res != null) {

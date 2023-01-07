@@ -34,12 +34,14 @@ export class NaprednaPretragaComponent implements OnInit {
     "referenca_na_resenje", "vrsta_autorskog_dela", "naziv_patenta_engleski",
      "naziv_patenta_srpski", "pronalazac_email", "broj_ranije_prijave",
     "predstavnik_email", "vrsta_ziga", "vrsta_znaka"];
+  refListaPatenti: Map<string,[{ref_prijava: string, ref_id: string}]> = new Map();
   listaZahtevaPatenti: ZahtevPatentOsnovneInformacije[];
   listaZahtevaAutorskaPrava: ZahtevAutorskoPravoOsnovneInformacije[];
   listaZahtevaZigova: ZahtevZigOsnovneInformacije[];
   prikaziZigove = false;
   prikaziPatente = false;
   prikaziAutorskaPrava = false;
+  rezultati = true;
 
 
   // vrednosti=[new FormControl("")]
@@ -83,9 +85,12 @@ export class NaprednaPretragaComponent implements OnInit {
         this.listaZahtevaPatenti = zahtevi;
         if(zahtevi.length > 0){
           this.prikaziPatente = true;
+          this.refZahteviPatenti(zahtevi);
+          this.rezultati = true;
         }
         else{
           this.prikaziPatente = false;
+          this.rezultati = false;
         }
       });
   
@@ -93,9 +98,11 @@ export class NaprednaPretragaComponent implements OnInit {
         this.listaZahtevaAutorskaPrava = zahtevi;
         if(zahtevi.length > 0){
           this.prikaziAutorskaPrava = true;
+          this.rezultati = true;
         }
         else{
           this.prikaziAutorskaPrava = false;
+          this.rezultati = false;
         }
       })
   
@@ -103,9 +110,11 @@ export class NaprednaPretragaComponent implements OnInit {
         this.listaZahtevaZigova = zahtevi;
         if(zahtevi.length > 0){
           this.prikaziZigove = true;
+          this.rezultati = true;
         }
         else{
           this.prikaziZigove = false;
+          this.rezultati = false;
         }
       })
   
@@ -114,6 +123,29 @@ export class NaprednaPretragaComponent implements OnInit {
       this._toast.error("Nemoguce je izvrsiti pretragu, nisu sva polja validna!", "NEVALIDNA POLJA");
     }
   }
+
+  refZahteviPatenti(zahtevi: ZahtevPatentOsnovneInformacije[]){
+    zahtevi.forEach(zahtev => {
+      this.patentService.refencirajuDokumenti(zahtev.id).subscribe(refZahtevi => {
+        refZahtevi.forEach(refZahtev => {
+          if(this.refListaPatenti[zahtev.broj_prijave] === undefined){
+            this.refListaPatenti.set(zahtev.broj_prijave, [{ref_prijava: refZahtev.broj_prijave, ref_id: refZahtev.id}])
+          }
+          else{
+            this.refListaPatenti[zahtev.broj_prijave].push({ref_prijava: refZahtev.broj_prijave, ref_id: refZahtev.id})
+          }
+        })
+      })
+      console.log(this.refListaPatenti);
+    })
+    
+  }    
+
+  
+  idiNaPatentDetalje(id: string){
+    return `/zahtev-patent/detalji/${id}`;
+  }
+   
 
   getNaprednaPretraga(): ParametriNaprednePretrage{
     let parametri: ParametriNaprednePretrage = {par: []};

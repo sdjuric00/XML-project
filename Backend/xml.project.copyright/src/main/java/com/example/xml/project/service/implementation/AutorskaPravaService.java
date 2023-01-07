@@ -123,8 +123,8 @@ public class AutorskaPravaService implements IAutorskaPravaService {
     )
             throws JAXBException, IOException, InvalidDocumentException, TransformationFailedException
     {
-        String imeSlike = sacuvajSliku(prilozi.getPrimerak());
-        prilozi.setPrimerak(imeSlike);
+//        String imeSlike = sacuvajSliku(prilozi.getPrimerak());
+//        prilozi.setPrimerak(imeSlike);
         if (id == null) {
             id = "1";    //zbog check seme da validira, posle ce setovati dobar broj
         }
@@ -188,22 +188,14 @@ public class AutorskaPravaService implements IAutorskaPravaService {
 
     public UspesnaTransformacija generisiJson(String id) throws IOException {
         AuthenticationUtilities.ConnectionPropertiesFuseki connectionPropertiesFuseki = AuthenticationUtilities.setUpPropertiesFuseki();
-        ObjectMapper mapper = new ObjectMapper();
-        File file = new File(JSON_PUTANJA + id + ".json");
-        Object json = mapper.readValue(autorskaPravaRepository.generisiJson(id, connectionPropertiesFuseki), Object.class);
-        String prettyFormat = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json);
-        System.out.println(prettyFormat);
-        mapper.writeValue(file, prettyFormat);
-        return new UspesnaTransformacija(FileUtils.readFileToByteArray(file));
+        String json = autorskaPravaRepository.generisiJson(id, connectionPropertiesFuseki);
+        return new UspesnaTransformacija(json.getBytes());
     }
 
     public UspesnaTransformacija generisiRdf(String id) throws IOException {
         AuthenticationUtilities.ConnectionPropertiesFuseki connectionPropertiesFuseki = AuthenticationUtilities.setUpPropertiesFuseki();
-        ObjectMapper mapper = new ObjectMapper();
-        File file = new File(RDF_PUTANJA + id + ".rdf");
-
-        mapper.writeValue(file, autorskaPravaRepository.generisiRdf(id, connectionPropertiesFuseki));
-        return new UspesnaTransformacija(FileUtils.readFileToByteArray(file));
+        String rdf = autorskaPravaRepository.generisiRdf(id, connectionPropertiesFuseki);
+        return new UspesnaTransformacija(rdf.getBytes());
     }
 
     public ZahteviAutorskaDelaDTO pronadjiRezultateNaprednePretrage(List<ParNaprednaPretraga> parametriPretrage) throws Exception {

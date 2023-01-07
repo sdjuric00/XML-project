@@ -102,7 +102,6 @@ export class PatentApplicationService {
         responseType:"text"
       }
     ).pipe(map(result=>{
-      console.log(result);
       result = result.replaceAll('ns2:', '');
       result = result.replaceAll('ns3:', '');
       result = result.replaceAll('ns4:', '');
@@ -129,13 +128,11 @@ export class PatentApplicationService {
       o2x(osnovnaPretraga),
       queryParams
     ).pipe(map((result:string)=>{
-      console.log(result);
       result = result.replaceAll('ns2:','')
       result = result.replaceAll('ns3:', '');
       const parser = new xml2js.Parser({ strict: true, trim: true });
       let listaZahteva: ZahtevPatentOsnovneInformacije[] = [];
       parser.parseString(result.toString(),(err, result) => {
-        console.log(result);
         if (result?.zahtevi?.lista_zahteva_p[0]?.zahtev_za_priznavanje_patenta) {
           result.zahtevi.lista_zahteva_p[0].zahtev_za_priznavanje_patenta.forEach(zahtev =>
             listaZahteva.push(napraviZahtevPatentOsnovneInformacije(zahtev))

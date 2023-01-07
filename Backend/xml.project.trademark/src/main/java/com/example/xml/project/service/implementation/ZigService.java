@@ -163,22 +163,14 @@ public class ZigService implements IZigService {
 
     public UspesnaTransformacija generisiJson(String id) throws IOException {
         AuthenticationUtilities.ConnectionPropertiesFuseki connectionPropertiesFuseki = AuthenticationUtilities.setUpPropertiesFuseki();
-        ObjectMapper mapper = new ObjectMapper();
-        File file = new File(JSON_PUTANJA + id + ".json");
-        Object json = mapper.readValue(zigRepository.generisiJson(id, connectionPropertiesFuseki), Object.class);
-        String prettyFormat = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json);
-        System.out.println(prettyFormat);
-        mapper.writeValue(file, prettyFormat);
-        return new UspesnaTransformacija(FileUtils.readFileToByteArray(file));
+        String json = zigRepository.generisiJson(id, connectionPropertiesFuseki);
+        return new UspesnaTransformacija(json.getBytes());
     }
 
     public UspesnaTransformacija generisiRdf(String id) throws IOException {
         AuthenticationUtilities.ConnectionPropertiesFuseki connectionPropertiesFuseki = AuthenticationUtilities.setUpPropertiesFuseki();
-        ObjectMapper mapper = new ObjectMapper();
-        File file = new File(RDF_PUTANJA + id + ".rdf");
-
-        mapper.writeValue(file, zigRepository.generisiRdf(id, connectionPropertiesFuseki));
-        return new UspesnaTransformacija(FileUtils.readFileToByteArray(file));
+        String rdf = zigRepository.generisiRdf(id, connectionPropertiesFuseki);
+        return new UspesnaTransformacija(rdf.getBytes());
     }
 
     public String saveNewRequest(
@@ -196,7 +188,7 @@ public class ZigService implements IZigService {
             PlaceneTakse placene_takse,
             Prilozi prilozi
     ) throws JAXBException, InvalidDocumentException, TransformationFailedException, IOException {
-        prilozi = sacuvajSlike(prilozi);
+//        prilozi = sacuvajSlike(prilozi);
         placene_takse = izracunajTakse(placene_takse, nicanska_klasifikacija.size());
         if (id == null) {
             id = "1";    //zbog check seme da validira, posle ce setovati dobar broj

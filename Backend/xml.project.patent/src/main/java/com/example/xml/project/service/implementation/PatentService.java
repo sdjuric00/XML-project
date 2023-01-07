@@ -214,22 +214,14 @@ public class PatentService implements IPatentService {
 
     public UspesnaTransformacija generisiJson(String id) throws IOException {
         AuthenticationUtilities.ConnectionPropertiesFuseki connectionPropertiesFuseki = AuthenticationUtilities.setUpPropertiesFuseki();
-        ObjectMapper mapper = new ObjectMapper();
-        File file = new File(JSON_PUTANJA + id + ".json");
-        Object json = mapper.readValue(patentRepository.generisiJson(id, connectionPropertiesFuseki), Object.class);
-        String prettyFormat = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json);
-        System.out.println(prettyFormat);
-        mapper.writeValue(file, prettyFormat);
-        return new UspesnaTransformacija(FileUtils.readFileToByteArray(file));
+        String json = patentRepository.generisiJson(id, connectionPropertiesFuseki);
+        return new UspesnaTransformacija(json.getBytes());
     }
 
     public UspesnaTransformacija generisiRdf(String id) throws IOException {
         AuthenticationUtilities.ConnectionPropertiesFuseki connectionPropertiesFuseki = AuthenticationUtilities.setUpPropertiesFuseki();
-        ObjectMapper mapper = new ObjectMapper();
-        File file = new File(RDF_PUTANJA + id + ".rdf");
-
-        mapper.writeValue(file, patentRepository.generisiRdf(id, connectionPropertiesFuseki));
-        return new UspesnaTransformacija(FileUtils.readFileToByteArray(file));
+        String rdf = patentRepository.generisiRdf(id, connectionPropertiesFuseki);
+        return new UspesnaTransformacija(rdf.getBytes());
     }
 
     public ZahteviPatentiDTO pronadjiRezultateNaprednePretrage(List<ParNaprednaPretraga> parametriPretrage) throws Exception {

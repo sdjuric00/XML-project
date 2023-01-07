@@ -150,7 +150,6 @@ export class ZigService {
       o2x(osnovnaPretraga),
       queryParams
     ).pipe(map((result:string)=>{
-      console.log(result);
       result = result.replaceAll('ns2:','')
       result = result.replaceAll('ns3:', '');
       const parser = new xml2js.Parser({ strict: true, trim: true });

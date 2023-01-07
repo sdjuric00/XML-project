@@ -165,7 +165,7 @@ export class DugmiciZaSkidanjeComponent implements OnInit, OnDestroy {
       this.autorskaPravaService.kreirajRdf(this.zahtevId).subscribe(
         res => {
           if (res) {
-            this.transformatorService.downloadJsonRdf(res.odgovor, `zahtev-autorsko-delo${this.zahtevId}`, 'application/rdf')
+            this.transformatorService.downloadJsonRdf(res.odgovor, `zahtev-autorsko-delo${this.zahtevId}`, 'text/rdf')
           }
         },
         err => {
@@ -176,7 +176,7 @@ export class DugmiciZaSkidanjeComponent implements OnInit, OnDestroy {
       this.patentService.kreirajRdf(this.zahtevId).subscribe(
         res => {
           if (res) {
-            this.transformatorService.downloadJsonRdf(res.odgovor, `zahtev-patent-${this.zahtevId}`, 'application/rdf')
+            this.transformatorService.downloadJsonRdf(res.odgovor, `zahtev-patent-${this.zahtevId}`, 'text/rdf')
           }
         },
         err => {
@@ -187,7 +187,7 @@ export class DugmiciZaSkidanjeComponent implements OnInit, OnDestroy {
       this.zigService.kreirajRdf(this.zahtevId).subscribe(
         res => {
           if (res) {
-            this.transformatorService.downloadJsonRdf(res.odgovor, `zahtev-zig-${this.zahtevId}`, 'application/rdf')
+            this.transformatorService.downloadJsonRdf(res.odgovor, `zahtev-zig-${this.zahtevId}`, 'text/rdf')
           }
         },
         err => {

@@ -167,7 +167,6 @@ export class AutorskaPravaService {
       o2x(osnovnaPretraga),
       queryParams
     ).pipe(map((result:string)=>{
-      console.log(result);
       result = result.replaceAll('ns2:','')
       result = result.replaceAll('ns3:', '');
       const parser = new xml2js.Parser({ strict: true, trim: true });
@@ -263,7 +262,6 @@ export class AutorskaPravaService {
       o2x(napredna_pretraga),
       queryParams
     ).pipe(map((result:string)=>{
-      console.log(result);
       result = result.replaceAll('ns2:','')
       result = result.replaceAll('ns3:', '');
       const parser = new xml2js.Parser({ strict: true, trim: true });
