@@ -136,7 +136,7 @@ public class PatentController {
     public UspesnaTransformacija createHTML(@PathVariable @Valid @NotNull(message = "Id ne sme biti prazan.") final String id)
             throws JAXBException, EntityNotFoundException, TransformationFailedException, IOException {
 
-        return patentService.dodajHtml(id);
+        return patentService.dodajHtml(id, false);
     }
 
     @GetMapping(path = "/kreiraj-pdf/{id}", produces = "application/xml")

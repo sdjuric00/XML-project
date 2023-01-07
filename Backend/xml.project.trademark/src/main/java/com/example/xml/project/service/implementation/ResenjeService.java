@@ -13,7 +13,6 @@ import com.example.xml.project.repository.ResenjeRepository;
 import com.example.xml.project.response.UspesnaTransformacija;
 import com.example.xml.project.service.interfaces.IResenjeService;
 import com.example.xml.project.transformator.Transformator;
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.xml.sax.SAXException;
@@ -156,30 +155,29 @@ public class ResenjeService implements IResenjeService {
         return resenjeRepository.uzmi(id);
     }
 
-    public UspesnaTransformacija dodajResenjeHtml(String id)
+    public UspesnaTransformacija dodajResenjeHtml(final String id, final boolean jeGenerisanjePdf)
             throws TransformationFailedException, IOException, CannotUnmarshalException, XPathException {
         String htmlPutanja = HTML_PUTANJA + "resenje-" + id + ".html";
-        String qrCodeUrl = QR_RESENJE_PUTANJA + id + ".pdf";
+        String qrCodeUrl = QR_RESENJE_PUTANJA + id;
 
-        return new UspesnaTransformacija(this.transformator.generisiResenjeHTML(htmlPutanja, uzmiResenjeModel(id), qrCodeUrl));
+        return new UspesnaTransformacija(this.transformator.generisiResenjeHTML(htmlPutanja, uzmiResenjeModel(id), qrCodeUrl, jeGenerisanjePdf));
     }
 
     public UspesnaTransformacija procitajPdf(final String id)
-            throws CannotUnmarshalException, TransformationFailedException, XPathException, IOException {
-        String putanja = this.dodajResenjePdf(id);
-        File fajl = new File(putanja);
+            throws CannotUnmarshalException, TransformationFailedException, XPathException, IOException
+    {
 
-        return new UspesnaTransformacija(FileUtils.readFileToByteArray(fajl));
+        return new UspesnaTransformacija(this.dodajResenjePdf(id));
     }
 
-    public String dodajResenjePdf(final String id)
-            throws IOException, CannotUnmarshalException, TransformationFailedException, XPathException {
+    public byte[] dodajResenjePdf(final String id)
+            throws IOException, CannotUnmarshalException, TransformationFailedException, XPathException
+    {
         String pdfPutanja = PDF_PUTANJA + "resenje-" + id + ".pdf";
         String htmlPutanja = HTML_PUTANJA + "resenje-" + id + ".html";
-        this.dodajResenjeHtml(id);
-        this.transformator.generatePdf(htmlPutanja, pdfPutanja);
+        this.dodajResenjeHtml(id, true);
 
-        return pdfPutanja;
+        return this.transformator.generatePdf(htmlPutanja, pdfPutanja);
     }
 
 //    public ZahtevAutorskaDela get(String documentId) throws EntityNotFoundException, JAXBException {

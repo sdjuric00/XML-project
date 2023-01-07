@@ -137,7 +137,7 @@ public class ZigController {
     public UspesnaTransformacija createHTML(@PathVariable @Valid @NotNull(message = "Id ne sme biti prazan.") final String id)
             throws JAXBException, EntityNotFoundException, TransformationFailedException, IOException {
 
-        return zigService.dodajHtml(id);
+        return zigService.dodajHtml(id, false);
     }
 
     @GetMapping(path = "/kreiraj-pdf/{id}", produces = "application/xml")

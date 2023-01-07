@@ -25,7 +25,7 @@ public class EmailService {
     }
 
     @Async
-    public void posaljiResenjeOOdbijanjuKorisniku(ZahtevAutorskaDela zahtevAutorskaDela, String pdfPutanja) throws MailException {
+    public void posaljiResenjeOOdbijanjuKorisniku(ZahtevAutorskaDela zahtevAutorskaDela, byte[] pdfFajl) throws MailException {
         String datum = zahtevAutorskaDela.getDatum_podnosenja().format(DateTimeFormatter.ofPattern("dd.MM.yyyy."));
         String html = "<!doctype html>\n" +
             "<html ⚡4email data-css-strict>\n" +
@@ -46,12 +46,12 @@ public class EmailService {
         mm.sendMail("serbUberNWTKTS@gmail.com", "serbUberNWTKTS@gmail.com",
             String.format("%s%s", NASLOV_EMAIL_PORUKE, zahtevAutorskaDela.getBroj_prijave()),
             html,
-            pdfPutanja
+            pdfFajl
         );
     }
 
     @Async
-    public void posaljiResenjeOPrihvatanjuKorisniku(ZahtevAutorskaDela zahtevAutorskaDela, String pdfPutanja) throws MailException {
+    public void posaljiResenjeOPrihvatanjuKorisniku(ZahtevAutorskaDela zahtevAutorskaDela, byte[] pdfFajl) throws MailException {
 
         String datum = zahtevAutorskaDela.getDatum_podnosenja().format(DateTimeFormatter.ofPattern("dd.MM.yyyy."));
         String html = "<!doctype html>\n" +
@@ -73,7 +73,7 @@ public class EmailService {
         mm.sendMail("serbUberNWTKTS@gmail.com", "serbUberNWTKTS@gmail.com",
             String.format("%s%s", NASLOV_EMAIL_PORUKE, zahtevAutorskaDela.getBroj_prijave()),
             html,
-            pdfPutanja
+            pdfFajl
         );
     }
 }

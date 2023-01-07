@@ -18,7 +18,7 @@ public class HTMLEmailService {
         this.mailSender = mailSender;
     }
 
-    public void sendMail(String from, String to, String subject, String msg, String pdfPath) {
+    public void sendMail(String from, String to, String subject, String msg, byte[] pdfFajl) {
         try {
             MimeMessage message = mailSender.createMimeMessage();
             message.setSubject(subject);
@@ -27,7 +27,7 @@ public class HTMLEmailService {
             helper.setFrom(from);
             helper.setTo(to);
             helper.setText(msg, true);
-            helper.addAttachment("Resenje.pdf", new File(pdfPath));
+            helper.addAttachment("Resenje.pdf", new ByteArrayResource(pdfFajl));
             mailSender.send(message);
         } catch (MessagingException ex) {
             System.out.println("l");

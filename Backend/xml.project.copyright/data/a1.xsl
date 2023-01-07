@@ -126,7 +126,7 @@
                                                     <span><xsl:value-of select="position()" />. <xsl:value-of select="a:imenovani_autor/a:ime"/>&#160;<xsl:value-of select="a:imenovani_autor/a:prezime"/>&#160;-&#160;<xsl:value-of select="a:imenovani_autor/a:pseudonim"/><br /></span>
                                                 </xsl:when>
                                                 <xsl:otherwise>
-                                                    <span><xsl:value-of select="position()" />. Autor je anoniman<br /></span>
+                                                    <span><xsl:value-of select="position()" />. Autor nema pseudonim<br /></span>
                                                 </xsl:otherwise>
                                             </xsl:choose>
                                         </xsl:for-each>

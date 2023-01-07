@@ -131,13 +131,13 @@ public class ZigService implements IZigService {
         return zigRepository.uzmiZahtev(id);
     }
 
-    public UspesnaTransformacija dodajHtml(String id)
+    public UspesnaTransformacija dodajHtml(final String id, final boolean jeGenerisanjePdf)
             throws JAXBException, EntityNotFoundException, TransformationFailedException, IOException
     {
         String htmlPutanja = HTML_PUTANJA + id + ".html";
-        String qrCodeUrl = QR_PUTANJA + id + ".pdf";
+        String qrCodeUrl = QR_PUTANJA + id;
 
-        return new UspesnaTransformacija(this.transformator.generateHTML(htmlPutanja, get(id), qrCodeUrl));
+        return new UspesnaTransformacija(this.transformator.generateHTML(htmlPutanja, get(id), qrCodeUrl, jeGenerisanjePdf));
     }
 
     public ZahteviZigDTO pronadjiRezultateOsnovnePretrage(List<ParametarPretrage> parametriPretrage) throws Exception {
@@ -156,7 +156,7 @@ public class ZigService implements IZigService {
             IOException, TransformationFailedException {
         String pdfPutanja = PDF_PUTANJA + id + ".pdf";
         String htmlPutanja = HTML_PUTANJA + id + ".html";
-        this.dodajHtml(id);  //prvo se pravi html za slucaj da ne postoji
+        this.dodajHtml(id, true);  //prvo se pravi html za slucaj da ne postoji
 
         return new UspesnaTransformacija(this.transformator.generatePdf(htmlPutanja, pdfPutanja));
     }

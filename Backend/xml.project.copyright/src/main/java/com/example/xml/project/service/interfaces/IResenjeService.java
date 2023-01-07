@@ -31,11 +31,11 @@ public interface IResenjeService {
     ) throws CannotUnmarshalException, XPathException, InvalidDocumentException, TransformationFailedException, IOException;
     ResenjeDTO uzmi(String id) throws CannotUnmarshalException, XPathException;
     Resenje uzmiResenjeModel(String id) throws CannotUnmarshalException, XPathException;
-    UspesnaTransformacija dodajResenjeHtml(String id)
+    UspesnaTransformacija dodajResenjeHtml(final String id, final boolean jeGenerisanjePdf)
             throws TransformationFailedException, IOException, CannotUnmarshalException, XPathException;
     UspesnaTransformacija procitajPdf(final String id)
             throws CannotUnmarshalException, TransformationFailedException, XPathException, IOException;
-    String dodajResenjePdf(final String id)
+    byte[] dodajResenjePdf(final String id)
             throws IOException, CannotUnmarshalException, TransformationFailedException, XPathException;
 
 }
