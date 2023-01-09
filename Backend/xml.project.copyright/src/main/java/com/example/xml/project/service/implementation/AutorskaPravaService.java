@@ -123,8 +123,8 @@ public class AutorskaPravaService implements IAutorskaPravaService {
     )
             throws JAXBException, IOException, InvalidDocumentException, TransformationFailedException
     {
-//        String imeSlike = sacuvajSliku(prilozi.getPrimerak());
-//        prilozi.setPrimerak(imeSlike);
+        String imeSlike = sacuvajSliku(prilozi.getPrimerak());
+        prilozi.setPrimerak(imeSlike);
         if (id == null) {
             id = "1";    //zbog check seme da validira, posle ce setovati dobar broj
         }

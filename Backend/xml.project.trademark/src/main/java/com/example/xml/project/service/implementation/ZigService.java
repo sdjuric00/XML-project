@@ -188,7 +188,7 @@ public class ZigService implements IZigService {
             PlaceneTakse placene_takse,
             Prilozi prilozi
     ) throws JAXBException, InvalidDocumentException, TransformationFailedException, IOException {
-//        prilozi = sacuvajSlike(prilozi);
+        prilozi = sacuvajSlike(prilozi);
         placene_takse = izracunajTakse(placene_takse, nicanska_klasifikacija.size());
         if (id == null) {
             id = "1";    //zbog check seme da validira, posle ce setovati dobar broj

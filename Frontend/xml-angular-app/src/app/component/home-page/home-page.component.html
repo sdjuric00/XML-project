@@ -21,9 +21,9 @@
       <button (click)="pretrazi()" mat-button style="background-color:var( --green); margin-left:3rem;margin-right:1rem;">Pretrazi</button>
       <button mat-stroked-button target="_blank" style="color:var(--green);" (click)="naprednaPretraga()">Napredna pretraga</button>
       </div>
-      <div *ngIf="!rezultati" style="float:right; margin-right:25rem;font-size:2rem;">
+      <!-- <div *ngIf="!rezultati" style="float:right; margin-right:25rem;font-size:2rem;">
           Nema rezultata pretrage.
-      </div>
+      </div> -->
       <div style="float:right; margin-right:10rem;border: 1px lightgrey solid; padding:2rem; border-radius:1rem;" *ngIf="prikaziPatente || prikaziAutorskaPrava || prikaziZigove">
       <div *ngIf="prikaziPatente">
         <p style="color:var(--green);text-align: center;">ZAHTEVI ZA PRIZNAVANJE PATENTA</p>

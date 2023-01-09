@@ -66,6 +66,8 @@ export class PriloziComponent implements OnInit {
   }
 
   ucitajPrilog() {
+    console.log(this.priloziFormGroup)
+    console.log(this.proveriValidnost);
     if (!this.proveriValidnost()) {
       this.priloziFormGroup.get("opis").setValue(this.opis);
       this.priloziFormGroup.get("primerak").setValue(this.primerAutorskogDelaBase64);

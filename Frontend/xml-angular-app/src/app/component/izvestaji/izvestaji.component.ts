@@ -124,7 +124,7 @@ export class IzvestajiComponent implements OnInit, OnDestroy {
 
   generisiIzvestaj() {
     this.pocetniDatum = this._datum.transform(this.datumi.get('pocetni').value,'yyyy-MM-dd');
-    this.krajnjiDatum = this._datum.transform(this.datumi.get('krajnji').value,'yyyy-MM-dd')
+    this.krajnjiDatum = this._datum.transform(this.datumi.get('krajnji').value,'yyyy-MM-dd');
     this.izvestajSubscription = this._izvestajService.uzmiIzvestajAutorskaPrava(
       {pocetni_datum: this.pocetniDatum, krajnji_datum: this.krajnjiDatum}).subscribe(izvestaj => {
         console.log(izvestaj);
@@ -134,7 +134,9 @@ export class IzvestajiComponent implements OnInit, OnDestroy {
         this.grafik.data.datasets[1].data[0] = izvestaj.broj_prihvacenih;
         this.grafik.data.datasets[2].data[0] = izvestaj.broj_odbijenih;
         this.grafik.data.datasets[3].data[0] = izvestaj.broj_nepregledanih;
+        this.grafik.options.plugins.title.text = `Izveštaj za period od ${this._datum.transform(this.pocetniDatum,"dd.MM.yyyy.")} do ${this._datum.transform(this.krajnjiDatum, "dd.MM.yyyy.")}`
         this.grafik.update();
+        
     });
 
     this.izvestajSubscription = this._izvestajService.uzmiIzvestajPatenti(

@@ -198,7 +198,6 @@ public class PatentService implements IPatentService {
         if (id == null) {
             id = "1";    //zbog check seme da validira, posle ce setovati dobar broj
         }
-        System.out.println("blaaa");
 
         ZahtevPatent zahtev = new ZahtevPatent(id, broj_prijave, datum_prijema, priznati_datum_podnosenja, dopunska_prijava,
                 pregledano, institucija, podaci_o_pronalasku, podnosilac, pronalazac, punomocnik, dostavljanje, zahtev_za_priznanje_prava_iz_ranijih_prijava);
