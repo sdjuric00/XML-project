@@ -1,34 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
-           targetNamespace="http://www.patent/patent" xmlns:xs-opste="http://ftn.ac.rs/opste"
-           xmlns:xs-p="http://www.patent/patent">
+    targetNamespace="http://www.patent/patent" xmlns:xs-opste="http://ftn.ac.rs/opste"
+    xmlns:xs-p="http://www.patent/patent">
     <xs:import namespace="http://ftn.ac.rs/opste" schemaLocation="Opste.xsd"/>
     <xs:element name="zahtev_za_priznavanje_patenta">
-    <xs:complexType>
-        <xs:sequence>
-            <xs:element name="institucija" type="xs-opste:institucija"/>
-            <xs:element name="podaci_o_pronalasku" type="xs-p:podaci_o_pronalasku"/>
-            <xs:element name="podnosilac" type="xs-opste:podnosilac"/>
-            <xs:element name="pronalazac" type="xs-p:pronalazac" minOccurs="0"/>
-            <xs:element name="punomocnik" type="xs-p:punomocnik"/>
-            <xs:element name="dostavljanje" type="xs-p:dostavljanje"/>
-            <xs:element name="zahtev_za_priznanje_prava_iz_ranijih_prijava" type="xs-p:zahtev_za_priznanje_prava_iz_ranijih_prijava"/>
-        </xs:sequence>
-        <xs:attribute name="broj_prijave">
-            <xs:simpleType>
-                <xs:restriction base="xs:string">
-                    <xs:pattern value="[P][-][0-9]{4}[/][0-9]+"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute name="datum_prijema" type="xs:date"/>
-        <xs:attribute name="priznati_datum_podnosenja" type="xs:date"/>
-        <xs:attribute name="dopunska_prijava" type="xs:boolean"/>
-        <xs:attribute name="pregledano" type="xs:boolean"/>
-        <xs:attribute name="prihvaceno" type="xs:boolean"/>
-        <xs:attribute name="referenca_na_resenje" type="xs:string"/>
-        <xs:attribute name="id" type="xs:positiveInteger" use="required"/>
-    </xs:complexType>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="institucija" type="xs-opste:institucija"/>
+                <xs:element name="podaci_o_pronalasku" type="xs-p:podaci_o_pronalasku"/>
+                <xs:element name="podnosilac" type="xs-opste:podnosilac"/>
+                <xs:element name="pronalazac" type="xs-p:pronalazac" minOccurs="0"/>
+                <xs:element name="punomocnik" type="xs-p:punomocnik"/>
+                <xs:element name="dostavljanje" type="xs-p:dostavljanje"/>
+                <xs:element name="zahtev_za_priznanje_prava_iz_ranijih_prijava"
+                    type="xs-p:zahtev_za_priznanje_prava_iz_ranijih_prijava"/>
+            </xs:sequence>
+            <xs:attribute name="broj_prijave">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="[P][-][0-9]{4}[/][0-9]+"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="datum_prijema" type="xs:date"/>
+            <xs:attribute name="priznati_datum_podnosenja" type="xs:date"/>
+            <xs:attribute name="dopunska_prijava" type="xs:boolean"/>
+            <xs:attribute name="pregledano" type="xs:boolean"/>
+            <xs:attribute name="prihvaceno" type="xs:boolean"/>
+            <xs:attribute name="referenca_na_resenje" type="xs:string"/>
+            <xs:attribute name="id" type="xs:positiveInteger" use="required"/>
+            <xs:attribute name="referenca_na_podnosioca" type="xs:string"/>
+        </xs:complexType>
     </xs:element>
     <xs:complexType name="podaci_o_pronalasku">
         <xs:sequence maxOccurs="unbounded">

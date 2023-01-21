@@ -29,6 +29,9 @@ import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.io.IOException;
 
+import static com.example.xml.project.exception.ErrorMessagesConstants.MISSING_ID;
+import static com.example.xml.project.exception.ErrorMessagesConstants.NEPOSTOJECI_ID;
+
 @RestController
 @RequestMapping("/autorska-prava")
 public class AutorskaPravaController {
@@ -64,6 +67,7 @@ public class AutorskaPravaController {
                 zahtev.getBroj_prijave(),
                 zahtev.getDatum_podnosenja(),
                 zahtev.isPregledano(),
+                zahtev.getReferenca_na_podnosioca(),
                 zahtev.getInstitucija(),
                 zahtev.getPodnosilac(),
                 zahtev.getPunomocnik(),
@@ -96,14 +100,33 @@ public class AutorskaPravaController {
     @ResponseStatus(HttpStatus.OK)
     public ZahteviAutorskaDelaDTO uzmiNeobradjeneZahteve() throws CannotUnmarshalException, XPathException {
 
-        return autorskaPravaService.uzmiZahteve(false);
+        return autorskaPravaService.uzmiZahteve(false, NEPOSTOJECI_ID);
+    }
+
+    @GetMapping(path="/neobradjeni-zahtevi-gradjanin/{id}", produces = "application/xml")
+    @ResponseStatus(HttpStatus.OK)
+    public ZahteviAutorskaDelaDTO uzmiNeobradjeneZahteveGradjanin(@Valid @NotNull(message = MISSING_ID) @PathVariable String id)
+            throws CannotUnmarshalException, XPathException
+    {
+
+        return autorskaPravaService.uzmiZahteve(false, id);
     }
 
     @GetMapping(path="/obradjeni-zahtevi", produces = "application/xml")
     @ResponseStatus(HttpStatus.OK)
-    public ZahteviAutorskaDelaDTO uzmiObradjeneZahteve() throws CannotUnmarshalException, XPathException {
+    public ZahteviAutorskaDelaDTO uzmiObradjeneZahteve()
+            throws CannotUnmarshalException, XPathException
+    {
 
-        return autorskaPravaService.uzmiZahteve(true);
+        return autorskaPravaService.uzmiZahteve(true, NEPOSTOJECI_ID);
+    }
+
+    @GetMapping(path="/obradjeni-zahtevi-gradjanin/{id}", produces = "application/xml")
+    @ResponseStatus(HttpStatus.OK)
+    public ZahteviAutorskaDelaDTO uzmiObradjeneZahteveGradjanin(@Valid @NotNull(message = MISSING_ID) @PathVariable String id)
+            throws CannotUnmarshalException, XPathException {
+
+        return autorskaPravaService.uzmiZahteve(true, id);
     }
 
     @GetMapping(path="/zahtev/{id}", produces = "application/xml")

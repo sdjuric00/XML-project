@@ -31,6 +31,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import static com.example.xml.project.exception.ErrorMessagesConstants.NEPOSTOJECI_ID;
 import static com.example.xml.project.rdf.RdfConstants.*;
 import static com.example.xml.project.util.Constants.*;
 import com.example.xml.project.util.AuthenticationUtilities;
@@ -129,7 +130,7 @@ public class AutorskaPravaRepository extends BasicXMLRepository {
         return result;
     }
 
-    public List<ZahtevAutorskaDela> uzmiZahteve(boolean obradjene) throws XPathException, CannotUnmarshalException {
+    public List<ZahtevAutorskaDela> uzmiZahteve(boolean obradjene, String id) throws XPathException, CannotUnmarshalException {
         Collection col = null;
         XMLResource resXml = null;
         List<ZahtevAutorskaDela> listaZahtevAutorskaDela = new LinkedList<>();
@@ -151,12 +152,21 @@ public class AutorskaPravaRepository extends BasicXMLRepository {
             // make the service aware of namespaces, using the default one
             xpathService.setNamespace("", AUTORSKA_PRAVA_NAMESPACE);
             xpathService.setNamespace("opste", OPSTE_NAMESPACE);
-
-            String xpathExp = "declare variable $data as document-node()* := collection('/db/xml/zahtevi-autorska-prava');\n" +
-                "\n" +
-                "for $v in $data\n" +
-                "where $v//zahtev_za_unosenje_u_evidenciju_i_deponovanje_autorskih_dela[@pregledano='" + obradjene + "']\n" +
-                "return $v\n";
+            String xpathExp = "";
+            if (id == NEPOSTOJECI_ID) {
+                xpathExp = "declare variable $data as document-node()* := collection('/db/xml/zahtevi-autorska-prava');\n" +
+                        "\n" +
+                        "for $v in $data\n" +
+                        "where $v//zahtev_za_unosenje_u_evidenciju_i_deponovanje_autorskih_dela[@pregledano='" + obradjene + "']\n" +
+                        "return $v\n";
+            } else {
+                xpathExp = "declare variable $data as document-node()* := collection('/db/xml/zahtevi-autorska-prava');\n" +
+                        "\n" +
+                        "for $v in $data\n" +
+                        "where $v//zahtev_za_unosenje_u_evidenciju_i_deponovanje_autorskih_dela[@pregledano='" + obradjene + "'] " +
+                        "and $v//zahtev_za_unosenje_u_evidenciju_i_deponovanje_autorskih_dela[@referenca_na_podnosioca='" + id + "']\n" +
+                        "return $v\n";
+            }
 
             System.out.println("[INFO] Invoking XPath query service for: " + xpathExp);
             ResourceSet result = xpathService.query(xpathExp);

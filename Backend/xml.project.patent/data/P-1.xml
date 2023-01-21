@@ -2,7 +2,7 @@
 <zahtev_za_priznavanje_patenta
         xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.patent/patent"
         xmlns:opste="http://ftn.ac.rs/opste" broj_prijave="P-2022/2"
-        datum_prijema="2022-11-30" priznati_datum_podnosenja="2022-11-30" id="1" dopunska_prijava="false" pregledano="false">
+        datum_prijema="2022-11-30" priznati_datum_podnosenja="2022-11-30" id="1" dopunska_prijava="false" pregledano="false" referenca_na_podnosioca="2">
     <institucija>
         <opste:naziv>Zavod za intelektulanu svojinu</opste:naziv>
         <opste:adresa>

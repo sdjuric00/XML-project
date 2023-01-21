@@ -27,6 +27,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
 
+import static com.example.xml.project.exception.ErrorMessagesConstants.MISSING_ID;
+import static com.example.xml.project.exception.ErrorMessagesConstants.NEPOSTOJECI_ID;
+
 @RestController
 @RequestMapping("/patent")
 public class PatentController {
@@ -82,6 +85,7 @@ public class PatentController {
                 zahtev.getPriznati_datum_podnosenja(),
                 zahtev.isDopunska_prijava(),
                 zahtev.isPregledano(),
+                zahtev.getReferenca_na_podnosioca(),
                 zahtev.getInstitucija(),
                 zahtev.getPodaci_o_pronalasku(),
                 zahtev.getPodnosilac(),
@@ -106,14 +110,32 @@ public class PatentController {
     @ResponseStatus(HttpStatus.OK)
     public ZahteviPatentiDTO uzmiNeobradjeneZahteve() throws CannotUnmarshalException, XPathException {
 
-        return patentService.uzmiZahteve(false);
+        return patentService.uzmiZahteve(false, NEPOSTOJECI_ID);
+    }
+
+    @GetMapping(path="/neobradjeni-zahtevi-gradjanin/{id}", produces = "application/xml")
+    @ResponseStatus(HttpStatus.OK)
+    public ZahteviPatentiDTO uzmiNeobradjeneZahteveGradjanin(@Valid @NotNull(message = MISSING_ID) @PathVariable String id)
+            throws CannotUnmarshalException, XPathException
+    {
+
+        return patentService.uzmiZahteve(false, id);
     }
 
     @GetMapping(path="/obradjeni-zahtevi", produces = "application/xml")
     @ResponseStatus(HttpStatus.OK)
     public ZahteviPatentiDTO uzmiObradjeneZahteve() throws CannotUnmarshalException, XPathException {
 
-        return patentService.uzmiZahteve(true);
+        return patentService.uzmiZahteve(true, NEPOSTOJECI_ID);
+    }
+
+    @GetMapping(path="/obradjeni-zahtevi-gradjanin/{id}", produces = "application/xml")
+    @ResponseStatus(HttpStatus.OK)
+    public ZahteviPatentiDTO uzmiObradjeneZahteveGradjanin(@Valid @NotNull(message = MISSING_ID) @PathVariable String id)
+            throws CannotUnmarshalException, XPathException
+    {
+
+        return patentService.uzmiZahteve(true, id);
     }
 
     @GetMapping(path="/zahtev/{id}", produces = "application/xml")

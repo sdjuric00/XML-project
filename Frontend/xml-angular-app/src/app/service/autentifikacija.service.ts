@@ -43,6 +43,7 @@ export class AutentifikacijaService {
   setLocalStorage(prijavaOdgovor: PrijavaOdgovor): void {
     localStorage.setItem('token', prijavaOdgovor.token);
     localStorage.setItem('korisnik', JSON.stringify(prijavaOdgovor.korisnik));
+    localStorage.setItem('korisnik_id', prijavaOdgovor.korisnik.id);
     this.prijavljenKorisnik$.next(prijavaOdgovor.korisnik);
   }
 
@@ -98,7 +99,8 @@ export class AutentifikacijaService {
         isparsiranKorisnik.ime,
         isparsiranKorisnik.lozinka,
         isparsiranKorisnik.prezime,
-        isparsiranKorisnik.tipNaloga
+        isparsiranKorisnik.tipNaloga,
+        isparsiranKorisnik.id
       );
       this.prijavljenKorisnik$.next(prijavljeniKorisnik);
     } else {

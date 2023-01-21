@@ -4,7 +4,8 @@
     xmlns:opste="http://ftn.ac.rs/opste"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     broj_prijave="Z-2022/1" datum_podnosenja="2022-11-06"
-    zig="individualni" id="1" pregledano="true">
+    zig="individualni" id="1" pregledano="true"
+    referenca_na_podnosioca="2">
     
     <institucija>
         <opste:naziv>Zavod za intelektualnu svojinu</opste:naziv>

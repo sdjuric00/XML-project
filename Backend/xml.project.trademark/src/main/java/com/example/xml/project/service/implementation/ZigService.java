@@ -113,10 +113,10 @@ public class ZigService implements IZigService {
         return zigRepository.generisiIzvestaj(pocetniDatum, krajnjiDatum);
     }
 
-    public ZahteviZigDTO uzmiZahteve(boolean obradjene) throws CannotUnmarshalException, XPathException {
+    public ZahteviZigDTO uzmiZahteve(boolean obradjene, String id) throws CannotUnmarshalException, XPathException {
 
         ZahteviZigDTO zahteviDTO = new ZahteviZigDTO();
-        zahteviDTO.fromZahtevi(zigRepository.uzmiZahteve(obradjene));
+        zahteviDTO.fromZahtevi(zigRepository.uzmiZahteve(obradjene, id));
         return zahteviDTO;
     }
 
@@ -179,6 +179,7 @@ public class ZigService implements IZigService {
             final LocalDate datum_podnosenja,
             final boolean pregledano,
             final ZigEnum zig,
+            final String referenca_na_podnosioca,
             final Institucija institucija,
             final List<Podnosilac> podnosioci,
             final Punomocnik punomocnik,
@@ -194,7 +195,7 @@ public class ZigService implements IZigService {
             id = "1";    //zbog check seme da validira, posle ce setovati dobar broj
         }
 
-        ZahtevZig zahtev = new ZahtevZig(id, broj_prijave, datum_podnosenja, pregledano, zig, institucija, podnosioci,
+        ZahtevZig zahtev = new ZahtevZig(id, broj_prijave, datum_podnosenja, pregledano, referenca_na_podnosioca, zig, institucija, podnosioci,
                 punomocnik, podaci_o_zajednickom_predstavniku, znak, nicanska_klasifikacija, pravo_prvenstva, placene_takse, prilozi);
         Marshaller marshaller = jaxbContext.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);

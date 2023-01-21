@@ -9,6 +9,8 @@ import { AutorskaPravaService } from 'src/app/service/autorska-prava.service';
 import { ZahtevZigOsnovneInformacije } from 'src/app/model/zig/obj/zahtev-zig-osnovne-informacije';
 import { ZigService } from 'src/app/service/zig.service';
 import { Router } from '@angular/router';
+import { AutentifikacijaService } from 'src/app/service/autentifikacija.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home-page',
@@ -17,9 +19,27 @@ import { Router } from '@angular/router';
 })
 export class HomePageComponent implements OnInit {
 
-  constructor(private router: Router, private patentService: PatentApplicationService, private autorskaPravaService: AutorskaPravaService, private zigService: ZigService, private _router: Router ) { }
+  gradjanin: boolean;
+  autentifikacijaSubscription: Subscription;
+
+  constructor(
+    private autentifikacijaService: AutentifikacijaService,
+    private patentService: PatentApplicationService, 
+    private autorskaPravaService: AutorskaPravaService, 
+    private zigService: ZigService, 
+    private _router: Router
+  ) {
+    this.gradjanin = false;
+  }
 
   ngOnInit(): void {
+    this.autentifikacijaSubscription = this.autentifikacijaService.getSubjectCurrentUser().subscribe(
+      res => {
+        if (res) {
+          this.gradjanin = res.tipNaloga === "gradjanin";
+        }
+      }
+    );
   }
 
   listaZahtevaPatenti: ZahtevPatentOsnovneInformacije[];

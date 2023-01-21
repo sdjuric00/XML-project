@@ -28,7 +28,7 @@
       <div *ngIf="prikaziPatente">
         <p style="color:var(--green);text-align: center;">ZAHTEVI ZA PRIZNAVANJE PATENTA</p>
         <div *ngFor="let zahtev of listaZahtevaPatenti">
-          <app-red-patent [zahtev]="zahtev"></app-red-patent>
+          <app-red-patent [gradjanin]="gradjanin" [zahtev]="zahtev"></app-red-patent>
           <div *ngIf="refListaPatenti.get(zahtev.broj_prijave)" style="margin-left: 2.1rem;">
             Dokumenti koji referenciraju ovaj dokument: 
             <div *ngFor="let refZahtev of refListaPatenti.get(zahtev.broj_prijave)">
@@ -44,7 +44,7 @@
         <br>
           <p style="color:var(--green);text-align: center;">ZAHTEVI ZA UNOSENJE U EVIDENCIJU I DEPONOVANJE AUTORSKIH DELA</p>
           <div *ngFor="let zahtev of listaZahtevaAutorskaPrava">
-            <app-red-autorska-prava [zahtev]="zahtev"></app-red-autorska-prava>
+            <app-red-autorska-prava [gradjanin]="gradjanin" [zahtev]="zahtev"></app-red-autorska-prava>
           </div><br>
           <mat-divider></mat-divider>
       </div>
@@ -52,7 +52,7 @@
         <br>
         <p style="color:var(--green);text-align: center;">ZAHTEVI ZA PRIZNANJE ZIGA</p>
         <div *ngFor="let zahtev of listaZahtevaZigova">
-          <app-red-zig [zahtev]="zahtev"></app-red-zig>
+          <app-red-zig [gradjanin]="gradjanin" [zahtev]="zahtev"></app-red-zig>
         </div>
       </div>
       </div>

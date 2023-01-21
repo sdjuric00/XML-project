@@ -10,23 +10,14 @@ import {ZahtevZigOsnovneInformacije} from "../../../model/zig/obj/zahtev-zig-osn
   templateUrl: './red-zig.component.html',
   styleUrls: ['./red-zig.component.css']
 })
-export class RedZigComponent implements OnInit {
+export class RedZigComponent {
 
   authSubscription: Subscription;
   @Input() zahtev: ZahtevZigOsnovneInformacije;
-  constructor(private _router: Router, private autentifikacijaService: AutentifikacijaService) { }
-  trenutnoUlogovani: Korisnik;
-  sluzbenik = false;
-  gradjanin = false;
-
-  ngOnInit(): void {
-    this.authSubscription = this.autentifikacijaService
-    .getSubjectCurrentUser()
-    .subscribe(korisnik => {
-      this.trenutnoUlogovani = korisnik;
-      this.sluzbenik = this.autentifikacijaService.korisnikJeSluzbenik();
-      this.gradjanin = this.autentifikacijaService.korisnikJeGradjanin();
-    });
+  @Input() gradjanin: boolean;
+  
+  constructor(private _router: Router) {
+    this.gradjanin = false;
   }
 
   obradaZahteva() {

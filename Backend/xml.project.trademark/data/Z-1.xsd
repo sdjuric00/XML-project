@@ -46,6 +46,7 @@
             <xs:attribute name="referenca_na_resenje" type="xs:string"/>
             <xs:attribute name="zig" type="xs-z:zig"/>
             <xs:attribute name="id" type="xs:positiveInteger" use="required"/>
+            <xs:attribute name="referenca_na_podnosioca" type="xs:string"/>
         </xs:complexType>
     </xs:element>
     <xs:simpleType name="zig">

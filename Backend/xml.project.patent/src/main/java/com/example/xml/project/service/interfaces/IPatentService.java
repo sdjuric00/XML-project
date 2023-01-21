@@ -25,7 +25,7 @@ public interface IPatentService  {
     void saveToDBObj(ZahtevPatent zahtevPatent, boolean generisiId) throws InvalidDocumentException;
     ZahtevPatent get(String documentId) throws EntityNotFoundException, JAXBException;
     IzvestajDTO generisiIzvestaj(final LocalDate pocetniDatum, final LocalDate krajnjiDatum) throws CannotUnmarshalException, XPathException;
-    ZahteviPatentiDTO uzmiZahteve(final boolean obradjene) throws CannotUnmarshalException, XPathException;
+    ZahteviPatentiDTO uzmiZahteve(final boolean obradjene, final String id) throws CannotUnmarshalException, XPathException;
     ZahtevPatentDetaljneInformacijeDTO uzmiZahtev(final String id) throws CannotUnmarshalException, XPathException;
     ZahteviPatentiDTO pronadjiRezultateOsnovnePretrage(final List<ParametarPretrage> parametriPretrage) throws Exception;
     ZahtevPatent uzmiZahtevBezDTO(final String id) throws CannotUnmarshalException, XPathException;
@@ -40,6 +40,7 @@ public interface IPatentService  {
             final LocalDate priznati_datum_podnosenja,
             final boolean dopunska_prijava,
             final boolean pregledano,
+            final String referenca_na_podnosioca,
             final Institucija institucija,
             final List<Naziv> podaci_o_pronalasku,
             final Podnosilac podnosilac,

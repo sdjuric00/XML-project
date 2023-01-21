@@ -153,7 +153,8 @@ export class TrademarkApplicationComponent implements OnInit {
             broj_prijave:"Z-2022/1",
             datum_podnosenja: this._datePipe.transform(new Date(), 'yyyy-MM-dd'),
             zig: this.znakFormGroup.get("tipZig").value,
-            pregledano:'false'
+            pregledano:'false',
+            referenca_na_podnosioca: localStorage.getItem('korisnik_id')
           },
           institucija: institucija,
           podnosioci: this.getPodaciOPodnosiocima(),

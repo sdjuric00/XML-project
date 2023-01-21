@@ -40,6 +40,9 @@ public class ZahtevAutorskaDela implements IdentifiableEntity {
     @XmlAttribute(name = "referenca_na_resenje")
     private String referenca_na_resenje = "-1";
 
+    @XmlAttribute(name="referenca_na_podnosioca", required = true)
+    private String referenca_na_podnosioca;
+
     @XmlElement(name="institucija", required = true, namespace = "http://ftn.ac.rs/a")
     private Institucija institucija;
 
@@ -68,6 +71,7 @@ public class ZahtevAutorskaDela implements IdentifiableEntity {
             final String broj_prijave,
             final LocalDate datum_podnosenja,
             final boolean pregledano,
+            final String referenca_na_podnosioca,
             final Institucija institucija,
             final Podnosilac podnosilac,
             final Punomocnik punomocnik,
@@ -79,6 +83,7 @@ public class ZahtevAutorskaDela implements IdentifiableEntity {
         this.broj_prijave = broj_prijave;
         this.datum_podnosenja = datum_podnosenja;
         this.pregledano = pregledano;
+        this.referenca_na_podnosioca = referenca_na_podnosioca;
         this.institucija = institucija;
         this.podnosilac = podnosilac;
         this.punomocnik = punomocnik;
@@ -183,5 +188,13 @@ public class ZahtevAutorskaDela implements IdentifiableEntity {
 
     public void setPrihvaceno(boolean prihvaceno) {
         this.prihvaceno = prihvaceno;
+    }
+
+    public String getReferenca_na_podnosioca() {
+        return referenca_na_podnosioca;
+    }
+
+    public void setReferenca_na_podnosioca(String referenca_na_podnosioca) {
+        this.referenca_na_podnosioca = referenca_na_podnosioca;
     }
 }

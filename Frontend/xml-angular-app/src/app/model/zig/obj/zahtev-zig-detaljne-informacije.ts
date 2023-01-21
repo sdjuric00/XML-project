@@ -19,6 +19,7 @@ export interface ZahtevZigDetaljneInformacije {
   podnosioci: PodnosilacObj[],
   pravo_prvenstva: PravoPrvenstvaObj,
   pregledano: boolean;
+  referenca_na_podnosioca: string;
   prilozi: PriloziZigObj;
   punomocnik: PunomocnikObj;
   vrsta_ziga: string;
@@ -37,6 +38,7 @@ export function napraviZahtevZigDetaljneInformacije(zahtevJson): ZahtevZigDetalj
     referenca_na_resenje: zahtevJson.referenca_na_resenje[0],
     broj_prijave: zahtevJson.broj_prijave[0],
     datum_podnosenja: zahtevJson.datum_podnosenja[0],
+    referenca_na_podnosioca: zahtevJson.referenca_na_podnosioca[0],
     institucija: napraviInstituciju(zahtevJson.institucija[0]),
     nicanska_klasifikacija: napraviListuNicanskihKlasifikacija(zahtevJson.nicanska_klasifikacija),
     placene_takse: napraviPlacenuTaksu(zahtevJson.placene_takse[0]),

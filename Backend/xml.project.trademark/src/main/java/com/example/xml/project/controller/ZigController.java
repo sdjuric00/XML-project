@@ -28,6 +28,9 @@ import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.io.IOException;
 
+import static com.example.xml.project.exception.ErrorMessagesConstants.MISSING_ID;
+import static com.example.xml.project.exception.ErrorMessagesConstants.NEPOSTOJECI_ID;
+
 
 @RestController
 @RequestMapping("/zig")
@@ -64,6 +67,7 @@ public class ZigController {
                 zahtev.getDatum_podnosenja(),
                 zahtev.isPregledano(),
                 zahtev.getZig(),
+                zahtev.getReferenca_na_podnosioca(),
                 zahtev.getInstitucija(),
                 zahtev.getPodnosioci(),
                 zahtev.getPunomocnik(),
@@ -108,14 +112,32 @@ public class ZigController {
     @ResponseStatus(HttpStatus.OK)
     public ZahteviZigDTO uzmiNeobradjeneZahteve() throws CannotUnmarshalException, XPathException {
 
-        return zigService.uzmiZahteve(false);
+        return zigService.uzmiZahteve(false, NEPOSTOJECI_ID);
+    }
+
+    @GetMapping(path="/neobradjeni-zahtevi-gradjanin", produces = "application/xml")
+    @ResponseStatus(HttpStatus.OK)
+    public ZahteviZigDTO uzmiNeobradjeneZahteveGradjanin(@Valid @NotNull(message = MISSING_ID) @PathVariable String id)
+            throws CannotUnmarshalException, XPathException
+    {
+
+        return zigService.uzmiZahteve(false, id);
     }
 
     @GetMapping(path="/obradjeni-zahtevi", produces = "application/xml")
     @ResponseStatus(HttpStatus.OK)
     public ZahteviZigDTO uzmiObradjeneZahteve() throws CannotUnmarshalException, XPathException {
 
-        return zigService.uzmiZahteve(true);
+        return zigService.uzmiZahteve(true, NEPOSTOJECI_ID);
+    }
+
+    @GetMapping(path="/obradjeni-zahtevi-gradjanin", produces = "application/xml")
+    @ResponseStatus(HttpStatus.OK)
+    public ZahteviZigDTO uzmiObradjeneZahteveGradjanin(@Valid @NotNull(message = MISSING_ID) @PathVariable String id)
+            throws CannotUnmarshalException, XPathException
+    {
+
+        return zigService.uzmiZahteve(true, id);
     }
 
     @GetMapping(path="/zahtev/{id}", produces = "application/xml")

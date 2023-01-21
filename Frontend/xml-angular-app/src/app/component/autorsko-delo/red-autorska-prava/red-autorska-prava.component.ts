@@ -5,29 +5,20 @@ import {
 import {Router} from "@angular/router";
 import { Subscription } from 'rxjs';
 import { Korisnik } from 'src/app/model/korisnik/korisnik';
-import { AutentifikacijaService } from 'src/app/service/autentifikacija.service';
 
 @Component({
   selector: 'app-red-autorska-prava',
   templateUrl: './red-autorska-prava.component.html',
   styleUrls: ['./red-autorska-prava.component.css']
 })
-export class RedAutorskaPravaComponent implements OnInit {
+export class RedAutorskaPravaComponent {
   authSubscription: Subscription;
   @Input() zahtev: ZahtevAutorskoPravoOsnovneInformacije;
+  @Input() gradjanin: boolean;
   trenutnoUlogovani: Korisnik;
-  sluzbenik = false;
-  gradjanin = false;
-  constructor(private _router: Router, private autentifikacijaService: AutentifikacijaService) { }
 
-  ngOnInit(): void {
-    this.authSubscription = this.autentifikacijaService
-    .getSubjectCurrentUser()
-    .subscribe(korisnik => {
-      this.trenutnoUlogovani = korisnik;
-      this.sluzbenik = this.autentifikacijaService.korisnikJeSluzbenik();
-      this.gradjanin = this.autentifikacijaService.korisnikJeGradjanin();
-    });
+  constructor(private _router: Router) {
+    this.gradjanin = false;
   }
 
   obradaZahteva() {

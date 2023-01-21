@@ -38,11 +38,11 @@ export class ZahtevPatentDetaljiComponent implements OnInit, OnDestroy {
         }
       });
 
-      this._patentService.uzmiObradjeneZahteve().subscribe(zahtevi => {
+      this._patentService.uzmiObradjeneZahteve(false).subscribe(zahtevi => {
         this.obradjeniZahtevi = zahtevi;
       })
   
-      this._patentService.uzmiNeobradjeneZahteve().subscribe(zahtevi => {
+      this._patentService.uzmiNeobradjeneZahteve(false).subscribe(zahtevi => {
         this.neobradjeniZahtevi = zahtevi;
       })
   }

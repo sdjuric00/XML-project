@@ -9,7 +9,8 @@
     <h3 *ngIf="zahtev.punomocnik.naziv">Ime organizacije: {{zahtev.punomocnik.naziv}}</h3>
   <br />
   
-  <button *ngIf="!zahtev.pregledano && !gradjanin" style="float: right" class="next-button" mat-raised-button (click)="obradaZahteva()">Obradi zahtev</button>
+  <button *ngIf="!zahtev.pregledano" style="float: right" class="next-button" mat-raised-button
+    (click)="obradaZahteva()">{{!gradjanin ? 'Obradi zahtev' : 'Detalji'}}</button>
   <button *ngIf="zahtev.pregledano" style="float: right" class="next-button" mat-raised-button (click)="detaljiZahteva()">Detalji</button>
 </div>
 

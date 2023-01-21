@@ -19,6 +19,7 @@ public class ZahtevAutorskaDelaDetaljneInformacijeDTO {
     private String broj_prijave;
     private LocalDate datum_podnosenja;
     private boolean pregledano = false;
+    private String referenca_na_podnosioca;
     private String referenca_na_resenje = "-1";
     private Institucija institucija;
     private Podnosilac podnosilac;
@@ -35,6 +36,7 @@ public class ZahtevAutorskaDelaDetaljneInformacijeDTO {
         this.broj_prijave = zahtevAutorskaDela.getBroj_prijave();
         this.datum_podnosenja = zahtevAutorskaDela.getDatum_podnosenja();
         this.pregledano = zahtevAutorskaDela.isPregledano();
+        this.referenca_na_podnosioca = zahtevAutorskaDela.getReferenca_na_podnosioca();
         this.referenca_na_resenje = zahtevAutorskaDela.getReferenca_na_resenje();
         this.institucija = zahtevAutorskaDela.getInstitucija();
         this.podnosilac = zahtevAutorskaDela.getPodnosilac();
@@ -131,5 +133,13 @@ public class ZahtevAutorskaDelaDetaljneInformacijeDTO {
 
     public void setReferenca_na_resenje(String referenca_na_resenje) {
         this.referenca_na_resenje = referenca_na_resenje;
+    }
+
+    public String getReferenca_na_podnosioca() {
+        return referenca_na_podnosioca;
+    }
+
+    public void setReferenca_na_podnosioca(String referenca_na_podnosioca) {
+        this.referenca_na_podnosioca = referenca_na_podnosioca;
     }
 }

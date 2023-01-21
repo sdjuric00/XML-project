@@ -28,6 +28,7 @@ export class PopunjavaPrilogeZahtevPatentComponent implements OnInit, OnDestroy 
   autentifikacijaSubscription: Subscription;
   resenjeSubscription: Subscription;
   razlog_odbijanja: string = '';
+  jeGradjanin: boolean;
 
   constructor(
     private _patentService: PatentApplicationService,
@@ -38,10 +39,18 @@ export class PopunjavaPrilogeZahtevPatentComponent implements OnInit, OnDestroy 
     private dialog: MatDialog
   ) {
     this.zahtev = null;
+    this.jeGradjanin = false;
   }
 
   ngOnInit(): void {
-    this.autentifikacijaSubscription = this._autentifikacijaService.getSubjectCurrentUser().subscribe(korisnik => this.ulogovaniKorisnik = korisnik);
+    this.autentifikacijaSubscription = this._autentifikacijaService.getSubjectCurrentUser().subscribe(
+      korisnik => {
+        if (korisnik) {
+         this.ulogovaniKorisnik = korisnik
+         this.jeGradjanin = this.ulogovaniKorisnik.tipNaloga === "gradjanin";
+        }
+      }
+    );
     if (!this.nijePopunjeno){
       this.patentSubscription = this._patentService.uzmiZahtevPoId(this.zahtevId)
         .subscribe(result=> {

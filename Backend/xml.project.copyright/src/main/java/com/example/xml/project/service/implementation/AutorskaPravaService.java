@@ -114,6 +114,7 @@ public class AutorskaPravaService implements IAutorskaPravaService {
             final String broj_prijave,
             final LocalDate datum_podnosenja,
             final boolean pregledano,
+            final String referenca_na_podnosioca,
             final Institucija institucija,
             final Podnosilac podnosilac,
             final Punomocnik punomocnik,
@@ -134,6 +135,7 @@ public class AutorskaPravaService implements IAutorskaPravaService {
             broj_prijave,
             datum_podnosenja,
             pregledano,
+            referenca_na_podnosioca,
             institucija,
             podnosilac,
             punomocnik,
@@ -162,10 +164,10 @@ public class AutorskaPravaService implements IAutorskaPravaService {
         return repository.get(documentId);
     }
 
-    public ZahteviAutorskaDelaDTO uzmiZahteve(boolean obradjene) throws CannotUnmarshalException, XPathException {
+    public ZahteviAutorskaDelaDTO uzmiZahteve(boolean obradjene, String id) throws CannotUnmarshalException, XPathException {
 
         ZahteviAutorskaDelaDTO zahteviDTO = new ZahteviAutorskaDelaDTO();
-        zahteviDTO.fromZahtevi(autorskaPravaRepository.uzmiZahteve(obradjene));
+        zahteviDTO.fromZahtevi(autorskaPravaRepository.uzmiZahteve(obradjene, id));
         return zahteviDTO;
     }
 

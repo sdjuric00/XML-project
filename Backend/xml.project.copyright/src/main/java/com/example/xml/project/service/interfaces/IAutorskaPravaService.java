@@ -34,6 +34,7 @@ public interface IAutorskaPravaService {
             final String broj_prijave,
             final LocalDate datum_podnosenja,
             final boolean pregledano,
+            final String referenca_na_podnosioca,
             final Institucija institucija,
             final Podnosilac podnosilac,
             final Punomocnik punomocnik,
@@ -44,7 +45,7 @@ public interface IAutorskaPravaService {
             throws JAXBException, IOException, InvalidDocumentException, TransformationFailedException;
     void saveToDBObj(ZahtevAutorskaDela zahtevAutorskaDela, boolean generisiId) throws InvalidDocumentException;
     ZahtevAutorskaDela get(String documentId) throws EntityNotFoundException, JAXBException;
-    ZahteviAutorskaDelaDTO uzmiZahteve(boolean obradjene) throws CannotUnmarshalException, XPathException;
+    ZahteviAutorskaDelaDTO uzmiZahteve(boolean obradjene, String id) throws CannotUnmarshalException, XPathException;
     ZahtevAutorskaDela uzmiZahtevBezDTO(final String id) throws CannotUnmarshalException, XPathException;
     ZahtevAutorskaDelaDetaljneInformacijeDTO uzmiZahtev(final String id) throws CannotUnmarshalException, XPathException;
     ZahteviAutorskaDelaDTO pronadjiRezultateOsnovnePretrage(final List<ParametarPretrage> parametriPretrage) throws Exception;

@@ -29,7 +29,7 @@ public interface IZigService {
     ZahtevZig get(String documentId) throws EntityNotFoundException, JAXBException;
     PlaceneTakseDTO dobaviOcekivanoPlacanje(String documentId) throws EntityNotFoundException, JAXBException;
     IzvestajDTO generisiIzvestaj(final LocalDate pocetniDatum, final LocalDate krajnjiDatum) throws CannotUnmarshalException, XPathException;
-    ZahteviZigDTO uzmiZahteve(boolean obradjene) throws CannotUnmarshalException, XPathException;
+    ZahteviZigDTO uzmiZahteve(boolean obradjene, String id) throws CannotUnmarshalException, XPathException;
     ZahtevZigDetaljneInformacijeDTO uzmiZahtev(String id) throws CannotUnmarshalException, XPathException;
     ZahtevZig uzmiZahtevBezDTO(final String id) throws CannotUnmarshalException, XPathException;
     UspesnaTransformacija dodajHtml(final String id, final boolean jeGenerisanjePdf)
@@ -46,6 +46,7 @@ public interface IZigService {
             final LocalDate datum_podnosenja,
             final boolean pregledano,
             final ZigEnum zig,
+            final String referenca_na_podnosioca,
             final Institucija institucija,
             final List<Podnosilac> podnosioci,
             final Punomocnik punomocnik,

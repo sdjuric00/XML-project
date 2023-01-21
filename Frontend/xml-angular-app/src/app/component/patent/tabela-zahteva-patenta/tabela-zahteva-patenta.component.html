@@ -3,10 +3,10 @@
 </h3>
 <div *ngFor="let zahtev of listaZahteva; let i = index">
   <div *ngIf="i%3 == 0" style="display:flex; flex-direction: row;">
-    <app-red-patent [zahtev]="zahtev"></app-red-patent>
+    <app-red-patent [zahtev]="zahtev" [gradjanin]="jeGradjanin"></app-red-patent>
     <app-red-patent *ngIf="i + 1 < listaZahteva.length"
-      [zahtev]="listaZahteva.at(i+1)"></app-red-patent>
+      [zahtev]="listaZahteva.at(i+1)" [gradjanin]="jeGradjanin"></app-red-patent>
     <app-red-patent *ngIf="i + 2 < listaZahteva.length"
-      [zahtev]="listaZahteva.at(i+2)"></app-red-patent>
+      [zahtev]="listaZahteva.at(i+2)" [gradjanin]="jeGradjanin"></app-red-patent>
   </div>
 </div>

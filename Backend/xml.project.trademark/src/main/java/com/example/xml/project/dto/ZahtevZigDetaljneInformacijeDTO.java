@@ -18,6 +18,7 @@ public class ZahtevZigDetaljneInformacijeDTO {
     private boolean pregledano = false;
     private String referenca_na_resenje = "-1";
     private String vrsta_ziga;
+    private String referenca_na_podnosioca;
     private Institucija institucija;
     private Punomocnik punomocnik;
     private PodaciOZajednickomPredstavniku podaci_o_zajednickom_predstavniku;
@@ -39,6 +40,7 @@ public class ZahtevZigDetaljneInformacijeDTO {
         this.pregledano = zahtevZig.isPregledano();
         this.referenca_na_resenje = zahtevZig.getReferenca_na_resenje();
         this.vrsta_ziga = zahtevZig.getZig().toString();
+        this.referenca_na_podnosioca = zahtevZig.getReferenca_na_podnosioca();
         this.institucija = zahtevZig.getInstitucija();
         this.podnosioci = zahtevZig.getPodnosioci();
         this.punomocnik = zahtevZig.getPunomocnik();
@@ -183,5 +185,13 @@ public class ZahtevZigDetaljneInformacijeDTO {
 
     public void setPopunjava_zavod(PopunjavaZavod popunjava_zavod) {
         this.popunjava_zavod = popunjava_zavod;
+    }
+
+    public String getReferenca_na_podnosioca() {
+        return referenca_na_podnosioca;
+    }
+
+    public void setReferenca_na_podnosioca(String referenca_na_podnosioca) {
+        this.referenca_na_podnosioca = referenca_na_podnosioca;
     }
 }

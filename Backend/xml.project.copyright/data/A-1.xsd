@@ -27,6 +27,7 @@
             <xs:attribute name="prihvaceno" type="xs:boolean"/>
             <xs:attribute name="id" type="xs:string"/>
             <xs:attribute name="referenca_na_resenje" type="xs:string"/>
+            <xs:attribute name="referenca_na_podnosioca" type="xs:string"/>
         </xs:complexType>
     </xs:element>
     <xs:simpleType name="vrsta_autorskog_dela_enum">

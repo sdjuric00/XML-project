@@ -35,12 +35,13 @@ import org.apache.jena.query.*;
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;
 
+import static com.example.xml.project.exception.ErrorMessagesConstants.NEPOSTOJECI_ID;
 import static com.example.xml.project.rdf.RdfConstants.*;
 import static com.example.xml.project.util.Constants.*;
 
 @Component
 public class ZigRepository extends BasicXMLRepository {
-    public List<ZahtevZig> uzmiZahteve(final boolean obradjene) throws XPathException, CannotUnmarshalException {
+    public List<ZahtevZig> uzmiZahteve(final boolean obradjene, final String id) throws XPathException, CannotUnmarshalException {
         Collection col = null;
         XMLResource resXml = null;
         List<ZahtevZig> listaZahtevZig = new LinkedList<>();
@@ -62,12 +63,21 @@ public class ZigRepository extends BasicXMLRepository {
             // make the service aware of namespaces, using the default one
             xpathService.setNamespace("", ZIG_NAMESPACE);
             xpathService.setNamespace("opste", OPSTE_NAMESPACE);
-
-            String xpathExp = "declare variable $data as document-node()* := collection('/" + COLLECTION_ID_ZIG_DB + "');\n" +
-                "\n" +
-                "for $v in $data\n" +
-                "where $v//zahtev_za_priznanje_ziga[@pregledano='" + obradjene + "']\n" +
-                "return $v\n";
+            String xpathExp = "";
+            if (id == NEPOSTOJECI_ID) {
+                xpathExp = "declare variable $data as document-node()* := collection('/" + COLLECTION_ID_ZIG_DB + "');\n" +
+                        "\n" +
+                        "for $v in $data\n" +
+                        "where $v//zahtev_za_priznanje_ziga[@pregledano='" + obradjene + "']\n" +
+                        "return $v\n";
+            } else {
+                xpathExp = "declare variable $data as document-node()* := collection('/" + COLLECTION_ID_ZIG_DB + "');\n" +
+                        "\n" +
+                        "for $v in $data\n" +
+                        "where $v//zahtev_za_priznanje_ziga[@pregledano='" + obradjene + "'] " +
+                        "and $v//zahtev_za_priznanje_ziga[@referenca_na_podnosioca='" + id + "']\n" +
+                        "return $v\n";
+            }
 
             System.out.println("[INFO] Invoking XPath query service for: " + xpathExp);
             ResourceSet result = xpathService.query(xpathExp);

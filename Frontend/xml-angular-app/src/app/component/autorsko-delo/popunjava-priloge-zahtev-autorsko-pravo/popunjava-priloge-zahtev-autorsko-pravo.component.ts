@@ -29,6 +29,7 @@ export class PopunjavaPrilogeZahtevAutorskoPravoComponent implements OnInit, OnD
   opisCheckbox: boolean;
   primerCheckbox: boolean;
   ulogovaniKorisnik: Korisnik;
+  jeGradjanin: boolean;
 
   autorskaPravaSubscription: Subscription;
   autentifikacijaSubscription: Subscription;
@@ -51,7 +52,14 @@ export class PopunjavaPrilogeZahtevAutorskoPravoComponent implements OnInit, OnD
   }
 
   ngOnInit(): void {
-    this.autentifikacijaSubscription = this._autentifikacijaService.getSubjectCurrentUser().subscribe(korisnik => this.ulogovaniKorisnik = korisnik)
+    this.autentifikacijaSubscription = this._autentifikacijaService.getSubjectCurrentUser().subscribe(
+      korisnik => {
+        if (korisnik) {
+          this.ulogovaniKorisnik = korisnik
+          this.jeGradjanin = this.ulogovaniKorisnik.tipNaloga === "gradjanin";
+        }
+      }
+    )
     if (!this.nijePopunjeno){
       this.autorskaPravaSubscription = this._autorskaPravaService.uzmiZahtevPoId(this.zahtevId)
         .subscribe(result=> {

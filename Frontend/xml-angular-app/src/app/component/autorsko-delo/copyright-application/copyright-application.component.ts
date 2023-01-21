@@ -175,7 +175,8 @@ export class CopyrightApplicationComponent implements OnInit {
           obrazac: "A-1",
           broj_prijave: "A-2022/1",
           datum_podnosenja: this._datePipe.transform(new Date(), 'yyyy-MM-dd'),
-          pregledano: "false"
+          pregledano: "false",
+          referenca_na_podnosioca: localStorage.getItem('korisnik_id')
         },
         institucija: institucija,
         podnosilac: this.getPodnosilac(),

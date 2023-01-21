@@ -55,8 +55,10 @@ export class AutorskaPravaService {
       });
   }
 
-  uzmiNeobradjeneZahteve():Observable<ZahtevAutorskoPravoOsnovneInformacije[]> {
-    return this._http.get(`${this._api_url}/autorska-prava/neobradjeni-zahtevi`, {
+  uzmiNeobradjeneZahteve(jeGradjanin: boolean):Observable<ZahtevAutorskoPravoOsnovneInformacije[]> {
+    const putanja = !jeGradjanin ? "/autorska-prava/neobradjeni-zahtevi" : `/autorska-prava/neobradjeni-zahtevi-gradjanin/${localStorage.getItem('korisnik_id')}`;
+
+    return this._http.get(`${this._api_url}${putanja}`, {
         headers: new HttpHeaders().set('Accept' , 'application/xml'),
         responseType:"text"
       }
@@ -76,8 +78,9 @@ export class AutorskaPravaService {
     }));
   }
 
-  uzmiObradjeneZahteve():Observable<ZahtevAutorskoPravoOsnovneInformacije[]> {
-    return this._http.get(`${this._api_url}/autorska-prava/obradjeni-zahtevi`, {
+  uzmiObradjeneZahteve(jeGradjanin: boolean):Observable<ZahtevAutorskoPravoOsnovneInformacije[]> {
+    const putanja = !jeGradjanin ? "/autorska-prava/obradjeni-zahtevi" : `/autorska-prava/obradjeni-zahtevi-gradjanin/${localStorage.getItem('korisnik_id')}`;
+    return this._http.get(`${this._api_url}${putanja}`, {
         headers: new HttpHeaders().set('Accept' , 'application/xml'),
         responseType:"text"
       }

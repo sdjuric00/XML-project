@@ -34,6 +34,9 @@ public class ZahtevZig implements IdentifiableEntity {
     @XmlAttribute(name = "pregledano", required = true)
     private boolean pregledano = false;
 
+    @XmlAttribute(name = "referenca_na_podnosioca", required = true)
+    private String referenca_na_podnosioca;
+
     @XmlAttribute(name="prihvaceno")
     private boolean prihvaceno = false;
 
@@ -83,6 +86,7 @@ public class ZahtevZig implements IdentifiableEntity {
                      final String broj_prijave,
                      final LocalDate datum_podnosenja,
                      final boolean pregledano,
+                     final String referenca_na_podnosioca,
                      final ZigEnum zig,
                      final Institucija institucija,
                      final List<Podnosilac> podnosioci,
@@ -98,6 +102,7 @@ public class ZahtevZig implements IdentifiableEntity {
         this.broj_prijave = broj_prijave;
         this.datum_podnosenja = datum_podnosenja;
         this.pregledano = pregledano;
+        this.referenca_na_podnosioca = referenca_na_podnosioca;
         this.zig = zig;
         this.institucija = institucija;
         this.podnosioci = podnosioci;
@@ -246,5 +251,13 @@ public class ZahtevZig implements IdentifiableEntity {
 
     public void setPrihvaceno(boolean prihvaceno) {
         this.prihvaceno = prihvaceno;
+    }
+
+    public String getReferenca_na_podnosioca() {
+        return referenca_na_podnosioca;
+    }
+
+    public void setReferenca_na_podnosioca(String referenca_na_podnosioca) {
+        this.referenca_na_podnosioca = referenca_na_podnosioca;
     }
 }

@@ -169,7 +169,8 @@ export class PatentApplicationComponent {
           datum_prijema: this.datePipe.transform(new Date(), 'yyyy-MM-dd'),
           priznati_datum_podnosenja: this.datePipe.transform(new Date(), 'yyyy-MM-dd'),
           dopunska_prijava:false,
-          pregledano: false
+          pregledano: false,
+          referenca_na_podnosioca: localStorage.getItem('korisnik_id')
         },
         institucija: institucija,
         podaci_o_pronalasku: this.getPodaciOPronalasku(),

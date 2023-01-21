@@ -7,4 +7,6 @@ public class ErrorMessagesConstants {
     public static final String NOT_FOUND_EXCEPTION_MESSAGE = "Document with id not found.";
     public static final String UNMARSHALLER_EXCEPTION_MESSAGE = "Cannot unmarshall document.";
     public static final String XPATH_EXCEPTION_MESSAGE = "Xpath upit je pogrešan.";
+    public static final String MISSING_ID = "Nedostaje id.";
+    public static final String NEPOSTOJECI_ID = null;
 }

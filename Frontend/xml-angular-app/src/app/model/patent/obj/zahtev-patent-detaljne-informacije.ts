@@ -15,6 +15,7 @@ export interface ZahtevPatentDetaljneInformacije {
   dopunska_prijava: boolean;
   dostavljanje: DostavljanjeObj[],
   pregledano: boolean;
+  referenca_na_podnosioca: boolean;
   institucija: InstitucijaObj;
   podaci_o_pronalasku: PodatakOPronalaskuObj[];
   podnosilac: PodnosilacObj;
@@ -32,6 +33,7 @@ export function napraviZahtevPatentDetaljneInformacije(zahtevJson): ZahtevPatent
     datum_podnosenja: zahtevJson.datum_podnosenja[0],
     dopunska_prijava: zahtevJson.dopunska_prijava[0] === 'true',
     dostavljanje: napraviListuDostavljanja(zahtevJson.dostavljanje),
+    referenca_na_podnosioca: zahtevJson.referenca_na_podnosioca[0],
     id: zahtevJson.id[0],
     institucija: napraviInstituciju(zahtevJson.institucija[0]),
     podaci_o_pronalasku: napraviListuPodataka(zahtevJson.podaci_o_pronalasku),

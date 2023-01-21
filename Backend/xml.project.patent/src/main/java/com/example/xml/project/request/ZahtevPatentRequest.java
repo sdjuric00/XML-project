@@ -43,6 +43,9 @@ public class ZahtevPatentRequest implements IdentifiableEntity {
     @XmlAttribute(name="pregledano", required = true)
     private boolean pregledano;
 
+    @XmlAttribute(name="referenca_na_podnosioca", required = true)
+    private String referenca_na_podnosioca;
+
     @XmlElement(name="institucija", required = true, namespace = "http://www.patent/patent")
     private Institucija institucija;
 
@@ -178,5 +181,13 @@ public class ZahtevPatentRequest implements IdentifiableEntity {
 
     public void setReferenca_na_resenje(String referenca_na_resenje) {
         this.referenca_na_resenje = referenca_na_resenje;
+    }
+
+    public String getReferenca_na_podnosioca() {
+        return referenca_na_podnosioca;
+    }
+
+    public void setReferenca_na_podnosioca(String referenca_na_podnosioca) {
+        this.referenca_na_podnosioca = referenca_na_podnosioca;
     }
 }

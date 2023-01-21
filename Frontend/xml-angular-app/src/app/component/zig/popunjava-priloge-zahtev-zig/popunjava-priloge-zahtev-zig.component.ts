@@ -43,6 +43,7 @@ export class PopunjavaPrilogeZahtevZigComponent implements OnInit {
   razlog_odbijanja: string = '';
 
   ocekivanoZaUplatiti: PlaceneTakse;
+  jeGradjanin: boolean;
 
   constructor(
     private _zigService: ZigService,
@@ -65,7 +66,11 @@ export class PopunjavaPrilogeZahtevZigComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.autentifikacijaSubscription = this._autentifikacijaService.getSubjectCurrentUser().subscribe(korisnik => this.ulogovaniKorisnik = korisnik)
+    this.autentifikacijaSubscription = this._autentifikacijaService.getSubjectCurrentUser().subscribe(
+      korisnik => {
+        this.ulogovaniKorisnik = korisnik
+        this.jeGradjanin = this.ulogovaniKorisnik.tipNaloga === "gradjanin";
+      });
     if (!this.nijePopunjeno){
       this.zigSubscription = this._zigService.uzmiZahtevPoId(this.zahtevId)
         .subscribe(result=> {

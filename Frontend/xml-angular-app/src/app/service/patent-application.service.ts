@@ -51,8 +51,10 @@ export class PatentApplicationService {
     return this._http.post(`${this._api_url}/patent`, zahtevPatent, queryParams);
   }
 
-  uzmiNeobradjeneZahteve():Observable<ZahtevPatentOsnovneInformacije[]> {
-    return this._http.get(`${this._api_url}/patent/neobradjeni-zahtevi`, {
+  uzmiNeobradjeneZahteve(gradjanin: boolean):Observable<ZahtevPatentOsnovneInformacije[]> {
+    const putanja = !gradjanin ? "/patent/neobradjeni-zahtevi" : `/patent/neobradjeni-zahtevi-gradjanin/${localStorage.getItem('korisnik_id')}`;
+    
+    return this._http.get(`${this._api_url}${putanja}`, {
         headers: new HttpHeaders().set('Accept' , 'application/xml'),
         responseType:"text"
       }
@@ -73,8 +75,10 @@ export class PatentApplicationService {
     }));
   }
 
-  uzmiObradjeneZahteve():Observable<ZahtevPatentOsnovneInformacije[]> {
-    return this._http.get(`${this._api_url}/patent/obradjeni-zahtevi`, {
+  uzmiObradjeneZahteve(gradjanin: boolean):Observable<ZahtevPatentOsnovneInformacije[]> {
+    const putanja = !gradjanin ? "/patent/obradjeni-zahtevi" : `/patent/obradjeni-zahtevi-gradjanin/${localStorage.getItem('korisnik_id')}`;
+
+    return this._http.get(`${this._api_url}${putanja}`, {
         headers: new HttpHeaders().set('Accept' , 'application/xml'),
         responseType:"text"
       }

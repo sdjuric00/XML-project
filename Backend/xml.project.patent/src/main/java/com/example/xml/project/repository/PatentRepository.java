@@ -35,13 +35,14 @@ import java.time.format.DateTimeFormatter;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
+import static com.example.xml.project.exception.ErrorMessagesConstants.NEPOSTOJECI_ID;
 import static com.example.xml.project.rdf.RdfConstants.*;
 import static com.example.xml.project.util.Constants.*;
 
 @Component
 public class PatentRepository extends BasicXMLRepository {
 
-    public List<ZahtevPatent> uzmiZahteve(boolean obradjene) throws XPathException, CannotUnmarshalException {
+    public List<ZahtevPatent> uzmiZahteve(boolean obradjene, String id) throws XPathException, CannotUnmarshalException {
         Collection col = null;
         XMLResource resXml = null;
         List<ZahtevPatent> listaZahtevaPatenata = new LinkedList<>();
@@ -63,12 +64,21 @@ public class PatentRepository extends BasicXMLRepository {
             // make the service aware of namespaces, using the default one
             xpathService.setNamespace("", PATENT_NAMESPACE);
             xpathService.setNamespace("opste", OPSTE_NAMESPACE);
-
-            String xpathExp = "declare variable $data as document-node()* := collection('/" + COLLECTION_ID_PATENTI_ZAHTEV_DB + "');\n" +
-                "\n" +
-                "for $v in $data\n" +
-                "where $v//zahtev_za_priznavanje_patenta[@pregledano='" + obradjene + "']\n" +
-                "return $v\n";
+            String xpathExp = "";
+            if (id == NEPOSTOJECI_ID) {
+                xpathExp = "declare variable $data as document-node()* := collection('/" + COLLECTION_ID_PATENTI_ZAHTEV_DB + "');\n" +
+                        "\n" +
+                        "for $v in $data\n" +
+                        "where $v//zahtev_za_priznavanje_patenta[@pregledano='" + obradjene + "']\n" +
+                        "return $v\n";
+            } else {
+                xpathExp = "declare variable $data as document-node()* := collection('/" + COLLECTION_ID_PATENTI_ZAHTEV_DB + "');\n" +
+                        "\n" +
+                        "for $v in $data\n" +
+                        "where $v//zahtev_za_priznavanje_patenta[@pregledano='" + obradjene + "'] " +
+                        "and $v//zahtev_za_priznavanje_patenta[@referenca_na_podnosioca='" + id + "']\n" +
+                        "return $v\n";
+            }
 
             System.out.println("[INFO] Invoking XPath query service for: " + xpathExp);
             ResourceSet result = xpathService.query(xpathExp);

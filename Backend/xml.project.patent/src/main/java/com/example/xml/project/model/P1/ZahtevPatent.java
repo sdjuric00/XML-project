@@ -42,6 +42,9 @@ public class ZahtevPatent implements IdentifiableEntity {
     @XmlAttribute(name="pregledano", required = true)
     private boolean pregledano;
 
+    @XmlAttribute(name="referenca_na_podnosioca", required = true)
+    private String referenca_na_podnosioca;
+
     @XmlAttribute(name="prihvaceno")
     private boolean prihvaceno = false;
 
@@ -78,6 +81,7 @@ public class ZahtevPatent implements IdentifiableEntity {
                         final LocalDate priznati_datum_podnosenja,
                         final boolean dopunska_prijava,
                         final boolean pregledano,
+                        final String referenca_na_podnosioca,
                         final Institucija institucija,
                         final List<Naziv> podaci_o_pronalasku,
                         final Podnosilac podnosilac,
@@ -92,6 +96,7 @@ public class ZahtevPatent implements IdentifiableEntity {
         this.priznati_datum_podnosenja = priznati_datum_podnosenja;
         this.dopunska_prijava = dopunska_prijava;
         this.pregledano = pregledano;
+        this.referenca_na_podnosioca = referenca_na_podnosioca;
         this.institucija = institucija;
         this.podaci_o_pronalasku = podaci_o_pronalasku;
         this.podnosilac = podnosilac;
@@ -221,5 +226,13 @@ public class ZahtevPatent implements IdentifiableEntity {
 
     public void setPrihvaceno(boolean prihvaceno) {
         this.prihvaceno = prihvaceno;
+    }
+
+    public String getReferenca_na_podnosioca() {
+        return referenca_na_podnosioca;
+    }
+
+    public void setReferenca_na_podnosioca(String referenca_na_podnosioca) {
+        this.referenca_na_podnosioca = referenca_na_podnosioca;
     }
 }

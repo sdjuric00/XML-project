@@ -4,8 +4,8 @@
 
 <div *ngFor="let zahtev of listaZahteva; let i = index">
   <div *ngIf="i%3 == 0" style="display:flex; flex-direction: row;">
-    <app-red-zig [zahtev]="zahtev"></app-red-zig>
-    <app-red-zig *ngIf="i + 1 < listaZahteva.length" [zahtev]="listaZahteva.at(i+1)"></app-red-zig>
-    <app-red-zig *ngIf="i + 2 < listaZahteva.length" [zahtev]="listaZahteva.at(i+2)"></app-red-zig>
+    <app-red-zig [zahtev]="zahtev" [gradjanin]="jeGradjanin"></app-red-zig>
+    <app-red-zig *ngIf="i + 1 < listaZahteva.length" [gradjanin]="jeGradjanin" [zahtev]="listaZahteva.at(i+1)"></app-red-zig>
+    <app-red-zig *ngIf="i + 2 < listaZahteva.length" [gradjanin]="jeGradjanin" [zahtev]="listaZahteva.at(i+2)"></app-red-zig>
   </div>
 </div>

@@ -43,6 +43,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.xml.project.exception.ErrorMessagesConstants.NEPOSTOJECI_ID;
 import static com.example.xml.project.util.Constants.*;
 import static com.example.xml.project.utils.Constants.JSON_PUTANJA;
 import static com.example.xml.project.utils.Constants.RDF_PUTANJA;
@@ -108,10 +109,10 @@ public class PatentService implements IPatentService {
         return patentRepository.generisiIzvestaj(pocetniDatum, krajnjiDatum);
     }
 
-    public ZahteviPatentiDTO uzmiZahteve(final boolean obradjene) throws CannotUnmarshalException, XPathException {
+    public ZahteviPatentiDTO uzmiZahteve(final boolean obradjene, final String id) throws CannotUnmarshalException, XPathException {
 
         ZahteviPatentiDTO zahteviDTO = new ZahteviPatentiDTO();
-        zahteviDTO.fromZahtevi(patentRepository.uzmiZahteve(obradjene));
+        zahteviDTO.fromZahtevi(patentRepository.uzmiZahteve(obradjene, id));
         return zahteviDTO;
     }
 
@@ -132,8 +133,8 @@ public class PatentService implements IPatentService {
     }
 
     public ZahteviPatentiDTO pronadjiDokumenteKojiReferenciraju(final String documentId) throws Exception {
-        List<ZahtevPatent> obradjeniZahtevi = patentRepository.uzmiZahteve(true);
-        List<ZahtevPatent> neobradjeniZahtevi = patentRepository.uzmiZahteve(false);
+        List<ZahtevPatent> obradjeniZahtevi = patentRepository.uzmiZahteve(true, NEPOSTOJECI_ID);
+        List<ZahtevPatent> neobradjeniZahtevi = patentRepository.uzmiZahteve(false, NEPOSTOJECI_ID);
         System.out.println(obradjeniZahtevi.size() + " " + neobradjeniZahtevi.size());
 
         List<ZahtevPatent> dokumentiKojiReferenciraju = new ArrayList<>();
@@ -187,6 +188,7 @@ public class PatentService implements IPatentService {
             final LocalDate priznati_datum_podnosenja,
             final boolean dopunska_prijava,
             final boolean pregledano,
+            final String referenca_na_podnosioca,
             final Institucija institucija,
             final List<Naziv> podaci_o_pronalasku,
             final Podnosilac podnosilac,
@@ -200,7 +202,7 @@ public class PatentService implements IPatentService {
         }
 
         ZahtevPatent zahtev = new ZahtevPatent(id, broj_prijave, datum_prijema, priznati_datum_podnosenja, dopunska_prijava,
-                pregledano, institucija, podaci_o_pronalasku, podnosilac, pronalazac, punomocnik, dostavljanje, zahtev_za_priznanje_prava_iz_ranijih_prijava);
+                pregledano, referenca_na_podnosioca, institucija, podaci_o_pronalasku, podnosilac, pronalazac, punomocnik, dostavljanje, zahtev_za_priznanje_prava_iz_ranijih_prijava);
         Marshaller marshaller = jaxbContext.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         StringWriter sw = new StringWriter();

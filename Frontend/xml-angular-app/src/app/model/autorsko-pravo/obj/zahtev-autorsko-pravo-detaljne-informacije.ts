@@ -16,6 +16,7 @@ export interface ZahtevAutorskoPravoDetaljneInformacije {
   broj_prijave: string;
   datum_podnosenja: Date;
   pregledano: boolean;
+  referenca_na_podnosioca: string;
   podnosilac: PodnosilacObj;
   institucija: InstitucijaObj;
   punomocnik: PunomocnikObj;
@@ -32,6 +33,7 @@ export function napraviZahtevAutorskoPravoDetaljneInformacije(zahtevJson): Zahte
     broj_prijave: zahtevJson.broj_prijave[0],
     datum_podnosenja: zahtevJson.datum_podnosenja[0],
     pregledano: zahtevJson.pregledano[0] === 'true',
+    referenca_na_podnosioca: zahtevJson.referenca_na_podnosioca[0],
     podnosilac: napraviPodnosioca(zahtevJson.podnosilac[0]),
     institucija: napraviInstituciju(zahtevJson.institucija[0]),
     punomocnik: napraviPunomocnika(zahtevJson.punomocnik[0]),

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-obradi-zahtev-autorsko-pravo',
@@ -11,7 +12,10 @@ export class ObradiZahtevAutorskoPravoComponent implements OnInit {
   zahtevId: string;
   obrada: boolean;
 
-  constructor(private _params: ActivatedRoute, private _router: Router) {
+  constructor(
+    private _params: ActivatedRoute,
+    private _router: Router,
+  ) {
     this.zahtevId = '';
     this.obrada = false;
   }

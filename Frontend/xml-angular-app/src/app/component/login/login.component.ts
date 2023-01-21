@@ -101,6 +101,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         prijava.korisnikDTO[0].lozinka[0],
         prijava.korisnikDTO[0].prezime[0],
         prijava.korisnikDTO[0].tip_naloga[0],
+        prijava.korisnikDTO[0].$.id
       )
     };
   }

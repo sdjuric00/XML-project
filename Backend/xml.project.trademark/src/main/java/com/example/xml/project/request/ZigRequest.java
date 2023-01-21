@@ -41,6 +41,9 @@ public class ZigRequest implements IdentifiableEntity {
     @XmlAttribute(name = "zig", required = true)
     private ZigEnum zig;
 
+    @XmlAttribute(name = "referenca_na_podnosioca", required = true)
+    private String referenca_na_podnosioca;
+
     @XmlElement(name = "institucija", required = true, namespace = "http://www.zig/zig")
     private Institucija institucija;
 
@@ -190,5 +193,13 @@ public class ZigRequest implements IdentifiableEntity {
 
     public void setReferenca_na_resenje(String referenca_na_resenje) {
         this.referenca_na_resenje = referenca_na_resenje;
+    }
+
+    public String getReferenca_na_podnosioca() {
+        return referenca_na_podnosioca;
+    }
+
+    public void setReferenca_na_podnosioca(String referenca_na_podnosioca) {
+        this.referenca_na_podnosioca = referenca_na_podnosioca;
     }
 }
