@@ -24,7 +24,7 @@ export class RichEditKomponentaComponent implements OnInit, AfterViewInit{
     let element = document.getElementById("editor");
     let specification = this.xonomyService.patentSpecification;
     let xmlString = '<zahtev_za_priznavanje_patenta xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.patent/patent" xmlns:opste="http://ftn.ac.rs/opste" '+
-    'broj_prijave="P-2022/2" datum_prijema="2022-11-30" priznati_datum_podnosenja="2022-11-30" id="1" pregledano="false">'+
+    'broj_prijave="P-2022/2" datum_prijema="2022-11-30" priznati_datum_podnosenja="2022-11-30" id="1" pregledano="false" referenca_na_podnosioca="' + localStorage.getItem('korisnik_id') +'">'+
     '<institucija><naziv>Zavod za intelektulanu svojinu</naziv>' +
     '<adresa><grad>Beograd</grad>'+
     '<ulica>Kneginje Ljubice</ulica>'+

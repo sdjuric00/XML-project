@@ -115,7 +115,7 @@ public class ZigController {
         return zigService.uzmiZahteve(false, NEPOSTOJECI_ID);
     }
 
-    @GetMapping(path="/neobradjeni-zahtevi-gradjanin", produces = "application/xml")
+    @GetMapping(path="/neobradjeni-zahtevi-gradjanin/{id}", produces = "application/xml")
     @ResponseStatus(HttpStatus.OK)
     public ZahteviZigDTO uzmiNeobradjeneZahteveGradjanin(@Valid @NotNull(message = MISSING_ID) @PathVariable String id)
             throws CannotUnmarshalException, XPathException
@@ -131,7 +131,7 @@ public class ZigController {
         return zigService.uzmiZahteve(true, NEPOSTOJECI_ID);
     }
 
-    @GetMapping(path="/obradjeni-zahtevi-gradjanin", produces = "application/xml")
+    @GetMapping(path="/obradjeni-zahtevi-gradjanin/{id}", produces = "application/xml")
     @ResponseStatus(HttpStatus.OK)
     public ZahteviZigDTO uzmiObradjeneZahteveGradjanin(@Valid @NotNull(message = MISSING_ID) @PathVariable String id)
             throws CannotUnmarshalException, XPathException

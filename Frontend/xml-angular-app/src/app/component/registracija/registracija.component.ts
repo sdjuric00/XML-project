@@ -127,7 +127,11 @@ export class RegistracijaComponent implements OnInit, OnDestroy {
               'Sada možeš da se prijaviš!',
               'Uspešna registracija'
             );
-            this.router.navigate([`/prijava`]);
+            if (localStorage.getItem('korisnik_id') === null || localStorage.getItem('korisnik_id') === undefined) {
+              this.router.navigate([`/prijava`]);
+            } else {
+              this.router.navigate([`/pocetna`]);
+            }
           },
           error => this.toast.error(error.error, 'Neuspešna registracija')
         );
