@@ -20,6 +20,7 @@ import { PlaceneTakse } from '../model/zig/xml/placene-takse';
 import { napraviPlacenuTaksu, TaksaObj } from '../model/zig/obj/taksa';
 
 import { NaprednaPretraga } from '../model/pretraga/napredna-pretraga';
+import { Korisnik } from '../model/korisnik/korisnik';
 
 @Injectable({
   providedIn: 'root'
@@ -141,7 +142,7 @@ export class ZigService {
 
   }
 
-  osnovnaPretraga(osnovnaPretraga: OsnovnaPretraga):Observable<ZahtevZigOsnovneInformacije[]>{
+  osnovnaPretraga(osnovnaPretraga: OsnovnaPretraga, ulogovaniKorisnik: Korisnik):Observable<ZahtevZigOsnovneInformacije[]>{
     const headers = new HttpHeaders({ "Content-Type": "application/xml"}).set("Accept", "application/xml");
     let queryParams = {};
     queryParams = {
@@ -149,8 +150,12 @@ export class ZigService {
       responseType: "text"
     };
     var o2x = require('object-to-xml');
+    var putanja = `${this._api_url}/zig/osnovna-pretraga`;
+    if(ulogovaniKorisnik.tipNaloga === "gradjanin"){
+      putanja = `${this._api_url}/zig/osnovna-pretraga/${ulogovaniKorisnik.id}`;
+    }
     return this._http.post(
-      `${this._api_url}/zig/osnovna-pretraga`,
+      putanja,
       o2x(osnovnaPretraga),
       queryParams
     ).pipe(map((result:string)=>{
@@ -266,7 +271,7 @@ export class ZigService {
   }));
   }
 
-  naprednaPretraga(napredna_pretraga: NaprednaPretraga){
+  naprednaPretraga(napredna_pretraga: NaprednaPretraga, ulogovaniKorisnik: Korisnik){
     const headers = new HttpHeaders({ "Content-Type": "application/xml"}).set("Accept", "application/xml");
     let queryParams = {};
     queryParams = {
@@ -274,8 +279,12 @@ export class ZigService {
       responseType: "text"
     };
     var o2x = require('object-to-xml');
+    var putanja = `${this._api_url}/zig/napredna-pretraga`;
+    if(ulogovaniKorisnik.tipNaloga === "gradjanin"){
+      putanja = `${this._api_url}/zig/napredna-pretraga/${ulogovaniKorisnik.id}`;
+    }
     return this._http.post(
-      `${this._api_url}/zig/napredna-pretraga`,
+      putanja,
       o2x(napredna_pretraga),
       queryParams
     ).pipe(map((result:string)=>{

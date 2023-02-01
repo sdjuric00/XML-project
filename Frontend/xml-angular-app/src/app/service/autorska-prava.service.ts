@@ -18,6 +18,7 @@ import { OsnovnaPretraga } from '../model/pretraga/osnovna-pretraga';
 import * as JsonToXML from "js2xmlparser";
 import { NaprednaPretraga } from '../model/pretraga/napredna-pretraga';
 import { Router } from '@angular/router';
+import { Korisnik } from '../model/korisnik/korisnik';
 
 @Injectable({
   providedIn: 'root'
@@ -159,7 +160,7 @@ export class AutorskaPravaService {
     }));
   }
 
-  osnovnaPretraga(osnovnaPretraga: OsnovnaPretraga):Observable<ZahtevAutorskoPravoOsnovneInformacije[]>{
+  osnovnaPretraga(osnovnaPretraga: OsnovnaPretraga, ulogovaniKorisnik: Korisnik):Observable<ZahtevAutorskoPravoOsnovneInformacije[]>{
     const headers = new HttpHeaders({ "Content-Type": "application/xml"}).set("Accept", "application/xml");
     let queryParams = {};
     queryParams = {
@@ -167,8 +168,12 @@ export class AutorskaPravaService {
       responseType: "text"
     };
     var o2x = require('object-to-xml');
+    var putanja = `${this._api_url}/autorska-prava/osnovna-pretraga`;
+    if(ulogovaniKorisnik.tipNaloga === "gradjanin"){
+      putanja = `${this._api_url}/autorska-prava/osnovna-pretraga/${ulogovaniKorisnik.id}`;
+    }
     return this._http.post(
-      `${this._api_url}/autorska-prava/osnovna-pretraga`,
+      putanja,
       o2x(osnovnaPretraga),
       queryParams
     ).pipe(map((result:string)=>{
@@ -254,7 +259,7 @@ export class AutorskaPravaService {
   }));
   }
 
-  naprednaPretraga(napredna_pretraga: NaprednaPretraga){
+  naprednaPretraga(napredna_pretraga: NaprednaPretraga, ulogovaniKorisnik: Korisnik){
     const headers = new HttpHeaders({ "Content-Type": "application/xml"}).set("Accept", "application/xml");
     let queryParams = {};
     queryParams = {
@@ -262,8 +267,12 @@ export class AutorskaPravaService {
       responseType: "text"
     };
     var o2x = require('object-to-xml');
+    var putanja = `${this._api_url}/autorska-prava/napredna-pretraga`;
+    if(ulogovaniKorisnik.tipNaloga === "gradjanin"){
+      putanja = `${this._api_url}/autorska-prava/napredna-pretraga/${ulogovaniKorisnik.id}`;
+    }
     return this._http.post(
-      `${this._api_url}/autorska-prava/napredna-pretraga`,
+      putanja,
       o2x(napredna_pretraga),
       queryParams
     ).pipe(map((result:string)=>{

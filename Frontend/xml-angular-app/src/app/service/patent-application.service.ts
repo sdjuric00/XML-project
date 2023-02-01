@@ -17,6 +17,7 @@ import * as JsonToXML from "js2xmlparser";
 import { ToastrService } from 'ngx-toastr';
 import { napraviUspesnuTransformaciju, UspesnaTransformacija } from '../model/opste/uspesna-transformacija';
 import { NaprednaPretraga } from '../model/pretraga/napredna-pretraga';
+import { Korisnik } from '../model/korisnik/korisnik';
 
 @Injectable({
   providedIn: 'root'
@@ -119,7 +120,7 @@ export class PatentApplicationService {
     }));
   }
 
-  osnovnaPretraga(osnovnaPretraga: OsnovnaPretraga):Observable<ZahtevPatentOsnovneInformacije[]>{
+  osnovnaPretraga(osnovnaPretraga: OsnovnaPretraga, ulogovaniKorisnik: Korisnik):Observable<ZahtevPatentOsnovneInformacije[]>{
     const headers = new HttpHeaders({ "Content-Type": "application/xml"}).set("Accept", "application/xml");
     let queryParams = {};
     queryParams = {
@@ -127,8 +128,14 @@ export class PatentApplicationService {
       responseType: "text"
     };
     var o2x = require('object-to-xml');
+    console.log(ulogovaniKorisnik);
+    var putanja = `${this._api_url}/patent/osnovna-pretraga`;
+    if(ulogovaniKorisnik.tipNaloga === "gradjanin"){
+      putanja = `${this._api_url}/patent/osnovna-pretraga/${ulogovaniKorisnik.id}`;
+    }
+
     return this._http.post(
-      `${this._api_url}/patent/osnovna-pretraga`,
+      putanja,
       o2x(osnovnaPretraga),
       queryParams
     ).pipe(map((result:string)=>{
@@ -145,6 +152,7 @@ export class PatentApplicationService {
       })
       return listaZahteva;
   }));
+
 }
   privatiZahtev(resenje: { ime_prezime_sluzbenika: string; referenca_na_zahtev: string, sifra_obradjenog_zahteva: string; })
     :Observable<any>{
@@ -276,7 +284,7 @@ export class PatentApplicationService {
   }));
   }
 
-  naprednaPretraga(napredna_pretraga: NaprednaPretraga){
+  naprednaPretraga(napredna_pretraga: NaprednaPretraga, ulogovaniKorisnik: Korisnik){
     const headers = new HttpHeaders({ "Content-Type": "application/xml"}).set("Accept", "application/xml");
     let queryParams = {};
     queryParams = {
@@ -285,8 +293,13 @@ export class PatentApplicationService {
     };
     var o2x = require('object-to-xml');
     console.log(o2x(napredna_pretraga));
+    var putanja = `${this._api_url}/patent/napredna-pretraga`;
+    if(ulogovaniKorisnik.tipNaloga === "gradjanin"){
+      putanja = `${this._api_url}/patent/napredna-pretraga/${ulogovaniKorisnik.id}`;
+    }
+    console.log(putanja);
     return this._http.post(
-      `${this._api_url}/patent/napredna-pretraga`,
+      putanja,
       o2x(napredna_pretraga),
       queryParams
     ).pipe(map((result:string)=>{

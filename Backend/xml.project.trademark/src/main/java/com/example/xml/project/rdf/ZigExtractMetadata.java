@@ -42,10 +42,6 @@ public class ZigExtractMetadata extends ExtractMetadata {
         Literal vrsta_ziga_lit = model.createLiteral(zahtevZig.getZig().toString());
         model.add(model.createStatement(resource, vrsta_ziga, vrsta_ziga_lit));
 
-        Property referenca_na_resenje = model.createProperty(PREDICATE_NAMESPACE, "referenca_na_resenje");
-        Literal referenca_na_resenje_lit = model.createLiteral(zahtevZig.getReferenca_na_resenje());
-        model.add(model.createStatement(resource, referenca_na_resenje, referenca_na_resenje_lit));
-
         Property broj_prijave = model.createProperty(PREDICATE_NAMESPACE, "broj_prijave");
         Literal broj_prijave_lit = model.createLiteral(zahtevZig.getBroj_prijave());
         model.add(model.createStatement(resource, broj_prijave, broj_prijave_lit));

@@ -11,6 +11,7 @@ import { ZigService } from 'src/app/service/zig.service';
 import { Router } from '@angular/router';
 import { AutentifikacijaService } from 'src/app/service/autentifikacija.service';
 import { Subscription } from 'rxjs';
+import { Korisnik } from 'src/app/model/korisnik/korisnik';
 
 @Component({
   selector: 'app-home-page',
@@ -20,6 +21,7 @@ import { Subscription } from 'rxjs';
 export class HomePageComponent implements OnInit {
 
   gradjanin: boolean;
+  ulogovaniKorisnik: Korisnik;
   autentifikacijaSubscription: Subscription;
 
   constructor(
@@ -37,6 +39,7 @@ export class HomePageComponent implements OnInit {
       res => {
         if (res) {
           this.gradjanin = res.tipNaloga === "gradjanin";
+          this.ulogovaniKorisnik = res;
         }
       }
     );
@@ -89,7 +92,7 @@ export class HomePageComponent implements OnInit {
 
     pretragaPodaci.parametar = parametriPretrage;
     let osnovnaPretraga: OsnovnaPretraga = {pretraga: {parametriPretrage: pretragaPodaci}};
-    this.patentService.osnovnaPretraga(osnovnaPretraga).subscribe(zahtevi=>{
+    this.patentService.osnovnaPretraga(osnovnaPretraga, this.ulogovaniKorisnik).subscribe(zahtevi=>{
       this.listaZahtevaPatenti = zahtevi;
       console.log("blaa");
       if(zahtevi.length > 0){
@@ -103,7 +106,7 @@ export class HomePageComponent implements OnInit {
       }
     });
 
-    this.autorskaPravaService.osnovnaPretraga(osnovnaPretraga).subscribe(zahtevi => {
+    this.autorskaPravaService.osnovnaPretraga(osnovnaPretraga, this.ulogovaniKorisnik).subscribe(zahtevi => {
       this.listaZahtevaAutorskaPrava = zahtevi;
       if(zahtevi.length > 0){
         this.prikaziAutorskaPrava = true;
@@ -115,7 +118,7 @@ export class HomePageComponent implements OnInit {
       }
     })
 
-    this.zigService.osnovnaPretraga(osnovnaPretraga).subscribe(zahtevi => {
+    this.zigService.osnovnaPretraga(osnovnaPretraga, this.ulogovaniKorisnik).subscribe(zahtevi => {
       this.listaZahtevaZigova = zahtevi;
       if(zahtevi.length > 0){
         this.prikaziZigove = true;

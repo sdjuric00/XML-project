@@ -48,10 +48,10 @@ public interface IAutorskaPravaService {
     ZahteviAutorskaDelaDTO uzmiZahteve(boolean obradjene, String id) throws CannotUnmarshalException, XPathException;
     ZahtevAutorskaDela uzmiZahtevBezDTO(final String id) throws CannotUnmarshalException, XPathException;
     ZahtevAutorskaDelaDetaljneInformacijeDTO uzmiZahtev(final String id) throws CannotUnmarshalException, XPathException;
-    ZahteviAutorskaDelaDTO pronadjiRezultateOsnovnePretrage(final List<ParametarPretrage> parametriPretrage) throws Exception;
+    ZahteviAutorskaDelaDTO pronadjiRezultateOsnovnePretrage(final List<ParametarPretrage> parametriPretrage, String idKorisnika) throws Exception;
     UspesnaTransformacija generisiJson(String id) throws IOException;
     UspesnaTransformacija generisiRdf(String id) throws IOException;
-    ZahteviAutorskaDelaDTO pronadjiRezultateNaprednePretrage(List<ParNaprednaPretraga> parametriPretrage) throws Exception;
+    ZahteviAutorskaDelaDTO pronadjiRezultateNaprednePretrage(List<ParNaprednaPretraga> parametriPretrage, String idKorisnika) throws Exception;
 
 
 }

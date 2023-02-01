@@ -5,6 +5,7 @@ public class Constants {
     public static final String KORISNICI_SCHEMA = "./data/Korisnici.xsd";
     public static final String KORISNICI_NEW_XML = "./data/Korisnici.xml";
     public static final String COLLECTION_ID_KORISNICI_DB = "db/xml/korisnici";
+    public static final String COLLECTION_ID_KORISNICI_DOKUMENTI_DB = "db/xml/korisnici_dokumenti";
     public static final String KORISNICI_NAMESPACE = "http://www.korisnici/korisnici";
     public static final String OPSTE_NAMESPACE = "http://ftn.ac.rs/opste";
 

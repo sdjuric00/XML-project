@@ -124,8 +124,8 @@ public class AutorskaPravaService implements IAutorskaPravaService {
     )
             throws JAXBException, IOException, InvalidDocumentException, TransformationFailedException
     {
-        String imeSlike = sacuvajSliku(prilozi.getPrimerak());
-        prilozi.setPrimerak(imeSlike);
+//        String imeSlike = sacuvajSliku(prilozi.getPrimerak());
+//        prilozi.setPrimerak(imeSlike);
         if (id == null) {
             id = "1";    //zbog check seme da validira, posle ce setovati dobar broj
         }
@@ -182,9 +182,9 @@ public class AutorskaPravaService implements IAutorskaPravaService {
         return new ZahtevAutorskaDelaDetaljneInformacijeDTO(autorskaPravaRepository.uzmiZahtev(id));
     }
 
-    public ZahteviAutorskaDelaDTO pronadjiRezultateOsnovnePretrage(final List<ParametarPretrage> parametriPretrage) throws Exception {
+    public ZahteviAutorskaDelaDTO pronadjiRezultateOsnovnePretrage(final List<ParametarPretrage> parametriPretrage, final String idKorisnika) throws Exception {
         ZahteviAutorskaDelaDTO zahteviDTO = new ZahteviAutorskaDelaDTO();
-        zahteviDTO.fromZahtevi(autorskaPravaRepository.pronadjiRezultateOsnovnePretrage(parametriPretrage));
+        zahteviDTO.fromZahtevi(autorskaPravaRepository.pronadjiRezultateOsnovnePretrage(parametriPretrage, idKorisnika));
         return zahteviDTO;
     }
 
@@ -200,9 +200,9 @@ public class AutorskaPravaService implements IAutorskaPravaService {
         return new UspesnaTransformacija(rdf.getBytes());
     }
 
-    public ZahteviAutorskaDelaDTO pronadjiRezultateNaprednePretrage(List<ParNaprednaPretraga> parametriPretrage) throws Exception {
+    public ZahteviAutorskaDelaDTO pronadjiRezultateNaprednePretrage(List<ParNaprednaPretraga> parametriPretrage, String idKorisnika) throws Exception {
         ZahteviAutorskaDelaDTO zahteviDTO = new ZahteviAutorskaDelaDTO();
-        zahteviDTO.fromZahtevi(autorskaPravaRepository.pronadjiRezultateNaprednePretrage(parametriPretrage));
+        zahteviDTO.fromZahtevi(autorskaPravaRepository.pronadjiRezultateNaprednePretrage(parametriPretrage, idKorisnika));
         return zahteviDTO;
     }
 

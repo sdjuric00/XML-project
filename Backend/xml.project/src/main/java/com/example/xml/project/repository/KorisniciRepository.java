@@ -1,10 +1,11 @@
 package com.example.xml.project.repository;
 
+import com.example.xml.project.exception.CannotUnmarshalException;
+import com.example.xml.project.exception.XPathException;
 import com.example.xml.project.exception.EntityNotFoundException;
 import com.example.xml.project.model.Korisnici.Korisnik;
 import org.exist.xmldb.EXistResource;
 import org.springframework.stereotype.Component;
-import org.w3c.dom.Node;
 import org.xmldb.api.DatabaseManager;
 import org.xmldb.api.base.*;
 import org.xmldb.api.modules.XMLResource;
@@ -17,6 +18,8 @@ import javax.xml.transform.OutputKeys;
 import javax.xml.transform.stream.StreamSource;
 
 import java.io.StringReader;
+import java.util.LinkedList;
+import java.util.List;
 
 import static com.example.xml.project.exception.ErrorMessagesConstants.NIJE_PRONADJEN_KORISNIK_EXCEPTION_MESSAGE;
 import static com.example.xml.project.exception.ErrorMessagesConstants.NOT_FOUND_EXCEPTION_MESSAGE;
