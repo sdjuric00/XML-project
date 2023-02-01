@@ -33,10 +33,6 @@ public class AutorskoDeloExtractMetadata extends ExtractMetadata {
         Literal datum_prijema_lit = model.createLiteral(zahtevAutorskaDela.getDatum_podnosenja().toString());
         model.add(model.createStatement(resource, datum_prijema, datum_prijema_lit));
 
-        Property referenca_na_resenje = model.createProperty(PREDICATE_NAMESPACE, "referenca_na_resenje");
-        Literal referenca_na_resenje_lit = model.createLiteral(zahtevAutorskaDela.getReferenca_na_resenje());
-        model.add(model.createStatement(resource, referenca_na_resenje, referenca_na_resenje_lit));
-
         Property broj_prijave = model.createProperty(PREDICATE_NAMESPACE, "broj_prijave");
         Literal broj_prijave_lit = model.createLiteral(zahtevAutorskaDela.getBroj_prijave());
         model.add(model.createStatement(resource, broj_prijave, broj_prijave_lit));

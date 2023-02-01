@@ -147,10 +147,16 @@ public class PatentController {
         return patentService.uzmiZahtev(id);
     }
 
+    @PostMapping(path="/osnovna-pretraga/{idKorisnika}")
+    public ZahteviPatentiDTO osnovnaPretraga(@RequestBody PretragaRequest pretragaRequest, @PathVariable String idKorisnika) throws Exception {
+
+        return patentService.pronadjiRezultateOsnovnePretrage(pretragaRequest.getParametriPretrage(), idKorisnika);
+    }
+
     @PostMapping(path="/osnovna-pretraga")
     public ZahteviPatentiDTO osnovnaPretraga(@RequestBody PretragaRequest pretragaRequest) throws Exception {
 
-        return patentService.pronadjiRezultateOsnovnePretrage(pretragaRequest.getParametriPretrage());
+        return patentService.pronadjiRezultateOsnovnePretrage(pretragaRequest.getParametriPretrage(), "");
     }
 
     @GetMapping(path = "/kreiraj-html/{id}", produces = "application/xml")
@@ -190,6 +196,11 @@ public class PatentController {
 
     @PostMapping(path="/napredna-pretraga")
     public ZahteviPatentiDTO naprednaPretraga(@RequestBody NaprednaPretragaRequest pretragaRequest) throws Exception {
-        return patentService.pronadjiRezultateNaprednePretrage(pretragaRequest.getParametriPretrage());
+        return patentService.pronadjiRezultateNaprednePretrage(pretragaRequest.getParametriPretrage(), "");
+    }
+
+    @PostMapping(path="/napredna-pretraga/{idKorisnika}")
+    public ZahteviPatentiDTO naprednaPretraga(@RequestBody NaprednaPretragaRequest pretragaRequest, @PathVariable String idKorisnika) throws Exception {
+        return patentService.pronadjiRezultateNaprednePretrage(pretragaRequest.getParametriPretrage(), idKorisnika);
     }
 }

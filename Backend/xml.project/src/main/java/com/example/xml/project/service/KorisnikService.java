@@ -1,5 +1,7 @@
 package com.example.xml.project.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import com.example.xml.project.dto.KorisnikDTO;
 import com.example.xml.project.exception.*;
 import com.example.xml.project.model.Adresa;
@@ -39,9 +41,9 @@ public class KorisnikService {
     private final Transformator transformator;
 
     public KorisnikService(
-        @Autowired final GenericRepository<Korisnik> repository,
-        @Autowired final KorisniciRepository korisniciRepository,
-        @Autowired final Transformator transformator
+            @Autowired final GenericRepository<Korisnik> repository,
+            @Autowired final KorisniciRepository korisniciRepository,
+            @Autowired final Transformator transformator
     ) throws JAXBException
     {
         this.transformator = transformator;
@@ -52,7 +54,6 @@ public class KorisnikService {
             COLLECTION_ID_KORISNICI_DB
         );
         this.korisniciRepository = korisniciRepository;
-
         this.marshaller = jaxbContext.createMarshaller();
         this.marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
     }
@@ -148,4 +149,5 @@ public class KorisnikService {
 
         return korisniciRepository.getKorisnikByEmail(email, false) != null;
     }
+
 }

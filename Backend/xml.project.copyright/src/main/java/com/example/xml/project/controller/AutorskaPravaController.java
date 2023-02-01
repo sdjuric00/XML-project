@@ -138,10 +138,16 @@ public class AutorskaPravaController {
         return autorskaPravaService.uzmiZahtev(id);
     }
 
+    @PostMapping(path="/osnovna-pretraga/{idKorisnika}")
+    public ZahteviAutorskaDelaDTO osnovnaPretraga(@RequestBody PretragaRequest pretragaRequest, @PathVariable String idKorisnika) throws Exception {
+
+        return autorskaPravaService.pronadjiRezultateOsnovnePretrage(pretragaRequest.getParametriPretrage(), idKorisnika);
+    }
+
     @PostMapping(path="/osnovna-pretraga")
     public ZahteviAutorskaDelaDTO osnovnaPretraga(@RequestBody PretragaRequest pretragaRequest) throws Exception {
-        System.out.println("fasjfajf");
-        return autorskaPravaService.pronadjiRezultateOsnovnePretrage(pretragaRequest.getParametriPretrage());
+
+        return autorskaPravaService.pronadjiRezultateOsnovnePretrage(pretragaRequest.getParametriPretrage(), "");
     }
 
     @GetMapping(path = "/kreiraj-html/{id}", produces = "application/xml")
@@ -177,6 +183,11 @@ public class AutorskaPravaController {
 
     @PostMapping(path="/napredna-pretraga")
     public ZahteviAutorskaDelaDTO naprednaPretraga(@RequestBody NaprednaPretragaRequest pretragaRequest) throws Exception {
-        return autorskaPravaService.pronadjiRezultateNaprednePretrage(pretragaRequest.getParametriPretrage());
+        return autorskaPravaService.pronadjiRezultateNaprednePretrage(pretragaRequest.getParametriPretrage(), "");
+    }
+
+    @PostMapping(path="/napredna-pretraga/{idKorisnika}")
+    public ZahteviAutorskaDelaDTO naprednaPretraga(@RequestBody NaprednaPretragaRequest pretragaRequest, @PathVariable String idKorisnika) throws Exception {
+        return autorskaPravaService.pronadjiRezultateNaprednePretrage(pretragaRequest.getParametriPretrage(), idKorisnika);
     }
 }

@@ -122,9 +122,9 @@ public class PatentService implements IPatentService {
         return new ZahtevPatentDetaljneInformacijeDTO(patentRepository.uzmiZahtev(id));
     }
 
-    public ZahteviPatentiDTO pronadjiRezultateOsnovnePretrage(final List<ParametarPretrage> parametriPretrage) throws Exception {
+    public ZahteviPatentiDTO pronadjiRezultateOsnovnePretrage(final List<ParametarPretrage> parametriPretrage, final String idKorisnika) throws Exception {
         ZahteviPatentiDTO zahteviDTO = new ZahteviPatentiDTO();
-        zahteviDTO.fromZahtevi(patentRepository.pronadjiRezultateOsnovnePretrage(parametriPretrage));
+        zahteviDTO.fromZahtevi(patentRepository.pronadjiRezultateOsnovnePretrage(parametriPretrage, idKorisnika));
         return zahteviDTO;
     }
     public ZahtevPatent uzmiZahtevBezDTO(final String id) throws CannotUnmarshalException, XPathException {
@@ -225,9 +225,9 @@ public class PatentService implements IPatentService {
         return new UspesnaTransformacija(rdf.getBytes());
     }
 
-    public ZahteviPatentiDTO pronadjiRezultateNaprednePretrage(List<ParNaprednaPretraga> parametriPretrage) throws Exception {
+    public ZahteviPatentiDTO pronadjiRezultateNaprednePretrage(List<ParNaprednaPretraga> parametriPretrage, String idKorisnika) throws Exception {
         ZahteviPatentiDTO zahteviDTO = new ZahteviPatentiDTO();
-        zahteviDTO.fromZahtevi(patentRepository.pronadjiRezultateNaprednePretrage(parametriPretrage));
+        zahteviDTO.fromZahtevi(patentRepository.pronadjiRezultateNaprednePretrage(parametriPretrage, idKorisnika));
         return zahteviDTO;
     }
 

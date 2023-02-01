@@ -34,8 +34,8 @@ public interface IZigService {
     ZahtevZig uzmiZahtevBezDTO(final String id) throws CannotUnmarshalException, XPathException;
     UspesnaTransformacija dodajHtml(final String id, final boolean jeGenerisanjePdf)
             throws JAXBException, EntityNotFoundException, TransformationFailedException, IOException;
-    ZahteviZigDTO pronadjiRezultateOsnovnePretrage(List<ParametarPretrage> parametriPretrage) throws Exception;
-    ZahteviZigDTO pronadjiRezultateNaprednePretrage(List<ParNaprednaPretraga> parametriPretrage) throws Exception;
+    ZahteviZigDTO pronadjiRezultateOsnovnePretrage(List<ParametarPretrage> parametriPretrage, String idKorisnika) throws Exception;
+    ZahteviZigDTO pronadjiRezultateNaprednePretrage(List<ParNaprednaPretraga> parametriPretrage, String idKorisnika) throws Exception;
     UspesnaTransformacija dodajPdf(String id) throws JAXBException, EntityNotFoundException,
             IOException, TransformationFailedException;
     UspesnaTransformacija generisiJson(String id) throws IOException;

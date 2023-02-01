@@ -149,9 +149,14 @@ public class ZigController {
         return zigService.uzmiZahtev(id);
     }
 
+    @PostMapping(path="/osnovna-pretraga/{idKorisnika}")
+    public ZahteviZigDTO osnovnaPretraga(@RequestBody PretragaRequest pretragaRequest, @PathVariable String idKorisnika) throws Exception {
+        return zigService.pronadjiRezultateOsnovnePretrage(pretragaRequest.getParametriPretrage(), idKorisnika);
+    }
+
     @PostMapping(path="/osnovna-pretraga")
     public ZahteviZigDTO osnovnaPretraga(@RequestBody PretragaRequest pretragaRequest) throws Exception {
-        return zigService.pronadjiRezultateOsnovnePretrage(pretragaRequest.getParametriPretrage());
+        return zigService.pronadjiRezultateOsnovnePretrage(pretragaRequest.getParametriPretrage(), "");
     }
 
     @GetMapping(path = "/kreiraj-html/{id}", produces = "application/xml")
@@ -188,6 +193,11 @@ public class ZigController {
 
     @PostMapping(path="/napredna-pretraga")
     public ZahteviZigDTO naprednaPretraga(@RequestBody NaprednaPretragaRequest pretragaRequest) throws Exception {
-        return zigService.pronadjiRezultateNaprednePretrage(pretragaRequest.getParametriPretrage());
+        return zigService.pronadjiRezultateNaprednePretrage(pretragaRequest.getParametriPretrage(), "");
+    }
+
+    @PostMapping(path="/napredna-pretraga/{idKorisnika}")
+    public ZahteviZigDTO naprednaPretraga(@RequestBody NaprednaPretragaRequest pretragaRequest, @PathVariable String idKorisnika) throws Exception {
+        return zigService.pronadjiRezultateNaprednePretrage(pretragaRequest.getParametriPretrage(), idKorisnika);
     }
 }

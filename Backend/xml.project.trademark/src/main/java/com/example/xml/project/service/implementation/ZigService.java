@@ -140,15 +140,15 @@ public class ZigService implements IZigService {
         return new UspesnaTransformacija(this.transformator.generateHTML(htmlPutanja, get(id), qrCodeUrl, jeGenerisanjePdf));
     }
 
-    public ZahteviZigDTO pronadjiRezultateOsnovnePretrage(List<ParametarPretrage> parametriPretrage) throws Exception {
+    public ZahteviZigDTO pronadjiRezultateOsnovnePretrage(List<ParametarPretrage> parametriPretrage, String idKorisnika) throws Exception {
         ZahteviZigDTO zahteviDTO = new ZahteviZigDTO();
-        zahteviDTO.fromZahtevi(zigRepository.pronadjiRezultateOsnovnePretrage(parametriPretrage));
+        zahteviDTO.fromZahtevi(zigRepository.pronadjiRezultateOsnovnePretrage(parametriPretrage, idKorisnika));
         return zahteviDTO;
     }
 
-    public ZahteviZigDTO pronadjiRezultateNaprednePretrage(List<ParNaprednaPretraga> parametriPretrage) throws Exception {
+    public ZahteviZigDTO pronadjiRezultateNaprednePretrage(List<ParNaprednaPretraga> parametriPretrage, String idKorisnika) throws Exception {
         ZahteviZigDTO zahteviDTO = new ZahteviZigDTO();
-        zahteviDTO.fromZahtevi(zigRepository.pronadjiRezultateNaprednePretrage(parametriPretrage));
+        zahteviDTO.fromZahtevi(zigRepository.pronadjiRezultateNaprednePretrage(parametriPretrage, idKorisnika));
         return zahteviDTO;
     }
 
@@ -189,7 +189,7 @@ public class ZigService implements IZigService {
             PlaceneTakse placene_takse,
             Prilozi prilozi
     ) throws JAXBException, InvalidDocumentException, TransformationFailedException, IOException {
-        prilozi = sacuvajSlike(prilozi);
+//        prilozi = sacuvajSlike(prilozi);
         placene_takse = izracunajTakse(placene_takse, nicanska_klasifikacija.size());
         if (id == null) {
             id = "1";    //zbog check seme da validira, posle ce setovati dobar broj

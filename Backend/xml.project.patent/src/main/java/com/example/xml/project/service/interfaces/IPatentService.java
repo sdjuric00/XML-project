@@ -27,7 +27,7 @@ public interface IPatentService  {
     IzvestajDTO generisiIzvestaj(final LocalDate pocetniDatum, final LocalDate krajnjiDatum) throws CannotUnmarshalException, XPathException;
     ZahteviPatentiDTO uzmiZahteve(final boolean obradjene, final String id) throws CannotUnmarshalException, XPathException;
     ZahtevPatentDetaljneInformacijeDTO uzmiZahtev(final String id) throws CannotUnmarshalException, XPathException;
-    ZahteviPatentiDTO pronadjiRezultateOsnovnePretrage(final List<ParametarPretrage> parametriPretrage) throws Exception;
+    ZahteviPatentiDTO pronadjiRezultateOsnovnePretrage(final List<ParametarPretrage> parametriPretrage, final String idKorisnika) throws Exception;
     ZahtevPatent uzmiZahtevBezDTO(final String id) throws CannotUnmarshalException, XPathException;
     ZahteviPatentiDTO pronadjiDokumenteKojiReferenciraju(final String documentId) throws Exception;
     UspesnaTransformacija dodajHtml(final String id, final boolean jeGenerisanjePdf) throws JAXBException, EntityNotFoundException, TransformationFailedException, IOException;
@@ -53,7 +53,7 @@ public interface IPatentService  {
     UspesnaTransformacija generisiJson(String id) throws IOException;
 
     UspesnaTransformacija generisiRdf(String id) throws IOException;
-    ZahteviPatentiDTO pronadjiRezultateNaprednePretrage(List<ParNaprednaPretraga> parametriPretrage) throws Exception;
+    ZahteviPatentiDTO pronadjiRezultateNaprednePretrage(List<ParNaprednaPretraga> parametriPretrage, String idKorisnika) throws Exception;
     String uzmiIdPoBrojuPrijave(final String brojPrijave) throws CannotUnmarshalException, XPathException;
 
 

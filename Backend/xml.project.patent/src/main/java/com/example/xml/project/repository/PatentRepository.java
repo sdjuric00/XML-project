@@ -189,7 +189,7 @@ public class PatentRepository extends BasicXMLRepository {
         return zahtevPatent;
     }
 
-    public List<ZahtevPatent> pronadjiRezultateOsnovnePretrage(List<ParametarPretrage> parameters) throws Exception {
+    public List<ZahtevPatent> pronadjiRezultateOsnovnePretrage(List<ParametarPretrage> parameters, String idKorisnika) throws Exception {
         String xPathIzraz = "/zahtev_za_priznavanje_patenta";
         List<ZahtevPatent> listaRez = new LinkedList<>();
         List<XMLResource> listaXMLRez = new LinkedList<>();
@@ -214,7 +214,7 @@ public class PatentRepository extends BasicXMLRepository {
                     }
                     j += 1;
                 }
-                if(postoji) {
+                if(postoji && (xml.contains(String.format("referenca_na_podnosioca=\"%s\"",idKorisnika)) || idKorisnika.equals(""))) {
                     ZahtevPatent zahtevPatent = (ZahtevPatent) XMLParser.unmarshal("", "", false, true, res);
                     listaRez.add(zahtevPatent);
                 }
@@ -425,7 +425,7 @@ public class PatentRepository extends BasicXMLRepository {
         return out.toString();
     }
 
-    public List<ZahtevPatent> pronadjiRezultateNaprednePretrage(List<ParNaprednaPretraga> parametri) throws CannotUnmarshalException, XPathException {
+    public List<ZahtevPatent> pronadjiRezultateNaprednePretrage(List<ParNaprednaPretraga> parametri, String idKorisnika) throws CannotUnmarshalException, XPathException {
         AuthenticationUtilities.ConnectionPropertiesFuseki conn = AuthenticationUtilities.setUpPropertiesFuseki();
 
         StringBuilder sparqlQuery = new StringBuilder("SELECT * FROM <http://localhost:3030/PatentDataset/data/patent/metadata> WHERE {");
@@ -471,7 +471,9 @@ public class PatentRepository extends BasicXMLRepository {
                     String[] splitted = varValue.toString().split(".com/");
                     String idZahteva = splitted[1];
                     ZahtevPatent zahtev = uzmiZahtev(idZahteva);
-                    zahtevi.add(zahtev);
+                    if(zahtev.getReferenca_na_podnosioca().equals(idKorisnika) || idKorisnika.equals("")) {
+                        zahtevi.add(zahtev);
+                    }
                 }
             }
         }

@@ -188,7 +188,7 @@ public class ZigRepository extends BasicXMLRepository {
         return zahtevZig;
     }
 
-    public List<ZahtevZig> pronadjiRezultateOsnovnePretrage(final List<ParametarPretrage> parameters) throws Exception {
+    public List<ZahtevZig> pronadjiRezultateOsnovnePretrage(final List<ParametarPretrage> parameters, final String idKorisnika) throws Exception {
         String xPathIzraz = "/zahtev_za_priznanje_ziga";
         List<ZahtevZig> listaRez = new LinkedList<>();
         try {
@@ -207,7 +207,7 @@ public class ZigRepository extends BasicXMLRepository {
                 String xml = res.getContent().toString();
                 System.out.println(xml);
                 for (ParametarPretrage parameter : parameters) {
-                    if (xml.contains(parameter.getParametar())) {
+                    if (xml.contains(parameter.getParametar()) && (xml.contains(String.format("referenca_na_podnosioca=\"%s\"",idKorisnika)) || idKorisnika.equals(""))) {
                         ZahtevZig zahtevZig = (ZahtevZig) XMLParser.unmarshal("", "", false, true, res);
                         if (!listaRez.contains(zahtevZig)) {
 
@@ -234,7 +234,7 @@ public class ZigRepository extends BasicXMLRepository {
         }
     }
 
-    public List<ZahtevZig> pronadjiRezultateNaprednePretrage(List<ParNaprednaPretraga> parametri) throws CannotUnmarshalException, XPathException {
+    public List<ZahtevZig> pronadjiRezultateNaprednePretrage(List<ParNaprednaPretraga> parametri, String idKorisnika) throws CannotUnmarshalException, XPathException {
         AuthenticationUtilities.ConnectionPropertiesFuseki conn = AuthenticationUtilities.setUpPropertiesFuseki();
 //        SELECT * FROM <http://localhost:3030/ZigDataset/data/zig/metadata>
         // WHERE {?zig <http://www.patent.com/predicate/broj_prijave> ?broj_prijave . FILTER(CONTAINS(?broj_prijave,"Z-2023/4"))}
@@ -282,7 +282,9 @@ public class ZigRepository extends BasicXMLRepository {
                     String[] splitted = varValue.toString().split(".com/");
                     String idZahteva = splitted[1];
                     ZahtevZig zahtev = uzmiZahtev(idZahteva);
-                    zahtevi.add(zahtev);
+                    if(zahtev.getReferenca_na_podnosioca().equals(idKorisnika) || idKorisnika.equals("")) {
+                        zahtevi.add(zahtev);
+                    }
                 }
             }
         }

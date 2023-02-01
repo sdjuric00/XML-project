@@ -45,7 +45,7 @@ import java.util.ArrayList;
 @Component
 public class AutorskaPravaRepository extends BasicXMLRepository {
 
-    public List<ZahtevAutorskaDela> pronadjiRezultateOsnovnePretrage(List<ParametarPretrage> parameters) throws Exception {
+    public List<ZahtevAutorskaDela> pronadjiRezultateOsnovnePretrage(List<ParametarPretrage> parameters, String idKorisnika) throws Exception {
         String xPathIzraz = "/zahtev_za_unosenje_u_evidenciju_i_deponovanje_autorskih_dela";
         List<ZahtevAutorskaDela> listaRez = new ArrayList<ZahtevAutorskaDela>();
         try {
@@ -64,7 +64,7 @@ public class AutorskaPravaRepository extends BasicXMLRepository {
                 String xml = res.getContent().toString();
                 System.out.println(xml);
                 for (ParametarPretrage parameter : parameters) {
-                    if (xml.contains(parameter.getParametar())) {
+                    if (xml.contains(parameter.getParametar()) && (xml.contains(String.format("referenca_na_podnosioca=\"%s\"",idKorisnika)) || idKorisnika.equals(""))) {
                         ZahtevAutorskaDela zahtevAutorskaDela = (ZahtevAutorskaDela) XMLParser.unmarshal("", "", false, true, res);
                         if (!listaRez.contains(zahtevAutorskaDela)) {
 
@@ -400,7 +400,7 @@ public class AutorskaPravaRepository extends BasicXMLRepository {
         return out.toString();
     }
 
-    public List<ZahtevAutorskaDela> pronadjiRezultateNaprednePretrage(List<ParNaprednaPretraga> parametri) throws CannotUnmarshalException, XPathException {
+    public List<ZahtevAutorskaDela> pronadjiRezultateNaprednePretrage(List<ParNaprednaPretraga> parametri, String idKorisnika) throws CannotUnmarshalException, XPathException {
         AuthenticationUtilities.ConnectionPropertiesFuseki conn = AuthenticationUtilities.setUpPropertiesFuseki();
 //        SELECT * FROM <http://localhost:3030/ZigDataset/data/zig/metadata>
         // WHERE {?zig <http://www.patent.com/predicate/broj_prijave> ?broj_prijave . FILTER(CONTAINS(?broj_prijave,"Z-2023/4"))}
@@ -448,7 +448,9 @@ public class AutorskaPravaRepository extends BasicXMLRepository {
                     String[] splitted = varValue.toString().split(".com/");
                     String idZahteva = splitted[1];
                     ZahtevAutorskaDela zahtev = uzmiZahtev(idZahteva);
-                    zahtevi.add(zahtev);
+                    if(zahtev.getReferenca_na_podnosioca().equals(idKorisnika) || idKorisnika.equals("")) {
+                        zahtevi.add(zahtev);
+                    }
                 }
             }
         }
