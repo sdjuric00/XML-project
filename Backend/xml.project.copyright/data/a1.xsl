@@ -285,7 +285,7 @@
                                             <xsl:choose>
                                                 <xsl:when test="a:imenovani_autor">
                                                     <xsl:choose>
-                                                        <xsl:when test="a:imenovani_autor/a:godina_smrti">
+                                                        <xsl:when test="a:imenovani_autor/a:godina_smrti[text() != '-1']">
                                                             <span><xsl:value-of select="position()" />. <xsl:value-of select="a:imenovani_autor/a:ime"/>&#160;<xsl:value-of select="a:imenovani_autor/a:prezime"/>,&#160;godina smrti:<xsl:value-of select="a:imenovani_autor//a:godina_smrti"/><br /></span>
                                                         </xsl:when>
                                                         <xsl:otherwise>

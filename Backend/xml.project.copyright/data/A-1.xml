@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zahtev_za_unosenje_u_evidenciju_i_deponovanje_autorskih_dela xmlns="http://ftn.ac.rs/a"
-    xmlns:opste="http://ftn.ac.rs/opste"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://ftn.ac.rs/a"
-    broj_prijave="A-2022/1"
-    datum_podnosenja="2022-11-30"
-    pregledano="true" id="1"
-    referenca_na_podnosioca="2"
+                                                              xmlns:opste="http://ftn.ac.rs/opste"
+                                                              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                                                              xsi:schemaLocation="http://ftn.ac.rs/a"
+                                                              broj_prijave="A-2022/1"
+                                                              datum_podnosenja="2022-11-30"
+                                                              pregledano="true" id="1"
+                                                              referenca_na_podnosioca="2"
 >
 
     <institucija>
