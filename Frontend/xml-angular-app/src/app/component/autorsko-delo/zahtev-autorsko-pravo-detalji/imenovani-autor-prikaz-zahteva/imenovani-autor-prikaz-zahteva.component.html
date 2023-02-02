@@ -17,8 +17,9 @@
         <div *ngIf="autor?.godina_smrti"
              style="display: flex; flex-direction: column; margin-left: 2rem">
             <span style="font-size: 1.1rem; font-weight: bold">Godina smrti</span>
-            <span class="span-with-border"
+            <span *ngIf="autor?.godina_smrti !== '-1'" class="span-with-border"
                   style="width: 8rem"> {{autor?.godina_smrti}}</span>
+            <span *ngIf="autor?.godina_smrti === '-1'" class="span-with-border" style="color: var(--red)"> X </span>
         </div>
 
         <div style="display: flex; flex-direction: column; margin-left: 2rem">

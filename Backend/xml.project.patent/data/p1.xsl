@@ -136,9 +136,9 @@
                             <tr>
                                 <th colspan="5" style="border: 1px solid black">
                                     <p style="margin: 0.4rem; text-align: left; font-weight: normal">
-                                        <span>Na srpskom jeziku: <xsl:value-of select="//p:podaci_o_pronalasku/p:naziv[@jezik = 'srpski']" /></span>
+                                        <span>Na srpskom jeziku: <xsl:value-of select="//p:podaci_o_pronalasku/p:naziv_patenta[@jezik = 'srpski']" /></span>
                                         <br />
-                                        <span>Na engleskom jeziku: <xsl:value-of select="//p:podaci_o_pronalasku/p:naziv[@jezik = 'engleski']" /></span>
+                                        <span>Na engleskom jeziku: <xsl:value-of select="//p:podaci_o_pronalasku/p:naziv_patenta[@jezik = 'engleski']" /></span>
                                     </p>
                                 </th>
                             </tr>

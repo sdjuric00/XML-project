@@ -9,7 +9,7 @@ export function napraviPriloge(prilozi): PrilogObj {
   return {
     opis: prilozi.opis,
     primerak: prilozi.primerak,
-    opis_prilozen: prilozi.$.primerak_prilozen === 'true',
+    opis_prilozen: prilozi.$.opis_prilozen === 'true',
     primerak_prilozen: prilozi.$.primerak_prilozen === 'true'
   }
 }

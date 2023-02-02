@@ -24,6 +24,10 @@ export class HomePageComponent implements OnInit {
   ulogovaniKorisnik: Korisnik;
   autentifikacijaSubscription: Subscription;
 
+  rezultatiAutorsko: boolean;
+  rezultatiPatent: boolean;
+  rezultatiZig: boolean;
+
   constructor(
     private autentifikacijaService: AutentifikacijaService,
     private patentService: PatentApplicationService, 
@@ -32,6 +36,9 @@ export class HomePageComponent implements OnInit {
     private _router: Router
   ) {
     this.gradjanin = false;
+    this.rezultatiAutorsko = false;
+    this.rezultatiPatent = false;
+    this.rezultatiZig = false;
   }
 
   ngOnInit(): void {
@@ -53,6 +60,7 @@ export class HomePageComponent implements OnInit {
   prikaziPatente = false;
   prikaziAutorskaPrava = false;
   rezultati = true;
+
   addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   searchList: string[] = [];
@@ -99,10 +107,12 @@ export class HomePageComponent implements OnInit {
         this.prikaziPatente = true;
         this.refZahteviPatenti(zahtevi);
         this.rezultati = true;
+        this.rezultatiPatent = true;
       }
       else{
         this.prikaziPatente = false;
         this.rezultati = false;
+        this.rezultatiPatent = false;
       }
     });
 
@@ -111,10 +121,12 @@ export class HomePageComponent implements OnInit {
       if(zahtevi.length > 0){
         this.prikaziAutorskaPrava = true;
         this.rezultati = true;
+        this.rezultatiAutorsko = true;
       }
       else{
         this.prikaziAutorskaPrava = false;
         this.rezultati = false;
+        this.rezultatiAutorsko = false;
       }
     })
 
@@ -123,10 +135,12 @@ export class HomePageComponent implements OnInit {
       if(zahtevi.length > 0){
         this.prikaziZigove = true;
         this.rezultati = true;
+        this.rezultatiZig = true;
       }
       else{
         this.prikaziZigove = false;
         this.rezultati = false;
+        this.rezultatiZig = false;
       }
 
     })

@@ -21,22 +21,22 @@
       <button (click)="pretrazi()" mat-button style="background-color:var( --green); margin-left:3rem;margin-right:1rem;">Pretrazi</button>
       <button mat-stroked-button target="_blank" style="color:var(--green);" (click)="naprednaPretraga()">Napredna pretraga</button>
       </div>
-      <!-- <div *ngIf="!rezultati" style="float:right; margin-right:25rem;font-size:2rem;">
+      <div *ngIf="!rezultatiAutorsko && !rezultatiPatent && !rezultatiZig" style="float:right; margin-right:25rem;font-size:2rem;">
           Nema rezultata pretrage.
-      </div> -->
+      </div>
       <div style="float:right; margin-right:10rem;border: 1px lightgrey solid; padding:2rem; border-radius:1rem;" *ngIf="prikaziPatente || prikaziAutorskaPrava || prikaziZigove">
-      <div *ngIf="prikaziPatente">
-        <p style="color:var(--green);text-align: center;">ZAHTEVI ZA PRIZNAVANJE PATENTA</p>
-        <div *ngFor="let zahtev of listaZahtevaPatenti">
-          <app-red-patent [gradjanin]="gradjanin" [zahtev]="zahtev"></app-red-patent>
-          <div *ngIf="refListaPatenti.get(zahtev.broj_prijave)" style="margin-left: 2.1rem;">
-            Dokumenti koji referenciraju ovaj dokument: 
-            <div *ngFor="let refZahtev of refListaPatenti.get(zahtev.broj_prijave)">
-            &nbsp;&nbsp; - <a [href]="idiNaPatentDetalje(refZahtev.ref_id)">{{refZahtev.ref_prijava}}</a>
+        <div *ngIf="prikaziPatente">
+          <p style="color:var(--green);text-align: center;">ZAHTEVI ZA PRIZNAVANJE PATENTA</p>
+          <div *ngFor="let zahtev of listaZahtevaPatenti">
+            <app-red-patent [gradjanin]="gradjanin" [zahtev]="zahtev"></app-red-patent>
+            <div *ngIf="refListaPatenti.get(zahtev.broj_prijave)" style="margin-left: 2.1rem;">
+              Dokumenti koji referenciraju ovaj dokument: 
+              <div *ngFor="let refZahtev of refListaPatenti.get(zahtev.broj_prijave)">
+              &nbsp;&nbsp; - <a [href]="idiNaPatentDetalje(refZahtev.ref_id)">{{refZahtev.ref_prijava}}</a>
+              </div>
             </div>
-          </div>
-        </div><br>
-        <mat-divider></mat-divider>
+          </div><br>
+          <mat-divider></mat-divider>
       </div>
       
 

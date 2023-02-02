@@ -28,15 +28,7 @@
 - Application is made up of four backend and one frontend service
 - Open wanted backend in IntelliJ IDE as Maven project
 - Click on reload project(Maven will update and download all dependencies)
-
-#### <span style="vertical-align: middle">:floppy_disk:</span> *How to run eXist database:*
-
-- Run Docker Desktop application
-- When running first time:
-    - Run <b>docker pull existdb/existdb</b> in terminal
-    - Run <b>docker run -it -d -p 8080:8080 -p 8443:8443 --name exist existdb/existdb:latest</b>
-- Run <b>docker container start exist</b> to start image after stopping it in Docker Desktop
-- Go to <b>localhost:8080</b> to see data
+- Note that all backend services need to be run for whole application to properly run
 
 #### <span style="vertical-align: middle">:floppy_disk:</span> *How to run eXist database:*
 
