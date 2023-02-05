@@ -142,56 +142,56 @@ export class TrademarkApplicationComponent implements OnInit {
 
     let zig: Trademark;
     let zajednickiPredstvnik: PodnosilacUniversal = this.podnosilacFormGroup.get("podaciOZajednickomPredstavniku")?.value as PodnosilacUniversal;
+    console.log(this.podnosilacFormGroup.get("podaciOZajednickomPredstavniku"))
     if (zajednickiPredstvnik) {
-      zig = {
-        zahtev_za_priznanje_ziga: {
-          "@": {
-            "xmlns": "http://www.zig/zig",
-            "xmlns:opste": "http://ftn.ac.rs/opste",
-            "xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
-            "xsi:schemaLocation": "http://www.zig/zig",
-            broj_prijave:"Z-2022/1",
-            datum_podnosenja: this._datePipe.transform(new Date(), 'yyyy-MM-dd'),
-            zig: this.znakFormGroup.get("tipZig").value,
-            pregledano:'false',
-            referenca_na_podnosioca: localStorage.getItem('korisnik_id')
-          },
-          institucija: institucija,
-          podnosioci: this.getPodaciOPodnosiocima(),
-          punomocnik: this.getPunomocnik(),
-          podaci_o_zajednickom_predstavniku: this.getZajednickogPredstavnika(),
-          znak: this.getZnak(),
-          nicanska_klasifikacija: this.getNicanskaKlasifikacija(),
-          pravo_prvenstva: this.getPravoPrvenstva(),
-          placene_takse: this.getPlaceneTakse(),
-          prilozi: this.getPrilozi()
-        }
-      }
-    } else {
-      zig = {
-        zahtev_za_priznanje_ziga: {
-          "@": {
-            "xmlns": "http://www.zig/zig",
-            "xmlns:opste": "http://ftn.ac.rs/opste",
-            "xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
-            "xsi:schemaLocation": "http://www.zig/zig",
-            broj_prijave:"Z-2022/1",
-            datum_podnosenja: this._datePipe.transform(new Date(), 'yyyy-MM-dd'),
-            zig: this.znakFormGroup.get("tipZig").value,
-            pregledano:'false',
-            referenca_na_podnosioca: localStorage.getItem('korisnik_id')
-          },
-          institucija: institucija,
-          podnosioci: this.getPodaciOPodnosiocima(),
-          punomocnik: this.getPunomocnik(),
-          znak: this.getZnak(),
-          nicanska_klasifikacija: this.getNicanskaKlasifikacija(),
-          pravo_prvenstva: this.getPravoPrvenstva(),
-          placene_takse: this.getPlaceneTakse(),
-          prilozi: this.getPrilozi()
-        }
+    zig = {
+      zahtev_za_priznanje_ziga: {
+        "@": {
+          "xmlns": "http://www.zig/zig",
+          "xmlns:opste": "http://ftn.ac.rs/opste",
+          "xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
+          "xsi:schemaLocation": "http://www.zig/zig",
+          broj_prijave:"Z-2022/1",
+          datum_podnosenja: this._datePipe.transform(new Date(), 'yyyy-MM-dd'),
+          zig: this.znakFormGroup.get("tipZig").value,
+          pregledano:'false',
+          referenca_na_podnosioca: localStorage.getItem('korisnik_id')
+        },
+        institucija: institucija,
+        podnosioci: this.getPodaciOPodnosiocima(),
+        punomocnik: this.getPunomocnik(),
+        podaci_o_zajednickom_predstavniku: this.getZajednickogPredstavnika(),
+        znak: this.getZnak(),
+        nicanska_klasifikacija: this.getNicanskaKlasifikacija(),
+        pravo_prvenstva: this.getPravoPrvenstva(),
+        placene_takse: this.getPlaceneTakse(),
+        prilozi: this.getPrilozi()
       }
     }
+  } else {
+    zig = {
+      zahtev_za_priznanje_ziga: {
+        "@": {
+          "xmlns": "http://www.zig/zig",
+          "xmlns:opste": "http://ftn.ac.rs/opste",
+          "xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
+          "xsi:schemaLocation": "http://www.zig/zig",
+          broj_prijave:"Z-2022/1",
+          datum_podnosenja: this._datePipe.transform(new Date(), 'yyyy-MM-dd'),
+          zig: this.znakFormGroup.get("tipZig").value,
+          pregledano:'false',
+          referenca_na_podnosioca: localStorage.getItem('korisnik_id')
+        },
+        institucija: institucija,
+        podnosioci: this.getPodaciOPodnosiocima(),
+        punomocnik: this.getPunomocnik(),
+        znak: this.getZnak(),
+        nicanska_klasifikacija: this.getNicanskaKlasifikacija(),
+        pravo_prvenstva: this.getPravoPrvenstva(),
+        placene_takse: this.getPlaceneTakse(),
+        prilozi: this.getPrilozi()
+      }
+    }}
 
     return zig;
   }

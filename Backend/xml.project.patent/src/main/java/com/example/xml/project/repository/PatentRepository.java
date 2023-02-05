@@ -434,13 +434,17 @@ public class PatentRepository extends BasicXMLRepository {
             sparqlQuery.append(String.format("?patent <http://www.patent.com/predicate/%s> ?%s . ", naziv, naziv));
         }
         sparqlQuery.append("FILTER(");
+        boolean operatorIspred = false;
         for(int i=0;i<parametri.size();i++) {
             String naziv = parametri.get(i).getNaziv_elementa();
             String vrednost = parametri.get(i).getVrednost();
             String operator = getOperator(parametri.get(i).getOperator());
-
             if(operator.equals("!")){
                 sparqlQuery.append(String.format("!CONTAINS(?%s,'%s')", naziv, vrednost));
+                operatorIspred = true;
+            }
+            else if(operatorIspred){
+                sparqlQuery.append(String.format(" %s CONTAINS(?%s,'%s')", operator, naziv, vrednost));
             }
             else if(i == parametri.size() - 1){
                 sparqlQuery.append(String.format("CONTAINS(?%s,'%s')", naziv, vrednost));

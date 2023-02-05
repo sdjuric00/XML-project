@@ -88,7 +88,9 @@ export class IzborLiceComponent implements OnInit{
       this.podnosilacFormGroup.get('jmbg')?.setValidators([]);
       this.podnosilacFormGroup.get('jmbg')?.updateValueAndValidity();
     }
-    this.podnosilacFormGroup.reset();
+    if (this.podnosilacFormGroup.get('podnosioci') && this.podnosilacFormGroup.get('podnosioci').value.length === 0) {
+      this.podnosilacFormGroup.reset();
+    }
     this.podnosilacFormGroup.markAsPristine();
     this.podnosilacFormGroup.markAsUntouched();
     this.podnosilacFormGroup.get('tipPodnosioca').setValue(this.tipPodnosioca);

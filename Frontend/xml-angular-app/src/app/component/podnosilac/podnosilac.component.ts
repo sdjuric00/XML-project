@@ -94,7 +94,9 @@ export class PodnosilacComponent implements OnInit {
     this.podnosilacFormGroup.markAsPristine();
     this.podnosilacFormGroup.markAsUntouched();
     this.podnosioci.push(podnosilac);
+    console.log(this.podnosioci);
     this.podnosilacFormGroup.get("podnosioci").setValue(this.podnosioci);
+    console.log(this.podnosilacFormGroup.get("podnosioci"))
 
     if (this.podnosioci.length > 1) {
       this.podnosilacFormGroup.get('podaciOZajednickomPredstavniku').setValidators([Validators.required]);
