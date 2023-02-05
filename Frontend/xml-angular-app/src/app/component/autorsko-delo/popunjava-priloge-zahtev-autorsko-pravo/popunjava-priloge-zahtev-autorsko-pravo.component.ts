@@ -64,10 +64,11 @@ export class PopunjavaPrilogeZahtevAutorskoPravoComponent implements OnInit, OnD
       this.autorskaPravaSubscription = this._autorskaPravaService.uzmiZahtevPoId(this.zahtevId)
         .subscribe(result=> {
           this.zahtev = result;
+          console.log(this.zahtev)
           this.resenjeSubscription = this._resenjeService.uzmiResenjeZaAutorskoDeloPoId(result.referenca_na_resenje)
             .subscribe(resenje=> {
               this.resenje = resenje;
-
+              console.log(resenje)
             });
         });
     }
