@@ -93,20 +93,30 @@ export class IzvestajiComponent implements OnInit, OnDestroy {
     });
   }
 
+  getIzvestaji(): IzvestajLista {
+    let izvestaji: IzvestajLista = {izvestaj_podaci: []}
+    
+    izvestaji.izvestaj_podaci.push(this.izvestajAutorskaPrava);
+    izvestaji.izvestaj_podaci.push(this.izvestajPatenti);
+    izvestaji.izvestaj_podaci.push(this.izvestajZigovi);
+
+    return izvestaji;
+  }
+
   generisiPDF() {
     this.generisiIzvestaj();
     
-    let izvestajLista: IzvestajLista = {
-      izvestaj_podaci: []
-    }
-    izvestajLista.izvestaj_podaci.push(this.izvestajAutorskaPrava);
-    izvestajLista.izvestaj_podaci.push(this.izvestajPatenti);
-    izvestajLista.izvestaj_podaci.push(this.izvestajZigovi);
-
     let izvestaj: IzvestajZaPDF = {
-      izvestaji: izvestajLista,
+      izvestaj: {
+        "@": {
+        "xmlns": "http://ftn.ac.rs/izvestaj",
+          "xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
+          "xsi:schemaLocation": "http://ftn.ac.rs/izvestaj",
+      },
+      izvestaji: this.getIzvestaji(),
       pocetni_datum: this.pocetniDatum,
       krajnji_datum: this.krajnjiDatum
+      }
     }
 
     this._izvestajService.kreirajPDF(izvestaj).subscribe(

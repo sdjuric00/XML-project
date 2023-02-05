@@ -3,22 +3,22 @@ package com.example.xml.project.request.izvestaji;
 import javax.xml.bind.annotation.*;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name="izvestaj_podaci", propOrder={"broj_nepregledanih", "broj_odbijenih", "broj_prihvacenih", "ukupan_broj"})
+@XmlType(name="izvestaj_podaci", propOrder={"broj_nepregledanih", "broj_odbijenih", "broj_prihvacenih", "ukupan_broj"}, namespace = "http://ftn.ac.rs/izvestaj")
 public class IzvestajPodaci {
 
     @XmlAttribute(name="tip_izvestaja", required = true)
     private String tip_izvestaja;
 
-    @XmlElement(name="broj_nepregledanih", required = true)
+    @XmlElement(name="broj_nepregledanih", required = true, namespace = "http://ftn.ac.rs/izvestaj")
     private String broj_nepregledanih;
 
-    @XmlElement(name="broj_odbijenih", required = true)
+    @XmlElement(name="broj_odbijenih", required = true, namespace = "http://ftn.ac.rs/izvestaj")
     private String broj_odbijenih;
 
-    @XmlElement(name="broj_prihvacenih", required = true)
+    @XmlElement(name="broj_prihvacenih", required = true, namespace = "http://ftn.ac.rs/izvestaj")
     private String broj_prihvacenih;
 
-    @XmlElement(name="ukupan_broj", required = true)
+    @XmlElement(name="ukupan_broj", required = true, namespace = "http://ftn.ac.rs/izvestaj")
     private String ukupan_broj;
 
     public IzvestajPodaci() {

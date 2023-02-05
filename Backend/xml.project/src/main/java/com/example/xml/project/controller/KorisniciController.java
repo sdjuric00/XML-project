@@ -97,7 +97,7 @@ public class KorisniciController {
     @PostMapping(path = "/izvestaj-pdf", consumes = "application/xml", produces = "application/xml")
     @ResponseStatus(HttpStatus.CREATED)
     public UspesnaTransformacija kreirajPDF(@RequestBody @Valid final IzvestajRequest izvestaj)
-            throws JAXBException, EntityNotFoundException, TransformationFailedException, IOException {
+            throws JAXBException, EntityNotFoundException, TransformationFailedException, IOException, InvalidDocumentException {
 
         return korisniciService.dodajPDF(izvestaj);
     }

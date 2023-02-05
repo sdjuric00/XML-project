@@ -125,8 +125,9 @@ export class IzvestajService {
 
   kreirajPDF(izvestaj: IzvestajZaPDF): Observable<UspesnaTransformacija> {
     const api_url:string = environment.korisniciUrl;
-    const zahtevXML = JsonToXML.parse("izvestaj", izvestaj);
-    return this._http.post(`${api_url}/korisnici/izvestaj-pdf`, zahtevXML, {
+    var o2x = require('object-to-xml');
+    console.log(o2x(izvestaj));
+    return this._http.post(`${api_url}/korisnici/izvestaj-pdf`,  o2x(izvestaj), {
       headers: new HttpHeaders().set('Accept' , 'application/xml').set('Content-Type', 'application/xml'),
       responseType:"text"
     }

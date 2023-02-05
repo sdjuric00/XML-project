@@ -32,7 +32,6 @@ export class AutorskaPravaService {
     ) { }
 
   create(zahtevZaAutorskoPravo: ZahtevAutorskoPravoXml){
-    console.log("fafsfaf");
     let headers = new HttpHeaders({ "Content-Type": "application/xml"});
     console.log(zahtevZaAutorskoPravo);
     var o2x = require('object-to-xml');
@@ -57,6 +56,11 @@ export class AutorskaPravaService {
   }
 
   uzmiNeobradjeneZahteve(jeGradjanin: boolean):Observable<ZahtevAutorskoPravoOsnovneInformacije[]> {
+    const parsiranKorisnik: Korisnik = JSON.parse(localStorage.getItem("korisnik"));
+    console.log(parsiranKorisnik);
+    if (parsiranKorisnik.tipNaloga === 'gradjanin') {
+      jeGradjanin = true;
+    }
     const putanja = !jeGradjanin ? "/autorska-prava/neobradjeni-zahtevi" : `/autorska-prava/neobradjeni-zahtevi-gradjanin/${localStorage.getItem('korisnik_id')}`;
 
     return this._http.get(`${this._api_url}${putanja}`, {

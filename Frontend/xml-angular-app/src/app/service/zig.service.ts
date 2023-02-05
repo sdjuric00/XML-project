@@ -47,8 +47,12 @@ export class ZigService {
   }
 
   uzmiNeobradjeneZahteve(gradjanin: boolean):Observable<ZahtevZigOsnovneInformacije[]> {
+    const parsiranKorisnik: Korisnik = JSON.parse(localStorage.getItem("korisnik"));
+    console.log(parsiranKorisnik);
+    if (parsiranKorisnik.tipNaloga === 'gradjanin') {
+      gradjanin = true;
+    }
     const putanja = !gradjanin ? "/zig/neobradjeni-zahtevi" : `/zig/neobradjeni-zahtevi-gradjanin/${localStorage.getItem('korisnik_id')}`;
-    
     return this._http.get(`${this._api_url}${putanja}`, {
         headers: new HttpHeaders().set('Accept' , 'application/xml'),
         responseType:"text"
@@ -71,6 +75,11 @@ export class ZigService {
   }
 
   uzmiObradjeneZahteve(gradjanin: boolean):Observable<ZahtevZigOsnovneInformacije[]> {
+    const parsiranKorisnik: Korisnik = JSON.parse(localStorage.getItem("korisnik"));
+    console.log(parsiranKorisnik);
+    if (parsiranKorisnik.tipNaloga === 'gradjanin') {
+      gradjanin = true;
+    }
     const putanja = !gradjanin ? "/zig/obradjeni-zahtevi" : `/zig/obradjeni-zahtevi-gradjanin/${localStorage.getItem('korisnik_id')}`;
 
     return this._http.get(`${this._api_url}${putanja}`, {

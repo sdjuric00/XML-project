@@ -17,12 +17,21 @@ export function napraviIzvestaj(izvestajJSON): Izvestaj {
 
 }
 
+
 export interface IzvestajLista {
+  "@"?: {},
   "izvestaj_podaci": Izvestaj[]
 }
 
+export interface IzvestajXML {
+  
+}
+
 export interface IzvestajZaPDF {
-  "izvestaji": IzvestajLista,
-  "pocetni_datum": string,
-  "krajnji_datum": string
+  izvestaj: {
+    "@": {},
+    "izvestaji": IzvestajLista,
+    "pocetni_datum": string,
+    "krajnji_datum": string
+  }
 }

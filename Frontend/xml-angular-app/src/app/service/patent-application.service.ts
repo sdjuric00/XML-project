@@ -53,6 +53,11 @@ export class PatentApplicationService {
   }
 
   uzmiNeobradjeneZahteve(gradjanin: boolean):Observable<ZahtevPatentOsnovneInformacije[]> {
+    const parsiranKorisnik: Korisnik = JSON.parse(localStorage.getItem("korisnik"));
+    console.log(parsiranKorisnik);
+    if (parsiranKorisnik.tipNaloga === 'gradjanin') {
+      gradjanin = true;
+    }
     const putanja = !gradjanin ? "/patent/neobradjeni-zahtevi" : `/patent/neobradjeni-zahtevi-gradjanin/${localStorage.getItem('korisnik_id')}`;
     
     return this._http.get(`${this._api_url}${putanja}`, {
@@ -77,6 +82,11 @@ export class PatentApplicationService {
   }
 
   uzmiObradjeneZahteve(gradjanin: boolean):Observable<ZahtevPatentOsnovneInformacije[]> {
+    const parsiranKorisnik: Korisnik = JSON.parse(localStorage.getItem("korisnik"));
+    console.log(parsiranKorisnik);
+    if (parsiranKorisnik.tipNaloga === 'gradjanin') {
+      gradjanin = true;
+    }
     const putanja = !gradjanin ? "/patent/obradjeni-zahtevi" : `/patent/obradjeni-zahtevi-gradjanin/${localStorage.getItem('korisnik_id')}`;
 
     return this._http.get(`${this._api_url}${putanja}`, {

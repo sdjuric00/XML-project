@@ -50,8 +50,8 @@ public class KorisnikService {
         this.jaxbContext = JAXBContext.newInstance(Korisnik.class);
         this.repository = repository;
         this.repository.setGenericRepositoryProperties(
-            JAXBContext.newInstance(Korisnik.class),
-            COLLECTION_ID_KORISNICI_DB
+                JAXBContext.newInstance(Korisnik.class),
+                COLLECTION_ID_KORISNICI_DB
         );
         this.korisniciRepository = korisniciRepository;
         this.marshaller = jaxbContext.createMarshaller();
@@ -87,7 +87,7 @@ public class KorisnikService {
             document.replace("\n","");
 
             return (Korisnik) unmarshaller.unmarshal
-                (new StreamSource( new StringReader(document)));
+                    (new StreamSource( new StringReader(document)));
         } catch (JAXBException | SAXException e) {
             throw new InvalidDocumentException();
         }
@@ -99,19 +99,19 @@ public class KorisnikService {
     }
 
     public KorisnikDTO registrujKorisnika(
-        final String email,
-        final String fax,
-        final String telefon,
-        final String grad,
-        final String ulica,
-        final String broj,
-        final int postanskiBroj,
-        final String drzava,
-        final String ime,
-        final String prezime,
-        final String lozinka,
-        final String potvrdna_lozinka,
-        final TipNaloga tip_naloga
+            final String email,
+            final String fax,
+            final String telefon,
+            final String grad,
+            final String ulica,
+            final String broj,
+            final int postanskiBroj,
+            final String drzava,
+            final String ime,
+            final String prezime,
+            final String lozinka,
+            final String potvrdna_lozinka,
+            final TipNaloga tip_naloga
     ) throws PasswordsDoNotMatchException, EntityAlreadyExistsException, EntityNotFoundException {
         if (passwordsDontMatch(lozinka, potvrdna_lozinka)) {
             throw new PasswordsDoNotMatchException();
@@ -136,11 +136,18 @@ public class KorisnikService {
     }
 
     public UspesnaTransformacija dodajPDF(final IzvestajRequest izvestaj)
-            throws IOException, TransformationFailedException, JAXBException, EntityNotFoundException
-    {
+            throws IOException, TransformationFailedException, JAXBException, EntityNotFoundException, InvalidDocumentException {
+
+        JAXBContext jaxbContextIzvestaj = JAXBContext.newInstance(IzvestajRequest.class);
+        Marshaller marshaller = jaxbContextIzvestaj.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+        StringWriter sw = new StringWriter();
+        marshaller.marshal(izvestaj, sw);
+
+        IzvestajRequest validiranIzvestaj = checkSchemaIzvestaj(sw.toString(), jaxbContextIzvestaj);
         String pdfPutanja = PDF_PUTANJA + "izvestaj" + ".pdf";
         String htmlPutanja = HTML_PUTANJA + "izvestaj" + ".html";
-        this.dodajHtml(izvestaj, true);  //prvo se pravi html za slucaj da ne postoji
+        this.dodajHtml(validiranIzvestaj, true);  //prvo se pravi html za slucaj da ne postoji
 
         return new UspesnaTransformacija(this.transformator.generatePdf(htmlPutanja, pdfPutanja));
     }
@@ -148,6 +155,23 @@ public class KorisnikService {
     private boolean korisnikVecPostoji(String email) throws EntityNotFoundException {
 
         return korisniciRepository.getKorisnikByEmail(email, false) != null;
+    }
+
+    private IzvestajRequest checkSchemaIzvestaj(String document, JAXBContext izvestajContext) throws InvalidDocumentException {
+        try {
+            Unmarshaller unmarshaller = izvestajContext.createUnmarshaller();
+
+            SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+            Schema schema = schemaFactory.newSchema(new File("./data/Izvestaj.xsd"));
+            unmarshaller.setSchema(schema);
+            document.replace("\n","");
+            IzvestajRequest izvestajRequest = (IzvestajRequest) unmarshaller.unmarshal
+                    (new StreamSource( new StringReader(document)));
+
+            return izvestajRequest;
+        } catch (JAXBException | SAXException e) {
+            throw new InvalidDocumentException();
+        }
     }
 
 }
