@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<izvestaj xmlns="http://ftn.ac.rs/izvestaj"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://ftn.ac.rs/izvestaj">
+    <izvestaji>
+        <izvestaj_podaci tip_izvestaja="patent">
+            <broj_nepregledanih>3</broj_nepregledanih>
+            <broj_odbijenih>1</broj_odbijenih>
+            <broj_prihvacenih>2</broj_prihvacenih>
+            <ukupan_broj>6</ukupan_broj>
+        </izvestaj_podaci>
+    </izvestaji>
+    <pocetni_datum>2023-01-20</pocetni_datum>
+    <krajnji_datum>2023-02-05</krajnji_datum>
+</izvestaj>

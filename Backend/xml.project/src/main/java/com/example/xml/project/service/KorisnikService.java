@@ -136,11 +136,13 @@ public class KorisnikService {
     }
 
     public UspesnaTransformacija dodajPDF(final IzvestajRequest izvestaj)
-            throws IOException, TransformationFailedException, JAXBException, EntityNotFoundException
-    {
+            throws IOException, TransformationFailedException, JAXBException, EntityNotFoundException, InvalidDocumentException {
+        StringWriter sw = new StringWriter();
+        marshaller.marshal(izvestaj, sw);
+        IzvestajRequest validiranIzvestaj = checkSchemaIzvestaj(sw.toString());
         String pdfPutanja = PDF_PUTANJA + "izvestaj" + ".pdf";
         String htmlPutanja = HTML_PUTANJA + "izvestaj" + ".html";
-        this.dodajHtml(izvestaj, true);  //prvo se pravi html za slucaj da ne postoji
+        this.dodajHtml(validiranIzvestaj, true);  //prvo se pravi html za slucaj da ne postoji
 
         return new UspesnaTransformacija(this.transformator.generatePdf(htmlPutanja, pdfPutanja));
     }
@@ -148,6 +150,23 @@ public class KorisnikService {
     private boolean korisnikVecPostoji(String email) throws EntityNotFoundException {
 
         return korisniciRepository.getKorisnikByEmail(email, false) != null;
+    }
+
+    private IzvestajRequest checkSchemaIzvestaj(String document) throws InvalidDocumentException {
+        try {
+            Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+
+            SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+            Schema schema = schemaFactory.newSchema(new File("http://ftn.ac.rs/izvestaj"));
+            unmarshaller.setSchema(schema);
+            document.replace("\n","");
+            IzvestajRequest izvestajRequest = (IzvestajRequest) unmarshaller.unmarshal
+                    (new StreamSource( new StringReader(document)));
+
+            return izvestajRequest;
+        } catch (JAXBException | SAXException e) {
+            throw new InvalidDocumentException();
+        }
     }
 
 }
